@@ -15,6 +15,7 @@ import {
 import favicon from '../public/favicon.svg';
 import resetStyles from './styles/reset.css';
 import appStyles from './styles/app.css';
+import tailwindStyles from './styles/tailwind.css';
 import {Layout} from '~/components/Layout';
 
 /**
@@ -37,8 +38,9 @@ export const shouldRevalidate = ({formMethod, currentUrl, nextUrl}) => {
 
 export function links() {
   return [
-    {rel: 'stylesheet', href: resetStyles},
+    // {rel: 'stylesheet', href: resetStyles},
     {rel: 'stylesheet', href: appStyles},
+    {rel: 'stylesheet', href: tailwindStyles},
     {
       rel: 'preconnect',
       href: 'https://cdn.shopify.com',

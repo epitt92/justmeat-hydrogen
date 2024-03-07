@@ -8,19 +8,35 @@ import {useRootLoaderData} from '~/root';
 export function Header({header, isLoggedIn, cart}) {
   const {shop, menu} = header;
   return (
-    <header className="header">
-      <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>{shop.name}</strong>
-      </NavLink>
-      <HeaderMenu
-        menu={menu}
-        viewport="desktop"
-        primaryDomainUrl={header.shop.primaryDomain.url}
-      />
-      <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
+    <header className="container bg-black py-10 ">
+     <span className='font-medium text-white'>Hellow World</span>
     </header>
   );
 }
+
+
+
+
+
+
+
+
+// export function Header({header, isLoggedIn, cart}) {
+//   const {shop, menu} = header;
+//   return (
+//     <header className="header">
+//       <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
+//         <strong>{shop.name}</strong>
+//       </NavLink>
+//       <HeaderMenu
+//         menu={menu}
+//         viewport="desktop"
+//         primaryDomainUrl={header.shop.primaryDomain.url}
+//       />
+//       <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
+//     </header>
+//   );
+// }
 
 /**
  * @param {{
