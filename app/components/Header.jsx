@@ -94,18 +94,6 @@ export function Header({header, isLoggedIn, cart}) {
   );
 }
 
-<<<<<<< Updated upstream
-/**
- * @param {{
- *   menu: HeaderProps['header']['menu'];
- *   primaryDomainUrl: HeaderQuery['shop']['primaryDomain']['url'];
- *   viewport: Viewport;
- * }}
- */
-export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
-  const {publicStoreDomain} = useRootLoaderData();
-  const className = `header-menu-${viewport}`;
-=======
 // export function Header({header, isLoggedIn, cart}) {
 //   const {shop, menu} = header;
 //   return (
@@ -133,7 +121,6 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
 // export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
 //   const {publicStoreDomain} = useRootLoaderData();
 //   const className = `header-menu-${viewport}`;
->>>>>>> Stashed changes
 
 //   function closeAside(event) {
 //     if (viewport === 'mobile') {
