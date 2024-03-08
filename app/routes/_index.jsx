@@ -26,11 +26,6 @@ export default function Homepage() {
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
   return (
-<<<<<<< Updated upstream
-    <div className="home">
-      <FeaturedCollection collection={data.featuredCollection} />
-      <RecommendedProducts products={data.recommendedProducts} />
-=======
     <div className="home relative  ">
       <section className="heroSection relative flex justify-center items-center overflow-hidden">
       <div className="bg-video absolute top-0 left-0">
@@ -143,7 +138,6 @@ export default function Homepage() {
       
      </section>
 
->>>>>>> Stashed changes
     </div>
   );
 }

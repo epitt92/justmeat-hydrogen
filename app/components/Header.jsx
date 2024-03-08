@@ -9,18 +9,6 @@ import OrderButton from './OrderButton';
 export function Header({header, isLoggedIn, cart}) {
   const {shop, menu} = header;
   return (
-<<<<<<< Updated upstream
-    <header className="header">
-      <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>{shop.name}</strong>
-      </NavLink>
-      <HeaderMenu
-        menu={menu}
-        viewport="desktop"
-        primaryDomainUrl={header.shop.primaryDomain.url}
-      />
-      <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
-=======
     <header className="container max-w-[100%] bg-[#eeeeee]  ">
       <div className="content flex justify-between items-center  py-4 px-10 max-w-[1440px] mx-auto ">
         <img src="/logo.svg" className="object-cover w-30 h-24"  alt="" />
@@ -102,7 +90,6 @@ export function Header({header, isLoggedIn, cart}) {
           </div>
         </div>
       </div>
->>>>>>> Stashed changes
     </header>
   );
 }
