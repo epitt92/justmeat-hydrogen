@@ -9,7 +9,7 @@ import {
   useMatches,
   useRouteError,
   useLoaderData,
-  ScrollRestoration,
+  ScrollRestoration, 
   isRouteErrorResponse,
 } from '@remix-run/react';
 import favicon from '../public/favicon.svg';
