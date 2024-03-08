@@ -17,6 +17,7 @@ import resetStyles from './styles/reset.css';
 import appStyles from './styles/app.css';
 import tailwindStyles from './styles/tailwind.css';
 import {Layout} from '~/components/Layout';
+import {SubscriptionCard} from '~/components/SubscriptionCard';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -118,6 +119,7 @@ export default function App() {
         <Links />
       </head>
       <body>
+      <SubscriptionCard></SubscriptionCard>
         <Layout {...data}>
           <Outlet />
         </Layout>

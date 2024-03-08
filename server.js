@@ -1,5 +1,8 @@
 // Virtual entry point for the app
 import * as remixBuild from '@remix-run/dev/server-build';
+import { initRecharge } from '@rechargeapps/storefront-client';
+
+
 import {
   cartGetIdDefault,
   cartSetIdDefault,
@@ -26,6 +29,10 @@ export default {
    */
   async fetch(request, env, executionContext) {
     try {
+      initRecharge({
+       storeIdentifier: env.PUBLIC_STORE_DOMAIN,
+  storefrontAccessToken: env.PUBLIC_RECHARGE_STOREFRONT_ACCESS_TOKEN,
+});
       /**
        * Open a cache instance in the worker and a custom session instance.
        */
