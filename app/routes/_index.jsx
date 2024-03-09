@@ -2,7 +2,7 @@ import {defer} from '@shopify/remix-oxygen';
 import {Await, useLoaderData, Link} from '@remix-run/react';
 import {Suspense} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
-
+import OrderButton from 'app/components/OrderButton';
 /**
  * @type {MetaFunction}
  */
@@ -26,12 +26,135 @@ export default function Homepage() {
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
   return (
-    <div className="home">
-      <FeaturedCollection collection={data.featuredCollection} />
-      <RecommendedProducts products={data.recommendedProducts} />
+
+    <div className="home relative  ">
+      <section className="heroSection relative flex justify-center items-center overflow-hidden">
+      <div className="bg-video absolute top-0 left-0">
+      <video className="h-full w-full "  autoPlay muted loop>
+                    <source src="https://cdn.shopify.com/videos/c/o/v/32c027bc585340199844575c5e85cf42.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+      </div>
+        <div className="flex flex-col z-10 justify-center items-center p-5 gap-6 w-max-[1440px] ">
+          <div className="flex flex-col justify-center items-center gap-4 py-44 mt-[-30px] w-8/12">
+            <p className="text-5xl leading-[55px] font-bold text-white ">
+              No Fuss, All Flavor <br></br>
+              Ready & Delivered
+            </p>
+            <p className="text-white text-2xl text-center ">
+              Leave the protein to the professionals: choose from our lineup of
+              12 premium meats with new flavors releasing regularly.
+            </p>
+            <div className="mt-6">
+              <OrderButton />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <img src="/subcription_banner.webp" width="100%" alt="" />
+      </section>
+
+      <section className="heroSection bg-white flex justify-center items-center bg-no-repeat min-h-96 bg-contain bg-[url('http://localhost:3000/evaluate_section.webp')] my-5">
+        <div className="flex flex-col justify-center items-center p-5 gap-6 w-max-[1440px] ">
+          <div className="flex flex-col justify-center items-center gap-6  w-8/12">
+            <p className="text-5xl leading-[55px] font-bold text-black ">
+              Elevate Your Plate
+            </p>
+            <div className="">
+              <OrderButton />
+            </div>
+            <p className="text-black text-1xl text-center ">
+              No Artificial Colors / No Artificial Flavors / Grass-Fed &
+              Grass-Finished Beef Premium Quality / Money-back Guarantee
+            </p>
+          </div>
+        </div>
+      </section>
+      <section className="bg-black flex justify-center items-center  py-6">
+        <div className=" flex justify-center px-10 w-max-[1440px] w-[100%]">
+          <div className="w-9/12 flex justify-center gap-48 items-center">
+            <div className="flex justify-center items-center flex-col gap-4">
+              <h2 className="text-white font-semibold text-2xl">
+                MEATS DELIVERED
+              </h2>
+              <p className="text-white text-2xl">1,006,928</p>
+            </div>
+            <div className="flex justify-center items-center flex-col gap-4">
+              <h2 className="text-white font-semibold text-2xl">
+                POUNDS COOKED
+              </h2>
+              <p className="text-white text-2xl">345,431 Ib</p>
+            </div>
+            <div className="flex justify-center items-center flex-col gap-4">
+              <h2 className="text-white font-semibold text-2xl">
+                HAPPY CUSTOMERS
+              </h2>
+              <p className="text-white text-2xl">84,097</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="heroSection border bg-white flex justify-center items-center p-20  ">
+        <div className="flex flex-col justify-end items-end p-5 gap-6 max-w-[1440px] bg-cover bg-[url('http://localhost:3000/Farm_BG_Just_Meats.webp')]">
+          <div className="w-[38%] bg-[#00000040] pl-12 pr-4 py-5 mt-[200px]">
+            <h2 className="text-white text-5xl leading-tight font-semibold mb-5 ">
+              REAL MEAT <br></br> REAL RANCHES
+            </h2>
+            <p className="text-white text-lg mb-5">
+              We take pride in supplying delicious, healthy, natural grass-fed
+              meat to our consumers. We source all of our meat from local
+              ranches across the Rocky Mountain Region of the USA where all
+              animals are treated and fed in a humane manner.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section>
+        <img src="/Review_images.webp" width="100%" alt="" />
+      </section>
+
+      <section className='bg-[#eeeeee] flex justify-center items-center '>
+        <div className="max-w-[1440px] flex justify-start gap-20 px-10 py-20 ">
+          <div className="flex flex-col items-center gap-10 w-4/12">
+            <img src="/BodyBulding_Recipie_CarneAsasa.webp" alt="" />
+            <div>
+            <OrderButton />
+
+            </div>
+          </div>
+
+          <div className='flex w-5/12 flex-col gap-10'>
+            <h1 className='p-5 text-5xl leading-tight bg-[#000] text-white'>Skip the Protein Bar, Have a Real Meal</h1>
+            <ul className='px-4'>
+              <li className='flex justify-start gap-2 items-center text-lg mb-3 text-black'><span className='w-[18px] h-[18px] rounded-[100%] bg-black'></span>Fuel for the entire day</li>
+              <li className='flex justify-start gap-2 items-center text-lg mb-3 text-black'><span className='w-[18px] h-[18px] rounded-[100%] bg-black'></span>30g of protein per serving</li>
+              <li className='flex justify-start gap-2 items-center text-lg mb-3 text-black'><span className='w-[18px] h-[18px] rounded-[100%] bg-black'></span>Sustains a health lifestyle</li>
+              <li className='flex justify-start gap-2 items-center text-lg mb-3 text-black'><span className='w-[18px] h-[18px] rounded-[100%] bg-black'></span>Saves time and money</li>
+              <li className='flex justify-start gap-2 items-center text-lg mb-3 text-black'><span className='w-[18px] h-[18px] rounded-[100%] bg-black'></span>Promotes muscle growth and development</li>
+              <li className='flex justify-start gap-2 items-center text-lg mb-3 text-black'><span className='w-[18px] h-[18px] rounded-[100%] bg-black'></span>Shakes and bars leave you hungry and bloated</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+     <section>
+      
+     </section>
+
     </div>
   );
 }
+// export default function Homepage() {
+//   /** @type {LoaderReturnData} */
+//   const data = useLoaderData();
+//   return (
+//     <div className="home">
+//       <FeaturedCollection collection={data.featuredCollection} />
+//       <RecommendedProducts products={data.recommendedProducts} />
+//     </div>
+//   );
+// }
 
 /**
  * @param {{
