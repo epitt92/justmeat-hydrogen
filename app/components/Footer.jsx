@@ -6,6 +6,7 @@ import {useRootLoaderData} from '~/root';
  */
 export function Footer({menu, shop}) {
   return (
+
     <footer className="footer max-w-[100%] bg-black ">
       <div className="content max-w-[1440px] px-10 mx-auto ">
         <div className="flex justify-between items-start gap-10  py-20 ">
@@ -45,6 +46,7 @@ export function Footer({menu, shop}) {
         </div>
          
         </div>
+
     </footer>
   );
 }

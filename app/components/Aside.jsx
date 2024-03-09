@@ -7,7 +7,7 @@
  *  ...
  * </Aside>
  * ```
- * @param {{     
+ * @param {{
  *   children?: React.ReactNode;
  *   heading: React.ReactNode;
  *   id?: string;

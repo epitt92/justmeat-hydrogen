@@ -26,10 +26,14 @@ export default function Homepage() {
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
   return (
+
     <div className="home relative  ">
       <section className="heroSection relative flex justify-center items-center overflow-hidden">
       <div className="bg-video absolute top-0 left-0">
-        <video src="https://cdn.shopify.com/videos/c/o/v/32c027bc585340199844575c5e85cf42.mp4" autoPlay loop></video>
+      <video className="h-full w-full "  autoPlay muted loop>
+                    <source src="https://cdn.shopify.com/videos/c/o/v/32c027bc585340199844575c5e85cf42.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
       </div>
         <div className="flex flex-col z-10 justify-center items-center p-5 gap-6 w-max-[1440px] ">
           <div className="flex flex-col justify-center items-center gap-4 py-44 mt-[-30px] w-8/12">

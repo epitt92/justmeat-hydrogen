@@ -1,17 +1,17 @@
-// const defaultTheme = require('tailwindcss/defaultTheme');
-
 module.exports = {
   plugins: {
     'postcss-import': {},
+    'tailwindcss/nesting': {},
+    tailwindcss: {},
     'postcss-preset-env': {
       features: {'nesting-rules': false},
     },
-  }, theme: { 
+  },
+  theme: {
     extend: {
       fontFamily: {
-        // 'sans': ['"Roboto"', ...defaultTheme.fontFamily.sans],
+        'sans': ['"Roboto"', ...defaultTheme.fontFamily.sans],
       },
     }
   }
 };
-
