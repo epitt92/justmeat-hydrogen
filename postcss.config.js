@@ -7,11 +7,5 @@ module.exports = {
       features: {'nesting-rules': false},
     },
   },
-  theme: {
-    extend: {
-      fontFamily: {
-        'sans': ['"Roboto"', ...defaultTheme.fontFamily.sans],
-      },
-    }
-  }
+
 };
