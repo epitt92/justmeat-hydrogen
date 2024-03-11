@@ -4,6 +4,8 @@ import {Suspense} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import OrderButton from 'app/components/OrderButton';
 import ProductSlider from '~/components/ProductSlider';
+// import FaqAccordion from '~/components/FaqAccordion';
+
 /**
  * @type {MetaFunction}
  */
@@ -27,15 +29,17 @@ export default function Homepage() {
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
   return (
-
     <div className="home relative  ">
       <section className="heroSection relative flex justify-center items-center overflow-hidden">
-      <div className="bg-video absolute top-0 left-0">
-      <video className="h-full w-full "  autoPlay muted loop>
-                    <source src="https://cdn.shopify.com/videos/c/o/v/32c027bc585340199844575c5e85cf42.mp4" type="video/mp4" />
-                    Your browser does not support the video tag.
-                </video>
-      </div>
+        <div className="bg-video absolute top-0 left-0">
+          <video className="h-full w-full " autoPlay muted loop>
+            <source
+              src="https://cdn.shopify.com/videos/c/o/v/32c027bc585340199844575c5e85cf42.mp4"
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
+        </div>
         <div className="flex flex-col z-10 justify-center items-center p-5 gap-6 w-max-[1440px] ">
           <div className="flex flex-col justify-center items-center gap-4 py-44 mt-[-30px] w-8/12">
             <p className="text-5xl leading-[55px] font-bold text-white ">
@@ -75,9 +79,9 @@ export default function Homepage() {
       </section>
 
       <section className="  flex justify-center items-center bg-cover bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/PNSER.png')] ">
-           <div className="w-[100%] py-20 px-20 max-w-[1440px] ">
-           <ProductSlider/>
-           </div>
+        <div className="w-[100%] py-20 px-20 max-w-[1440px] ">
+          <ProductSlider />
+        </div>
       </section>
 
       <section className="bg-black flex justify-center items-center  py-6">
@@ -120,36 +124,62 @@ export default function Homepage() {
         </div>
       </section>
       <section>
-        <img src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Mosaic.jpg" width="100%" alt="" />
+        <img
+          src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Mosaic.jpg"
+          width="100%"
+          alt=""
+        />
       </section>
 
-      <section className='bg-[#eeeeee] flex justify-center items-center '>
+      <section className="bg-[#eeeeee] flex justify-center items-center ">
         <div className="max-w-[1440px] flex justify-start gap-20 px-10 py-20 ">
           <div className="flex flex-col items-center gap-10 w-4/12 ml-10">
-            <img className='' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/BodyBulding_Recipie_CarneAsasa.png" alt="" />
+            <img
+              className=""
+              src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/BodyBulding_Recipie_CarneAsasa.png"
+              alt=""
+            />
             <div>
-            <OrderButton />
-
+              <OrderButton />
             </div>
           </div>
 
-          <div className='flex w-5/12 flex-col gap-10'>
-            <h1 className='px-4 py-2 text-5xl leading-tight bg-[#000] text-white'>Skip the Protein Bar, Have a Real Meal</h1>
-            <ul className='px-4'>
-              <li className='flex justify-start gap-2 items-center text-lg mb-3 text-black'><span className='w-[18px] h-[18px] rounded-[100%] bg-black'></span>Fuel for the entire day</li>
-              <li className='flex justify-start gap-2 items-center text-lg mb-3 text-black'><span className='w-[18px] h-[18px] rounded-[100%] bg-black'></span>30g of protein per serving</li>
-              <li className='flex justify-start gap-2 items-center text-lg mb-3 text-black'><span className='w-[18px] h-[18px] rounded-[100%] bg-black'></span>Sustains a health lifestyle</li>
-              <li className='flex justify-start gap-2 items-center text-lg mb-3 text-black'><span className='w-[18px] h-[18px] rounded-[100%] bg-black'></span>Saves time and money</li>
-              <li className='flex justify-start gap-2 items-center text-lg mb-3 text-black'><span className='w-[18px] h-[18px] rounded-[100%] bg-black'></span>Promotes muscle growth and development</li>
-              <li className='flex justify-start gap-2 items-center text-lg mb-3 text-black'><span className='w-[18px] h-[18px] rounded-[100%] bg-black'></span>Shakes and bars leave you hungry and bloated</li>
+          <div className="flex w-5/12 flex-col gap-10">
+            <h1 className="px-4 py-2 text-5xl leading-tight bg-[#000] text-white">
+              Skip the Protein Bar, Have a Real Meal
+            </h1>
+            <ul className="px-4">
+              <li className="flex justify-start gap-2 items-center text-lg mb-3 text-black">
+                <span className="w-[18px] h-[18px] rounded-[100%] bg-black"></span>
+                Fuel for the entire day
+              </li>
+              <li className="flex justify-start gap-2 items-center text-lg mb-3 text-black">
+                <span className="w-[18px] h-[18px] rounded-[100%] bg-black"></span>
+                30g of protein per serving
+              </li>
+              <li className="flex justify-start gap-2 items-center text-lg mb-3 text-black">
+                <span className="w-[18px] h-[18px] rounded-[100%] bg-black"></span>
+                Sustains a health lifestyle
+              </li>
+              <li className="flex justify-start gap-2 items-center text-lg mb-3 text-black">
+                <span className="w-[18px] h-[18px] rounded-[100%] bg-black"></span>
+                Saves time and money
+              </li>
+              <li className="flex justify-start gap-2 items-center text-lg mb-3 text-black">
+                <span className="w-[18px] h-[18px] rounded-[100%] bg-black"></span>
+                Promotes muscle growth and development
+              </li>
+              <li className="flex justify-start gap-2 items-center text-lg mb-3 text-black">
+                <span className="w-[18px] h-[18px] rounded-[100%] bg-black"></span>
+                Shakes and bars leave you hungry and bloated
+              </li>
             </ul>
           </div>
         </div>
       </section>
-     <section>
-      
-     </section>
-
+      <section>
+        {/* <FaqAccordion /> */}
+      </section>
     </div>
   );
 }
