@@ -4,7 +4,7 @@ import {Suspense} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import OrderButton from 'app/components/OrderButton';
 import ProductSlider from '~/components/ProductSlider';
-// import FaqAccordion from '~/components/FaqAccordion';
+import FaqAccordion from '~/components/FaqAccordion';
 
 /**
  * @type {MetaFunction}
@@ -61,7 +61,7 @@ export default function Homepage() {
         <img src="/subcription_banner.webp" width="100%" alt="" />
       </section>
 
-      <section className="heroSection bg-white flex justify-center items-center bg-no-repeat min-h-96 bg-contain bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Group_4179_2x_c20de474-5eef-421d-a248-f3a6c09ae36a.png')] my-5">
+      <section className=" bg-white flex justify-center items-center bg-no-repeat min-h-96 bg-contain bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Group_4179_2x_c20de474-5eef-421d-a248-f3a6c09ae36a.png')] my-5">
         <div className="flex flex-col justify-center items-center p-5 gap-6 w-max-[1440px] ">
           <div className="flex flex-col justify-center items-center gap-6  w-8/12">
             <p className="text-5xl leading-[55px] font-bold text-black ">
@@ -177,8 +177,17 @@ export default function Homepage() {
           </div>
         </div>
       </section>
-      <section>
-        {/* <FaqAccordion /> */}
+      <section className="heroSection bg-[#c5972d] py-10 flex justify-center items-center bg-no-repeat min-h-96 bg-contain bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Group_4161.png')]">
+         <div className='max-w-[1440px] flex justify-center items-center '>
+        <div className='w-[40%] bg-[#0001]'>
+          <h2 className='text-black text-5xl mt-2 ' >You Ask. We Answer.</h2>
+          <div className='p-5'>
+
+        <FaqAccordion />
+          </div>
+
+        </div>
+         </div>
       </section>
     </div>
   );
