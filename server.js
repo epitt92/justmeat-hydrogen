@@ -2,7 +2,6 @@
 import * as remixBuild from '@remix-run/dev/server-build';
 import { initRecharge } from '@rechargeapps/storefront-client';
 
-
 import {
   cartGetIdDefault,
   cartSetIdDefault,
@@ -18,6 +17,7 @@ import {
 import {AppSession} from '~/lib/session';
 import {CART_QUERY_FRAGMENT} from '~/lib/fragments';
 
+import { RechargeSession } from '~/lib/rechargeSession.server';
 /**
  * Export a fetch handler in module format.
  */
@@ -29,10 +29,7 @@ export default {
    */
   async fetch(request, env, executionContext) {
     try {
-      initRecharge({
-       storeIdentifier: env.PUBLIC_STORE_DOMAIN,
-  storefrontAccessToken: env.PUBLIC_RECHARGE_STOREFRONT_ACCESS_TOKEN,
-});
+
       /**
        * Open a cache instance in the worker and a custom session instance.
        */
@@ -46,6 +43,12 @@ export default {
         AppSession.init(request, [env.SESSION_SECRET]),
       ]);
 
+      initRecharge({
+        storeIdentifier: env.PUBLIC_STORE_DOMAIN,
+        storefrontAccessToken: env.PUBLIC_RECHARGE_STOREFRONT_ACCESS_TOKEN,
+      });
+      const rechargeSession = await RechargeSession.init(request, [env.SESSION_SECRET]);
+      
       /**
        * Create Hydrogen's Storefront client.
        */
@@ -92,6 +95,7 @@ export default {
         mode: process.env.NODE_ENV,
         getLoadContext: () => ({
           session,
+          rechargeSession,
           storefront,
           customerAccount,
           cart,

@@ -1,8 +1,8 @@
 import { Money } from '@shopify/hydrogen';
 
-import Link from '~/components/Link';
+import Link from '../components/Link';
+import Heading from '../components/Heading';
 import Text from '~/components/Text';
-import Heading from '~/components/Heading';
 
 export function SubscriptionCard({ subscription, shopCurrency = 'USD' }) {
   if (!subscription?.id) return null;
