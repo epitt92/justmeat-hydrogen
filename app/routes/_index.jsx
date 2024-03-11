@@ -3,6 +3,7 @@ import {Await, useLoaderData, Link} from '@remix-run/react';
 import {Suspense} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import OrderButton from 'app/components/OrderButton';
+import ProductSlider from '~/components/ProductSlider';
 /**
  * @type {MetaFunction}
  */
@@ -56,7 +57,7 @@ export default function Homepage() {
         <img src="/subcription_banner.webp" width="100%" alt="" />
       </section>
 
-      <section className="heroSection bg-white flex justify-center items-center bg-no-repeat min-h-96 bg-contain bg-[url('http://localhost:3000/evaluate_section.webp')] my-5">
+      <section className="heroSection bg-white flex justify-center items-center bg-no-repeat min-h-96 bg-contain bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Group_4179_2x_c20de474-5eef-421d-a248-f3a6c09ae36a.png')] my-5">
         <div className="flex flex-col justify-center items-center p-5 gap-6 w-max-[1440px] ">
           <div className="flex flex-col justify-center items-center gap-6  w-8/12">
             <p className="text-5xl leading-[55px] font-bold text-black ">
@@ -72,6 +73,13 @@ export default function Homepage() {
           </div>
         </div>
       </section>
+
+      <section className="  flex justify-center items-center bg-cover bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/PNSER.png')] ">
+           <div className="w-[100%] py-20 px-20 max-w-[1440px] ">
+           <ProductSlider/>
+           </div>
+      </section>
+
       <section className="bg-black flex justify-center items-center  py-6">
         <div className=" flex justify-center px-10 w-max-[1440px] w-[100%]">
           <div className="w-9/12 flex justify-center gap-48 items-center">
@@ -97,7 +105,7 @@ export default function Homepage() {
         </div>
       </section>
       <section className="heroSection border bg-white flex justify-center items-center p-20  ">
-        <div className="flex flex-col justify-end items-end p-5 gap-6 max-w-[1440px] bg-cover bg-[url('http://localhost:3000/Farm_BG_Just_Meats.webp')]">
+        <div className="flex flex-col justify-end items-end p-5 gap-6 max-w-[1440px] bg-cover bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Farm_BG_Just_Meats.png')]">
           <div className="w-[38%] bg-[#00000040] pl-12 pr-4 py-5 mt-[200px]">
             <h2 className="text-white text-5xl leading-tight font-semibold mb-5 ">
               REAL MEAT <br></br> REAL RANCHES
@@ -112,13 +120,13 @@ export default function Homepage() {
         </div>
       </section>
       <section>
-        <img src="/Review_images.webp" width="100%" alt="" />
+        <img src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Mosaic.jpg" width="100%" alt="" />
       </section>
 
       <section className='bg-[#eeeeee] flex justify-center items-center '>
         <div className="max-w-[1440px] flex justify-start gap-20 px-10 py-20 ">
-          <div className="flex flex-col items-center gap-10 w-4/12">
-            <img src="/BodyBulding_Recipie_CarneAsasa.webp" alt="" />
+          <div className="flex flex-col items-center gap-10 w-4/12 ml-10">
+            <img className='' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/BodyBulding_Recipie_CarneAsasa.png" alt="" />
             <div>
             <OrderButton />
 
@@ -126,7 +134,7 @@ export default function Homepage() {
           </div>
 
           <div className='flex w-5/12 flex-col gap-10'>
-            <h1 className='p-5 text-5xl leading-tight bg-[#000] text-white'>Skip the Protein Bar, Have a Real Meal</h1>
+            <h1 className='px-4 py-2 text-5xl leading-tight bg-[#000] text-white'>Skip the Protein Bar, Have a Real Meal</h1>
             <ul className='px-4'>
               <li className='flex justify-start gap-2 items-center text-lg mb-3 text-black'><span className='w-[18px] h-[18px] rounded-[100%] bg-black'></span>Fuel for the entire day</li>
               <li className='flex justify-start gap-2 items-center text-lg mb-3 text-black'><span className='w-[18px] h-[18px] rounded-[100%] bg-black'></span>30g of protein per serving</li>
