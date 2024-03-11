@@ -9,10 +9,9 @@ import OrderButton from './OrderButton';
 export function Header({header, isLoggedIn, cart}) {
   const {shop, menu} = header;
   return (
-
     <header className="container max-w-[100%] bg-[#eeeeee]  ">
       <div className="content flex justify-between items-center  py-4 px-10 max-w-[1440px] mx-auto ">
-        <img src="/logo.svg" className="object-cover w-30 h-24"  alt="" />
+        <img src="/logo.svg" className="object-cover w-30 h-24" alt="" />
         <div className="navBar flex justify-between items-center gap-10">
           <ul className="navLinks flex">
             <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base ">
@@ -25,7 +24,7 @@ export function Header({header, isLoggedIn, cart}) {
               Recipies
             </li>
           </ul>
-          <OrderButton/>
+          <OrderButton />
           <div className="headerIcons flex justify-between items-center gap-10">
             <span className="loginIcon w-5 flex cursor-pointer">
               <svg
@@ -86,7 +85,9 @@ export function Header({header, isLoggedIn, cart}) {
                   fill="#030303"
                 ></path>
               </svg>
-              <span className='absolute top-[-5px] right-[-8px] w-[20px] h-[20px] text-[10px] rounded-[100%] items-center bg-black text-white flex justify-center '>(0)</span>
+              <span className="absolute top-[-5px] right-[-8px] w-[20px] h-[20px] text-[10px] rounded-[100%] items-center bg-black text-white flex justify-center ">
+                (0)
+              </span>
             </span>
           </div>
         </div>
@@ -94,9 +95,6 @@ export function Header({header, isLoggedIn, cart}) {
     </header>
   );
 }
-
-
-
 
 /**
  * @param {{
@@ -108,7 +106,6 @@ export function Header({header, isLoggedIn, cart}) {
 export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
   const {publicStoreDomain} = useRootLoaderData();
   const className = `header-menu-${viewport}`;
-
 
   function closeAside(event) {
     if (viewport === 'mobile') {

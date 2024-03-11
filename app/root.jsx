@@ -13,11 +13,12 @@ import {
   isRouteErrorResponse,
 } from '@remix-run/react';
 import favicon from '../public/favicon.svg';
-import resetStyles from './styles/reset.css';
 import appStyles from './styles/app.css';
+// import sliderStyles from './styles/slider.css';
 import tailwindStyles from './styles/tailwind.css';
 import {Layout} from '~/components/Layout';
-
+import sliderStyles from 'swiper/css';
+import sliderNavigation from 'swiper/css/navigation';
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
  * @type {ShouldRevalidateFunction}
@@ -40,6 +41,8 @@ export function links() {
   return [
     // {rel: 'stylesheet', href: resetStyles},
     {rel: 'stylesheet', href: appStyles},
+    {rel: 'stylesheet', href: sliderStyles},
+    {rel: 'stylesheet', href: sliderNavigation},
     {rel: 'stylesheet', href: tailwindStyles},
     {
       rel: 'preconnect',
