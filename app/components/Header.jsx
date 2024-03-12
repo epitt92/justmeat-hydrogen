@@ -13,7 +13,7 @@ export function Header({header, isLoggedIn, cart}) {
       <div className="content flex justify-between items-center  py-4 px-10 max-w-[1440px] mx-auto ">
         <img src="/logo.svg" className="object-cover w-30 h-24" alt="" />
         <div className="navBar flex justify-between items-center gap-10">
-          <ul className="navLinks lg:flex md:hidden">
+          <ul className="navLinks lg:flex hidden">
             <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base ">
               Menu
             </li>
@@ -24,7 +24,9 @@ export function Header({header, isLoggedIn, cart}) {
               Recipies
             </li>
           </ul>
+          <div className='md:block hidden'>
           <OrderButton />
+          </ div>
           <div className="headerIcons flex justify-between items-center gap-10">
             <span className="loginIcon w-5 flex cursor-pointer">
               <svg
