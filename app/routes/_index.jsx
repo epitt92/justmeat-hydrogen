@@ -29,7 +29,7 @@ export default function Homepage() {
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
   return (
-    <div className="home relative  ">
+    <div className="home relative">
       <section className="heroSection relative flex justify-center items-center overflow-hidden">
         <div className="bg-video absolute top-0 left-0 w-[100%] h-[100%]">
           <video className="h-full w-full object-cover" autoPlay muted playsInline loop>
@@ -192,16 +192,6 @@ export default function Homepage() {
     </div>
   );
 }
-// export default function Homepage() {
-//   /** @type {LoaderReturnData} */
-//   const data = useLoaderData();
-//   return (
-//     <div className="home">
-//       <FeaturedCollection collection={data.featuredCollection} />
-//       <RecommendedProducts products={data.recommendedProducts} />
-//     </div>
-//   );
-// }
 
 /**
  * @param {{
@@ -231,39 +221,40 @@ function FeaturedCollection({collection}) {
  *   products: Promise<RecommendedProductsQuery>;
  * }}
  */
-function RecommendedProducts({products}) {
-  return (
-    <div className="recommended-products">
-      <h2>Recommended Products</h2>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Await resolve={products}>
-          {({products}) => (
-            <div className="recommended-products-grid">
-              {products.nodes.map((product) => (
-                <Link
-                  key={product.id}
-                  className="recommended-product"
-                  to={`/products/${product.handle}`}
-                >
-                  <Image
-                    data={product.images.nodes[0]}
-                    aspectRatio="1/1"
-                    sizes="(min-width: 45em) 20vw, 50vw"
-                  />
-                  <h4>{product.title}</h4>
-                  <small>
-                    <Money data={product.priceRange.minVariantPrice} />
-                  </small>
-                </Link>
-              ))}
-            </div>
-          )}
-        </Await>
-      </Suspense>
-      <br />
-    </div>
-  );
-}
+
+// function RecommendedProducts({products}) {
+//   return (
+//     <div className="recommended-products">
+//       <h2>Recommended Products</h2>
+//       <Suspense fallback={<div>Loading...</div>}>
+//         <Await resolve={products}>
+//           {({products}) => (
+//             <div className="recommended-products-grid">
+//               {products.nodes.map((product) => (
+//                 <Link
+//                   key={product.id}
+//                   className="recommended-product"
+//                   to={`/products/${product.handle}`}
+//                 >
+//                   <Image
+//                     data={product.images.nodes[0]}
+//                     aspectRatio="1/1"
+//                     sizes="(min-width: 45em) 20vw, 50vw"
+//                   />
+//                   <h4>{product.title}</h4>
+//                   <small>
+//                     <Money data={product.priceRange.minVariantPrice} />
+//                   </small>
+//                 </Link>
+//               ))}
+//             </div>
+//           )}
+//         </Await>
+//       </Suspense>
+//       <br />
+//     </div>
+//   );
+// }
 
 const FEATURED_COLLECTION_QUERY = `#graphql
   fragment FeaturedCollection on Collection {
