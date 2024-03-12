@@ -21,13 +21,13 @@ const PrivacyPolicy = () => {
                 <h2 className='font-Roboto text-[42px]  font-medium  mb-3'>Information We Collect Directly from You</h2>
                 <p className='my-3'>Information that you directly submit to us through our Services may include:</p>
                 <p>
-                    <ul className="list-disc">
-                        <li className=''><strong></strong> Basic contact details including your name, address, phone number, email.</li>
-                        <li className=''>Order information including your name, billing address, shipping address, payment confirmation, email address, phone number.</li>
-                        <li className=''>Account information including your username, password, security questions.</li>
-                        <li className=''>Shopping information including the items you view, put in your cart or add to your wishlist.</li>
-                        <li className=''>Customer support information including the information you choose to include in communications with us, for example, when sending a message through the Services.
-Some features of the Services may require you to directly provide us with certain information about yourself. You may elect not to provide this information, but doing so may prevent you from using or accessing these features.</li>
+                    <ul className="list-disc ">
+                        <li className='mb-3'><strong>Basic contact details</strong>  including your name, address, phone number, email.</li>
+                        <li className='mb-3'><strong>Order information</strong> including your name, billing address, shipping address, payment confirmation, email address, phone number.</li>
+                        <li className='mb-3'><strong>Account information</strong> including your username, password, security questions.</li>
+                        <li className='mb-3'><strong>Shopping information</strong> including the items you view, put in your cart or add to your wishlist.</li>
+                        <li className='mb-3'><strong>Customer support information</strong> including the information you choose to include in communications with us, for example, when sending a message through the Services.
+                                        Some features of the Services may require you to directly provide us with certain information about yourself. You may elect not to provide this information, but doing so may prevent you from using or accessing these features.</li>
                     </ul>
                 </p>
             
