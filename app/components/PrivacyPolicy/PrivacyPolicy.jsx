@@ -66,6 +66,92 @@ const PrivacyPolicy = () => {
 We have, in the past 12 months disclosed the following categories of personal information and sensitive personal information (denoted by *) about users for the purposes set out above in "How we Collect and Use your Personal Information" and "How we Disclose Personal Information":</li>
                     </ul>
                 </p>
+                <table class="border-collapse border border-2 rounded">
+                <thead class="">
+                    <tr class="text-center ">
+                    <th class="border-collapse border border-2 rounded pt-3 pb-4 px-4 text-lg">Category</th>
+                    <th class="border-collapse border border-2 rounded pt-3 pb-4 px-4 text-lg">Categories of Recipients</th>
+                    
+                    </tr>
+                </thead>
+                <tbody class="text-lg text-[#555]">
+                    <tr class="text-start ">
+                    <td class="border-collapse border border-2 rounded pl-4">Identifiers such as basic contact details and certain order and account information</td>
+                    <td class="border-collapse border border-2 rounded pl-4">Vendors and third parties who perform services on our behalf (such as Internet service providers, payment processors, fulfillment partners, customer support partners and data analytics providers)</td>
+                    </tr>
+                    <tr class="text-start">
+                    <td class="border-collapse border border-2 rounded pl-4">Commercial information such as order information, shopping information and customer support information</td>
+                    <td class="border-collapse border border-2 rounded pl-4">Business and marketing partners</td>
+                    </tr>
+                    <tr class="text-start">
+                    <td class="border-collapse border border-2 rounded pl-4">Internet or other similar network activity, such as Usage Data</td>
+                    <td class="border-collapse border border-2 rounded pl-4">Affiliates</td>
+                    </tr>
+                </tbody>
+                </table>
+                <p className='my-3'>We do not use or disclose sensitive personal information for the purposes of inferring characteristics about you.</p>
+                <p className='my-3'>We have “sold” and “shared” (as those terms are defined in applicable law) personal information over the preceding 12 months for the purpose of engaging in advertising and marketing activities, as follows.</p>
+                <table class="border-collapse border border-2 rounded">
+                <tbody class="text-lg text-[#555]">
+                    <tr class="text-start ">
+                    <td class="border-collapse border border-2 rounded p-4">Category of Personal Information</td>
+                    <td class="border-collapse border border-2 rounded p-4">Categories of Recipients</td>
+                    </tr>
+                    <tr class="text-start">
+                    <td class="border-collapse border border-2 rounded p-4">Identifiers such as basic contact details and certain order and account information</td>
+                    <td class="border-collapse border border-2 rounded p-4">Business and marketing partners</td>
+                    </tr>
+                    <tr class="text-start">
+                    <td class="border-collapse border border-2 rounded p-4">Commercial information such as records of products or services purchased and shopping information</td>
+                    <td class="border-collapse border border-2 rounded p-4">Business and marketing partners</td>
+                    </tr>
+                    <tr class="text-start">
+                    <td class="border-collapse border border-2 rounded p-4">Internet or other similar network activity, such as Usage Data</td>
+                    <td class="border-collapse border border-2 rounded p-4">Business and marketing partners</td>
+                    </tr>
+                </tbody>
+                </table>
+                <h2 className='font-Roboto text-[42px]  font-medium  mb-3'>User Generated Content</h2>
+                <p className='my-3'>The Services may enable you to post product reviews and other user-generated content. If you choose to submit user generated content to any public area of the Services, this content will be public and accessible by anyone.</p>
+                <p className='my-3'>We do not control who will have access to the information that you choose to make available to others, and cannot ensure that parties who have access to such information will respect your privacy or keep it secure. We are not responsible for the privacy or security of any information that you make publicly available, or for the accuracy, use or misuse of any information that you disclose or receive from third parties.</p>
+                <h2 className='font-Roboto text-[42px]  font-medium  mb-3'>Third Party Websites and Links</h2>
+                <p className='my-3'>Our Site may provide links to websites or other online platforms operated by third parties. If you follow links to sites not affiliated or controlled by us, you should review their privacy and security policies and other terms and conditions. We do not guarantee and are not responsible for the privacy or security of such sites, including the accuracy, completeness, or reliability of information found on these sites. Information you provide on public or semi-public venues, including information you share on third-party social networking platforms may also be viewable by other users of the Services and/or users of those third-party platforms without limitation as to its use by us or by a third party. Our inclusion of such links does not, by itself, imply any endorsement of the content on such platforms or of their owners or operators, except as disclosed on the Services.</p>
+                <h2 className='font-Roboto text-[42px]  font-medium  mb-3'>Children’s Data</h2>
+                <p className='my-3'>The Services are not intended to be used by children, and we do not knowingly collect any personal information about children. If you are the parent or guardian of a child who has provided us with their personal information, you may contact us using the contact details set out below to request that it be deleted.</p>
+                <p className='my-3'>As of the Effective Date of this Privacy Policy, we do not have actual knowledge that we “share” or “sell” (as those terms are defined in applicable law) personal information of individuals under 16 years of age.</p>
+                <h2 className='font-Roboto text-[42px]  font-medium  mb-3'>Security and Retention of Your Information</h2>
+                <p className='my-3'>Please be aware that no security measures are perfect or impenetrable, and we cannot guarantee “perfect security.” In addition, any information you send to us may not be secure while in transit. We recommend that you do not use unsecure channels to communicate sensitive or confidential information to us.</p>
+                <p className='my-3'>How long we retain your personal information depends on different factors, such as whether we need the information to maintain your account, to provide the Services, comply with legal obligations, resolve disputes or enforce other applicable contracts and policies.</p>
+                <h2 className='font-Roboto text-[42px]  font-medium  mb-3'>Your Rights and Choices</h2>
+                <p className='my-3'>Depending on where you live, you may have some or all of the rights listed below in relation to your personal information. However, these rights are not absolute, may apply only in certain circumstances and, in certain cases, we may decline your request as permitted by law.</p>
+                <p>
+                    <ul className="list-disc ">
+                        <li className='mb-3'><strong>Right to Access / Know.</strong>You may have a right to request access to personal information that we hold about you, including details relating to the ways in which we use and share your information.</li>
+                        <li className='mb-3'><strong>Right to Delete. </strong>You may have a right to request that we delete personal information we maintain about you.</li>
+                        <li className='mb-3'><strong>Right to Correct.</strong>You may have a right to request that we correct inaccurate personal information we maintain about you.</li>
+                        <li className='mb-3'><strong>Right of Portability.</strong>You may have a right to receive a copy of the personal information we hold about you and to request that we transfer it to a third party, in certain circumstances and with certain exceptions.</li>
+                        <li className='mb-3'><strong>Customer support information</strong> including the information you choose to include in communications with us, for example, when sending a message through the Services.
+                                        Some features of the Services may require you to directly provide us with certain information about yourself. You may elect not to provide this information, but doing so may prevent you from using or accessing these features.</li>
+                                        <li className='mb-3'>Right to Opt out of Sale or Sharing or Targeted Advertising. You may have a right to direct us not to "sell" or "share" your personal information or to opt out of the processing of your personal information for purposes considered to be "targeted advertising", as defined in applicable privacy laws. Please note that if you visit our Site with the Global Privacy Control opt-out preference signal enabled, depending on where you are, we will automatically treat this as a request to opt-out of the "sale" or "sharing" of information for the device and browser that you use to visit the Site.</li>
+                                        <li className='mb-3'>Right to Limit and/or Opt out of Use and Disclosure of Sensitive Personal Information. You may have a right to direct us to limit our use and/or disclosure of sensitive personal information to only what is necessary to perform the Services or provide the goods reasonably expected by an average individual.</li>
+                        <li className='mb-3'>Restriction of Processing: You may have the right to ask us to stop or restrict our processing of personal information.</li>
+                        <li className='mb-3'><strong>Withdrawal of Consent:</strong>Where we rely on consent to process your personal information, you may have the right to withdraw this consent.</li>
+                        <li className='mb-3'><strong>Appeal:</strong>You may have a right to appeal our decision if we decline to process your request. You can do so by replying directly to our denial.</li>
+                        <li className='mb-3'><strong>Managing Communication Preferences:</strong>We may send you promotional emails, and you may opt out of receiving these at any time by using the unsubscribe option displayed in our emails to you. If you opt out, we may still send you non-promotional emails, such as those about your account or orders that you have made.
+You may exercise any of these rights where indicated on our Site or by contacting us using the contact details provided below.</li>
+                      
+                    </ul>
+
+                </p>
+                <p className='my-3'>We will not discriminate against you for exercising any of these rights. We may need to collect information from you to verify your identity, such as your email address or account information, before providing a substantive response to the request. In accordance with applicable laws, You may designate an authorized agent to make requests on your behalf to exercise your rights. Before accepting such a request from an agent, we will require that the agent provide proof you have authorized them to act on your behalf, and we may need you to verify your identity directly with us. We will respond to your request in a timely manner as required under applicable law.</p>
+                <p className='my-3'>We use Shopify's ad services such as Shopify Audiences to help personalize the advertising you see on third party websites. To restrict Shopify merchants that use these ad services from using your personal information for such services, visit <a href="https://privacy.shopify.com/en">https://privacy.shopify.com/en</a></p>
+                <h2 className='font-Roboto text-[42px]  font-medium  mb-3'>Complaints</h2>
+                <p className='my-3'>If you have complaints about how we process your personal information, please contact us using the contact details provided below. If you are not satisfied with our response to your complaint, depending on where you live you may have the right to appeal our decision by contacting us using the contact details set out below, or lodge your complaint with your local data protection authority.</p>
+                <h2 className='font-Roboto text-[42px]  font-medium  mb-3'>International Users</h2>
+                <p className='my-3'>Please note that we may transfer, store and process your personal information outside the country you live in, including the United States. Your personal information is also processed by staff and third party service providers and partners in these countries.</p>
+                <p className='my-3'>If we transfer your personal information out of Europe, we will rely on recognized transfer mechanisms like the European Commission's Standard Contractual Clauses, or any equivalent contracts issued by the relevant competent authority of the UK, as relevant, unless the data transfer is to a country that has been determined to provide an adequate level of protection.</p>
+                <h2 className='font-Roboto text-[42px]  font-medium  mb-3'>Contact</h2>
+                <p className='my-3'>Should you have any questions about our privacy practices or this Privacy Policy, or if you would like to exercise any of the rights available to you, please call 343-1242 or email us at support@justmeats.com or contact us at 676 W 1200 N, Springville UT 84663, United States.</p>
             </div>
         
         </div>
