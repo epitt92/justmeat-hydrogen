@@ -4,7 +4,7 @@ import {Suspense} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import OrderButton from 'app/components/OrderButton';
 import ProductSlider from '~/components/ProductSlider';
-// import FaqAccordion from '~/components/FaqAccordion';
+import FaqAccordion from '~/components/FaqAccordion';
 
 /**
  * @type {MetaFunction}
@@ -31,8 +31,8 @@ export default function Homepage() {
   return (
     <div className="home relative  ">
       <section className="heroSection relative flex justify-center items-center overflow-hidden">
-        <div className="bg-video absolute top-0 left-0">
-          <video className="h-full w-full " autoPlay muted loop>
+        <div className="bg-video absolute top-0 left-0 w-[100%] h-[100%]">
+          <video className="h-full w-full object-cover" autoPlay muted playsInline loop>
             <source
               src="https://cdn.shopify.com/videos/c/o/v/32c027bc585340199844575c5e85cf42.mp4"
               type="video/mp4"
@@ -42,7 +42,7 @@ export default function Homepage() {
         </div>
         <div className="flex flex-col z-10 justify-center items-center p-5 gap-6 w-max-[1440px] ">
           <div className="flex flex-col justify-center items-center gap-4 py-44 mt-[-30px] w-8/12">
-            <p className="text-5xl leading-[55px] font-bold text-white ">
+            <p className="text-5xl leading-[55px] font-bold text-white">
               No Fuss, All Flavor <br></br>
               Ready & Delivered
             </p>
@@ -61,7 +61,7 @@ export default function Homepage() {
         <img src="/subcription_banner.webp" width="100%" alt="" />
       </section>
 
-      <section className="heroSection bg-white flex justify-center items-center bg-no-repeat min-h-96 bg-contain bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Group_4179_2x_c20de474-5eef-421d-a248-f3a6c09ae36a.png')] my-5">
+      <section className=" bg-white flex justify-center items-center bg-no-repeat min-h-96 bg-contain bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Group_4179_2x_c20de474-5eef-421d-a248-f3a6c09ae36a.png')] my-5">
         <div className="flex flex-col justify-center items-center p-5 gap-6 w-max-[1440px] ">
           <div className="flex flex-col justify-center items-center gap-6  w-8/12">
             <p className="text-5xl leading-[55px] font-bold text-black ">
@@ -86,7 +86,7 @@ export default function Homepage() {
 
       <section className="bg-black flex justify-center items-center  py-6">
         <div className=" flex justify-center px-10 w-max-[1440px] w-[100%]">
-          <div className="w-9/12 flex justify-center gap-48 items-center">
+          <div className="w-9/12 flex   justify-center gap-48 items-center">
             <div className="flex justify-center items-center flex-col gap-4">
               <h2 className="text-white font-semibold text-2xl">
                 MEATS DELIVERED
@@ -110,7 +110,7 @@ export default function Homepage() {
       </section>
       <section className="heroSection border bg-white flex justify-center items-center p-20  ">
         <div className="flex flex-col justify-end items-end p-5 gap-6 max-w-[1440px] bg-cover bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Farm_BG_Just_Meats.png')]">
-          <div className="w-[38%] bg-[#00000040] pl-12 pr-4 py-5 mt-[200px]">
+          <div className="lg:w-[60%] xl:w-[38%] md:w-[60%] bg-[#00000040] pl-12 pr-4 py-5 mt-[200px]">
             <h2 className="text-white text-5xl leading-tight font-semibold mb-5 ">
               REAL MEAT <br></br> REAL RANCHES
             </h2>
@@ -177,8 +177,17 @@ export default function Homepage() {
           </div>
         </div>
       </section>
-      <section>
-        {/* <FaqAccordion /> */}
+      <section className="heroSection bg-[#c5972d] py-10 flex justify-center items-center bg-no-repeat min-h-96 bg-contain bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Group_4161.png')]">
+         <div className='max-w-[1440px] flex justify-center items-center '>
+        <div className='xl:w-[40%] lg:w-[60%] md:w-[70%] bg-[#0001]'>
+          <h2 className='text-black text-5xl mt-2 ' >You Ask. We Answer.</h2>
+          <div className='p-5'>
+
+        <FaqAccordion />
+          </div>
+
+        </div>
+         </div>
       </section>
     </div>
   );
