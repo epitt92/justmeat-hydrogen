@@ -11,20 +11,42 @@ export function Header({header, isLoggedIn, cart}) {
   return (
     <header className="container max-w-[100%] bg-[#eeeeee]  ">
       <div className="content flex justify-between items-center  py-4 px-10 max-w-[1440px] mx-auto ">
+         <NavLink
+                end
+                prefetch="intent"
+                to="/"
+              >
         <img src="/logo.svg" className="object-cover w-30 h-24" alt="" />
+              </NavLink>
         <div className="navBar flex justify-between items-center gap-10">
-          <ul className="navLinks flex">
+          <ul className="navLinks lg:flex hidden">
             <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base ">
               Menu
             </li>
             <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base">
-              About Us
+              <NavLink
+                end
+                prefetch="intent"
+                style={activeLinkStyle}
+                to="/about-us"
+              >
+                About Us
+              </NavLink>
             </li>
             <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base">
-              Recipies
+              <NavLink
+                end
+                prefetch="intent"
+                style={activeLinkStyle}
+                to="/recipes"
+              >
+                Recipies
+              </NavLink>
             </li>
           </ul>
-          <OrderButton />
+          <div className="md:block hidden">
+            <OrderButton />
+          </div>
           <div className="headerIcons flex justify-between items-center gap-10">
             <span className="loginIcon w-5 flex cursor-pointer">
               <svg

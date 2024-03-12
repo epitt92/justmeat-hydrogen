@@ -24,13 +24,13 @@ const Easydelicious = () => {
                         <p className="font-Roboto text-base font-normal leading-6 text-[#42526B] mb-2">1) Prepare rice to your specifications </p>
                         <p className="font-Roboto text-base font-normal leading-6 text-[#42526B] mb-2">2) Chop Broccoli, red pepper, and green onions </p>
                         <p className="font-Roboto text-base font-normal leading-6 text-[#42526B] mb-2">3) Add Soy sauce and green onions to rice  </p>
-                        <p className="font-Roboto text-base font-normal leading-6 text-[#42526B] mb-2">5) Remove plastic from thawed Hawaiian Teriyaki Beef. In a skillet add 1/4 of a</p>
-                        <p className="font-Roboto text-base font-normal leading-6 text-[#42526B] mb-2">container of protein, add a portion of the teriyaki marinade and heat for 2 minutes. Plate and serve!  </p>
+                        <p className="font-Roboto text-base font-normal leading-6 text-[#42526B] mb-2">4) Remove plastic from thawed Hawaiian Teriyaki Beef. In a skillet add 1/4 of a</p>
+                        <p className="font-Roboto text-base font-normal leading-6 text-[#42526B] mb-2">5)container of protein, add a portion of the teriyaki marinade and heat for 2 minutes. Plate and serve!  </p>
                     </div>
                     <div className=" md:basis-2/6 justify-center items-center">
                    
-                    <video className="h-full w-full "  autoPlay muted loop>
-                    <source src="https://cdn.shopify.com/videos/c/o/v/f00391470df74c73af8172c9d0140764.mov" type="video/mp4" />
+                    <video className="h-full w-full " controls  autoPlay muted loop>
+                    <source src="https://cdn.shopify.com/videos/c/o/v/b727288188c74169bb4532185ef85f8c.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
                     </div>

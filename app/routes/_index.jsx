@@ -29,10 +29,10 @@ export default function Homepage() {
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
   return (
-    <div className="home relative  ">
+    <div className="home relative">
       <section className="heroSection relative flex justify-center items-center overflow-hidden">
-        <div className="bg-video absolute top-0 left-0">
-          <video className="h-full w-full " autoPlay muted loop>
+        <div className="bg-video absolute top-0 left-0 w-[100%] h-[100%]">
+          <video className="h-full w-full object-cover" autoPlay muted playsInline loop>
             <source
               src="https://cdn.shopify.com/videos/c/o/v/32c027bc585340199844575c5e85cf42.mp4"
               type="video/mp4"
@@ -42,7 +42,7 @@ export default function Homepage() {
         </div>
         <div className="flex flex-col z-10 justify-center items-center p-5 gap-6 w-max-[1440px] ">
           <div className="flex flex-col justify-center items-center gap-4 py-44 mt-[-30px] w-8/12">
-            <p className="text-5xl leading-[55px] font-bold text-white ">
+            <p className="text-5xl leading-[55px] font-bold text-white">
               No Fuss, All Flavor <br></br>
               Ready & Delivered
             </p>
@@ -86,14 +86,14 @@ export default function Homepage() {
 
       <section className="bg-black flex justify-center items-center  py-6">
         <div className=" flex justify-center px-10 w-max-[1440px] w-[100%]">
-          <div className="w-9/12 flex justify-center gap-48 items-center">
+          <div className="w-9/12 flex   justify-center gap-48 items-center">
             <div className="flex justify-center items-center flex-col gap-4">
               <h2 className="text-white font-semibold text-2xl">
                 MEATS DELIVERED
               </h2>
               <p className="text-white text-2xl">1,006,928</p>
             </div>
-            <div className="flex justify-center items-center flex-col gap-4">
+            <div className="flex justify-center hidden xl:block items-center flex-col gap-4 ">
               <h2 className="text-white font-semibold text-2xl">
                 POUNDS COOKED
               </h2>
@@ -110,7 +110,7 @@ export default function Homepage() {
       </section>
       <section className="heroSection border bg-white flex justify-center items-center p-20  ">
         <div className="flex flex-col justify-end items-end p-5 gap-6 max-w-[1440px] bg-cover bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Farm_BG_Just_Meats.png')]">
-          <div className="w-[38%] bg-[#00000040] pl-12 pr-4 py-5 mt-[200px]">
+          <div className="lg:w-[60%] md:w-[90%] xl:w-[38%] md:w-[60%] bg-[#00000040] pl-12 pr-4 py-5 mt-[200px]">
             <h2 className="text-white text-5xl leading-tight font-semibold mb-5 ">
               REAL MEAT <br></br> REAL RANCHES
             </h2>
@@ -132,8 +132,8 @@ export default function Homepage() {
       </section>
 
       <section className="bg-[#eeeeee] flex justify-center items-center ">
-        <div className="max-w-[1440px] flex justify-start gap-20 px-10 py-20 ">
-          <div className="flex flex-col items-center gap-10 w-4/12 ml-10">
+        <div className="max-w-[1440px] w-[100%] flex justify-start gap-20 px-5 xl:px-10 py-20 ">
+          <div className="flex flex-col items-center gap-10 hidden xl:flex  w-4/12 ml-10">
             <img
               className=""
               src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/BodyBulding_Recipie_CarneAsasa.png"
@@ -144,9 +144,9 @@ export default function Homepage() {
             </div>
           </div>
 
-          <div className="flex w-5/12 flex-col gap-10">
-            <h1 className="px-4 py-2 text-5xl leading-tight bg-[#000] text-white">
-              Skip the Protein Bar, Have a Real Meal
+          <div className="flex lg:w-9/12 xl:w-5/12  flex-col gap-10">
+            <h1 className=" xl:px-4 py-2 lg:px-2 text-5xl leading-tight bg-[#000] text-white">
+              Skip the Protein Bar, <br></br>Have a Real Meal
             </h1>
             <ul className="px-4">
               <li className="flex justify-start gap-2 items-center text-lg mb-3 text-black">
@@ -177,9 +177,9 @@ export default function Homepage() {
           </div>
         </div>
       </section>
-      <section className="heroSection bg-[#c5972d] py-10 flex justify-center items-center bg-no-repeat min-h-96 bg-contain bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Group_4161.png')]">
+      <section className="heroSection bg-[#c5972d] px-4 py-10 flex justify-center items-center bg-no-repeat min-h-96 bg-contain bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Group_4161.png')]">
          <div className='max-w-[1440px] flex justify-center items-center '>
-        <div className='w-[40%] bg-[#0001]'>
+        <div className='xl:w-[40%] lg:w-[100%]  bg-[#0001]'>
           <h2 className='text-black text-5xl mt-2 ' >You Ask. We Answer.</h2>
           <div className='p-5'>
 
@@ -192,16 +192,6 @@ export default function Homepage() {
     </div>
   );
 }
-// export default function Homepage() {
-//   /** @type {LoaderReturnData} */
-//   const data = useLoaderData();
-//   return (
-//     <div className="home">
-//       <FeaturedCollection collection={data.featuredCollection} />
-//       <RecommendedProducts products={data.recommendedProducts} />
-//     </div>
-//   );
-// }
 
 /**
  * @param {{
@@ -231,39 +221,40 @@ function FeaturedCollection({collection}) {
  *   products: Promise<RecommendedProductsQuery>;
  * }}
  */
-function RecommendedProducts({products}) {
-  return (
-    <div className="recommended-products">
-      <h2>Recommended Products</h2>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Await resolve={products}>
-          {({products}) => (
-            <div className="recommended-products-grid">
-              {products.nodes.map((product) => (
-                <Link
-                  key={product.id}
-                  className="recommended-product"
-                  to={`/products/${product.handle}`}
-                >
-                  <Image
-                    data={product.images.nodes[0]}
-                    aspectRatio="1/1"
-                    sizes="(min-width: 45em) 20vw, 50vw"
-                  />
-                  <h4>{product.title}</h4>
-                  <small>
-                    <Money data={product.priceRange.minVariantPrice} />
-                  </small>
-                </Link>
-              ))}
-            </div>
-          )}
-        </Await>
-      </Suspense>
-      <br />
-    </div>
-  );
-}
+
+// function RecommendedProducts({products}) {
+//   return (
+//     <div className="recommended-products">
+//       <h2>Recommended Products</h2>
+//       <Suspense fallback={<div>Loading...</div>}>
+//         <Await resolve={products}>
+//           {({products}) => (
+//             <div className="recommended-products-grid">
+//               {products.nodes.map((product) => (
+//                 <Link
+//                   key={product.id}
+//                   className="recommended-product"
+//                   to={`/products/${product.handle}`}
+//                 >
+//                   <Image
+//                     data={product.images.nodes[0]}
+//                     aspectRatio="1/1"
+//                     sizes="(min-width: 45em) 20vw, 50vw"
+//                   />
+//                   <h4>{product.title}</h4>
+//                   <small>
+//                     <Money data={product.priceRange.minVariantPrice} />
+//                   </small>
+//                 </Link>
+//               ))}
+//             </div>
+//           )}
+//         </Await>
+//       </Suspense>
+//       <br />
+//     </div>
+//   );
+// }
 
 const FEATURED_COLLECTION_QUERY = `#graphql
   fragment FeaturedCollection on Collection {
