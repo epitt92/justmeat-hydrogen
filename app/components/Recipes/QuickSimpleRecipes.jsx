@@ -1,4 +1,5 @@
 import React from 'react'
+import Video from "./Video"
 import {
     Accordion,
     AccordionHeader,
@@ -31,21 +32,20 @@ const QuickSimpleRecipes = () => {
      </div>
     </div>
     <div className='w-[85%] mx-auto p-4'>
-        <h1 className="font-Roboto text-3xl font-semibold mb-4 leading-5">Quick & Simple Recipes</h1>
+        <h1 className="font-Roboto text-3xl font-semibold mt-2 mb-4 leading-5">Quick & Simple Recipes</h1>
         <div className=''>
             <div className=''>
-                <div className='mx-auto mt-4 grid max-w-lg gap-8 lg:max-w-none lg:grid-cols-3 justify-center items-center'>
+                <div className='mx-auto mt-4 grid max-w-lg gap-12 lg:max-w-none lg:grid-cols-3 justify-center items-center'>
                     <div className=''>
                         <div className=''>
                             <div className='flex items-center justify-center mt-4'>
-                            <video className="h-[65%] w-[65%] " controls  autoPlay muted loop>
-                                <source src="https://cdn.shopify.com/videos/c/o/v/7fd09d26054540d9a203114550d017c4.mp4" type="video/mp4" />
-                                    Your browser does not support the video tag.
-                            </video>
+                            <Video videoId="videoId2" url="https://cdn.shopify.com/videos/c/o/v/ee592ed8c3f44de6a78ad3fd619433b0.mp4" 
+                            poster="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/poster-1.png?v=1710347717" width="250px" height="250px"
+                            />
                             </div>
                             <h3 className='text-center mt-2'>Beef Teriyaki Rice And Stir Fry</h3>
                         </div>
-                        <div className='mt-5'>
+                        <div className='mt-5 px-3'>
                         <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
                             <AccordionHeader onClick={() => handleOpen(1)} className="flex justify-between border-b border-black mb-6 leading-5">Instructions</AccordionHeader>
                             <AccordionBody>
@@ -62,14 +62,14 @@ const QuickSimpleRecipes = () => {
                     <div className=''>
                         <div className=''>
                             <div className='flex items-center justify-center mt-4'>
-                            <video className="h-[65%] w-[65%] " controls  autoPlay muted loop>
-                                <source src="https://cdn.shopify.com/videos/c/o/v/7fd09d26054540d9a203114550d017c4.mp4" type="video/mp4" />
-                                    Your browser does not support the video tag.
-                            </video>
+                            <Video videoId="videoId3" url="https://cdn.shopify.com/videos/c/o/v/b727288188c74169bb4532185ef85f8c.mp4" 
+                            poster="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/poster-2.png?v=1710349245" width="250px" height="250px"
+                            />
+                  
                             </div>
-                            <h3 className='text-center mt-2'>Beef Teriyaki Rice And Stir Fry</h3>
+                            <h3 className='text-center mt-2'>Sweet & Spicy Pork and Broccoli Slaw</h3>
                         </div>
-                        <div className='mt-5'>
+                        <div className='mt-5 px-3'>
                         <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
                             <AccordionHeader onClick={() => handleOpen(1)} className="flex justify-between border-b border-black mb-6 leading-5">Instructions</AccordionHeader>
                             <AccordionBody>
@@ -84,14 +84,13 @@ const QuickSimpleRecipes = () => {
                     <div className=''>
                         <div className=''>
                             <div className='flex items-center justify-center mt-4'>
-                            <video className="h-[65%] w-[65%] " controls  autoPlay muted loop>
-                                <source src="https://cdn.shopify.com/videos/c/o/v/7fd09d26054540d9a203114550d017c4.mp4" type="video/mp4" />
-                                    Your browser does not support the video tag.
-                            </video>
+                            <Video videoId="videoId4" url="https://cdn.shopify.com/videos/c/o/v/7fd09d26054540d9a203114550d017c4.mp4" 
+                            poster="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/poster-3.png?v=1710349244" width="250px" height="250px"
+                            />
                             </div>
-                            <h3 className='text-center mt-2'>Beef Teriyaki Rice And Stir Fry</h3>
+                            <h3 className='text-center mt-2'>Buffalo Chicken Thigh and Asparagus</h3>
                         </div>
-                        <div className='mt-5'>
+                        <div className='mt-5 px-3'>
                         <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
                             <AccordionHeader onClick={() => handleOpen(1)} className="flex justify-between border-b border-black mb-6 leading-5">Instructions</AccordionHeader>
                             <AccordionBody>
