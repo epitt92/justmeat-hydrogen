@@ -38,9 +38,12 @@ export function Footer({menu, shop}) {
                 </NavLink>
               </li>
               <li className="text-white font-normal text-base my-2 transition hover:text-[#862E1B] cursor-pointer ">
-                Terms of Service
+              <NavLink end prefetch="intent" to="/term-services">
+              Terms of Service
+              </NavLink>
               </li>
               <li className="text-white font-normal text-base my-2 transition hover:text-[#862E1B] cursor-pointer ">
+
                 <NavLink end prefetch="intent" to="/refund-policy">
                   Refund & Cancellation Policy
                 </NavLink>
