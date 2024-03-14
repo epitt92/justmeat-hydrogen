@@ -21,4 +21,11 @@ module.exports = {
     v3_relativeSplatpath: true,
     v3_throwAbortReason: true,
   },
+  serverNodeBuiltinsPolyfill: {
+    modules: {
+      crypto: true, 
+      util: true,
+    },
+  },
 };
+

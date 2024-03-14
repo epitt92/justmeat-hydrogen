@@ -115,7 +115,7 @@ function OrderItem({order}) {
         <p>{order.financialStatus}</p>
         {fulfillmentStatus && <p>{fulfillmentStatus}</p>}
         <Money data={order.totalPrice} />
-        <Link to={`/account/orders/${btoa(order.id)}`}>View Order →</Link>
+        <Link to={`/account/orders/${btoa(order.id)}`}>View Order 00→</Link>
       </fieldset>
       <br />
     </>

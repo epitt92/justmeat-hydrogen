@@ -17,6 +17,8 @@ import appStyles from './styles/app.css';
 // import sliderStyles from './styles/slider.css';
 import tailwindStyles from './styles/tailwind.css';
 import {Layout} from '~/components/Layout';
+import {SubscriptionCard} from '~/components/SubscriptionCard';
+
 import sliderStyles from 'swiper/css';
 import sliderNavigation from 'swiper/css/navigation';
 /**
@@ -121,6 +123,7 @@ export default function App() {
         <Links />
       </head>
       <body>
+      <SubscriptionCard></SubscriptionCard>
         <Layout {...data}>
           <Outlet />
         </Layout>
