@@ -29,12 +29,12 @@ function CartDetails({layout, cart}) {
   return (
     <div className="cart-details flex flex-col justify-between">
       <CartLines lines={cart?.lines} layout={layout} />
-      {cartHasItems && (
+      {/* {cartHasItems && (
         <CartSummary cost={cart.cost} layout={layout}>
           <CartDiscounts discountCodes={cart.discountCodes} />
           <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />
         </CartSummary>
-      )}
+      )} */}
     </div>
   );
 }
