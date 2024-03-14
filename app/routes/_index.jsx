@@ -67,7 +67,7 @@ export default function Homepage() {
                 </NavLink>
       </section>
 
-      <section className=" bg-white flex justify-center items-center bg-no-repeat min-h-72 sm:min-h-96 bg-contain bg-center sm:bg-top bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Group_4179_2x_c20de474-5eef-421d-a248-f3a6c09ae36a.png')] my-5">
+      <section className=" bg-white flex justify-center items-center bg-no-repeat min-h-72 sm:min-h-96 bg-contain bg-center sm:bg-left bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Group_4179_2x_c20de474-5eef-421d-a248-f3a6c09ae36a.png')] my-5">
         <div className="flex flex-col justify-center items-center p-5 gap-6 w-max-[1440px] ">
           <div className="flex flex-col justify-center items-center gap-6 w-full sm:w-8/12">
             <p className="sm:text-5xl text-3xl leading-[55px] font-bold text-black ">
