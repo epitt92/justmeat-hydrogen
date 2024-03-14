@@ -38,7 +38,7 @@ function FaqAccordion() {
     <>
       <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
         <AccordionHeader
-          className="text-black font-semibold text-[17px]"
+          className="text-black font-semibold border-none text-[17px]"
           onClick={() => handleOpen(1)}
         >
           What kind of meat can I buy?
@@ -50,7 +50,7 @@ function FaqAccordion() {
       </Accordion>
       <Accordion open={open === 2} icon={<Icon id={2} open={open} />}>
         <AccordionHeader
-          className="text-black font-semibold text-[17px]"
+          className="text-black font-semibold border-none text-[17px]"
           onClick={() => handleOpen(2)}
         >
           Can I get meats delivered weekly?
@@ -61,7 +61,7 @@ function FaqAccordion() {
       </Accordion>
       <Accordion open={open === 3} icon={<Icon id={3} open={open} />}>
         <AccordionHeader
-          className="text-black font-semibold text-[17px]"
+          className="text-black font-semibold border-none text-[17px]"
           onClick={() => handleOpen(3)}
         >
           How do I choose my meat?
@@ -74,7 +74,7 @@ function FaqAccordion() {
       </Accordion>
       <Accordion open={open === 4} icon={<Icon id={4} open={open} />}>
         <AccordionHeader
-          className="text-black font-semibold text-[17px]"
+          className="text-black font-semibold border-none text-[17px]"
           onClick={() => handleOpen(4)}
         >
           When does my meat arrive?
@@ -85,7 +85,7 @@ function FaqAccordion() {
       </Accordion>
       <Accordion open={open === 5} icon={<Icon id={5} open={open} />}>
         <AccordionHeader
-          className="text-black font-semibold text-[17px]"
+          className="text-black font-semibold border-none text-[17px]"
           onClick={() => handleOpen(5)}
         >
           Is the meat precooked?
@@ -97,7 +97,7 @@ function FaqAccordion() {
       </Accordion>
       <Accordion open={open === 6} icon={<Icon id={6} open={open} />}>
         <AccordionHeader
-          className="text-black font-semibold text-[17px]"
+          className="text-black font-semibold border-none text-[17px]"
           onClick={() => handleOpen(6)}
         >
           How is the meat shipped?
@@ -110,7 +110,7 @@ function FaqAccordion() {
       </Accordion>
       <Accordion open={open === 7} icon={<Icon id={7} open={open} />}>
         <AccordionHeader
-          className="text-black font-semibold text-[17px]"
+          className="text-black font-semibold border-none text-[17px]"
           onClick={() => handleOpen(7)}
         >
           Where is the meat sourced?
@@ -123,12 +123,12 @@ function FaqAccordion() {
       </Accordion>
       <Accordion open={open === 8} icon={<Icon id={8} open={open} />}>
         <AccordionHeader
-          className="text-black font-semibold text-[17px]"
+          className="text-black font-semibold border-none text-[17px]"
           onClick={() => handleOpen(8)}
         >
           How should I store my meat?
         </AccordionHeader>
-        <AccordionBody className="p-5 text-center text-base">
+        <AccordionBody className="p-5 text-center  text-base">
           All sealed meats can be stored in the refrigerator for 10-14 days upon
           arrival. Once the package is opened, we recommend consuming the
           refrigerated meat within 3-5 days. If this timeline will not work, all

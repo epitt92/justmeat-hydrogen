@@ -27,14 +27,14 @@ function CartDetails({layout, cart}) {
   const cartHasItems = !!cart && cart.totalQuantity > 0;
 
   return (
-    <div className="cart-details">
+    <div className="cart-details flex flex-col justify-between">
       <CartLines lines={cart?.lines} layout={layout} />
-      {cartHasItems && (
+      {/* {cartHasItems && (
         <CartSummary cost={cart.cost} layout={layout}>
           <CartDiscounts discountCodes={cart.discountCodes} />
           <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />
         </CartSummary>
-      )}
+      )} */}
     </div>
   );
 }
@@ -71,7 +71,7 @@ function CartLineItem({layout, line}) {
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
 
   return (
-    <li key={id} className="cart-line">
+    <li key={id} className="cart-line flex gap-4" >
       {image && (
         <Image
           alt={title}
@@ -80,13 +80,16 @@ function CartLineItem({layout, line}) {
           height={100}
           loading="lazy"
           width={100}
+          
         />
       )}
 
-      <div>
+      <div className="flex  flex-1 pr-[10px] justify-between items-center ">
+        <div className="h-fit flex-1">
         <Link
           prefetch="intent"
           to={lineItemUrl}
+          className="font-semibold text-[14px] text-center "
           onClick={() => {
             if (layout === 'aside') {
               // close the drawer
@@ -95,11 +98,12 @@ function CartLineItem({layout, line}) {
           }}
         >
           <p>
-            <strong>{product.title}</strong>
+            <strong >{product.title}</strong>
           </p>
         </Link>
-        <CartLinePrice line={line} as="span" />
-        <ul>
+        <CartLinePrice  line={line} as="span" />
+        </div>
+        {/* <ul>
           {selectedOptions.map((option) => (
             <li key={option.name}>
               <small>
@@ -107,7 +111,7 @@ function CartLineItem({layout, line}) {
               </small>
             </li>
           ))}
-        </ul>
+        </ul> */}
         <CartLineQuantity line={line} />
       </div>
     </li>
@@ -169,7 +173,7 @@ function CartLineRemoveButton({lineIds}) {
       action={CartForm.ACTIONS.LinesRemove}
       inputs={{lineIds}}
     >
-      <button type="submit">Remove</button>
+      <button className="text-[14px] text-center text-[#862e1b] font-bold w-[100%]" type="submit">Remove</button>
     </CartForm>
   );
 }
@@ -185,20 +189,24 @@ function CartLineQuantity({line}) {
 
   return (
     <div className="cart-line-quantity">
-      <small>Quantity: {quantity} &nbsp;&nbsp;</small>
+      <div className="flex gap-[5px] items-center bg-[#862e1b] justify-between p-[5px]" >
+
+      
       <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
         <button
           aria-label="Decrease quantity"
           disabled={quantity <= 1}
           name="decrease-quantity"
           value={prevQuantity}
+          className="text-[#862e1b] w-[25px] flex justify-center items-center h-[25px] bg-white rounded-[5px] p-[3px] "
         >
           <span>&#8722; </span>
         </button>
       </CartLineUpdateButton>
-      &nbsp;
+      <small className="text-[#000] font-bold text-[14px] text-center bg-white flex justify-center items-center w-[32px] h-[25px] p-[3px] ">{quantity}</small>
       <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
         <button
+        className="text-[#862e1b] bg-white flex justify-center items-center rounded-[5px] p-[3px] w-[25px] h-[25px]"
           aria-label="Increase quantity"
           name="increase-quantity"
           value={nextQuantity}
@@ -206,7 +214,7 @@ function CartLineQuantity({line}) {
           <span>&#43;</span>
         </button>
       </CartLineUpdateButton>
-      &nbsp;
+      </div>
       <CartLineRemoveButton lineIds={[lineId]} />
     </div>
   );
@@ -232,7 +240,7 @@ function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
   }
 
   return (
-    <div>
+    <div className="font-bold text-center text-[25px] ">
       <Money withoutTrailingZeros {...passthroughProps} data={moneyV2} />
     </div>
   );
