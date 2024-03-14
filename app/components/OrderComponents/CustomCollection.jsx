@@ -10,20 +10,32 @@ import React, {Suspense} from 'react';
 import {CartProvider, useCart, ProductProvider} from '@shopify/hydrogen-react';
 import {defer, json, redirect} from '@remix-run/server-runtime';
 import {Await, Link, useLoaderData} from '@remix-run/react';
-import Cart from '~/routes/cart';
-import {Badge} from '../ui/badge';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '../ui/dialog';
+import {CartMain} from '~/components/Cart';
+import {useRootLoaderData} from '~/root';
 import ProductModal from '../ui/ProductModal';
-import {Button} from '../ui/button';
 import CustomProgressBar from '../ui/CustomProgressBar';
+
+
+ const AsideCart = ()=>{
+  const rootData = useRootLoaderData();
+  const cartPromise = rootData.cart;
+  return (
+    <div className="cart">
+      {/* <h1>Cart</h1> */}
+      <Suspense fallback={<p>Loading cart ...</p>}>
+        <Await
+          resolve={cartPromise}
+          errorElement={<div>An error occurred</div>}
+        >
+          {(cart) => {
+            return <CartMain layout="aside" cart={cart} />;
+          }}
+        </Await>
+      </Suspense>
+    </div>
+  );
+
+ }
 
 const CustomCollection = ({col}) => {
   const {nodes} = col;
@@ -31,7 +43,7 @@ const CustomCollection = ({col}) => {
   return (
     <section className="max-w-ful ">
       <div className=" flex gap-3">
-        <div className="w-[60px] h-[60px] hidden sm:block rounded-[100%] bg-black flex justify-center items-center">
+        <div className="w-[60px] h-[60px] hidden sm:flex rounded-[100%] bg-black justify-center items-center">
           <span className="text-[40px] font-bold text-white">2</span>
         </div>
 
@@ -68,7 +80,7 @@ const CustomCollection = ({col}) => {
                     alt="cart free"
                   />
                 </div>
-                <Cart />
+                <AsideCart />
               </div>
             </div>
           </div>
