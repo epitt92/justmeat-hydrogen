@@ -8,17 +8,26 @@ import {
   PredictiveSearchForm,
   PredictiveSearchResults,
 } from '~/components/Search';
+import OrderHeader from './OrderHeader';
 
 /**
  * @param {LayoutProps}
  */
-export function Layout({cart, children = null, footer, header, isLoggedIn}) {
+
+export function Layout({cart, children = null, footer, header, isLoggedIn,isProductPage}) {
   return (
     <>
       {/* <CartAside cart={cart} /> */}
       {/* <SearchAside /> */}
       {/* <MobileMenuAside menu={header?.menu} shop={header?.shop} /> */}
-      {header && <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />}
+      {/* {header && <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />} */}
+      {/* <OrderHeader/> */}
+      {isProductPage ? (
+        <OrderHeader />
+      ) : (<>
+        {header && <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />} 
+       </>
+      )}
       <main>{children}</main>
       <Suspense>
         <Await resolve={footer}>

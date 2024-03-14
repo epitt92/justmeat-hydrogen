@@ -21,7 +21,15 @@ export function Header({header, isLoggedIn, cart}) {
         <div className="navBar flex justify-between items-center gap-10">
           <ul className="navLinks lg:flex hidden">
             <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base ">
-              Menu
+            <NavLink
+                end
+                prefetch="intent"
+                style={activeLinkStyle}
+                to="/products/custom-bundle"
+              >
+                Menu
+              </NavLink>
+              
             </li>
             <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base">
               <NavLink
