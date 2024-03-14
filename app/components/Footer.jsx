@@ -20,7 +20,10 @@ export function Footer({menu, shop}) {
             <ul className="w-2/4 ">
               <li className="text-white font-medium text-xl mb-4 ">About Us</li>
               <li className="text-white font-normal text-base my-2 transition hover:text-[#862E1B] cursor-pointer ">
-                Menu
+              <NavLink end prefetch="intent" to="/products/custom-bundle">
+              Menu
+                </NavLink>
+                
               </li>
               <li className="text-white font-normal text-base my-2 transition hover:text-[#862E1B] cursor-pointer ">
                 <NavLink end prefetch="intent" to="/about-us">
