@@ -123,31 +123,31 @@ const PlanPicker = () => {
     </div>
   );
   return (
-    <div className=" w-[100%] border-b-2 border-solid border-[#0003] mb-[30px] ">
+    <div className=" w-[100%] border-b-2 border-solid border-[#0003]  mb-[30px] ">
       <div className="flex justify-center flex-col items-center py-14">
         <h1 className=" text-[#1d1d1d] text-[28px] uppercase font-bold ">
           Get your meats now
         </h1>
-        <p className=" italic text-black text-[20px]">
+        <p className=" italic text-center text-black text-[20px]">
           We guarantee you'll love it or your money back !
         </p>
         <div className="pt-2 flex ">{review}</div>
 
-        <div className="flex justify-start items-center pt-5 w-[100%]">
-          <div className="flex w-3/12 gap-2">
+        <div className="flex justify-start flex-col lg:flex-row lg:items-start lg:gap-0 gap-8 lg:items-center pt-5 w-[100%]">
+          <div className="flex w-full lg:w-4/12  xl:w-3/12 gap-2">
             <div className="w-[60px] h-[60px] rounded-[100%] bg-black flex justify-center items-center  ">
               <span className="text-[40px] font-bold text-white ">1</span>
             </div>
             <div className="h-fit border-b-4  border-[#425B3499] pb-1">
               <h3 className="font-semibold leading-7 text-[22px] text-[#1d1d1d] uppercase ">
-                Select Your <br /> Frequency
+                Select Your <br className='lg:block hidden' /> Frequency
               </h3>
             </div>
           </div>
           
-            <div className=' flex gap-2 w-9/12 '>
+            <div className=' flex gap-2 flex-col sm:flex-row w-[100%] lg:w-9/12 '>
               
-                <div className="w-4/12">
+                <div className="w-full sm:w-7/12 md:w-6/12 xl:w-4/12">
                    <p 
                    className={`${
                     activeOption === 'option1' ? 'text-[#fff] bg-[#000]' : 'text-[#1d1d1d] bg-[#ebeae9]'
@@ -201,7 +201,7 @@ const PlanPicker = () => {
                 </div>
              
 
-              <div  className="w-4/12">
+              <div  className=" w-full sm:w-7/12 md:w-5/12 xl:w-4/12">
               <p className='px-[15px] pt-[6px] text-[12px] font-bold bg-transparent text-transparent '>" "</p>
 
                 <div 

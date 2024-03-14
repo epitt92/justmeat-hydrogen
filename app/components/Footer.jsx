@@ -7,9 +7,9 @@ import {useRootLoaderData} from '~/root';
 export function Footer({menu, shop}) {
   return (
     <footer className="footer max-w-[100%] bg-black ">
-      <div className="content max-w-[1440px] px-10 mx-auto ">
-        <div className="flex justify-between items-start gap-10  py-20 ">
-          <div className="footerLogo flex justify-center items-center w-1/4 ">
+      <div className="content max-w-[1440px] px-5 sm:px-10 mx-auto ">
+        <div className="flex justify-between items-start flex-wrap lg:flex-nowrap gap-10 lg:gap-10 py-10 sm:py-20 ">
+          <div className="footerLogo flex justify-center items-center  sm:w-5/12 lg:w-1/4 ">
           <NavLink end prefetch="intent" to="/">
           <img
               src="/footer_logo.webp"
@@ -19,8 +19,8 @@ export function Footer({menu, shop}) {
                 </NavLink>
            
           </div>
-          <div className="navLinks flex gap-10 justify-between items-start w-2/4">
-            <ul className="w-2/4 ">
+          <div className="navLinks  flex gap-10 justify-between items-start w-full sm:w-5/12 lg:w-1/4">
+            <ul className=" ">
               <li className="text-white font-medium text-xl mb-4 ">About Us</li>
               <li className="text-white font-normal text-base my-2 transition hover:text-[#862E1B] cursor-pointer ">
               <NavLink end prefetch="intent" to="/products/custom-bundle">
@@ -34,7 +34,9 @@ export function Footer({menu, shop}) {
                 </NavLink>
               </li>
             </ul>
-            <ul className="w-2/4">
+          </div>
+          <div className="navLinks flex gap-10 justify-between items-start w-full sm:w-5/12 lg:w-1/4">
+            <ul className="">
               <li className="text-white font-medium text-xl mb-4 ">
                 Need Help?
               </li>
@@ -61,7 +63,7 @@ export function Footer({menu, shop}) {
               </li>
             </ul>
           </div>
-          <div className="contactInfo w-1/4">
+          <div className="contactInfo w-full sm:w-5/12 lg:w-1/4">
             <ul>
               <li className="text-white font-medium text-3xl mb-4 ">
                 Contact Us
