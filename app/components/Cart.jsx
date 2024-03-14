@@ -27,7 +27,7 @@ function CartDetails({ layout, cart }) {
   const cartHasItems = !!cart && cart.totalQuantity > 0;
 
   return (
-    <div className="cart-details lg:flex  mb-40">
+    <div className="cart-details flex flex-col md:flex-row justify-center gap-8 md:gap-[30px] w-full mb-28">
       <CartLines lines={cart?.lines} layout={layout} />
       {cartHasItems && (
         <CartSummary cost={cart.cost} layout={layout}>
@@ -49,22 +49,22 @@ function CartLines({ lines, layout }) {
   if (!lines) return null;
 
   return (
-    <div aria-labelledby="cart-lines" className='border border-gray p-0 rounded-[13px] w-2/3'>
+    <div aria-labelledby="cart-lines" className='basis-8/12 border border-gray p-0 rounded-[13px] '>
       <table className='w-full flex flex-col '>
         <thead className='pb-2 ' >
-          <tr className='w-full flex px-9  justify-between rounded-t-xl	 bg-gray-200 py-3 border-b-2'>
-            <th>Product</th>
-            <th>Title</th>
-            <th>Remove</th>
-            <th>Total</th>
+          <tr className='w-full flex px-9 rounded-t-xl text-center bg-gray-200 py-3 border-b-2 text-start '>
+            <th className='w-1/5 text-center'>Product</th>
+            <th className='w-2/5 text-center'>Title</th>
+            <th className='w-1/5 text-center'>Remove</th>
+            <th className='w-1/5 text-center'>Total</th>
           </tr>
         </thead>
         <tbody>
-          <ul>
+          
             {lines.nodes.map((line) => (
               <CartLineItem key={line.id} line={line} layout={layout} />
             ))}
-          </ul>
+          
         </tbody>
       </table>
     </div>
@@ -84,8 +84,8 @@ function CartLineItem({ layout, line }) {
 
   return (
 
-    <tr className='w-full flex justify-between  items-center px-8 py-3' >
-      <td>
+    <tr className='w-full flex text-start  items-center px-8 py-3 text-center' >
+      <td className='w-1/5 text-center'>
         {image && (
           <Image
             alt={title}
@@ -97,7 +97,7 @@ function CartLineItem({ layout, line }) {
           />
         )}
       </td>
-      <td className='text-sm w-48'>
+      <td className='text-sm w-2/5 text-center'>
         <Link
           prefetch="intent"
           to={lineItemUrl}
@@ -113,10 +113,10 @@ function CartLineItem({ layout, line }) {
           </p>
         </Link>
       </td>
-      <td className=' '>
+      <td className='text-center w-1/5 '>
         <CartLineQuantity line={line} />
       </td>
-      <td>
+      <td className='w-1/5 text-center'>
         <CartLinePrice line={line} as="span" />
       </td>
     </tr>
@@ -147,7 +147,7 @@ function CartCheckoutActions({ checkoutUrl }) {
  */
 export function CartSummary({ cost, layout, children = null }) {
   const className =
-    layout === 'page' ? 'cart-summary-page w-[400px] border-2 h-[400px] sm:w-full md:w-[400px] sm:ml-0 border-gray p-6 rounded-[13px] ml-10' : 'cart-summary-aside w-30 border border-gray p-10 rounded-[5px] ml-10';
+    layout === 'page' ? 'cart-summary-page basis-4/12 border-2 border-gray p-6 rounded-[13px]' : 'cart-summary-aside w-30 border border-gray p-10 rounded-[5px] ml-10';
 
   return (
     <div aria-labelledby="cart-summary" className={className}>
