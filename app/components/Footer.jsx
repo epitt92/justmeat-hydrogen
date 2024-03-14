@@ -10,17 +10,23 @@ export function Footer({menu, shop}) {
       <div className="content max-w-[1440px] px-10 mx-auto ">
         <div className="flex justify-between items-start gap-10  py-20 ">
           <div className="footerLogo flex justify-center items-center w-1/4 ">
-            <img
+          <NavLink end prefetch="intent" to="/">
+          <img
               src="/footer_logo.webp"
               className="object-contain pt-3"
               alt=""
             />
+                </NavLink>
+           
           </div>
           <div className="navLinks flex gap-10 justify-between items-start w-2/4">
             <ul className="w-2/4 ">
               <li className="text-white font-medium text-xl mb-4 ">About Us</li>
               <li className="text-white font-normal text-base my-2 transition hover:text-[#862E1B] cursor-pointer ">
-                Menu
+              <NavLink end prefetch="intent" to="/products/custom-bundle">
+              Menu
+                </NavLink>
+                
               </li>
               <li className="text-white font-normal text-base my-2 transition hover:text-[#862E1B] cursor-pointer ">
                 <NavLink end prefetch="intent" to="/about-us">
