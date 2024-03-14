@@ -30,6 +30,7 @@ export default function Homepage() {
   const data = useLoaderData();
   return (
     <div className="home relative">
+      <div className=' p-[20px] xl:hidden hidden md:block text-center bg-[#c5972d] '><h2 className='font-bold text-[35px]  text-[#f0f0f0] '>Premium Meat, Expertly Cooked, Chilled, & Delivered </h2></div>
       <section className="heroSection relative flex justify-center items-center overflow-hidden">
         <div className="bg-video absolute top-0 left-0 w-[100%] h-[100%]">
           <video className="h-full w-full object-cover" autoPlay muted playsInline loop>
