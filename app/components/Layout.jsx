@@ -26,6 +26,7 @@ export function Layout({cart, children = null, footer, header, isLoggedIn,isProd
         <OrderHeader />
       ) : (<>
         {header && <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />} 
+        <div>{isProductPage}</div>
        </>
       )}
       <main>{children}</main>

@@ -123,9 +123,9 @@ const PlanPicker = () => {
     </div>
   );
   return (
-    <div className=" w-[100%]">
+    <div className=" w-[100%] border-b-2 border-solid border-[#0003] mb-[30px] ">
       <div className="flex justify-center flex-col items-center py-14">
-        <h1 className=" text-[#1d1d1d] text-3xl uppercase font-bold ">
+        <h1 className=" text-[#1d1d1d] text-[28px] uppercase font-bold ">
           Get your meats now
         </h1>
         <p className=" italic text-black text-[20px]">
@@ -133,7 +133,7 @@ const PlanPicker = () => {
         </p>
         <div className="pt-2 flex ">{review}</div>
 
-        <div className="flex justify-start pt-5 w-[100%]">
+        <div className="flex justify-start items-center pt-5 w-[100%]">
           <div className="flex w-3/12 gap-2">
             <div className="w-[60px] h-[60px] rounded-[100%] bg-black flex justify-center items-center  ">
               <span className="text-[40px] font-bold text-white ">1</span>
@@ -169,9 +169,18 @@ const PlanPicker = () => {
                       Subscribe & Save
                     </div>
                     <div className="">
-                      <select name="" className="text-[12px] p-0  outline-none border-none bg-transparent focus:outline-none  focus:border-none  " id="">
-                        <option value="">Every 30 days</option>
-                        <option  value="">Every 15 days</option>
+                      <select name=""
+                      className={`${
+                        activeOption === 'option1' ? 'text-[#fff]' : 'text-[#1d1d1d]'
+                      } text-[12px] p-0  outline-none border-none bg-transparent focus:outline-none  focus:border-none`}
+                     
+                      >
+                        <option
+                        className='text-[#000]'
+                        value="">Every 30 days</option>
+                        <option  
+                        className='text-[#000]'
+                        value="">Every 15 days</option>
                       </select>
                     </div>
                   </div>

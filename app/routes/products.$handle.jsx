@@ -13,7 +13,7 @@ import {
 } from '@shopify/hydrogen';
 import {getVariantUrl} from '~/lib/variants';
 import PlanPicker from '~/components/OrderComponents/PlanPicker';
-// import CustomCollection from '~/components/OrderComponents/CustomCollection';
+import CustomCollection from '~/components/OrderComponents/CustomCollection';
 import {useVariantUrl} from '~/lib/variants';
 
 
@@ -63,6 +63,7 @@ export default function Product() {
     <div className='max-w-[1440px] w-[100%] px-10'>
     <PlanPicker/>
     <div className='custom-collection-wrap'>
+    <CustomCollection col={customCollectionProducts}/>
     </div>
 
     </div>
