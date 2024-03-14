@@ -4,19 +4,86 @@ import {useRootLoaderData} from '~/root';
 /**
  * @param {FooterQuery & {shop: HeaderQuery['shop']}}
  */
-// export function Footer({menu, shop}) {
-//   return (
-//     <footer className="footer">
-//       {menu && shop?.primaryDomain?.url && (
-//         <FooterMenu menu={menu} primaryDomainUrl={shop.primaryDomain.url} />
-//       )}
-//     </footer>
-//   );
-// }
 export function Footer({menu, shop}) {
   return (
-    <footer className="footer">
+    <footer className="footer max-w-[100%] bg-black ">
+      <div className="content max-w-[1440px] px-10 mx-auto ">
+        <div className="flex justify-between items-start gap-10  py-20 ">
+          <div className="footerLogo flex justify-center items-center w-1/4 ">
+          <NavLink end prefetch="intent" to="/">
+          <img
+              src="/footer_logo.webp"
+              className="object-contain pt-3"
+              alt=""
+            />
+                </NavLink>
+           
+          </div>
+          <div className="navLinks flex gap-10 justify-between items-start w-2/4">
+            <ul className="w-2/4 ">
+              <li className="text-white font-medium text-xl mb-4 ">About Us</li>
+              <li className="text-white font-normal text-base my-2 transition hover:text-[#862E1B] cursor-pointer ">
+              <NavLink end prefetch="intent" to="/products/custom-bundle">
+              Menu
+                </NavLink>
+                
+              </li>
+              <li className="text-white font-normal text-base my-2 transition hover:text-[#862E1B] cursor-pointer ">
+                <NavLink end prefetch="intent" to="/about-us">
+                  How It Works
+                </NavLink>
+              </li>
+            </ul>
+            <ul className="w-2/4">
+              <li className="text-white font-medium text-xl mb-4 ">
+                Need Help?
+              </li>
+              <li className="text-white font-normal text-base my-2 transition hover:text-[#862E1B] cursor-pointer ">
+                <NavLink end prefetch="intent" to="/about-us">
+                  FAQs
+                </NavLink>
+              </li>
+              <li className="text-white font-normal text-base my-2 transition hover:text-[#862E1B] cursor-pointer ">
+              <NavLink end prefetch="intent" to="/term-services">
+              Terms of Service
+              </NavLink>
+              </li>
+              <li className="text-white font-normal text-base my-2 transition hover:text-[#862E1B] cursor-pointer ">
 
+                <NavLink end prefetch="intent" to="/refund-policy">
+                  Refund & Cancellation Policy
+                </NavLink>
+              </li>
+              <li className="text-white font-normal text-base my-2 transition hover:text-[#862E1B] cursor-pointer ">
+                <NavLink end prefetch="intent" to="/privacy-policy">
+                  Privacy Policy
+                </NavLink>
+              </li>
+            </ul>
+          </div>
+          <div className="contactInfo w-1/4">
+            <ul>
+              <li className="text-white font-medium text-3xl mb-4 ">
+                Contact Us
+              </li>
+              <li className="text-white font-normal text-base my-2 ">
+                Phone: 888-343-1242
+              </li>
+              <li className="text-white font-normal text-base my-2 ">
+                Email: support@justmeats.com
+              </li>
+              <li className="text-white font-normal text-base my-2 "></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div className="copyRight border-t-[0.5px] border-white-200 ">
+        <div className="content max-w-[1440px] py-6 px-10 mx-auto">
+          <p className="text-white font-normal text-lg">
+            ©2024 JUST MEATS, All Rights Reserved
+          </p>
+        </div>
+      </div>
     </footer>
   );
 }

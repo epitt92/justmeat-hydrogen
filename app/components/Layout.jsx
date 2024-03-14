@@ -4,23 +4,31 @@ import {Aside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
 import {Header, HeaderMenu} from '~/components/Header';
 import {CartMain} from '~/components/Cart';
-
 import {
   PredictiveSearchForm,
   PredictiveSearchResults,
 } from '~/components/Search';
+import OrderHeader from './OrderHeader';
 
 /**
  * @param {LayoutProps}
  */
-export function Layout({cart, children = null, footer, header, isLoggedIn}) {
+
+export function Layout({cart, children = null, footer, header, isLoggedIn,isProductPage}) {
   return (
     <>
-      
-      <CartAside cart={cart} />
-      <SearchAside />
-      <MobileMenuAside menu={header?.menu} shop={header?.shop} />
-      {header && <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />}
+      {/* <CartAside cart={cart} /> */}
+      {/* <SearchAside /> */}
+      {/* <MobileMenuAside menu={header?.menu} shop={header?.shop} /> */}
+      {/* {header && <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />} */}
+      {/* <OrderHeader/> */}
+      {isProductPage ? (
+        <OrderHeader />
+      ) : (<>
+        {header && <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />} 
+        <div>{isProductPage}</div>
+       </>
+      )}
       <main>{children}</main>
       <Suspense>
         <Await resolve={footer}>
@@ -31,78 +39,78 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
   );
 }
 
-/**
- * @param {{cart: LayoutProps['cart']}}
- */
-function CartAside({cart}) {
-  return (
-    <Aside id="cart-aside" heading="CART">
-      <Suspense fallback={<p>Loading cart ...</p>}>
-        <Await resolve={cart}>
-          {(cart) => {
-            return <CartMain cart={cart} layout="aside" />;
-          }}
-        </Await>
-      </Suspense>
-    </Aside>
-  );
-}
+// /**
+//  * @param {{cart: LayoutProps['cart']}}
+//  */
+// function CartAside({cart}) {
+//   return (
+//     <Aside id="cart-aside" heading="CART">
+//       <Suspense fallback={<p>Loading cart ...</p>}>
+//         <Await resolve={cart}>
+//           {(cart) => {
+//             return <CartMain cart={cart} layout="aside" />;
+//           }}
+//         </Await>
+//       </Suspense>
+//     </Aside>
+//   );
+// }
 
-function SearchAside() {
-  return (
-    <Aside id="search-aside" heading="SEARCH">
-      <div className="predictive-search">
-        <br />
-        <PredictiveSearchForm>
-          {({fetchResults, inputRef}) => (
-            <div>
-              <input
-                name="q"
-                onChange={fetchResults}
-                onFocus={fetchResults}
-                placeholder="Search"
-                ref={inputRef}
-                type="search"
-              />
-              &nbsp;
-              <button
-                onClick={() => {
-                  window.location.href = inputRef?.current?.value
-                    ? `/search?q=${inputRef.current.value}`
-                    : `/search`;
-                }}
-              >
-                Search
-              </button>
-            </div>
-          )}
-        </PredictiveSearchForm>
-        <PredictiveSearchResults />
-      </div>
-    </Aside>
-  );
-}
+// function SearchAside() {
+//   return (
+//     <Aside id="search-aside" heading="SEARCH">
+//       <div className="predictive-search">
+//         <br />
+//         <PredictiveSearchForm>
+//           {({fetchResults, inputRef}) => (
+//             <div>
+//               <input
+//                 name="q"
+//                 onChange={fetchResults}
+//                 onFocus={fetchResults}
+//                 placeholder="Search"
+//                 ref={inputRef}
+//                 type="search"
+//               />
+//               &nbsp;
+//               <button
+//                 onClick={() => {
+//                   window.location.href = inputRef?.current?.value
+//                     ? `/search?q=${inputRef.current.value}`
+//                     : `/search`;
+//                 }}
+//               >
+//                 Search
+//               </button>
+//             </div>
+//           )}
+//         </PredictiveSearchForm>
+//         <PredictiveSearchResults />
+//       </div>
+//     </Aside>
+//   );
+// }
 
-/**
- * @param {{
- *   menu: HeaderQuery['menu'];
- *   shop: HeaderQuery['shop'];
- * }}
- */
-function MobileMenuAside({menu, shop}) {
-  return (
-    menu &&
-    shop?.primaryDomain?.url && (
-      <Aside id="mobile-menu-aside" heading="MENU">
-        <HeaderMenu
-          menu={menu}
-          viewport="mobile"
-          primaryDomainUrl={shop.primaryDomain.url}
-        />
-      </Aside>
-    )
-  );
-}
+// /**
+//  * @param {{
+//  *   menu: HeaderQuery['menu'];
+//  *   shop: HeaderQuery['shop'];
+//  * }}
+//  */
+// function MobileMenuAside({menu, shop}) {
+//   return (
+//     menu &&
+//     shop?.primaryDomain?.url && (
+//       <Aside id="mobile-menu-aside" heading="MENU">
+//         <HeaderMenu
+//           menu={menu}
+//           viewport="mobile"
+//           primaryDomainUrl={shop.primaryDomain.url}
+//         />
+//       </Aside>
+//     )
+//   );
+// }
 
 /**
  * @typedef {{
