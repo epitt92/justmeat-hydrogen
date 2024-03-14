@@ -12,13 +12,13 @@ export function Header({header, isLoggedIn, cart}) {
   const {shop, menu} = header;
   return (
     <header className="container max-w-[100%] bg-[#eeeeee]  ">
-      <div className="content flex justify-between items-center  py-4 px-10 max-w-[1440px] mx-auto ">
+      <div className="content flex justify-between items-center  py-4 px-5 sm:px-10 max-w-[1440px] mx-auto ">
          <NavLink
                 end
                 prefetch="intent"
                 to="/"
               >
-        <img src="/logo.svg" className="object-cover w-30 h-24" alt="" />
+        <img src="/logo.svg" className="object-cover w-30 h-16 sm:h-24" alt="" />
               </NavLink>
         <div className="navBar flex justify-between items-center gap-10">
           <ul className="navLinks lg:flex hidden">
@@ -58,7 +58,7 @@ export function Header({header, isLoggedIn, cart}) {
             <OrderButton />
           </div>
           <div className="headerIcons flex justify-between items-center gap-10">
-            <span className="loginIcon w-5 flex cursor-pointer">
+            <span className="loginIcon md:block hidden w-5 flex cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 id="Group_4154"
@@ -86,7 +86,7 @@ export function Header({header, isLoggedIn, cart}) {
                 ></path>
               </svg>
             </span>
-            <span className="loginCart w-5 relative  flex cursor-pointer">
+            <span className="loginCart w-10 sm:w-5 relative  flex cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 id="Group_4155"

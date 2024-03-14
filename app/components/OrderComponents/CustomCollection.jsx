@@ -31,23 +31,23 @@ const CustomCollection = ({col}) => {
   return (
     <section className="max-w-ful ">
       <div className=" flex gap-3">
-        <div className="w-[60px] h-[60px] rounded-[100%] bg-black flex justify-center items-center">
+        <div className="w-[60px] h-[60px] hidden sm:block rounded-[100%] bg-black flex justify-center items-center">
           <span className="text-[40px] font-bold text-white">2</span>
         </div>
 
-        <main className="main-section flex gap-2 flex-1 flex-col bg-white border border-gray-400 border-solid">
+        <main className="main-section flex gap-2 flex-1 flex-col bg-white sm:border border-gray-400 border-solid">
           <div className="h-fit border-b-4 w-fit border-[#425B34] m-3">
             <h2 className="font-semibold leading-7 text-[22px] text-[#1d1d1d] uppercase  ">
               Select Your Meats
             </h2>
           </div>
           <div className="product-and-cart flex">
-            <div className="product-grid grid grid-cols-3 gap-x-5 p-3 pr-5 w-8/12">
+            <div className="product-grid grid grid-cols-3 gap-x-5 p-3 pr-5 lg:w-8/12">
               {nodes.map((product, key) => (
                 <ProductCard product={product} key={key} />
               ))}
             </div>
-            <div className="cart-wrapper sticky top-0 max-h-[600px] w-4/12">
+            <div className="cart-wrapper sticky top-0 max-h-[600px] hidden lg:block w-4/12">
               <div>
                 <div className="top-section py-5 bg-black text-white text-center">
                   <div className="text-wrapper py-5">
