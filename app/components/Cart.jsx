@@ -1,11 +1,11 @@
-import {CartForm, Image, Money} from '@shopify/hydrogen';
-import {Link} from '@remix-run/react';
-import {useVariantUrl} from '~/lib/variants';
+import { CartForm, Image, Money } from '@shopify/hydrogen';
+import { Link } from '@remix-run/react';
+import { useVariantUrl } from '~/lib/variants';
 
 /**
  * @param {CartMainProps}
  */
-export function CartMain({layout, cart}) {
+export function CartMain({ layout, cart }) {
   const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
   const withDiscount =
     cart &&
@@ -23,11 +23,11 @@ export function CartMain({layout, cart}) {
 /**
  * @param {CartMainProps}
  */
-function CartDetails({layout, cart}) {
+function CartDetails({ layout, cart }) {
   const cartHasItems = !!cart && cart.totalQuantity > 0;
 
   return (
-    <div className="cart-details flex mb-40">
+    <div className="cart-details lg:flex  mb-40">
       <CartLines lines={cart?.lines} layout={layout} />
       {cartHasItems && (
         <CartSummary cost={cart.cost} layout={layout}>
@@ -45,16 +45,28 @@ function CartDetails({layout, cart}) {
  *   lines: CartApiQueryFragment['lines'] | undefined;
  * }}
  */
-function CartLines({lines, layout}) {
+function CartLines({ lines, layout }) {
   if (!lines) return null;
 
   return (
-    <div aria-labelledby="cart-lines" className='border border-gray p-10 rounded-[5px] w-2/3'>
-      <ul>
-        {lines.nodes.map((line) => (
-          <CartLineItem key={line.id} line={line} layout={layout} />
-        ))}
-      </ul>
+    <div aria-labelledby="cart-lines" className='border border-gray p-0 rounded-[13px] w-2/3'>
+      <table className='w-full flex flex-col '>
+        <thead className='pb-2 ' >
+          <tr className='w-full flex px-9  justify-between rounded-t-xl	 bg-gray-200 py-3 border-b-2'>
+            <th>Product</th>
+            <th>Title</th>
+            <th>Remove</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ul>
+            {lines.nodes.map((line) => (
+              <CartLineItem key={line.id} line={line} layout={layout} />
+            ))}
+          </ul>
+        </tbody>
+      </table>
     </div>
   );
 }
@@ -65,25 +77,27 @@ function CartLines({lines, layout}) {
  *   line: CartLine;
  * }}
  */
-function CartLineItem({layout, line}) {
-  const {id, merchandise} = line;
-  const {product, title, image, selectedOptions} = merchandise;
+function CartLineItem({ layout, line }) {
+  const { id, merchandise } = line;
+  const { product, title, image, selectedOptions } = merchandise;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
 
   return (
-    <li key={id} className="cart-line flex">
-      {image && (
-        <Image
-          alt={title}
-          aspectRatio="1/1"
-          data={image}
-          height={100}
-          loading="lazy"
-          width={100}
-        />
-      )}
 
-      <div className='flex space-x-4 ml-10'>
+    <tr className='w-full flex justify-between  items-center px-8 py-3' >
+      <td>
+        {image && (
+          <Image
+            alt={title}
+            aspectRatio="1/1"
+            data={image}
+            height={70}
+            loading="lazy"
+            width={70}
+          />
+        )}
+      </td>
+      <td className='text-sm w-48'>
         <Link
           prefetch="intent"
           to={lineItemUrl}
@@ -98,34 +112,28 @@ function CartLineItem({layout, line}) {
             <strong>{product.title}</strong>
           </p>
         </Link>
-        <CartLinePrice line={line} as="span" />
-        <ul>
-          {selectedOptions.map((option) => (
-            <li key={option.name}>
-              <small>
-                {option.name}: {option.value}
-              </small>
-            </li>
-          ))}
-        </ul>
+      </td>
+      <td className=' '>
         <CartLineQuantity line={line} />
-      </div>
-    </li>
+      </td>
+      <td>
+        <CartLinePrice line={line} as="span" />
+      </td>
+    </tr>
   );
 }
 
 /**
  * @param {{checkoutUrl: string}}
  */
-function CartCheckoutActions({checkoutUrl}) {
+function CartCheckoutActions({ checkoutUrl }) {
   if (!checkoutUrl) return null;
 
   return (
-    <div>
-      <a href={checkoutUrl} target="_self" className='border border-black bg-[#FFFFFF] cursor-pointer hover:bg-[#862e1b] hover:text-white transition text-xl font-bold	text-base py-3 px-9 '>
-        Continue to Checkout
+    <div className=''>
+      <a href={checkoutUrl} target="_self" className='border border-black bg-[#FFFFFF] cursor-pointer hover:bg-[#862e1b] hover:text-white transition font-bold text-base py-3 block w-full text-center'>
+        Check out
       </a>
-      <br />
     </div>
   );
 }
@@ -137,42 +145,42 @@ function CartCheckoutActions({checkoutUrl}) {
  *   layout: CartMainProps['layout'];
  * }}
  */
-export function CartSummary({cost, layout, children = null}) {
+export function CartSummary({ cost, layout, children = null }) {
   const className =
-    layout === 'page' ? 'cart-summary-page w-30 border border-gray p-10 rounded-[5px] ml-10' : 'cart-summary-aside w-30 border border-gray p-10 rounded-[5px] ml-10';
+    layout === 'page' ? 'cart-summary-page w-[400px] border-2 h-[400px] sm:w-full md:w-[400px] sm:ml-0 border-gray p-6 rounded-[13px] ml-10' : 'cart-summary-aside w-30 border border-gray p-10 rounded-[5px] ml-10';
 
   return (
     <div aria-labelledby="cart-summary" className={className}>
       <div>
-      <h4 className='font-bold'>Subtotal</h4>
-      <dl className="cart-total">
-        <dd className='font-Roboto text-[42px] md:text-[28px] font-medium  mb-3'>
-          {cost?.subtotalAmount?.amount ? (
-            <Money data={cost?.subtotalAmount} />
-          ) : (
-            '-'
-          )}
-        </dd>
-      </dl>
+        <h4 className='text-gray-600'>Subtotal</h4>
+        <dl className="cart-total">
+          <dd className='font-Roboto text-[42px] md:text-[28px] font-medium mb-3'>
+            {cost?.subtotalAmount?.amount ? (
+              <Money data={cost?.subtotalAmount} />
+            ) : (
+              '-'
+            )}
+          </dd>
+        </dl>
       </div>
       <div>
-        <h4 className='font-bold'>Discounts</h4>
-        <h4>save50 ( -$86.98 )</h4>
+        <h4 className='text-gray-600 '>Discounts</h4>
+        <h4 className='font-semibold'>save50 ( -$86.98 )</h4>
       </div>
 
       <div className='mt-5'>
-      <h4 className='font-bold'>Totals</h4>
-      <dl className="cart-total">
-        <dd className='font-Roboto text-[42px] md:text-[38px] font-medium  mb-3'>
-          {cost?.subtotalAmount?.amount ? (
-            <Money data={cost?.subtotalAmount} />
-          ) : (
-            '-'
-          )}
-        </dd>
-      </dl>
+        <h4 className='text-gray-600'>Total</h4>
+        <dl className="cart-total">
+          <dd className='font-Roboto text-[42px] md:text-[38px] font-medium  mb-3'>
+            {cost?.subtotalAmount?.amount ? (
+              <Money data={cost?.subtotalAmount} />
+            ) : (
+              '-'
+            )}
+          </dd>
+        </dl>
       </div>
-      <p className='mb-5'>Taxes and shipping calculated at checkout</p>
+      <p className='mb-5 text-xs text-gray-500 font-medium pb-2'>Taxes and shipping calculated at checkout</p>
       {children}
 
     </div>
@@ -182,12 +190,12 @@ export function CartSummary({cost, layout, children = null}) {
 /**
  * @param {{lineIds: string[]}}
  */
-function CartLineRemoveButton({lineIds}) {
+function CartLineRemoveButton({ lineIds }) {
   return (
     <CartForm
       route="/cart"
       action={CartForm.ACTIONS.LinesRemove}
-      inputs={{lineIds}}
+      inputs={{ lineIds }}
     >
       <button type="submit">Remove</button>
     </CartForm>
@@ -197,9 +205,9 @@ function CartLineRemoveButton({lineIds}) {
 /**
  * @param {{line: CartLine}}
  */
-function CartLineQuantity({line}) {
+function CartLineQuantity({ line }) {
   if (!line || typeof line?.quantity === 'undefined') return null;
-  const {id: lineId, quantity} = line;
+  const { id: lineId, quantity } = line;
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
   const nextQuantity = Number((quantity + 1).toFixed(0));
 
@@ -216,7 +224,7 @@ function CartLineQuantity({line}) {
           <span>&#8722; </span>
         </button>
       </CartLineUpdateButton> */}
-      
+
       {/* <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
         <button
           aria-label="Increase quantity"
@@ -226,7 +234,7 @@ function CartLineQuantity({line}) {
           <span>&#43;</span>
         </button>
       </CartLineUpdateButton> */}
-      
+
       <CartLineRemoveButton lineIds={[lineId]} />
     </div>
   );
@@ -239,7 +247,7 @@ function CartLineQuantity({line}) {
  *   [key: string]: any;
  * }}
  */
-function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
+function CartLinePrice({ line, priceType = 'regular', ...passthroughProps }) {
   if (!line?.cost?.amountPerQuantity || !line?.cost?.totalAmount) return null;
 
   const moneyV2 =
@@ -264,7 +272,7 @@ function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
  *   layout?: CartMainProps['layout'];
  * }}
  */
-export function CartEmpty({hidden = false, layout = 'aside'}) {
+export function CartEmpty({ hidden = false, layout = 'aside' }) {
   return (
     <div hidden={hidden} className="mb-20">
       <br />
@@ -294,11 +302,11 @@ export function CartEmpty({hidden = false, layout = 'aside'}) {
  *   discountCodes: CartApiQueryFragment['discountCodes'];
  * }}
  */
-function CartDiscounts({discountCodes}) {
+function CartDiscounts({ discountCodes }) {
   const codes =
     discountCodes
       ?.filter((discount) => discount.applicable)
-      ?.map(({code}) => code) || [];
+      ?.map(({ code }) => code) || [];
 
   return (
     <div>
@@ -334,7 +342,7 @@ function CartDiscounts({discountCodes}) {
  *   children: React.ReactNode;
  * }}
  */
-function UpdateDiscountForm({discountCodes, children}) {
+function UpdateDiscountForm({ discountCodes, children }) {
   return (
     <CartForm
       route="/cart"
@@ -354,12 +362,12 @@ function UpdateDiscountForm({discountCodes, children}) {
  *   lines: CartLineUpdateInput[];
  * }}
  */
-function CartLineUpdateButton({children, lines}) {
+function CartLineUpdateButton({ children, lines }) {
   return (
     <CartForm
       route="/cart"
       action={CartForm.ACTIONS.LinesUpdate}
-      inputs={{lines}}
+      inputs={{ lines }}
     >
       {children}
     </CartForm>
