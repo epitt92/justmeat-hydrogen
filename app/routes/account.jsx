@@ -52,7 +52,8 @@ export default function AccountLayout(subscriptionsResponse) {
       ? `Welcome, ${customer.firstName}`
       : `Welcome to your account.`
     : 'Account Details';
-console.log(subscriptionsResponse);
+console.log(subscriptionsResponse.subscriptions);
+console.log("CALLING");
   return (
     <div className="account">
       <h1>{heading}</h1>
