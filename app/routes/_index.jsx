@@ -1,5 +1,5 @@
 import {defer} from '@shopify/remix-oxygen';
-import {Await, useLoaderData, Link} from '@remix-run/react';
+import {Await, useLoaderData, Link, NavLink} from '@remix-run/react';
 import {Suspense} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import OrderButton from 'app/components/OrderButton';
@@ -58,7 +58,10 @@ export default function Homepage() {
       </section>
 
       <section>
+      <NavLink end prefetch="intent" to="/products/custom-bundle">
+        
         <img src="/subcription_banner.webp" width="100%" alt="" />
+                </NavLink>
       </section>
 
       <section className=" bg-white flex justify-center items-center bg-no-repeat min-h-96 bg-contain bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Group_4179_2x_c20de474-5eef-421d-a248-f3a6c09ae36a.png')] my-5">

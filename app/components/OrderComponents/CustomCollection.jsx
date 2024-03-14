@@ -42,12 +42,12 @@ const CustomCollection = ({col}) => {
             </h2>
           </div>
           <div className="product-and-cart flex">
-            <div className="product-grid grid grid-cols-3 gap-x-5 p-3 pr-5 ">
+            <div className="product-grid grid grid-cols-3 gap-x-5 p-3 pr-5 w-8/12">
               {nodes.map((product, key) => (
                 <ProductCard product={product} key={key} />
               ))}
             </div>
-            <div className="cart-wrapper sticky top-0 max-h-[600px]">
+            <div className="cart-wrapper sticky top-0 max-h-[600px] w-4/12">
               <div>
                 <div className="top-section py-5 bg-black text-white text-center">
                   <div className="text-wrapper py-5">
