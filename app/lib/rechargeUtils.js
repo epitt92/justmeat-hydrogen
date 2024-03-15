@@ -1,4 +1,6 @@
 import { loginWithShopifyCustomerAccount } from '@rechargeapps/storefront-client';
+import { loginWithShopifyStorefront } from '@rechargeapps/storefront-client';
+
 import { json } from '@shopify/remix-oxygen';
 
 const RECHARGE_SESSION_KEY = 'rechargeSession';
@@ -6,7 +8,10 @@ const RECHARGE_SESSION_KEY = 'rechargeSession';
 // loginHelper function
 async function loginRecharge(context) {
   const customerAccessToken = await context.customerAccount.getAccessToken();
-  const rechargeSession = await loginWithShopifyCustomerAccount(customerAccessToken);
+  const rechargeSession = await loginWithShopifyStorefront("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", customerAccessToken);
+
+
+  // const rechargeSession = await loginWithShopifyCustomerAccount(customerAccessToken);
 
   if (rechargeSession) {
     context.rechargeSession.set(RECHARGE_SESSION_KEY, rechargeSession);
