@@ -1,110 +1,73 @@
-import {json} from '@shopify/remix-oxygen';
-import {Form, NavLink, Outlet, useLoaderData} from '@remix-run/react';
-import {CUSTOMER_DETAILS_QUERY} from '~/graphql/customer-account/CustomerDetailsQuery';
-
 import { listSubscriptions } from '@rechargeapps/storefront-client';
 import { SubscriptionCard } from '~/components/SubscriptionCard';
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils';
 
-export function shouldRevalidate() {
-  return true;
-}
+// inside the loader function after the customer check
+const subscriptionsResponse = await rechargeQueryWrapper(
+  session =>
+    listSubscriptions(session, {
+      limit: 25,
+      status: 'active',
+    }),
+  context
+);
 
-/**
- * @param {LoaderFunctionArgs}
- */
-export async function loader({context}) {
-  const {data, errors} = await context.customerAccount.query(
-    CUSTOMER_DETAILS_QUERY,
-  );
+// make sure you return subscriptionResponse from the loader and commit the session changes to both cookies
+const headers = new Headers({
+  'Cache-Control': CACHE_NONE,
+  'Set-Cookie': await context.session.commit(),
+});
+headers.append('Set-Cookie', await context.rechargeSession.commit());
 
-  if (errors?.length || !data?.customer) {
-    throw new Error('Customer not found');
+return defer(
+  {
+    customer,
+    heading,
+    subscriptionsResponse,
+    featuredDataPromise: getFeaturedData(context.storefront),
+  },
+  {
+    headers,
   }
+);
 
-  
-  const subscriptionsResponse = await rechargeQueryWrapper(
-    session =>
-      listSubscriptions(session, {
-        limit: 25,
-        status: 'active',
-      }),
-    context
-  );
+// add subscriptionResponse to the Account props and add AccountSubscriptions rendering to the Account Component
+function Account({ customer, heading, featuredDataPromise, subscriptionsResponse }) {
+  const orders = flattenConnection(customer.orders);
+  const addresses = flattenConnection(customer.addresses);
 
-  return json(
-    {
-      headers: {
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Set-Cookie': await context.session.commit(),
-      },
-      subscriptionsResponse,
-      customer: data.customer
-    },
-  );
-}
-
-export default function AccountLayout(subscriptionsResponse) {
-  /** @type {LoaderReturnData} */
-  const {customer} = useLoaderData();
-
-  const heading = customer
-    ? customer.firstName
-      ? `Welcome, ${customer.firstName}`
-      : `Welcome to your account.`
-    : 'Account Details';
-console.log(subscriptionsResponse.subscriptions);
-console.log("CALLING");
   return (
-    <div className="account">
-      <h1>{heading}</h1>
-      {subscriptionsResponse.subscriptions && (        
+    <>
+      <PageHeader heading={heading}>
+        <Form method="post" action={usePrefixPathWithLocale('/account/logout')}>
+          <button type="submit" className="text-primary/50">
+            Sign out
+          </button>
+        </Form>
+      </PageHeader>
+      {subscriptionsResponse.subscriptions && (
         <AccountSubscriptions subscriptions={subscriptionsResponse.subscriptions} />
       )}
-      <br />
-      <AccountMenu />
-      <br />
-      <br />
-      <Outlet context={{customer}} />
-    </div>
+      {orders && <AccountOrderHistory orders={orders} />}
+      <AccountDetails customer={customer} />
+      <AccountAddressBook addresses={addresses} customer={customer} />
+      {!orders.length && (
+        <Suspense>
+          <Await resolve={featuredDataPromise} errorElement="There was a problem loading featured products.">
+            {data => (
+              <>
+                <FeaturedCollections title="Popular Collections" collections={data.featuredCollections} />
+                <ProductSwimlane products={data.featuredProducts} />
+              </>
+            )}
+          </Await>
+        </Suspense>
+      )}
+    </>
   );
 }
 
-function AccountMenu() {
-  function isActiveStyle({isActive, isPending}) {
-    return {
-      fontWeight: isActive ? 'bold' : undefined,
-      color: isPending ? 'grey' : 'black',
-    };
-  }
-
-  return (
-    <nav role="navigation">
-      <NavLink to="/account/orders" style={isActiveStyle}>
-        Orders &nbsp;
-      </NavLink>
-      &nbsp;|&nbsp;
-      <NavLink to="/account/profile" style={isActiveStyle}>
-        &nbsp; Profile &nbsp;
-      </NavLink>
-      &nbsp;|&nbsp;
-      <NavLink to="/account/addresses" style={isActiveStyle}>
-        &nbsp; Addresses &nbsp;
-      </NavLink>
-      &nbsp;|&nbsp;
-      <Logout />
-    </nav>
-  );
-}
-
-function Logout() {
-  return (
-    <Form className="account-logout" method="POST" action="/account/logout">
-      &nbsp;<button type="submit">Sign out</button>
-    </Form>
-  );
-}
-
+// Add additional needed local components
 function AccountSubscriptions({ subscriptions }) {
   return (
     <div className="mt-6">
@@ -126,5 +89,17 @@ function Subscriptions({ subscriptions }) {
   );
 }
 
-/** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
-/** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */
+function EmptySubscriptions() {
+  return (
+    <div>
+      <Text className="mb-1" size="fine" width="narrow" as="p">
+        You don&apos;t have any active subscriptions.
+      </Text>
+      <div className="w-48">
+        <Button className="w-full mt-2 text-sm" variant="secondary" to={usePrefixPathWithLocale('/')}>
+          Start Shopping
+        </Button>
+      </div>
+    </div>
+  );
+}
