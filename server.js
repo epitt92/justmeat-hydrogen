@@ -1,6 +1,5 @@
 // Virtual entry point for the app
 import * as remixBuild from '@remix-run/dev/server-build';
-import { initRecharge } from '@rechargeapps/storefront-client';
 
 import {
   cartGetIdDefault,
@@ -17,7 +16,9 @@ import {
 import {AppSession} from '~/lib/session';
 import {CART_QUERY_FRAGMENT} from '~/lib/fragments';
 
+import { initRecharge } from '@rechargeapps/storefront-client';
 import { RechargeSession } from '~/lib/rechargeSession.server';
+
 /**
  * Export a fetch handler in module format.
  */

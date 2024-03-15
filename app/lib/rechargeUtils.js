@@ -6,15 +6,13 @@ const RECHARGE_SESSION_KEY = 'rechargeSession';
 // loginHelper function
 async function loginRecharge(context) {
   const customerAccessToken = await context.customerAccount.getAccessToken();
-  console.log(customerAccessToken);
-  console.log("TOKENNN");
   const rechargeSession = await loginWithShopifyCustomerAccount(customerAccessToken);
 
   if (rechargeSession) {
     context.rechargeSession.set(RECHARGE_SESSION_KEY, rechargeSession);
   } else {
     // this should match your catch boundary
-    throw json('No session created++++', { status: 400 });
+    throw json('No session created', { status: 400 });
   }
 
   return rechargeSession;

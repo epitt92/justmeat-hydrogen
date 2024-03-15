@@ -22,6 +22,7 @@ export async function loader({context}) {
     throw new Error('Customer not found');
   }
 
+  
   const subscriptionsResponse = await rechargeQueryWrapper(
     session =>
       listSubscriptions(session, {
