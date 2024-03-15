@@ -5,9 +5,11 @@ import { json } from '@shopify/remix-oxygen';
 const RECHARGE_SESSION_DURATION = 1000 * 60 * 55;
 
 // loginHelper function
+
 export async function loginRecharge({ hydrogenSession, shopifyStorefrontToken }) {
   const customerAccessToken = await hydrogenSession.get('customerAccessToken');
   const rechargeSession = await loginShopifyApi(shopifyStorefrontToken, customerAccessToken);
+
 
   if (rechargeSession) {
     const sessionWithExpires = {
