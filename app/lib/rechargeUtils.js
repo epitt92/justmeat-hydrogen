@@ -1,8 +1,4 @@
-// import { loginWithShopifyCustomerAccount } from '@rechargeapps/storefront-client';
-import { loginCustomerPortal } from '@rechargeapps/storefront-client';
-
-
-
+import { loginWithShopifyCustomerAccount } from '@rechargeapps/storefront-client';
 import { json } from '@shopify/remix-oxygen';
 
 const RECHARGE_SESSION_KEY = 'rechargeSession';
@@ -10,8 +6,7 @@ const RECHARGE_SESSION_KEY = 'rechargeSession';
 // loginHelper function
 async function loginRecharge(context) {
   const customerAccessToken = await context.customerAccount.getAccessToken();
-  // const rechargeSession = await loginWithShopifyCustomerAccount(customerAccessToken);
-  const rechargeSession = await loginCustomerPortal();
+  const rechargeSession = await loginWithShopifyCustomerAccount(customerAccessToken);
 
   if (rechargeSession) {
     context.rechargeSession.set(RECHARGE_SESSION_KEY, rechargeSession);
