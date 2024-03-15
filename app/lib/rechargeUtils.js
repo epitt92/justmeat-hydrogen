@@ -10,20 +10,17 @@ async function loginRecharge(context) {
 
   if (rechargeSession) {
     context.rechargeSession.set(RECHARGE_SESSION_KEY, rechargeSession);
+  } else {
+    // this should match your catch boundary
+    throw json('No session created', { status: 400 });
   }
-  //  else {
-  //   // this should match your catch boundary
-  //   throw json('No session created - LOGS', { status: 400 });
-  // }
 
   return rechargeSession;
 }
 
 // helper function for data fetching
 export async function rechargeQueryWrapper(rechargeFn, context) {
-  console.log(RECHARGE_SESSION_KEY);
   let rechargeSession = context.rechargeSession.get(RECHARGE_SESSION_KEY);
-  console.log(rechargeSession);
   if (!rechargeSession) {
     rechargeSession = await loginRecharge(context);
   }
@@ -38,10 +35,10 @@ export async function rechargeQueryWrapper(rechargeFn, context) {
         return await rechargeFn(rechargeSession);
       }
       // this should match your catch boundary
-      // throw json(e.message, { status: e?.status });
+      throw json(e.message, { status: e?.status });
     } catch (error) {
       // this should match your catch boundary
-      // throw json(e.message, { status: e?.status });
+      throw json(e.message, { status: e?.status });
     }
   }
 }
