@@ -62,7 +62,7 @@ console.log("CALLING");
         <AccountSubscriptions subscriptions={subscriptionsResponse.subscriptions} />
       )}
       <br />
-      <AccountMenu />
+      {/*<AccountMenu />*/}
       <br />
       <br />
       <Outlet context={{customer}} />
