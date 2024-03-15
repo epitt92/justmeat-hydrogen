@@ -6,7 +6,6 @@ const RECHARGE_SESSION_KEY = 'rechargeSession';
 // loginHelper function
 async function loginRecharge(context) {
   const customerAccessToken = await context.customerAccount.getAccessToken();
-  if (!customerAccessToken) return context.redirect('/account/login');
   const rechargeSession = await loginWithShopifyCustomerAccount(customerAccessToken);
 
   if (rechargeSession) {
