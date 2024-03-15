@@ -29,12 +29,17 @@ function CartDetails({layout, cart}) {
   return (
     <div className="cart-details flex flex-col justify-between">
       <CartLines lines={cart?.lines} layout={layout} />
-      {/* {cartHasItems && (
+      {cartHasItems && (
+        <div className='p-5 bg-white'>
+          <div className='border-b-4 pb-[10px] border-black' >
+
         <CartSummary cost={cart.cost} layout={layout}>
-          <CartDiscounts discountCodes={cart.discountCodes} />
+          {/* <CartDiscounts discountCodes={cart.discountCodes} /> */}
           <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />
         </CartSummary>
-      )} */}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -49,7 +54,7 @@ function CartLines({lines, layout}) {
   if (!lines) return null;
 
   return (
-    <div aria-labelledby="cart-lines">
+    <div aria-labelledby="cart-lines" className='h-[260px] overflow-auto'>
       <ul>
         {lines.nodes.map((line) => (
           <CartLineItem key={line.id} line={line} layout={layout} />
@@ -71,15 +76,15 @@ function CartLineItem({layout, line}) {
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
 
   return (
-    <li key={id} className="cart-line flex gap-4" >
+    <li key={id} className="cart-line mb-5 flex gap-4" >
       {image && (
         <Image
           alt={title}
-          aspectRatio="1/1"
+          // aspectRatio="1/1"
           data={image}
           height={100}
           loading="lazy"
-          width={100}
+          width={72}
           
         />
       )}
@@ -89,7 +94,7 @@ function CartLineItem({layout, line}) {
         <Link
           prefetch="intent"
           to={lineItemUrl}
-          className="font-semibold text-[14px] text-center "
+          className="font-semibold text-[14px]  text-center "
           onClick={() => {
             if (layout === 'aside') {
               // close the drawer
@@ -98,7 +103,7 @@ function CartLineItem({layout, line}) {
           }}
         >
           <p>
-            <strong >{product.title}</strong>
+            <strong className='px-2'>{product.title}</strong>
           </p>
         </Link>
         <CartLinePrice  line={line} as="span" />
@@ -125,9 +130,9 @@ function CartCheckoutActions({checkoutUrl}) {
   if (!checkoutUrl) return null;
 
   return (
-    <div>
-      <a href={checkoutUrl} target="_self">
-        <p>Continue to Checkout &rarr;</p>
+    <div className='flex justify-center items-center w-1/2 bg-[#425b34]'>
+      <a href={checkoutUrl} className='bg-[#425b34] text-[15px] py-[10px] font-semibold text-white' target="_self">
+        <p>Continue to Checkout </p>
       </a>
       <br />
     </div>
@@ -146,10 +151,10 @@ export function CartSummary({cost, layout, children = null}) {
     layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
 
   return (
-    <div aria-labelledby="cart-summary" className={className}>
-      <h4>Totals</h4>
-      <dl className="cart-subtotal">
-        <dt>Subtotal</dt>
+    <div aria-labelledby="cart-summary" className={`${className} flex justify-between items-end `}>
+      {/* <h4>Totals</h4> */}
+      <dl className="cart-subtotal flex font-semibold text-base">
+        <dt className='pr-1'>Total: </dt>
         <dd>
           {cost?.subtotalAmount?.amount ? (
             <Money data={cost?.subtotalAmount} />
@@ -184,6 +189,7 @@ function CartLineRemoveButton({lineIds}) {
 function CartLineQuantity({line}) {
   if (!line || typeof line?.quantity === 'undefined') return null;
   const {id: lineId, quantity} = line;
+  console.log(quantity);
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
   const nextQuantity = Number((quantity + 1).toFixed(0));
 
@@ -191,7 +197,6 @@ function CartLineQuantity({line}) {
     <div className="cart-line-quantity">
       <div className="flex gap-[5px] items-center bg-[#862e1b] justify-between p-[5px]" >
 
-      
       <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
         <button
           aria-label="Decrease quantity"
@@ -254,7 +259,7 @@ function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
  */
 export function CartEmpty({hidden = false, layout = 'aside'}) {
   return (
-    <div hidden={hidden}>
+    <div hidden={hidden} >
       <br />
       <p>
         Looks like you haven&rsquo;t added anything yet, let&rsquo;s get you
@@ -269,8 +274,7 @@ export function CartEmpty({hidden = false, layout = 'aside'}) {
           }
         }}
       >
-        Continue shopping →
-      </Link>
+        Continue shopping       </Link>
     </div>
   );
 }
