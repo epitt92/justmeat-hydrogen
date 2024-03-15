@@ -38,10 +38,10 @@ export async function rechargeQueryWrapper(rechargeFn, context) {
         return await rechargeFn(rechargeSession);
       }
       // this should match your catch boundary
-      throw json(e.message, { status: e?.status });
+      // throw json(e.message, { status: e?.status });
     } catch (error) {
       // this should match your catch boundary
-      throw json(e.message, { status: e?.status });
+      // throw json(e.message, { status: e?.status });
     }
   }
 }
