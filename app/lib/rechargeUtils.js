@@ -10,10 +10,11 @@ async function loginRecharge(context) {
 
   if (rechargeSession) {
     context.rechargeSession.set(RECHARGE_SESSION_KEY, rechargeSession);
-  } else {
-    // this should match your catch boundary
-    throw json('No session created - LOGS', { status: 400 });
   }
+  //  else {
+  //   // this should match your catch boundary
+  //   throw json('No session created - LOGS', { status: 400 });
+  // }
 
   return rechargeSession;
 }
