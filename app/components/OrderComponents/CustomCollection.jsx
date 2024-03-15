@@ -10,10 +10,11 @@ import React, {Suspense} from 'react';
 import {CartProvider, useCart, ProductProvider} from '@shopify/hydrogen-react';
 import {defer, json, redirect} from '@remix-run/server-runtime';
 import {Await, Link, useLoaderData} from '@remix-run/react';
-import {CartMain} from '~/components/Cart';
+import {CartMain} from '~/components/AsideCart';
 import {useRootLoaderData} from '~/root';
 import ProductModal from '../ui/ProductModal';
 import CustomProgressBar from '../ui/CustomProgressBar';
+import { Aside } from '../Aside';
 
 
  const AsideCart = ()=>{
@@ -43,24 +44,29 @@ const CustomCollection = ({col}) => {
   return (
     <section className="max-w-ful ">
       <div className=" flex gap-3">
-        <div className="w-[60px] h-[60px] hidden sm:flex rounded-[100%] bg-black justify-center items-center">
+        <div className="w-[60px] h-[60px] hidden lg:flex rounded-[100%] bg-black justify-center items-center">
           <span className="text-[40px] font-bold text-white">2</span>
         </div>
-
+        
         <main className="main-section flex gap-2 flex-1 flex-col bg-white sm:border border-gray-400 border-solid">
-          <div className="h-fit border-b-4 w-fit border-[#425B34] m-3">
-            <h2 className="font-semibold leading-7 text-[22px] text-[#1d1d1d] uppercase  ">
+           <div className="flex w-full  items-center py-3 sm:py-0 gap-2">
+             <div className="w-[35px] h-[35px] ml-3 lg:hidden lg:w-[60px] lg:h-[60px] rounded-[100%] sm:border-none border-2 border-[#425C35] sm:bg-black flex justify-center items-center  ">
+              <span className=" text-[22px] lg:text-[40px] font-bold text-black sm:text-white ">2</span>
+            </div>
+            <div className="h-fit sm:border-b-4 w-fit sm:border-[#425B34] sm:m-3 ">
+            <h2 className="font-semibold leading-7 text-[20px] sm:text-[22px] text-[#1d1d1d] sm:uppercase  ">
               Select Your Meats
             </h2>
+             </div>
           </div>
           <div className="product-and-cart flex">
-            <div className="product-grid grid grid-cols-3 gap-x-5 p-3 pr-5 lg:w-8/12">
+            <div className="product-grid grid grid-cols-2 md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12">
               {nodes.map((product, key) => (
                 <ProductCard product={product} key={key} />
               ))}
             </div>
-            <div className="cart-wrapper sticky top-0 max-h-[600px] hidden lg:block w-4/12">
-              <div>
+            <div className="cart-wrapper sticky top-[10px] max-h-[600px] hidden xl:block w-4/12">
+              <div className='border h-full'>
                 <div className="top-section py-5 bg-black text-white text-center">
                   <div className="text-wrapper py-5">
                     <h1 className="font-roboto_medium text-[17px] leading-none">
@@ -71,7 +77,7 @@ const CustomCollection = ({col}) => {
                     </p>
                   </div>
                 </div>
-                <div className="progress-bar">
+                <div className="progress-bar border">
                   <CustomProgressBar />
                 </div>
                 <div className="free-item mb-5">
@@ -202,9 +208,9 @@ export function ProductForm({product, selectedVariant, variants}) {
       {/* <br /> */}
       <AddToCartButton
         // disabled={!selectedVariant || !selectedVariant.availableForSale}
-        onClick={() => {
-          window.location.href = window.location.href + '#cart-aside';
-        }}
+        // onClick={() => {
+        //   window.location.href = window.location.href + '#cart-aside';
+        // }}
         lines={
           selectedVariant
             ? [

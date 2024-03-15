@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-// import { Progress } from './progress'
+import { Progress } from './progress';
 
 
 
@@ -13,7 +13,7 @@ const CustomProgressBar = () => {
 
       return ( 
         <div className='py-4'>
-            {/* <Progress value={progress} className="w-[90%] min-h-7" /> */}
+            <Progress value={progress} className="w-[90%] min-h-7" />
         </div>
       )
 

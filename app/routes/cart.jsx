@@ -97,9 +97,11 @@ export default function Cart() {
           resolve={cartPromise}
           errorElement={<div>An error occurred</div>}
         >
+
           {(cart) => {
             return <CartMain layout="page" cart={cart} />;
           }}
+
         </Await>
       </Suspense>
     </div>
