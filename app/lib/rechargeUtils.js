@@ -20,7 +20,9 @@ async function loginRecharge(context) {
 
 // helper function for data fetching
 export async function rechargeQueryWrapper(rechargeFn, context) {
+  console.log(RECHARGE_SESSION_KEY);
   let rechargeSession = context.rechargeSession.get(RECHARGE_SESSION_KEY);
+  console.log(rechargeSession);
   if (!rechargeSession) {
     rechargeSession = await loginRecharge(context);
   }
