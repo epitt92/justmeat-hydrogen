@@ -14,7 +14,7 @@ async function loginRecharge(context) {
     context.rechargeSession.set(RECHARGE_SESSION_KEY, rechargeSession);
   } else {
     // this should match your catch boundary
-    throw json('No session created', { status: 400 });
+    throw json('No session created++++', { status: 400 });
   }
 
   return rechargeSession;
