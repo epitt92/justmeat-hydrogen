@@ -32,26 +32,14 @@ export async function loader({context}) {
     context
   );
 
-  // return json(
-  //   {
-  //     headers: {
-  //       'Cache-Control': 'no-cache, no-store, must-revalidate',
-  //       'Set-Cookie': await context.session.commit(),
-  //     },
-  //     subscriptionsResponse,
-  //     customer: data.customer
-  //   },
-  // );
-
   return json(
-    {subscriptionsResponse,
-      customer: data.customer
-    },
     {
       headers: {
         'Cache-Control': 'no-cache, no-store, must-revalidate',
         'Set-Cookie': await context.session.commit(),
       },
+      subscriptionsResponse,
+      customer: data.customer
     },
   );
 }
