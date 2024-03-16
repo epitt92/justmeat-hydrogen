@@ -369,13 +369,15 @@ function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
       ? line.cost.totalAmount
       : line.cost.compareAtAmountPerQuantity;
 
+  const moneyV3 = line.cost.totalAmount;
+
   if (moneyV2 == null) {
     return null;
   }
 
   return (
     <div className="font-bold text-center text-[25px] ">
-      <Money withoutTrailingZeros {...passthroughProps} data={moneyV2} />
+      <Money withoutTrailingZeros {...passthroughProps} data={moneyV3} />
     </div>
   );
 }
