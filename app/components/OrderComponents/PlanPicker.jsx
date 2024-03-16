@@ -207,13 +207,13 @@ const PlanPicker = () => {
                 <div 
                  className={`${
                   activeOption === 'option2' ? 'bg-[#862E1B]' : ''
-                } p-[10px] border-[3px] border-solid flex gap-6 border-[#862E1B]`}
+                } p-[10px] border-[3px] border-solid flex gap-6 border-[#862E1B] subscriptionlabel`}
                 onClick={() => handleOptionClick('option2')}
                 >
                   <div
                   className={`${
                     activeOption === 'option2' ? 'text-[#fff]' : 'text-[#1d1d1d]'
-                  } text-[20px]  font-bold`}
+                  } text-[20px]  font-bold subscriptionlabel`}
                   >
                     One Time
                   </div>

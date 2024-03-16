@@ -62,3 +62,7 @@
   line-height: 19.8px;
   font-size: 18px;
 }
+
+.subscriptionlabel {
+  cursor: pointer;
+}
