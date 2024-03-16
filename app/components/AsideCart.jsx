@@ -150,7 +150,7 @@ function CartLineItem({layout, line}) {
           </Link>
           {/* <CartLinePrice line={line} as="span" /> */}
           <div className="font-bold text-center text-[25px] ">
-            <Money withoutTrailingZeros {...passthroughProps} data={line.cost.totalAmount} />
+            ${line.cost.totalAmount}
           </div>
         </div>
         {/* <ul>
