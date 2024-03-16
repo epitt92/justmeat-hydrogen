@@ -64,6 +64,7 @@ export function links() {
  */
 export const useRootLoaderData = () => {
   const [root] = useMatches();
+  console.log("Root data", root.data);
   return root?.data;
 };
 
