@@ -110,11 +110,11 @@ export default function Product() {
   const {selectedVariant} = product;
   return (
     <>
+    <p>Output 1</p>
     <PlanPicker/>
     <div className='custom-collection-wrap'>
       <CustomCollection/>
     </div>
-    <p>Output 1</p>
     {/* <div className="product">
       <ProductImage image={selectedVariant?.image} />
       <ProductMain

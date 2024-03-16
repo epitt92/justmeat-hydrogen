@@ -69,9 +69,10 @@ export default function Product() {
     <>
     <PlanPicker/>
     <div className='custom-collection-wrap'>
+      <p>Output 2</p>
       <CustomCollection/>
     </div>
-    <p>Output 2</p>
+    
     </>
   );
 }
