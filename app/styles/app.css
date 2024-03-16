@@ -47,3 +47,18 @@
 
 
 }
+
+.announcement-bar { 
+  text-align: center;
+  background-color: rgb(28, 112, 132);
+  color: #ffffff;
+}
+
+.announcement-bar p { 
+  padding: 10px 0;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  line-height: 19.8px;
+  font-size: 18px;
+}

@@ -123,6 +123,10 @@ const PlanPicker = () => {
     </div>
   );
   return (
+    <>
+    <div className="announcement-bar">
+      <p className='font-roboto_medium font-[500]'>LIMITED TIME: GET FREE RANCH RUB CHICKEN</p>
+    </div>
     <div className=" w-[100%] border-b-2 border-solid border-[#0003]  mb-[30px] ">
       <div className="flex justify-center flex-col items-center sm:py-14 py-5 ">
         <h1 className=" text-[#1d1d1d] text-[22px] sm:text-[28px] uppercase font-bold ">
@@ -225,6 +229,8 @@ const PlanPicker = () => {
         </div>
       </div>
     </div>
+    </>
+    
   );
 };
 
