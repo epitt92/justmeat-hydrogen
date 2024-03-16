@@ -149,9 +149,6 @@ function CartLineItem({layout, line}) {
             </p>
           </Link>
           <CartLinePrice line={line} as="span" />
-          {/* <div className="font-bold text-center text-[25px] ">
-            ${line.cost.totalAmount}
-          </div> */}
         </div>
         {/* <ul>
           {selectedOptions.map((option) => (
@@ -369,7 +366,7 @@ function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
       ? line.cost.totalAmount
       : line.cost.compareAtAmountPerQuantity;
 
-  const moneyV3 = line.cost.totalAmount;
+  const moneyV3 = line.cost.amountPerQuantity;
 
   if (moneyV2 == null) {
     return null;
