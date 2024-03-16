@@ -148,10 +148,10 @@ function CartLineItem({layout, line}) {
               </strong>
             </p>
           </Link>
-          {/* <CartLinePrice line={line} as="span" /> */}
-          <div className="font-bold text-center text-[25px] ">
+          <CartLinePrice line={line} as="span" />
+          {/* <div className="font-bold text-center text-[25px] ">
             ${line.cost.totalAmount}
-          </div>
+          </div> */}
         </div>
         {/* <ul>
           {selectedOptions.map((option) => (
