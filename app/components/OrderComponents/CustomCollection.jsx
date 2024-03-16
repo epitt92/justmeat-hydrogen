@@ -65,7 +65,7 @@ const CustomCollection = ({col}) => {
                 <ProductCard product={product} key={key} />
               ))}
             </div>
-            <div className="cart-wrapper sticky top-[10px] max-h-[600px] hidden xl:block w-4/12">
+            <div className="cart-wrapper sticky top-[10px] h-fit mb-[10px] hidden xl:block w-4/12">
               <div className='border h-full'>
                 <div className="top-section py-5 bg-black text-white text-center">
                   <div className="text-wrapper py-5">
@@ -80,7 +80,7 @@ const CustomCollection = ({col}) => {
                 <div className="progress-bar border">
                   <CustomProgressBar />
                 </div>
-                <div className="free-item mb-5">
+                <div className="free-item pl-[10px] mb-5">
                   <img
                     src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Ranch_Rub_Chicken_Breast_Free.png"
                     alt="cart free"

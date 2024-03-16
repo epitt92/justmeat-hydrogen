@@ -2,13 +2,16 @@ import {Await, NavLink} from '@remix-run/react';
 import {Suspense} from 'react';
 import {useRootLoaderData} from '~/root';
 import OrderButton from './OrderButton';
+import { number } from 'prop-types';
 
 /**
  * @param {HeaderProps}
  */
 export function Header({header, isLoggedIn, cart}) {
-
-  
+  const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
+  const {PromiseResult}  = cart;
+  console.log(cart);
+   console.log(PromiseResult);
   const {shop, menu} = header;
   return (
     <header className="container max-w-[100%] bg-[#eeeeee]  ">
@@ -31,9 +34,9 @@ export function Header({header, isLoggedIn, cart}) {
               >
                 Menu
               </NavLink>
-              
             </li>
-            <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base">
+              
+              <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base">
               <NavLink
                 end
                 prefetch="intent"
@@ -58,7 +61,12 @@ export function Header({header, isLoggedIn, cart}) {
             <OrderButton />
           </div>
           <div className="headerIcons flex justify-between items-center gap-10">
-            <span className="loginIcon md:block hidden w-5 flex cursor-pointer">
+            <NavLink
+                end
+                prefetch="intent"
+                to="/account"
+              >
+            <span className="loginIcon md:flex hidden w-5 flex cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 id="Group_4154"
@@ -86,7 +94,14 @@ export function Header({header, isLoggedIn, cart}) {
                 ></path>
               </svg>
             </span>
-            <span className="loginCart w-10 sm:w-5 relative  flex cursor-pointer">
+            </NavLink>
+            <NavLink
+                end
+                prefetch="intent"
+                to="/cart"
+              >
+                        <span className="CartIcon w-10 sm:w-5 relative  flex cursor-pointer">
+
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 id="Group_4155"
@@ -121,6 +136,7 @@ export function Header({header, isLoggedIn, cart}) {
                 (0)
               </span>
             </span>
+              </NavLink>
           </div>
         </div>
       </div>

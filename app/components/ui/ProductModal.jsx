@@ -10,7 +10,6 @@ import {
 import {Button} from '../ui/button'
 
 const ProductModal = ({product}) => {
-  console.log(product)
   const {images} = product;
   const media = images.nodes;
 
