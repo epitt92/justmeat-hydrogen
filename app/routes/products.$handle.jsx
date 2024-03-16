@@ -20,9 +20,12 @@ import {useVariantUrl} from '~/lib/variants';
 /**
  * @type {MetaFunction<typeof loader>}
  */
+
 // export const meta = ({data}) => {
 //   return [{title: `Hydrogen | ${data?.product.title ?? ''}`}];
 // };
+
+
 
 /**
  * @param {LoaderFunctionArgs}
@@ -65,7 +68,6 @@ export default function Product() {
     <div className='custom-collection-wrap'>
     <CustomCollection col={customCollectionProducts}/>
     </div>
-
     </div>
     </div>
    

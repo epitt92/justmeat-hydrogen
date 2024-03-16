@@ -15,7 +15,9 @@ import OrderHeader from './OrderHeader';
  */
 
 export function Layout({cart, children = null, footer, header, isLoggedIn,isProductPage}) {
+  
   return (
+
     <>
       {/* <CartAside cart={cart} /> */}
       {/* <SearchAside /> */}
