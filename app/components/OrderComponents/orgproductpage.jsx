@@ -114,6 +114,7 @@ export default function Product() {
     <div className='custom-collection-wrap'>
       <CustomCollection/>
     </div>
+    <p>Output 1</p>
     {/* <div className="product">
       <ProductImage image={selectedVariant?.image} />
       <ProductMain

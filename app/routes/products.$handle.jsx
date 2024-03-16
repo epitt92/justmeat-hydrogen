@@ -69,6 +69,7 @@ export default function Product() {
     <div className='custom-collection-wrap'>
     <CustomCollection col={customCollectionProducts}/>
     </div>
+    <p>Output 3</p>
     </div>
     </div>
    
