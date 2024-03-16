@@ -34,10 +34,7 @@ export function Layout({
       {/* {header && <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />} */}
       {/* <OrderHeader/> */}
       {isProductPage ? (
-        <>
         <OrderHeader />
-        <Notification />
-        </>
       ) : (
         <>
           {header && (
@@ -47,7 +44,10 @@ export function Layout({
         </>
       )}
       <MobileMenuAside menu={header?.menu} menuToggle={menuToggle} setMenuToggle={setMenuToggle} shop={header?.shop} />
-      <main>{children}</main>
+      <main>
+        <Notification />
+        {children}
+      </main>
       <Suspense>
         <Await resolve={footer}>
           {(footer) => <Footer menu={footer?.menu} shop={header?.shop} />}
