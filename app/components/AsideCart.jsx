@@ -385,7 +385,7 @@ function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
  */
 export function CartEmpty({hidden = false, layout = 'aside'}) {
   return (
-    <div hidden={hidden}>
+    <div hidden={hidden} className='h-[260px]'>
       <br />
       <div className=" p-5 pb-3 absolute bottom-0 w-full ">
         <div className="border-b-4 flex justify-between items-end pb-[10px] border-black w-full ">
