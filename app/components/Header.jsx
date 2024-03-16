@@ -8,10 +8,7 @@ import {number} from 'prop-types';
  * @param {HeaderProps}
  */
 export function Header({header, isLoggedIn, cart,setMenuToggle}) {
-  const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
-  const {PromiseResult} = cart;
-  console.log(cart);
-  console.log(PromiseResult);
+  
   const {shop, menu} = header;
   return (
     <header className="container max-w-[100%] bg-[#eeeeee]  ">

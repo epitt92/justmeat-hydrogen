@@ -2,6 +2,7 @@ import {CartForm, Image, Money} from '@shopify/hydrogen';
 import {Link} from '@remix-run/react';
 import {useVariantUrl} from '~/lib/variants';
 import {useRootLoaderData} from '~/root';
+import { useState } from 'react';
 
 
 /**
@@ -216,12 +217,13 @@ function CartLineQuantity({line}) {
   const {id: lineId, quantity} = line;
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
   const nextQuantity = Number((quantity + 1).toFixed(0));
-   console.log(nextQuantity);
+  const [updateQty,setUpdatedQty] = useState(quantity);
   return (
     <div className="cart-line-quantity">
       <div className="flex gap-[5px] items-center bg-[#862e1b] justify-between p-[5px]">
         <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
           <button
+            onClick={()=>setUpdatedQty(prevQuantity)}
             aria-label="Decrease quantity"
             disabled={quantity <= 1}
             name="decrease-quantity"
@@ -232,10 +234,11 @@ function CartLineQuantity({line}) {
           </button>
         </CartLineUpdateButton>
         <small className="text-[#000] font-bold text-[14px] text-center bg-white flex justify-center items-center w-[32px] h-[25px] p-[3px] ">
-          {quantity}
+          {updateQty}
         </small>
         <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
           <button
+            onClick={()=>setUpdatedQty(nextQuantity)}
             className="text-[#862e1b] bg-white flex justify-center items-center rounded-[5px] p-[3px] w-[25px] h-[25px]"
             aria-label="Increase quantity"
             name="increase-quantity"
@@ -292,13 +295,13 @@ export function CartEmpty({hidden = false, layout = 'aside'}) {
             <p className="pr-1 text-base font-semibold">Total:</p>
             <p className="text-base font-semibold">$0.00</p>
           </div>
-          <div className="flex justify-center items-center w-1/2  bg-[#6e6e6e]">
+          <div className="flex justify-center items-center w-1/2 pointer-events-none select-none  bg-[#6e6e6e]">
             <a
               // href={checkoutUrl}
-              className=" text-[15px] py-[10px] font-semibold text-white"
+              className=" text-[15px] text-center py-[10px] font-semibold text-white"
               target="_self"
             >
-              <p>Spend $750 to Continue </p>
+              <p className='text-[15px] text-center py-[10px] font-semibold text-white' >Spend $750 to Continue </p>
             </a>
             <br />
           </div>
@@ -390,7 +393,7 @@ function UpdateDiscountForm({discountCodes, children}) {
 function CartLineUpdateButton({children, lines}) {
   return (
     <CartForm
-      route="/cart"
+      route="/products/custom-bundle"
       action={CartForm.ACTIONS.LinesUpdate}
       inputs={{lines}}
     >
