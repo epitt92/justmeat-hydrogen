@@ -110,7 +110,6 @@ export default function Product() {
   const {selectedVariant} = product;
   return (
     <>
-    <p>Output 1</p>
     <PlanPicker/>
     <div className='custom-collection-wrap'>
       <CustomCollection/>
