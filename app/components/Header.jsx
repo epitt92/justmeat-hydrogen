@@ -11,91 +11,96 @@ export function Header({header, isLoggedIn, cart,setMenuToggle}) {
   
   const {shop, menu} = header;
   return (
-    <header className="container max-w-[100%] bg-[#eeeeee]  ">
-      <div className="content flex justify-between items-center  py-4 px-5 sm:px-10 max-w-[1440px] mx-auto ">
-        <NavLink end prefetch="intent" to="/">
-          <img
-            src="/logo.svg"
-            className="object-cover w-30 h-16 sm:h-24"
-            alt=""
-          />
-        </NavLink>
-        <div className="navBar flex justify-between items-center gap-10">
-          <ul className="navLinks lg:flex hidden">
-            <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base ">
-              <NavLink
-                end
-                prefetch="intent"
-                style={activeLinkStyle}
-                to="/products/custom-bundle"
-              >
-                Menu
-              </NavLink>
-            </li>
-
-            <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base">
-              <NavLink
-                end
-                prefetch="intent"
-                style={activeLinkStyle}
-                to="/about-us"
-              >
-                About Us
-              </NavLink>
-            </li>
-            <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base">
-              <NavLink
-                end
-                prefetch="intent"
-                style={activeLinkStyle}
-                to="/recipes"
-              >
-                Recipies
-              </NavLink>
-            </li>
-          </ul>
-          <div className="lg:block hidden">
-            <OrderButton />
-          </div>
-          <div className="headerIcons flex justify-between items-center gap-4 sm:gap-10">
-            <NavLink end prefetch="intent" to="/account">
-              <span className="loginIcon lg:flex hidden w-5 flex cursor-pointer">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  id="Group_4154"
-                  data-name="Group 4154"
-                  width="27.473"
-                  height="33.937"
-                  viewBox="0 0 27.473 33.937"
-                  class="icon-account"
+    <>
+      <header className="container max-w-[100%] bg-[#eeeeee]  ">
+        <div className="content flex justify-between items-center  py-4 px-5 sm:px-10 max-w-[1440px] mx-auto ">
+          <NavLink end prefetch="intent" to="/">
+            <img
+              src="/logo.svg"
+              className="object-cover w-30 h-16 sm:h-24"
+              alt=""
+            />
+          </NavLink>
+          <div className="navBar flex justify-between items-center gap-10">
+            <ul className="navLinks lg:flex hidden">
+              <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base ">
+                <NavLink
+                  end
+                  prefetch="intent"
+                  style={activeLinkStyle}
+                  to="/products/custom-bundle"
                 >
-                  <path
-                    id="Path_1"
-                    data-name="Path 1"
-                    d="M259.545,42.272A7.272,7.272,0,1,1,252.272,35a7.272,7.272,0,0,1,7.272,7.272"
-                    transform="translate(-238.536 -35)"
-                    fill="#030303"
-                    fill-rule="evenodd"
-                  ></path>
-                  <path
-                    id="Path_2"
-                    data-name="Path 2"
-                    d="M177.528,286.105a1.616,1.616,0,0,0,1.616-1.616v-2.424a13.736,13.736,0,1,0-27.473,0v2.424a1.616,1.616,0,0,0,1.616,1.616h24.241Z"
-                    transform="translate(-151.672 -252.168)"
-                    fill="#030303"
-                    fill-rule="evenodd"
-                  ></path>
-                </svg>
-              </span>
-            </NavLink>
-             <NavLink className="lg:hidden block" onClick={()=>setMenuToggle(true)}>
-            <HeaderMenuMobileToggle setMenuToggle={setMenuToggle} />
-             </NavLink>
-            <CartToggle cart={cart}/>
+                  Menu
+                </NavLink>
+              </li>
+
+              <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base">
+                <NavLink
+                  end
+                  prefetch="intent"
+                  style={activeLinkStyle}
+                  to="/about-us"
+                >
+                  About Us
+                </NavLink>
+              </li>
+              <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base">
+                <NavLink
+                  end
+                  prefetch="intent"
+                  style={activeLinkStyle}
+                  to="/recipes"
+                >
+                  Recipies
+                </NavLink>
+              </li>
+            </ul>
+            <div className="lg:block hidden">
+              <OrderButton />
+            </div>
+            <div className="headerIcons flex justify-between items-center gap-4 sm:gap-10">
+              <NavLink end prefetch="intent" to="/account">
+                <span className="loginIcon lg:flex hidden w-5 flex cursor-pointer">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    id="Group_4154"
+                    data-name="Group 4154"
+                    width="27.473"
+                    height="33.937"
+                    viewBox="0 0 27.473 33.937"
+                    class="icon-account"
+                  >
+                    <path
+                      id="Path_1"
+                      data-name="Path 1"
+                      d="M259.545,42.272A7.272,7.272,0,1,1,252.272,35a7.272,7.272,0,0,1,7.272,7.272"
+                      transform="translate(-238.536 -35)"
+                      fill="#030303"
+                      fill-rule="evenodd"
+                    ></path>
+                    <path
+                      id="Path_2"
+                      data-name="Path 2"
+                      d="M177.528,286.105a1.616,1.616,0,0,0,1.616-1.616v-2.424a13.736,13.736,0,1,0-27.473,0v2.424a1.616,1.616,0,0,0,1.616,1.616h24.241Z"
+                      transform="translate(-151.672 -252.168)"
+                      fill="#030303"
+                      fill-rule="evenodd"
+                    ></path>
+                  </svg>
+                </span>
+              </NavLink>
+              <NavLink className="lg:hidden block" onClick={()=>setMenuToggle(true)}>
+              <HeaderMenuMobileToggle setMenuToggle={setMenuToggle} />
+              </NavLink>
+              <CartToggle cart={cart}/>
+            </div>
           </div>
         </div>
+      </header>
+      <div className="announcement-bar">
+        <p className='font-roboto_medium font-[500]'>LIMITED TIME: GET FREE RANCH RUB CHICKEN</p>
       </div>
-    </header>
+    </>
   );
 }
 
