@@ -10,13 +10,12 @@ import {
 import {Button} from '../ui/button'
 
 const ProductModal = ({product}) => {
-  console.log(product)
   const {images} = product;
   const media = images.nodes;
 
   return (
     <>
-      <main className="dialog-box grid grid-cols-2">
+      <main className="dialog-box border border-red-700 grid grid-cols-2">
         <div className="product-gallary overflow-hidden">
           <ProductGallary media={media} />
         </div>

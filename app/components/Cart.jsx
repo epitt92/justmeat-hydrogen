@@ -1,11 +1,11 @@
-import {CartForm, Image, Money} from '@shopify/hydrogen';
-import {Link} from '@remix-run/react';
-import {useVariantUrl} from '~/lib/variants';
+import { CartForm, Image, Money } from '@shopify/hydrogen';
+import { Link } from '@remix-run/react';
+import { useVariantUrl } from '~/lib/variants';
 
 /**
  * @param {CartMainProps}
  */
-export function CartMain({layout, cart}) {
+export function CartMain({ layout, cart }) {
   const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
   const withDiscount =
     cart &&
@@ -23,18 +23,18 @@ export function CartMain({layout, cart}) {
 /**
  * @param {CartMainProps}
  */
-function CartDetails({layout, cart}) {
+function CartDetails({ layout, cart }) {
   const cartHasItems = !!cart && cart.totalQuantity > 0;
 
   return (
-    <div className="cart-details flex flex-col justify-between">
+    <div className="cart-details flex flex-col md:flex-row justify-center gap-8 md:gap-[30px] w-full mb-28">
       <CartLines lines={cart?.lines} layout={layout} />
-      {/* {cartHasItems && (
+      {cartHasItems && (
         <CartSummary cost={cart.cost} layout={layout}>
-          <CartDiscounts discountCodes={cart.discountCodes} />
+          {/* <CartDiscounts discountCodes={cart.discountCodes} /> */}
           <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />
         </CartSummary>
-      )} */}
+      )}
     </div>
   );
 }
@@ -45,16 +45,28 @@ function CartDetails({layout, cart}) {
  *   lines: CartApiQueryFragment['lines'] | undefined;
  * }}
  */
-function CartLines({lines, layout}) {
+function CartLines({ lines, layout }) {
   if (!lines) return null;
 
   return (
-    <div aria-labelledby="cart-lines">
-      <ul>
-        {lines.nodes.map((line) => (
-          <CartLineItem key={line.id} line={line} layout={layout} />
-        ))}
-      </ul>
+    <div aria-labelledby="cart-lines" className='basis-8/12 border border-gray p-0 rounded-[13px] '>
+      <table className='w-full flex flex-col '>
+        <thead className='pb-2 ' >
+          <tr className='w-full flex px-9 rounded-t-xl text-center bg-gray-200 py-3 border-b-2 text-start '>
+            <th className='w-1/5 text-center'>Product</th>
+            <th className='w-2/5 text-center'>Title</th>
+            <th className='w-1/5 text-center'>Remove</th>
+            <th className='w-1/5 text-center'>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+            {lines.nodes.map((line) => (
+              <CartLineItem key={line.id} line={line} layout={layout} />
+            ))}
+          
+        </tbody>
+      </table>
     </div>
   );
 }
@@ -65,27 +77,27 @@ function CartLines({lines, layout}) {
  *   line: CartLine;
  * }}
  */
-function CartLineItem({layout, line}) {
-  const {id, merchandise} = line;
-  const {product, title, image, selectedOptions} = merchandise;
+function CartLineItem({ layout, line }) {
+  const { id, merchandise } = line;
+  const { product, title, image, selectedOptions } = merchandise;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
 
   return (
-    <li key={id} className="cart-line flex gap-4" >
-      {image && (
-        <Image
-          alt={title}
-          aspectRatio="1/1"
-          data={image}
-          height={100}
-          loading="lazy"
-          width={100}
-          
-        />
-      )}
 
-      <div className="flex  flex-1 pr-[10px] justify-between items-center ">
-        <div className="h-fit flex-1">
+    <tr className='w-full flex text-start  items-center px-8 py-3 text-center' >
+      <td className='w-1/5 text-center'>
+        {image && (
+          <Image
+            alt={title}
+            aspectRatio="1/1"
+            data={image}
+            height={70}
+            loading="lazy"
+            width={70}
+          />
+        )}
+      </td>
+      <td className='text-sm w-2/5 text-center'>
         <Link
           prefetch="intent"
           to={lineItemUrl}
@@ -101,35 +113,28 @@ function CartLineItem({layout, line}) {
             <strong >{product.title}</strong>
           </p>
         </Link>
-        <CartLinePrice  line={line} as="span" />
-        </div>
-        {/* <ul>
-          {selectedOptions.map((option) => (
-            <li key={option.name}>
-              <small>
-                {option.name}: {option.value}
-              </small>
-            </li>
-          ))}
-        </ul> */}
+      </td>
+      <td className='text-center w-1/5 '>
         <CartLineQuantity line={line} />
-      </div>
-    </li>
+      </td>
+      <td className='w-1/5 text-center'>
+        <CartLinePrice line={line} as="span" />
+      </td>
+    </tr>
   );
 }
 
 /**
  * @param {{checkoutUrl: string}}
  */
-function CartCheckoutActions({checkoutUrl}) {
+function CartCheckoutActions({ checkoutUrl }) {
   if (!checkoutUrl) return null;
 
   return (
-    <div>
-      <a href={checkoutUrl} target="_self">
-        <p>Continue to Checkout &rarr;</p>
+    <div className=''>
+      <a href={checkoutUrl} target="_self" className='border border-black bg-[#FFFFFF] cursor-pointer hover:bg-[#862e1b] hover:text-white transition font-bold text-base py-3 block w-full text-center'>
+        Check out
       </a>
-      <br />
     </div>
   );
 }
@@ -141,24 +146,44 @@ function CartCheckoutActions({checkoutUrl}) {
  *   layout: CartMainProps['layout'];
  * }}
  */
-export function CartSummary({cost, layout, children = null}) {
+export function CartSummary({ cost, layout, children = null }) {
   const className =
-    layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
+    layout === 'page' ? 'cart-summary-page basis-4/12 border-2 border-gray p-6 rounded-[13px]' : 'cart-summary-aside w-30 border border-gray p-10 rounded-[5px] ml-10';
 
   return (
     <div aria-labelledby="cart-summary" className={className}>
-      <h4>Totals</h4>
-      <dl className="cart-subtotal">
-        <dt>Subtotal</dt>
-        <dd>
-          {cost?.subtotalAmount?.amount ? (
-            <Money data={cost?.subtotalAmount} />
-          ) : (
-            '-'
-          )}
-        </dd>
-      </dl>
+      <div>
+        <h4 className='text-gray-600'>Subtotal</h4>
+        <dl className="cart-total">
+          <dd className='font-Roboto text-[42px] md:text-[28px] font-medium mb-3'>
+            {cost?.subtotalAmount?.amount ? (
+              <Money data={cost?.subtotalAmount} />
+            ) : (
+              '-'
+            )}
+          </dd>
+        </dl>
+      </div>
+      <div>
+        <h4 className='text-gray-600 '>Discounts</h4>
+        <h4 className='font-semibold'>save50 ( -$86.98 )</h4>
+      </div>
+
+      <div className='mt-5'>
+        <h4 className='text-gray-600'>Total</h4>
+        <dl className="cart-total">
+          <dd className='font-Roboto text-[42px] md:text-[38px] font-medium  mb-3'>
+            {cost?.subtotalAmount?.amount ? (
+              <Money data={cost?.subtotalAmount} />
+            ) : (
+              '-'
+            )}
+          </dd>
+        </dl>
+      </div>
+      <p className='mb-5 text-xs text-gray-500 font-medium pb-2'>Taxes and shipping calculated at checkout</p>
       {children}
+
     </div>
   );
 }
@@ -166,12 +191,12 @@ export function CartSummary({cost, layout, children = null}) {
 /**
  * @param {{lineIds: string[]}}
  */
-function CartLineRemoveButton({lineIds}) {
+function CartLineRemoveButton({ lineIds }) {
   return (
     <CartForm
       route="/cart"
       action={CartForm.ACTIONS.LinesRemove}
-      inputs={{lineIds}}
+      inputs={{ lineIds }}
     >
       <button className="text-[14px] text-center text-[#862e1b] font-bold w-[100%]" type="submit">Remove</button>
     </CartForm>
@@ -181,18 +206,16 @@ function CartLineRemoveButton({lineIds}) {
 /**
  * @param {{line: CartLine}}
  */
-function CartLineQuantity({line}) {
+function CartLineQuantity({ line }) {
   if (!line || typeof line?.quantity === 'undefined') return null;
-  const {id: lineId, quantity} = line;
+  const { id: lineId, quantity } = line;
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
   const nextQuantity = Number((quantity + 1).toFixed(0));
 
   return (
     <div className="cart-line-quantity">
-      <div className="flex gap-[5px] items-center bg-[#862e1b] justify-between p-[5px]" >
-
-      
-      <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
+      {/* <small>Quantity: {quantity} &nbsp;&nbsp;</small> */}
+      {/* <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
         <button
           aria-label="Decrease quantity"
           disabled={quantity <= 1}
@@ -202,9 +225,9 @@ function CartLineQuantity({line}) {
         >
           <span>&#8722; </span>
         </button>
-      </CartLineUpdateButton>
-      <small className="text-[#000] font-bold text-[14px] text-center bg-white flex justify-center items-center w-[32px] h-[25px] p-[3px] ">{quantity}</small>
-      <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
+      </CartLineUpdateButton> */}
+
+      {/* <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
         <button
         className="text-[#862e1b] bg-white flex justify-center items-center rounded-[5px] p-[3px] w-[25px] h-[25px]"
           aria-label="Increase quantity"
@@ -213,8 +236,8 @@ function CartLineQuantity({line}) {
         >
           <span>&#43;</span>
         </button>
-      </CartLineUpdateButton>
-      </div>
+      </CartLineUpdateButton> */}
+
       <CartLineRemoveButton lineIds={[lineId]} />
     </div>
   );
@@ -227,7 +250,7 @@ function CartLineQuantity({line}) {
  *   [key: string]: any;
  * }}
  */
-function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
+function CartLinePrice({ line, priceType = 'regular', ...passthroughProps }) {
   if (!line?.cost?.amountPerQuantity || !line?.cost?.totalAmount) return null;
 
   const moneyV2 =
@@ -252,17 +275,17 @@ function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
  *   layout?: CartMainProps['layout'];
  * }}
  */
-export function CartEmpty({hidden = false, layout = 'aside'}) {
+export function CartEmpty({ hidden = false, layout = 'aside' }) {
   return (
-    <div hidden={hidden}>
+    <div hidden={hidden} className="mb-20">
       <br />
-      <p>
-        Looks like you haven&rsquo;t added anything yet, let&rsquo;s get you
-        started!
+      <p className='font-Roboto text-[19px]'>
+        Your cart is currently empty.
       </p>
       <br />
+      <br />
       <Link
-        to="/collections"
+        to="/collections" className="bg-[#1d1d1d] rounded-[8px] cursor-pointer text-[#fff] hover:bg-[#862E1B] transition text-xl font-bold py-5 px-9 "
         onClick={() => {
           if (layout === 'aside') {
             window.location.href = '/collections';
@@ -271,6 +294,8 @@ export function CartEmpty({hidden = false, layout = 'aside'}) {
       >
         Continue shopping →
       </Link>
+      <br />
+      <br />
     </div>
   );
 }
@@ -280,11 +305,11 @@ export function CartEmpty({hidden = false, layout = 'aside'}) {
  *   discountCodes: CartApiQueryFragment['discountCodes'];
  * }}
  */
-function CartDiscounts({discountCodes}) {
+function CartDiscounts({ discountCodes }) {
   const codes =
     discountCodes
       ?.filter((discount) => discount.applicable)
-      ?.map(({code}) => code) || [];
+      ?.map(({ code }) => code) || [];
 
   return (
     <div>
@@ -320,7 +345,7 @@ function CartDiscounts({discountCodes}) {
  *   children: React.ReactNode;
  * }}
  */
-function UpdateDiscountForm({discountCodes, children}) {
+function UpdateDiscountForm({ discountCodes, children }) {
   return (
     <CartForm
       route="/cart"
@@ -340,12 +365,12 @@ function UpdateDiscountForm({discountCodes, children}) {
  *   lines: CartLineUpdateInput[];
  * }}
  */
-function CartLineUpdateButton({children, lines}) {
+function CartLineUpdateButton({ children, lines }) {
   return (
     <CartForm
       route="/cart"
       action={CartForm.ACTIONS.LinesUpdate}
-      inputs={{lines}}
+      inputs={{ lines }}
     >
       {children}
     </CartForm>

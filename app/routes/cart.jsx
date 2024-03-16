@@ -90,16 +90,18 @@ export default function Cart() {
   const cartPromise = rootData.cart;
 
   return (
-    <div className="cart">
-      {/* <h1>Cart</h1> */}
+    <div className="cart w-[95%] md:w-[80%] mx-auto">
+      <h1 className='font-Roboto text-[32px] md:text-[48px] text-gray-900 pl-8 md:pl-0 font-medium mb-3 mt-8'>Shopping Cart</h1>
       <Suspense fallback={<p>Loading cart ...</p>}>
         <Await
           resolve={cartPromise}
           errorElement={<div>An error occurred</div>}
         >
+
           {(cart) => {
             return <CartMain layout="page" cart={cart} />;
           }}
+
         </Await>
       </Suspense>
     </div>

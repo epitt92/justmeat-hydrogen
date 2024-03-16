@@ -19,7 +19,7 @@ export async function loginRecharge({ hydrogenSession, shopifyStorefrontToken })
     await hydrogenSession.set('rechargeSession', sessionWithExpires);
   } else {
     // this should match your catch boundary
-    throw json('No session created', { status: 400 });
+    throw json('No session created +++', { status: 400 });
   }
 
   return rechargeSession;

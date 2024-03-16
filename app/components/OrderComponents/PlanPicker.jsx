@@ -124,22 +124,22 @@ const PlanPicker = () => {
   );
   return (
     <div className=" w-[100%] border-b-2 border-solid border-[#0003]  mb-[30px] ">
-      <div className="flex justify-center flex-col items-center py-14">
-        <h1 className=" text-[#1d1d1d] text-[28px] uppercase font-bold ">
+      <div className="flex justify-center flex-col items-center sm:py-14 py-5 ">
+        <h1 className=" text-[#1d1d1d] text-[22px] sm:text-[28px] uppercase font-bold ">
           Get your meats now
         </h1>
-        <p className=" italic text-center text-black text-[20px]">
+        <p className=" italic text-center text-black text-[16px] sm:text-[20px]">
           We guarantee you'll love it or your money back !
         </p>
         <div className="pt-2 flex ">{review}</div>
 
         <div className="flex justify-start flex-col lg:flex-row lg:items-start lg:gap-0 gap-8 lg:items-center pt-5 w-[100%]">
-          <div className="flex w-full lg:w-4/12  xl:w-3/12 gap-2">
-            <div className="w-[60px] h-[60px] rounded-[100%] bg-black flex justify-center items-center  ">
-              <span className="text-[40px] font-bold text-white ">1</span>
+          <div className="flex w-full lg:w-4/12 items-center  xl:w-3/12 gap-2">
+            <div className="w-[35px] h-[35px] lg:w-[60px] lg:h-[60px] rounded-[100%] border-2 border-[#425C35] sm:border-none sm:bg-black flex justify-center items-center  ">
+              <span className=" text-[22px] lg:text-[40px] font-bold text-black sm:text-white ">1</span>
             </div>
-            <div className="h-fit border-b-4  border-[#425B3499] pb-1">
-              <h3 className="font-semibold leading-7 text-[22px] text-[#1d1d1d] uppercase ">
+            <div className="h-fit sm:border-b-4  sm:border-[#425B3499] sm:pb-1">
+              <h3 className="font-semibold leading-7 text-[20px] lg:text-[22px] text-[#1d1d1d] sm:uppercase ">
                 Select Your <br className='lg:block hidden' /> Frequency
               </h3>
             </div>
@@ -163,17 +163,17 @@ const PlanPicker = () => {
                     <div 
                     className={`${
                       activeOption === 'option1' ? 'text-[#fff]' : 'text-[#1d1d1d]'
-                    } text-[20px]  font-bold`}
+                    } text-[20px]   font-bold`}
                     
                     >
                       Subscribe & Save
                     </div>
-                    <div className="">
+                    <div className="flex-1">
                       <select name=""
                       className={`${
-                        activeOption === 'option1' ? 'text-[#fff]' : 'text-[#1d1d1d]'
-                      } text-[12px] p-0  outline-none border-none bg-transparent focus:outline-none  focus:border-none`}
-                     
+                        activeOption === 'option1' ? 'text-[#fff] brightness-0 invert ' : 'text-[#1d1d1d] '
+                      } text-[12px] focus:shadow-none shadow-none p-0 w-full outline-none border-none bg-transparent focus:outline-none bg-auto  focus:border-none bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')]`}
+                      
                       >
                         <option
                         className='text-[#000]'
@@ -202,7 +202,7 @@ const PlanPicker = () => {
              
 
               <div  className=" w-full sm:w-7/12 md:w-5/12 xl:w-4/12">
-              <p className='px-[15px] pt-[6px] text-[12px] font-bold bg-transparent text-transparent '>" "</p>
+              <p className='px-[15px] hidden sm:block pt-[6px] text-[12px] font-bold bg-transparent text-transparent '>" "</p>
 
                 <div 
                  className={`${
