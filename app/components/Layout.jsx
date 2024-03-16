@@ -36,6 +36,7 @@ export function Layout({
       {isProductPage ? (
         <>
         <OrderHeader />
+        <Notification />
         </>
       ) : (
         <>
@@ -46,7 +47,6 @@ export function Layout({
         </>
       )}
       <MobileMenuAside menu={header?.menu} menuToggle={menuToggle} setMenuToggle={setMenuToggle} shop={header?.shop} />
-      <Notification />
       <main>{children}</main>
       <Suspense>
         <Await resolve={footer}>
