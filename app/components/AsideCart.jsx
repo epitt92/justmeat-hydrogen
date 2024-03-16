@@ -2,7 +2,7 @@ import {CartForm, Image, Money} from '@shopify/hydrogen';
 import {Link} from '@remix-run/react';
 import {useVariantUrl} from '~/lib/variants';
 import {useRootLoaderData} from '~/root';
-
+import {useState} from 'react';
 
 /**
  * @param {CartMainProps}
@@ -36,25 +36,52 @@ function CartDetails({layout, cart}) {
           <div className="border-b-4 pb-[10px] border-black">
             <CartSummary cost={cart.cost} layout={layout}>
               {/* <CartDiscounts discountCodes={cart.discountCodes} /> */}
-              <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />
+              <CartCheckoutActions
+                checkoutUrl={cart.checkoutUrl}
+                cost={cart.cost}
+              />
             </CartSummary>
           </div>
           <div className=" pt-4 flex gap-3 justify-end ">
-        <div className="flex flex-col items-end gap-1 justify-end">
-          <p className="text-[14px] font-semibold text-black">Free Bonus Meat (unlocked at $125)</p>
-          <span className="text-[12px] font-semibold uppercase mb-1 py-2 w-fit bg-[#E4E4E4] px-5 border border-[#949494]  ">
-            Locked
-          </span>
-        </div>
-        <img
-        className='w-[80px] h-[80px] object-contain '
-          src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/free-meat-unlocked-at-125-536967_medium_d6071a01-575e-4b92-99c9-67caead4140f.png"
-          alt=""
-        />
-      </div>
+            <div className="flex flex-1 flex-col items-end gap-1 justify-end">
+              <p className="text-[14px] font-semibold text-black">
+                Free Bonus Meat (unlocked at $125)
+              </p>
+              <LockedItem cost={cart.cost} />
+            </div>
+            <img
+              className="w-[80px] h-[80px] object-contain "
+              src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/free-meat-unlocked-at-125-536967_medium_d6071a01-575e-4b92-99c9-67caead4140f.png"
+              alt=""
+            />
+          </div>
         </div>
       )}
     </div>
+  );
+}
+
+function LockedItem({cost}) {
+  console.log(addAmount(cost.subtotalAmount, '0'));
+  return (
+    <>
+      {addAmount(cost.subtotalAmount.amount, '0') >= 125 ? (
+        <select
+          className="text-[12px] py-[8px] w-[70%] rounded-[5px] outline-none focus:outline-none bg-auto  focus:border-none bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')] shadow-none  focus:shadow-none focus:border-[#1d1d1d99] border border-[#1d1d1d49] text-[#131515]  "
+          name=""
+          id=""
+        >
+          <option value="">Hawaiian Shredded Pork</option>
+          <option value="">Raspberry BBQ Chicken Breast</option>
+          <option value="">Hawaiian Teriyaki Beef</option>
+          <option value="">Smoked Texas Brisket</option>
+        </select>
+      ) : (
+        <span className="text-[12px] font-semibold uppercase mb-1 py-2 w-fit bg-[#E4E4E4] px-5 border border-[#949494]  ">
+          Locked
+        </span>
+      )}
+    </>
   );
 }
 
@@ -116,7 +143,9 @@ function CartLineItem({layout, line}) {
             }}
           >
             <p>
-              <strong className="pr-[10px] flex justify-center">{product.title}</strong>
+              <strong className="pr-[10px] flex justify-center">
+                {product.title}
+              </strong>
             </p>
           </Link>
           <CartLinePrice line={line} as="span" />
@@ -139,20 +168,33 @@ function CartLineItem({layout, line}) {
 /**
  * @param {{checkoutUrl: string}}
  */
-function CartCheckoutActions({checkoutUrl}) {
+function CartCheckoutActions({checkoutUrl, cost}) {
   if (!checkoutUrl) return null;
 
   return (
-    <div className="flex justify-center items-center w-1/2 bg-[#425b34]">
-      <a
-        href={checkoutUrl}
-        className="bg-[#425b34] text-[15px] py-[10px] font-semibold text-white"
-        target="_self"
-      >
-        <p>Continue to Checkout </p>
-      </a>
-      <br />
-    </div>
+    <>
+      {addAmount(cost.subtotalAmount.amount, '0') >= 75 ? (
+        <div className="flex justify-center items-center w-1/2 bg-[#425b34]">
+          <a
+            href={checkoutUrl}
+            className="bg-[#425b34] text-[15px] py-[10px] font-semibold text-white"
+            target="_self"
+          >
+            <p>Continue to Checkout </p>
+          </a>
+        </div>
+      ) : (
+        <div className="flex justify-center items-center w-6/12 pointer-events-none select-none  bg-[#6e6e6e]">
+          <a
+            // href={checkoutUrl}
+            className=" text-[15px] text-center py-[10px] font-semibold text-white"
+            target="_self"
+          >
+            Spend $75 to Continue
+          </a>
+        </div>
+      )}
+    </>
   );
 }
 
@@ -166,7 +208,7 @@ function CartCheckoutActions({checkoutUrl}) {
 export function CartSummary({cost, layout, children = null}) {
   const className =
     layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
-
+  console.log(cost);
   return (
     <div
       aria-labelledby="cart-summary"
@@ -174,7 +216,15 @@ export function CartSummary({cost, layout, children = null}) {
     >
       {/* <h4>Totals</h4> */}
       <dl className="cart-subtotal flex font-semibold text-base">
-        <dt className="pr-1">Total: </dt>
+        <dt>Total: </dt>
+        {cost?.subtotalAmount?.amount ? (
+          <span className="text-[20px] pr-1 line-through decoration-[#000] decoration-[3px] text-[#919191] ">
+            {' '}
+            {addAmount(cost?.subtotalAmount?.amount, '11.45')}{' '}
+          </span>
+        ) : (
+          '-'
+        )}
         <dd>
           {cost?.subtotalAmount?.amount ? (
             <Money data={cost?.subtotalAmount} />
@@ -188,6 +238,55 @@ export function CartSummary({cost, layout, children = null}) {
   );
 }
 
+function addAmount(baseAmount, additionalAmount) {
+  // Parse the base amount and additional amount as floats
+  const base = parseFloat(baseAmount);
+  const additional = parseFloat(additionalAmount);
+
+  // Check if the base amount is a valid number
+  if (isNaN(base)) {
+    console.error('Invalid base amount:', baseAmount);
+    return null;
+  }
+
+  // Check if the additional amount is a valid number
+  if (isNaN(additional)) {
+    console.error('Invalid additional amount:', additionalAmount);
+    return null;
+  }
+
+  // Calculate the sum of base and additional amounts
+  let sum = base + additional;
+
+  // Round the sum to 2 decimal places
+  sum = Math.round((sum + Number.EPSILON) * 100) / 100;
+
+  // Convert the sum to a string
+  let sumStr = sum.toString();
+
+  // Check if the sum has decimal part
+  const decimalIndex = sumStr.indexOf('.');
+  if (decimalIndex === -1) {
+    // If no decimal part, add '.00' to the end
+    sumStr += '.00';
+  } else {
+    // If decimal part exists, ensure there are always two digits after the decimal point
+    const decimalDigits = sumStr.length - decimalIndex - 1;
+    if (decimalDigits === 1) {
+      // If only one digit after the decimal point, add a zero
+      sumStr += '0';
+    } else if (decimalDigits > 2) {
+      // If more than two digits after the decimal point, round to two digits
+      sumStr = sum.toFixed(2);
+    }
+  }
+  const finalResult = parseFloat(sumStr);
+  return finalResult;
+}
+
+// // Example usage:
+// const result = addAmount("11.45", "11.45");
+// console.log(result); // Output: "32.85"
 /**
  * @param {{lineIds: string[]}}
  */
@@ -216,12 +315,13 @@ function CartLineQuantity({line}) {
   const {id: lineId, quantity} = line;
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
   const nextQuantity = Number((quantity + 1).toFixed(0));
-   console.log(nextQuantity);
+  const [updateQty, setUpdatedQty] = useState(quantity);
   return (
     <div className="cart-line-quantity">
       <div className="flex gap-[5px] items-center bg-[#862e1b] justify-between p-[5px]">
         <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
           <button
+            onClick={() => setUpdatedQty(prevQuantity)}
             aria-label="Decrease quantity"
             disabled={quantity <= 1}
             name="decrease-quantity"
@@ -232,10 +332,11 @@ function CartLineQuantity({line}) {
           </button>
         </CartLineUpdateButton>
         <small className="text-[#000] font-bold text-[14px] text-center bg-white flex justify-center items-center w-[32px] h-[25px] p-[3px] ">
-          {quantity}
+          {updateQty}
         </small>
         <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
           <button
+            onClick={() => setUpdatedQty(nextQuantity)}
             className="text-[#862e1b] bg-white flex justify-center items-center rounded-[5px] p-[3px] w-[25px] h-[25px]"
             aria-label="Increase quantity"
             name="increase-quantity"
@@ -288,36 +389,36 @@ export function CartEmpty({hidden = false, layout = 'aside'}) {
       <br />
       <div className=" p-5 pb-3 absolute bottom-0 w-full ">
         <div className="border-b-4 flex justify-between items-end pb-[10px] border-black w-full ">
-          <div className="w-1/2 flex">
+          <div className="w-4/12 flex">
             <p className="pr-1 text-base font-semibold">Total:</p>
             <p className="text-base font-semibold">$0.00</p>
           </div>
-          <div className="flex justify-center items-center w-1/2  bg-[#6e6e6e]">
+          <div className="flex justify-center items-center w-8/12 pointer-events-none select-none  bg-[#6e6e6e]">
             <a
               // href={checkoutUrl}
-              className=" text-[15px] py-[10px] font-semibold text-white"
+              className=" text-[15px] text-center py-[10px] font-semibold text-white"
               target="_self"
             >
-              <p>Spend $750 to Continue </p>
+              Spend $75 to Continue
             </a>
-            <br />
           </div>
         </div>
         <div className=" pt-6 flex gap-3 justify-end ">
-        <div className="flex flex-col items-end gap-1 justify-end">
-          <p className="text-[14px] font-semibold text-black">Free Bonus Meat (unlocked at $125)</p>
-          <span className="text-[12px] font-semibold uppercase mb-1 py-2 w-fit bg-[#E4E4E4] px-5 border border-[#949494]  ">
-            Locked
-          </span>
+          <div className="flex  flex-col items-end gap-1 justify-end">
+            <p className="text-[14px] font-semibold text-black">
+              Free Bonus Meat (unlocked at $125)
+            </p>
+            <span className="text-[12px] font-semibold uppercase mb-1 py-2 w-fit bg-[#E4E4E4] px-5 border border-[#949494]  ">
+              Locked
+            </span>
+          </div>
+          <img
+            className="w-[80px] h-[80px] object-contain "
+            src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/free-meat-unlocked-at-125-536967_medium_d6071a01-575e-4b92-99c9-67caead4140f.png"
+            alt=""
+          />
         </div>
-        <img
-        className='w-[80px] h-[80px] object-contain '
-          src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/free-meat-unlocked-at-125-536967_medium_d6071a01-575e-4b92-99c9-67caead4140f.png"
-          alt=""
-        />
       </div>
-      </div>
-      
     </div>
   );
 }
