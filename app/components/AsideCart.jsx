@@ -148,7 +148,10 @@ function CartLineItem({layout, line}) {
               </strong>
             </p>
           </Link>
-          <CartLinePrice line={line} as="span" />
+          {/* <CartLinePrice line={line} as="span" /> */}
+          <div className="font-bold text-center text-[25px] ">
+            <Money withoutTrailingZeros {...passthroughProps} data={line.cost.totalAmount} />
+          </div>
         </div>
         {/* <ul>
           {selectedOptions.map((option) => (
