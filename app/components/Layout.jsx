@@ -10,6 +10,7 @@ import {
   PredictiveSearchResults,
 } from '~/components/Search';
 import OrderHeader from './OrderHeader';
+import Notification from './Notification';
 
 /**
  * @param {LayoutProps}
@@ -39,6 +40,7 @@ export function Layout({
           {header && (
             <Header header={header} setMenuToggle={setMenuToggle}  cart={cart} isLoggedIn={isLoggedIn} />
           )}
+          <Notification />
           <div>{isProductPage}</div>
         </>
       )}
