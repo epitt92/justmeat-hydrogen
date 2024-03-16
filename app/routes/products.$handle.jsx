@@ -15,6 +15,7 @@ import {getVariantUrl} from '~/lib/variants';
 import PlanPicker from '~/components/OrderComponents/PlanPicker';
 import CustomCollection from '~/components/OrderComponents/CustomCollection';
 import {useVariantUrl} from '~/lib/variants';
+import Notification from '~/components/Notification';
 
 
 /**
@@ -63,14 +64,17 @@ export default function Product() {
   const customCollectionProducts = data.collection.products
 
   return (
-    <div className='bg-cover h-[100%] w-[100%] bg-fixed	flex justify-center sm:bg-[url("https://cdn.shopify.com/s/files/1/0672/4776/7778/files/orderpage_bg.png")]'>
-    <div className='max-w-[1440px] w-[100%] px-5 sm:px-10'>
-    <PlanPicker/>
-    <div className='custom-collection-wrap'>
-    <CustomCollection col={customCollectionProducts}/>
-    </div>
-    </div>
-    </div>
+    <>
+      <Notification />
+      <div className='bg-cover h-[100%] w-[100%] bg-fixed	flex justify-center sm:bg-[url("https://cdn.shopify.com/s/files/1/0672/4776/7778/files/orderpage_bg.png")]'>
+      <div className='max-w-[1440px] w-[100%] px-5 sm:px-10'>
+      <PlanPicker/>
+      <div className='custom-collection-wrap'>
+      <CustomCollection col={customCollectionProducts}/>
+      </div>
+      </div>
+      </div>
+    </>
    
   );
 }

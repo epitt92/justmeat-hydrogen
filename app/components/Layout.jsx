@@ -10,7 +10,6 @@ import {
   PredictiveSearchResults,
 } from '~/components/Search';
 import OrderHeader from './OrderHeader';
-import Notification from './Notification';
 
 /**
  * @param {LayoutProps}
@@ -44,10 +43,7 @@ export function Layout({
         </>
       )}
       <MobileMenuAside menu={header?.menu} menuToggle={menuToggle} setMenuToggle={setMenuToggle} shop={header?.shop} />
-      <main>
-        <Notification />
-        {children}
-      </main>
+      <main>{children}</main>
       <Suspense>
         <Await resolve={footer}>
           {(footer) => <Footer menu={footer?.menu} shop={header?.shop} />}
