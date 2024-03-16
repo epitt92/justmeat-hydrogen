@@ -34,13 +34,15 @@ export function Layout({
       {/* {header && <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />} */}
       {/* <OrderHeader/> */}
       {isProductPage ? (
+        <>
         <OrderHeader />
+        <Notification />
+        </>
       ) : (
         <>
           {header && (
             <Header header={header} setMenuToggle={setMenuToggle}  cart={cart} isLoggedIn={isLoggedIn} />
           )}
-          <Notification />
           <div>{isProductPage}</div>
         </>
       )}
