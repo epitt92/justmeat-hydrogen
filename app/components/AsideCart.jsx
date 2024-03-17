@@ -1,335 +1,519 @@
-import {
-  CartForm,
-  Image,
-  Pagination,
-  VariantSelector,
-  getPaginationVariables,
-  getSelectedProductOptions,
-} from '@shopify/hydrogen';
-import React, { Suspense } from 'react';
-import { CartProvider, useCart, ProductProvider } from '@shopify/hydrogen-react';
-import { defer, json, redirect } from '@remix-run/server-runtime';
-import { Await, Link, useLoaderData } from '@remix-run/react';
-import { CartMain } from '~/components/AsideCart';
-import { useRootLoaderData } from '~/root';
-import ProductModal from '../ui/ProductModal';
-import CustomProgressBar from '../ui/CustomProgressBar';
-import { Aside } from '../Aside';
+import {CartForm, Image, Money} from '@shopify/hydrogen';
+import {Link} from '@remix-run/react';
+import {useVariantUrl} from '~/lib/variants';
+import {useRootLoaderData} from '~/root';
+import React, { useState } from 'react';
 
-// Create a context for the cart state
-const CartContext = createContext();
 
-// Custom hook to access the cart context
-export const useCart = () => useContext(CartContext);
-
-// Cart provider component
-export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
-
-  const addToCart = (product) => {
-    setCart((prevCart) => [...prevCart, product]);
-  };
-
-  const removeFromCart = (productId) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
-  };
-
-  const updateQuantity = (productId, quantity) => {
-    setCart((prevCart) =>
-      prevCart.map((item) =>
-        item.id === productId ? { ...item, quantity } : item
-      )
-    );
-  };
+/**
+ * @param {CartMainProps}
+ */
+const CartMain = React.memo( ({layout, cart}) => {
+  const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
+  const withDiscount =
+    cart &&
+    Boolean(cart?.discountCodes?.filter((code) => code.applicable)?.length);
+  const className = `cart-main ${withDiscount ? 'with-discount' : ''}`;
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity }}>
-      {children}
-    </CartContext.Provider>
-  );
-};
-
-const AsideCart = () => {
-  const rootData = useRootLoaderData();
-  const cartPromise = rootData.cart;
-  // console.log(pro)
-  return (
-    <div className="cart">
-      {/* <h1>Cart</h1> */}
-      <Suspense fallback={<p>Loading cart ...</p>}>
-        <Await
-          resolve={cartPromise}
-          errorElement={<div>An error occurred</div>}
-        >
-          {(cart) => {
-            return <CartMain layout="aside" cart={cart} />;
-          }}
-        </Await>
-      </Suspense>
+    <div className={className}>
+      <CartEmpty hidden={linesCount} layout={layout} />
+      <CartDetails cart={cart} layout={layout} />
     </div>
   );
+});
 
-}
+/**
+ * @param {CartMainProps}
+ */
+const  CartDetails =  React.memo (({layout, cart})=> {
+  const cartHasItems = !!cart && cart.totalQuantity > 0;
 
-const CustomCollection = ({ col }) => {
-  const { nodes } = col;
-  // console.log(nodes[0])
   return (
-    <section className="max-w-ful ">
-      <div className=" flex gap-3">
-        <div className="w-[60px] h-[60px] hidden lg:flex rounded-[100%] bg-black justify-center items-center">
-          <span className="text-[40px] font-bold text-white">2</span>
-        </div>
-
-        <main className="main-section flex gap-2 flex-1 flex-col bg-white sm:border border-gray-400 border-solid">
-          <div className="flex w-full  items-center py-3 sm:py-0 gap-2">
-            <div className="w-[35px] h-[35px] ml-3 lg:hidden lg:w-[60px] lg:h-[60px] rounded-[100%] sm:border-none border-2 border-[#425C35] sm:bg-black flex justify-center items-center  ">
-              <span className=" text-[22px] lg:text-[40px] font-bold text-black sm:text-white ">2</span>
-            </div>
-            <div className="h-fit sm:border-b-4 w-fit sm:border-[#425B34] sm:m-3 ">
-              <h2 className="font-semibold leading-7 text-[20px] sm:text-[22px] text-[#1d1d1d] sm:uppercase  ">
-                Select Your Meats
-              </h2>
-            </div>
+    <div className="cart-details flex flex-col justify-between">
+      <CartLines lines={cart?.lines} layout={layout} />
+      {cartHasItems && (
+        <div className="p-5 pb-3 bg-white">
+          <div className="border-b-4 pb-[10px] border-black">
+            <CartSummary cost={cart.cost} layout={layout}>
+              {/* <CartDiscounts discountCodes={cart.discountCodes} /> */}
+              <CartCheckoutActions
+                checkoutUrl={cart.checkoutUrl}
+                cost={cart.cost}
+              />
+            </CartSummary>
           </div>
-          <div className="product-and-cart flex">
-            <div className="product-grid grid grid-cols-2 md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12">
-              {nodes.map((product, key) => (
-                <ProductCard product={product} key={key} />
-              ))}
+          <div className=" pt-4 flex gap-3 justify-end ">
+            <div className="flex flex-1 flex-col items-end gap-1 justify-end">
+              <p className="text-[14px] font-semibold text-black">
+                Free Bonus Meat (unlocked at $125)
+              </p>
+              <LockedItem cost={cart.cost} />
             </div>
-            <div className="cart-wrapper sticky top-[10px] h-fit mb-[10px] hidden xl:block w-4/12">
-              <div className='border h-full'>
-                <div className="top-section py-5 bg-black text-white text-center">
-                  <div className="text-wrapper py-5">
-                    <h1 className="font-roboto_medium text-[17px] leading-none">
-                      Subscribers Save 25% on Orders
-                    </h1>
-                    <p className="text-[14px] leading-none font-roboto_medium mt-3">
-                      Applied at checkout
-                    </p>
-                  </div>
-                </div>
-                <div className="progress-bar border">
-                  <CustomProgressBar />
-                </div>
-                <div className="free-item pl-[10px] mb-5">
-                  <img
-                    src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Ranch_Rub_Chicken_Breast_Free.png"
-                    alt="cart free"
-                  />
-                </div>
-                <AsideCart />
-              </div>
-            </div>
+            <img
+              className="w-[80px] h-[80px] object-contain "
+              src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/free-meat-unlocked-at-125-536967_medium_d6071a01-575e-4b92-99c9-67caead4140f.png"
+              alt=""
+            />
           </div>
-        </main>
-      </div>
-    </section>
-  );
-};
-
-function ProductCard({ product }) {
-  console.log(product);
-
-  const image = product.featuredImage.url;
-  const variantId = '8249959383266';
-  const product2 = product;
-  const productHandle = product.handle;
-  const selectedVariant = product.variants.nodes[0];
-
-  function openModal() {
-    const dialog = document.querySelector(`#${productHandle}`);
-    dialog.showModal();
-  }
-
-  function closeModal() {
-    const dialogClose = document.querySelector(`#${productHandle}`);
-    dialogClose.close();
-  }
-
-  return (
-    <div className="product-grid mb-[40px] ">
-      <dialog className="bg-[#edeaea] custom-dialog" id={productHandle}>
-        <div className="close-panel text-right p-5">
-          <button onClick={() => closeModal()} className="close-modal">
-            <svg
-              width={18}
-              height={18}
-              viewBox="0 0 18 18"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M17 1L1 17"
-                stroke="black"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M1 1L17 17"
-                stroke="black"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
         </div>
-        <ProductModal product={product2} key={Math.random()} />
-      </dialog>
-      <div className="img-wrapper">
-        <img
-          onClick={() => openModal()}
-          className="object-contain w-full"
-          width="100%"
-          alt={product.title}
-          src={image}
-          loading="lazy"
-        />
-      </div>
-      <div className="price text-center pt-6">
-        <span className="text-2xl font-bold font-roboto_bold p-6">
-          $ {product.priceRange.minVariantPrice.amount}
-        </span>
-      </div>
-      <div className="mx-auto text-center my-5">
-        <div className="cart custom-add-to-cart ">
-          <Suspense
-            fallback={
-              <ProductForm
-                product={product}
-                selectedVariant={selectedVariant}
-                variants={[]}
-              />
-            }
-          >
-            <Await
-              errorElement="There was a problem loading product variants"
-              resolve={product}
-            >
-              {(data) => (
-                <ProductForm
-                  product={product}
-                  selectedVariant={selectedVariant}
-                  variants={product?.variants.nodes || []}
-                />
-              )}
-            </Await>
-          </Suspense>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/**
- * @param {{
- *   product: ProductFragment;
- *   selectedVariant: ProductFragment['selectedVariant'];
- *   variants: Array<ProductVariantFragment>;
- * }}
- */
-export function ProductForm({ product, selectedVariant, variants }) {
-  return (
-    <div className="product-form">
-      <VariantSelector
-        handle={product.handle}
-        options={product.options}
-        variants={variants}
-      >
-        {({ option }) => <ProductOptions key={option.name} option={option} />}
-      </VariantSelector>
-      {/* <br /> */}
-      <AddToCartButton
-        // disabled={!selectedVariant || !selectedVariant.availableForSale}
-        // onClick={() => {
-        //   window.location.href = window.location.href + '#cart-aside';
-        // }}
-        lines={
-          selectedVariant
-            ? [
-                {
-                  merchandiseId: selectedVariant.id,
-                  quantity: 1,
-                },
-              ]
-            : []
-        }
-      >
-        <div className="bg-[#862e1b] flex justify-center items-center py-[10px] gap-[5px] px-[20px] leading-none font-bold text-white">
-          <span className=" p-[3px] text-[25px] leading-[13px] bg-white text-[#862e1b]  ">+</span>
-          {selectedVariant?.availableForSale ? 'Add to cart' : 'ADD'}
-        </div>
-      </AddToCartButton>
-    </div>
-  );
-}
-
-/**
- * @param {{
- *   option: VariantOption
- * }}
- */
-function ProductOptions({ option }) {
-  return (
-    <div className="product-options" key={option.name}>
-      <h5>{option.name}</h5>
-      <div className="product-options-grid">
-        {option.values.map(({ value, isAvailable, isActive, to }) => {
-          return (
-            <Link
-              className="product-options-item"
-              key={option.name + value}
-              prefetch="intent"
-              preventScrollReset
-              replace
-              to={to}
-              style={{
-                border: isActive ? '1px solid black' : '1px solid transparent',
-                opacity: isAvailable ? 1 : 0.3,
-              }}
-            >
-              {value}
-            </Link>
-          );
-        })}
-      </div>
-      <br />
-    </div>
-  );
-}
-
-/**
- * @param {{
- *   analytics?: unknown;
- *   children: React.ReactNode;
- *   disabled?: boolean;
- *   lines: CartLineInput[];
- *   onClick?: () => void;
- * }}
- */
-function AddToCartButton({ analytics, children, disabled, lines, onClick }) {
-  return (
-    <CartForm route="/products/custom-bundle" inputs={{ lines }} action={CartForm.ACTIONS.LinesAdd}>
-      {(fetcher) => (
-        <>
-          <input
-            name="analytics"
-            type="hidden"
-            value={JSON.stringify(analytics)}
-          />
-          <button
-            type="submit"
-            onClick={onClick}
-            disabled={disabled ?? fetcher.state !== 'idle'}
-          >
-            {children}
-          </button>
-        </>
       )}
+    </div>
+  );
+});
+
+const LockedItem = React.memo(({cost})=> {
+  return (
+    <>
+      {addAmount(cost.subtotalAmount.amount, '0') >= 125 ? (
+        <select
+          className="text-[12px] py-[8px] w-[70%] rounded-[5px] outline-none focus:outline-none bg-auto  focus:border-none bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')] shadow-none  focus:shadow-none focus:border-[#1d1d1d99] border border-[#1d1d1d49] text-[#131515]  "
+          name=""
+          id=""
+        >
+          <option value="">Hawaiian Shredded Pork</option>
+          <option value="">Raspberry BBQ Chicken Breast</option>
+          <option value="">Hawaiian Teriyaki Beef</option>
+          <option value="">Smoked Texas Brisket</option>
+        </select>
+      ) : (
+        <span className="text-[12px] font-semibold uppercase mb-1 py-2 w-fit bg-[#E4E4E4] px-5 border border-[#949494]  ">
+          Locked
+        </span>
+      )}
+    </>
+  );
+})
+
+/**
+ * @param {{
+ *   layout: CartMainProps['layout'];
+ *   lines: CartApiQueryFragment['lines'] | undefined;
+ * }}
+ */
+const CartLines = React.memo(({lines, layout}) =>{
+  if (!lines) return null;
+
+  return (
+    <div aria-labelledby="cart-lines" className="h-[260px] overflow-auto">
+      <ul>
+        {lines.nodes.map((line) => (
+          <CartLineItem key={line.id} line={line} layout={layout} />
+        ))}
+      </ul>
+    </div>
+  );
+})
+
+/**
+ * @param {{
+ *   layout: CartMainProps['layout'];
+ *   line: CartLine;
+ * }}
+ */
+const CartLineItem = React.memo(({layout, line})=> {
+  const {id, merchandise,cost} = line;
+  const {amountPerQuantity} = cost;
+  const {product, title, image, selectedOptions} = merchandise;
+  const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
+
+  return (
+    <li key={id} className="cart-line pl-[10px] mb-5 flex gap-4">
+      {image && (
+        <Image
+          alt={title}
+          // aspectRatio="1/1"
+          data={image}
+          height={100}
+          loading="lazy"
+          width={72}
+        />
+      )}
+
+      <div className="flex  flex-1 pr-[10px] justify-between items-center ">
+        <div className="h-fit flex-1">
+          <Link
+            prefetch="intent"
+            to={lineItemUrl}
+            className="font-semibold text-[14px]  text-center "
+            onClick={() => {
+              if (layout === 'aside') {
+                // close the drawer
+                window.location.href = lineItemUrl;
+              }
+            }}
+          >
+            <p>
+              <strong className="pr-[10px] flex justify-center">
+                {product.title}
+              </strong>
+            </p>
+          </Link>
+           <p className='font-bold text-center text-[25px]'>${amountPerQuantity.amount}</p>
+          {/* <CartLinePrice line={line} as="span" /> */}
+        </div>
+        {/* <ul>
+          {selectedOptions.map((option) => (
+            <li key={option.name}>
+              <small>
+                {option.name}: {option.value}
+              </small>
+            </li>
+          ))}
+        </ul> */}
+        <CartLineQuantity line={line} />
+      </div>
+    </li>
+  );
+})
+
+/**
+ * @param {{checkoutUrl: string}}
+ */
+const CartCheckoutActions = React.memo(({checkoutUrl, cost})=> {
+  if (!checkoutUrl) return null;
+
+  return (
+    <>
+      {addAmount(cost.subtotalAmount.amount, '0') >= 75 ? (
+        <div className="flex justify-center items-center w-1/2 bg-[#425b34]">
+          <a
+            href={checkoutUrl}
+            className="bg-[#425b34] text-[15px] py-[10px] font-semibold text-white"
+            target="_self"
+          >
+            <p>Continue to Checkout </p>
+          </a>
+        </div>
+      ) : (
+        <div className="flex justify-center items-center w-6/12 pointer-events-none select-none  bg-[#6e6e6e]">
+          <a
+            // href={checkoutUrl}
+            className=" text-[15px] text-center py-[10px] font-semibold text-white"
+            target="_self"
+          >
+            Spend $75 to Continue
+          </a>
+        </div>
+      )}
+    </>
+  );
+})
+
+/**
+ * @param {{
+ *   children?: React.ReactNode;
+ *   cost: CartApiQueryFragment['cost'];
+ *   layout: CartMainProps['layout'];
+ * }}
+ */
+ const CartSummary = React.memo(({cost, layout, children = null}) =>{
+  const className =
+    layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
+  return (
+    <div
+      aria-labelledby="cart-summary"
+      className={`${className} flex justify-between items-end `}
+    >
+      {/* <h4>Totals</h4> */}
+      <dl className="cart-subtotal flex font-semibold text-base">
+        <dt>Total: </dt>
+        {cost?.subtotalAmount?.amount ? (
+          <span className="text-[20px] pr-1 line-through decoration-[#000] decoration-[3px] text-[#919191] ">
+            
+            {addAmount(cost?.subtotalAmount?.amount, '11.45')}
+          </span>
+        ) : (
+          '-'
+        )}
+        <dd>
+          {cost?.subtotalAmount?.amount ? (
+            <Money data={cost?.subtotalAmount} />
+          ) : (
+            '-'
+          )}
+        </dd>
+      </dl>
+      {children}
+    </div>
+  );
+})
+
+function addAmount(baseAmount, additionalAmount) {
+  // Parse the base amount and additional amount as floats
+  const base = parseFloat(baseAmount);
+  const additional = parseFloat(additionalAmount);
+
+  // Check if the base amount is a valid number
+  if (isNaN(base)) {
+    console.error('Invalid base amount:', baseAmount);
+    return null;
+  }
+
+  // Check if the additional amount is a valid number
+  if (isNaN(additional)) {
+    console.error('Invalid additional amount:', additionalAmount);
+    return null;
+  }
+
+  // Calculate the sum of base and additional amounts
+  let sum = base + additional;
+
+  // Round the sum to 2 decimal places
+  sum = Math.round((sum + Number.EPSILON) * 100) / 100;
+
+  // Convert the sum to a string
+  let sumStr = sum.toString();
+
+  // Check if the sum has decimal part
+  const decimalIndex = sumStr.indexOf('.');
+  if (decimalIndex === -1) {
+    // If no decimal part, add '.00' to the end
+    sumStr += '.00';
+  } else {
+    // If decimal part exists, ensure there are always two digits after the decimal point
+    const decimalDigits = sumStr.length - decimalIndex - 1;
+    if (decimalDigits === 1) {
+      // If only one digit after the decimal point, add a zero
+      sumStr += '0';
+    } else if (decimalDigits > 2) {
+      // If more than two digits after the decimal point, round to two digits
+      sumStr = sum.toFixed(2);
+    }
+  }
+  const finalResult = parseFloat(sumStr);
+  return sumStr;
+}
+
+// // Example usage:
+// const result = addAmount("11.45", "11.45");
+// console.log(result); // Output: "32.85"
+/**
+ * @param {{lineIds: string[]}}
+ */
+const CartLineRemoveButton = React.memo(({lineIds}) =>{
+  return (
+    <CartForm
+      route="/products/custom-bundle"
+      action={CartForm.ACTIONS.LinesRemove}
+      inputs={{lineIds}}
+    >
+      <button
+        className="text-[14px] text-center text-[#862e1b] font-bold w-[100%]"
+        type="submit"
+      >
+        Remove
+      </button>
     </CartForm>
   );
-}
+});
 
-export default CustomCollection;
+/**
+ * @param {{line: CartLine}}
+ */
+const CartLineQuantity = React.memo(({line})=> {
+  if (!line || typeof line?.quantity === 'undefined') return null;
+  const {id: lineId, quantity} = line;
+  const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
+  const nextQuantity = Number((quantity + 1).toFixed(0));
+  const [updateQty, setUpdatedQty] = useState(1);
+ 
+ const updateQuantity = (value)=>{
+  setUpdatedQty(value);
+ };
+  return (
+    <div className="cart-line-quantity">
+      <div className="flex gap-[5px] items-center bg-[#862e1b] justify-between p-[5px]">
+        <CartLineUpdateButton lines={[{id: lineId, quantity: updateQty}]}>
+          <button
+            onClick={()=>updateQuantity(updateQty <= 1 ? 1 : updateQty - 1)}
+            aria-label="Decrease quantity"
+            disabled={quantity <= 1}
+            name="decrease-quantity"
+            value={prevQuantity}
+            className="text-[#862e1b] w-[25px] flex justify-center items-center h-[25px] bg-white rounded-[5px] p-[3px] "
+          >
+            <span>&#8722; </span>
+          </button>
+        </CartLineUpdateButton>
+        <small className="text-[#000] font-bold text-[14px] text-center bg-white flex justify-center items-center w-[32px] h-[25px] p-[3px] ">
+          {updateQty}
+        </small>
+        <CartLineUpdateButton lines={[{id: lineId, quantity: updateQty}]}>
+          <button
+            onClick={()=>updateQuantity(updateQty + 1)}
+            className="text-[#862e1b] bg-white flex justify-center items-center rounded-[5px] p-[3px] w-[25px] h-[25px]"
+            aria-label="Increase quantity"
+            name="increase-quantity"
+            value={nextQuantity}
+          >
+            <span>&#43;</span>
+          </button>
+        </CartLineUpdateButton>
+      </div>
+      <CartLineRemoveButton lineIds={[lineId]} />
+    </div>
+  );
+});
+
+/**
+ * @param {{
+ *   line: CartLine;
+ *   priceType?: 'regular' | 'compareAt';
+ *   [key: string]: any;
+ * }}
+ */
+const CartLinePrice = React.memo(({line, priceType = 'regular', ...passthroughProps})=> {
+  if (!line?.cost?.amountPerQuantity || !line?.cost?.totalAmount) return null;
+
+  const moneyV2 =
+    priceType === 'regular'
+      ? line.cost.totalAmount
+      : line.cost.compareAtAmountPerQuantity;
+
+  if (moneyV2 == null) {
+    return null;
+  }
+
+  return (
+    <div className="font-bold text-center text-[25px] ">
+      <Money withoutTrailingZeros {...passthroughProps} data={moneyV2} />
+    </div>
+  );
+})
+
+/**
+ * @param {{
+ *   hidden: boolean;
+ *   layout?: CartMainProps['layout'];
+ * }}
+ */
+ const CartEmpty = React.memo(({hidden = false, layout = 'aside'}) =>{
+  return (
+    <div hidden={hidden} className='h-[260px]'>
+      <br />
+      <div className=" p-5 pb-3 absolute bottom-0 w-full ">
+        <div className="border-b-4 flex justify-between items-end pb-[10px] border-black w-full ">
+          <div className="w-4/12 flex">
+            <p className="pr-1 text-base font-semibold">Total:</p>
+            <p className="text-base font-semibold">$0.00</p>
+          </div>
+          <div className="flex justify-center items-center w-8/12 pointer-events-none select-none  bg-[#6e6e6e]">
+            <a
+              // href={checkoutUrl}
+              className=" text-[15px] text-center py-[10px] font-semibold text-white"
+              target="_self"
+            >
+              Spend $75 to Continue
+            </a>
+          </div>
+        </div>
+        <div className=" pt-6 flex gap-3 justify-end ">
+          <div className="flex  flex-col items-end gap-1 justify-end">
+            <p className="text-[14px] font-semibold text-black">
+              Free Bonus Meat (unlocked at $125)
+            </p>
+            <span className="text-[12px] font-semibold uppercase mb-1 py-2 w-fit bg-[#E4E4E4] px-5 border border-[#949494]  ">
+              Locked
+            </span>
+          </div>
+          <img
+            className="w-[80px] h-[80px] object-contain "
+            src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/free-meat-unlocked-at-125-536967_medium_d6071a01-575e-4b92-99c9-67caead4140f.png"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+  );
+})
+
+/**
+ * @param {{
+ *   discountCodes: CartApiQueryFragment['discountCodes'];
+ * }}
+ */
+const CartDiscounts = React.memo(({discountCodes})=> {
+  const codes =
+    discountCodes
+      ?.filter((discount) => discount.applicable)
+      ?.map(({code}) => code) || [];
+
+  return (
+    <div>
+      {/* Have existing discount, display it with a remove option */}
+      <dl hidden={!codes.length}>
+        <div>
+          <dt>Discount(s)</dt>
+          <UpdateDiscountForm>
+            <div className="cart-discount">
+              <code>{codes?.join(', ')}</code>
+              &nbsp;
+              <button>Remove</button>
+            </div>
+          </UpdateDiscountForm>
+        </div>
+      </dl>
+
+      {/* Show an input to apply a discount */}
+      <UpdateDiscountForm discountCodes={codes}>
+        <div>
+          <input type="text" name="discountCode" placeholder="Discount code" />
+          &nbsp;
+          <button type="submit">Apply</button>
+        </div>
+      </UpdateDiscountForm>
+    </div>
+  );
+});
+
+/**
+ * @param {{
+ *   discountCodes?: string[];
+ *   children: React.ReactNode;
+ * }}
+ */
+const UpdateDiscountForm = React.memo (({discountCodes, children})=> {
+  return (
+    <CartForm
+      route="/cart"
+      action={CartForm.ACTIONS.DiscountCodesUpdate}
+      inputs={{
+        discountCodes: discountCodes || [],
+      }}
+    >
+      {children}
+    </CartForm>
+  );
+})
+
+/**
+ * @param {{
+ *   children: React.ReactNode;
+ *   lines: CartLineUpdateInput[];
+ * }}
+ */
+const CartLineUpdateButton = React.memo(({children, lines})=> {
+  return (
+    <CartForm
+      route="/cart"
+      action={CartForm.ACTIONS.LinesUpdate}
+      inputs={{lines}}
+    >
+      {children}
+    </CartForm>
+  );
+})
+
+/** @typedef {CartApiQueryFragment['lines']['nodes'][0]} CartLine */
+/**
+ * @typedef {{
+ *   cart: CartApiQueryFragment | null;
+ *   layout: 'page' | 'aside';
+ * }} CartMainProps
+ */
+
+/** @typedef {import('@shopify/hydrogen/storefront-api-types').CartLineUpdateInput} CartLineUpdateInput */
+/** @typedef {import('storefrontapi.generated').CartApiQueryFragment} CartApiQueryFragment */
+
+export { CartMain,CartEmpty,CartSummary };
