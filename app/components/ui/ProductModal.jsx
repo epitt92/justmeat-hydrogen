@@ -26,7 +26,7 @@ const ProductModal = ({product}) => {
           <p className="product-details  text-[16px] text-[#1d1d1d] leading-[24px] uppercase font-roboto_bold ">
             90% lean ground chuck roast with a tasty spice rub
           </p>
-          <p class="custom-serving py-5 text-[28px] text-[#1d1d1d] font-roboto_bold">
+          <p className="custom-serving py-5 text-[28px] text-[#1d1d1d] font-roboto_bold">
             $3.99 per Serving
           </p>
           <div className="healthy grid grid-cols-2 max-w-[60%]">
@@ -50,20 +50,20 @@ const ProductModal = ({product}) => {
           </div>
 
           {/* ingredient */}
-          <div class="ingridiant_metafield flex justify-between max-w-[40%] my-5">
-            <div class="ingridiant_width">
-              <div class="ingridiant_value text-[26px] font-bold text-[#1d1d1d] font-roboto_bold">34g</div>
-              <div class="ingridiant_label font-roboto_medium text-xl  text-[#1d1d1d]  font-[400]">Protein</div>
+          <div className="ingridiant_metafield flex justify-between max-w-[40%] my-5">
+            <div className="ingridiant_width">
+              <div className="ingridiant_value text-[26px] font-bold text-[#1d1d1d] font-roboto_bold">34g</div>
+              <div className="ingridiant_label font-roboto_medium text-xl  text-[#1d1d1d]  font-[400]">Protein</div>
             </div>
 
-            <div class="ingridiant_width">
-              <div class="ingridiant_value text-[26px] font-bold text-[#1d1d1d] font-roboto_bold">14g</div>
-              <div class="ingridiant_label font-roboto_medium text-xl  text-[#1d1d1d]  font-[400]">Fat</div>
+            <div className="ingridiant_width">
+              <div className="ingridiant_value text-[26px] font-bold text-[#1d1d1d] font-roboto_bold">14g</div>
+              <div className="ingridiant_label font-roboto_medium text-xl  text-[#1d1d1d]  font-[400]">Fat</div>
             </div>
 
-            <div class="ingridiant_width">
-              <div class="ingridiant_value text-[26px] font-bold text-[#1d1d1d] font-roboto_bold">8g</div>
-              <div class="ingridiant_label font-roboto_medium text-xl  text-[#1d1d1d]  font-[400]">Carbs</div>
+            <div className="ingridiant_width">
+              <div className="ingridiant_value text-[26px] font-bold text-[#1d1d1d] font-roboto_bold">8g</div>
+              <div className="ingridiant_label font-roboto_medium text-xl  text-[#1d1d1d]  font-[400]">Carbs</div>
             </div>
           </div>
 
