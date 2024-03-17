@@ -62,7 +62,6 @@ function CartDetails({layout, cart}) {
 }
 
 function LockedItem({cost}) {
-  console.log(addAmount(cost.subtotalAmount, '0'));
   return (
     <>
       {addAmount(cost.subtotalAmount.amount, '0') >= 125 ? (
@@ -112,7 +111,8 @@ function CartLines({lines, layout}) {
  * }}
  */
 function CartLineItem({layout, line}) {
-  const {id, merchandise} = line;
+  const {id, merchandise,cost} = line;
+  const {amountPerQuantity} = cost;
   const {product, title, image, selectedOptions} = merchandise;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
 
@@ -148,7 +148,8 @@ function CartLineItem({layout, line}) {
               </strong>
             </p>
           </Link>
-          <CartLinePrice line={line} as="span" />
+           <p className='font-bold text-center text-[25px]'>${amountPerQuantity.amount}</p>
+          {/* <CartLinePrice line={line} as="span" /> */}
         </div>
         {/* <ul>
           {selectedOptions.map((option) => (
@@ -208,7 +209,6 @@ function CartCheckoutActions({checkoutUrl, cost}) {
 export function CartSummary({cost, layout, children = null}) {
   const className =
     layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
-  console.log(cost);
   return (
     <div
       aria-labelledby="cart-summary"
@@ -219,8 +219,8 @@ export function CartSummary({cost, layout, children = null}) {
         <dt>Total: </dt>
         {cost?.subtotalAmount?.amount ? (
           <span className="text-[20px] pr-1 line-through decoration-[#000] decoration-[3px] text-[#919191] ">
-            {' '}
-            {addAmount(cost?.subtotalAmount?.amount, '11.45')}{' '}
+            
+            {addAmount(cost?.subtotalAmount?.amount, '11.45')}
           </span>
         ) : (
           '-'
@@ -281,7 +281,7 @@ function addAmount(baseAmount, additionalAmount) {
     }
   }
   const finalResult = parseFloat(sumStr);
-  return finalResult;
+  return sumStr;
 }
 
 // // Example usage:
@@ -315,13 +315,17 @@ function CartLineQuantity({line}) {
   const {id: lineId, quantity} = line;
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
   const nextQuantity = Number((quantity + 1).toFixed(0));
-  const [updateQty, setUpdatedQty] = useState(quantity);
+  const [updateQty, setUpdatedQty] = useState(1);
+ 
+ const updateQuantity = (value)=>{
+  setUpdatedQty(value);
+ };
   return (
     <div className="cart-line-quantity">
       <div className="flex gap-[5px] items-center bg-[#862e1b] justify-between p-[5px]">
-        <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
+        <CartLineUpdateButton lines={[{id: lineId, quantity: updateQty}]}>
           <button
-            onClick={() => setUpdatedQty(prevQuantity)}
+            onClick={()=>updateQuantity(updateQty <= 1 ? 1 : updateQty - 1)}
             aria-label="Decrease quantity"
             disabled={quantity <= 1}
             name="decrease-quantity"
@@ -334,9 +338,9 @@ function CartLineQuantity({line}) {
         <small className="text-[#000] font-bold text-[14px] text-center bg-white flex justify-center items-center w-[32px] h-[25px] p-[3px] ">
           {updateQty}
         </small>
-        <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
+        <CartLineUpdateButton lines={[{id: lineId, quantity: updateQty}]}>
           <button
-            onClick={() => setUpdatedQty(nextQuantity)}
+            onClick={()=>updateQuantity(updateQty + 1)}
             className="text-[#862e1b] bg-white flex justify-center items-center rounded-[5px] p-[3px] w-[25px] h-[25px]"
             aria-label="Increase quantity"
             name="increase-quantity"
