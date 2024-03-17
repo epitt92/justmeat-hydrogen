@@ -1,18 +1,24 @@
 import {Await, NavLink} from '@remix-run/react';
-import {Suspense} from 'react';
+import {Suspense, useEffect} from 'react';
 import {useRootLoaderData} from '~/root';
 import OrderButton from './OrderButton';
 import {number} from 'prop-types';
+import { useLocation } from '@remix-run/react';
 
 /**
  * @param {HeaderProps}
  */
 export function Header({header, isLoggedIn, cart,setMenuToggle}) {
-  
-  const {shop, menu} = header;
-  return (
-    <header className="container max-w-[100%] bg-[#eeeeee]  ">
-      <div className="content flex justify-between items-center  py-4 px-5 sm:px-10 max-w-[1440px] mx-auto ">
+
+
+  const location = useLocation;
+  // useEffect(() =>{
+  //   console.log("pathname",location.pathname)
+  // }, [location])
+
+  const Mainheader = () => {
+    return (
+      <div className="content flex justify-between items-center  py-4 px-5 sm:px-10 max-w-[1440px] mx-auto">
         <NavLink end prefetch="intent" to="/">
           <img
             src="/logo.svg"
@@ -67,7 +73,7 @@ export function Header({header, isLoggedIn, cart,setMenuToggle}) {
                   width="27.473"
                   height="33.937"
                   viewBox="0 0 27.473 33.937"
-                  class="icon-account"
+                  className="icon-account"
                 >
                   <path
                     id="Path_1"
@@ -75,7 +81,7 @@ export function Header({header, isLoggedIn, cart,setMenuToggle}) {
                     d="M259.545,42.272A7.272,7.272,0,1,1,252.272,35a7.272,7.272,0,0,1,7.272,7.272"
                     transform="translate(-238.536 -35)"
                     fill="#030303"
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                   ></path>
                   <path
                     id="Path_2"
@@ -83,7 +89,7 @@ export function Header({header, isLoggedIn, cart,setMenuToggle}) {
                     d="M177.528,286.105a1.616,1.616,0,0,0,1.616-1.616v-2.424a13.736,13.736,0,1,0-27.473,0v2.424a1.616,1.616,0,0,0,1.616,1.616h24.241Z"
                     transform="translate(-151.672 -252.168)"
                     fill="#030303"
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                   ></path>
                 </svg>
               </span>
@@ -95,6 +101,26 @@ export function Header({header, isLoggedIn, cart,setMenuToggle}) {
           </div>
         </div>
       </div>
+    )
+  }
+
+  const Landingheader = () => {
+    return(
+      <div className='content flex justify-center items-center py-4 px-5 sm:px-10 max-w-[1440px] mx-auto relative'>
+        <img
+          src="/logo.svg"
+          className="object-cover w-30 h-16 sm:h-24"
+          alt=""
+        />
+        <NavLink end prefetch="intent" to="/" className='absolute left-0'><svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 m-4 " fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" aria-label='Back Home'></path></svg></NavLink>
+      </div>
+    )
+  }
+  
+  const {shop, menu} = header;
+  return (
+    <header className="container max-w-[100%] bg-[#eeeeee]  ">
+      { location.pathname === "/products/custom-bundle" ? <Landingheader/> : <Mainheader/> }
     </header>
   );
 }
@@ -180,7 +206,7 @@ function HeaderCtas({isLoggedIn, cart}) {
 
 function HeaderMenuMobileToggle() {
   return (
-    <div class="" >
+    <div className="" >
       <svg
         fill="none"
         height="16"
