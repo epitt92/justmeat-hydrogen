@@ -21,6 +21,10 @@ import {SubscriptionCard} from '~/components/SubscriptionCard';
 
 import sliderStyles from 'swiper/css';
 import sliderNavigation from 'swiper/css/navigation';
+import { useState } from 'react';
+
+import HeaderContext from './components/HeaderContext';
+
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
  * @type {ShouldRevalidateFunction}
@@ -114,24 +118,28 @@ export default function App() {
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
 
+  const [switchHeader, setSwitchHeader] = useState(false)
+
   return (
-    <html lang="en">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <Meta />
-        <Links />
-      </head>
-      <body>
-      <SubscriptionCard></SubscriptionCard>
-        <Layout {...data}>
-          <Outlet />
-        </Layout>
-        <ScrollRestoration nonce={nonce} />
-        <Scripts nonce={nonce} />
-        <LiveReload nonce={nonce} />
-      </body>
-    </html>
+    <HeaderContext.Provider value={{switchHeader, setSwitchHeader}}>
+      <html lang="en">
+        <head>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width,initial-scale=1" />
+          <Meta />
+          <Links />
+        </head>
+        <body>
+        <SubscriptionCard></SubscriptionCard>
+          <Layout {...data}>
+            <Outlet />
+          </Layout>
+          <ScrollRestoration nonce={nonce} />
+          <Scripts nonce={nonce} />
+          <LiveReload nonce={nonce} />
+        </body>
+      </html>
+    </HeaderContext.Provider>
   );
 }
 

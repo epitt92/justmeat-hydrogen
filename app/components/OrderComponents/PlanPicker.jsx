@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import HeaderContext from '../HeaderContext';
 
 const PlanPicker = () => {
 
@@ -8,6 +9,12 @@ const PlanPicker = () => {
   const handleOptionClick = (option) => {
     setActiveOption(option);
   };
+
+  const {setSwitchHeader} = useContext(HeaderContext);
+
+  useEffect(() => {
+    setSwitchHeader(true);
+  }, [])
 
 
   const checkBox = (
