@@ -20,6 +20,7 @@ import { Aside } from '../Aside';
  const AsideCart = ()=>{
   const rootData = useRootLoaderData();
   const cartPromise = rootData.cart;
+  // console.log(pro)
   return (
     <div className="cart">
       {/* <h1>Cart</h1> */}
@@ -97,6 +98,8 @@ const CustomCollection = ({col}) => {
 };
 
 function ProductCard({product}) {
+  console.log(product);
+
   const image = product.featuredImage.url;
   const variantId = '8249959383266';
   const product2 = product;
@@ -274,7 +277,7 @@ function ProductOptions({option}) {
  */
 function AddToCartButton({analytics, children, disabled, lines, onClick}) {
   return (
-    <CartForm route="/cart" inputs={{lines}} action={CartForm.ACTIONS.LinesAdd}>
+    <CartForm route="/products/custom-bundle" inputs={{lines}} action={CartForm.ACTIONS.LinesAdd}>
       {(fetcher) => (
         <>
           <input

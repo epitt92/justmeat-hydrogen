@@ -293,7 +293,7 @@ function addAmount(baseAmount, additionalAmount) {
 function CartLineRemoveButton({lineIds}) {
   return (
     <CartForm
-      route="/cart"
+      route="/products/custom-bundle"
       action={CartForm.ACTIONS.LinesRemove}
       inputs={{lineIds}}
     >
