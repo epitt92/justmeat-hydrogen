@@ -8,24 +8,25 @@ import CustomProgressBar from './ui/CustomProgressBar';
 /**
  * @param {CartMainProps}
  */
-export function CartMain({layout, cart,selectedProducts}) {
-   const {cost} = cart;
-   console.log(selectedProducts.length);
+export function CartMain({layout, cart, selectedProducts}) {
+  const {cost} = cart;
+  console.log(selectedProducts.length);
   const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
   const withDiscount =
     cart &&
     Boolean(cart?.discountCodes?.filter((code) => code.applicable)?.length);
   const className = `cart-main ${withDiscount ? 'with-discount' : ''}`;
 
-    
   return (
     <div className={className}>
       <ProgessBar cost={cost.subtotalAmount.amount} />
-      {selectedProducts.length > 0 &&
-        <div>hellow World</div>
-      }
+      {/* {selectedProducts.length > 0 && <div>hellow World</div>} */}
+      <CartDetails
+        cart={cart}
+        layout={layout}
+        selectedProducts={selectedProducts}
+      />
       <CartEmpty hidden={linesCount} layout={layout} />
-      <CartDetails  cart={cart} layout={layout} selectedProducts={selectedProducts} />
     </div>
   );
 }
@@ -33,12 +34,14 @@ export function CartMain({layout, cart,selectedProducts}) {
 /**
  * @param {CartMainProps}
  */
-function CartDetails({layout, cart ,selectedProducts }) {
-  const cartHasItems = !!cart && cart.totalQuantity < 0;
+function CartDetails({layout, cart, selectedProducts}) {
+  const cartHasItems = selectedProducts > 0;
+  // const cartHasItems = !!cart && cart.totalQuantity < 0;
   return (
     <div className="cart-details flex flex-col justify-between">
-      
-      <CartLines lines={cart?.lines} layout={layout} selectedProducts={selectedProducts} />
+      <CartLines
+        selectedProducts={selectedProducts}
+      />
       {cartHasItems && (
         <div className="p-5 pb-3 bg-white">
           <div className="border-b-4 pb-[10px] border-black">
@@ -69,23 +72,20 @@ function CartDetails({layout, cart ,selectedProducts }) {
   );
 }
 
-
-function ProgessBar ({cost}){
-
+function ProgessBar({cost}) {
   return (
     <div>
       <div className="progress-bar ">
-                  <CustomProgressBar cost={cost} />
-                </div>
-                <div className="free-item pl-[10px] mb-5">
-                  <img
-                    src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Ranch_Rub_Chicken_Breast_Free.png"
-                    alt="cart free"
-                  />
-                </div>
+        <CustomProgressBar cost={cost} />
+      </div>
+      <div className="free-item pl-[10px] mb-5">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Ranch_Rub_Chicken_Breast_Free.png"
+          alt="cart free"
+        />
+      </div>
     </div>
-  )
-
+  );
 }
 
 function LockedItem({cost}) {
@@ -111,72 +111,75 @@ function LockedItem({cost}) {
   );
 }
 
-/**
- * @param {{
- *   layout: CartMainProps['layout'];
- *   lines: CartApiQueryFragment['lines'] | undefined;
- * }}
- */
-function CartLines({lines, layout ,selectedProducts}) {
-  if (!lines) return null;
+
+function CartLines({ selectedProducts}) {
+  if (!selectedProducts) return null;
 
   return (
     <div aria-labelledby="cart-lines" className="h-[260px] overflow-auto">
       <ul>
-        {lines.nodes.map((line) => (
-          <CartLineItem  key={line.id} line={line} selectedProducts={selectedProducts} layout={layout} />
+        {selectedProducts.map((product) => (
+          <CartLineItem
+            key={product.id}
+            line={product}
+          />
         ))}
       </ul>
     </div>
   );
 }
+// /**
+//  * @param {{
+//  *   layout: CartMainProps['layout'];
+//  *   lines: CartApiQueryFragment['lines'] | undefined;
+//  * }}
+//  */
+// function CartLines({lines, layout, selectedProducts}) {
+//   if (!lines) return null;
 
-/**
- * @param {{
- *   layout: CartMainProps['layout'];
- *   line: CartLine;
- * }}
- */
-function CartLineItem({layout, line , selectedProducts}) {
-  console.log(selectedProducts);
-  // const {id, merchandise,cost} = line;
+//   return (
+//     <div aria-labelledby="cart-lines" className="h-[260px] overflow-auto">
+//       <ul>
+//         {lines.nodes.map((line) => (
+//           <CartLineItem
+//             key={line.id}
+//             line={line}
+//             selectedProducts={selectedProducts}
+//             layout={layout}
+//           />
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// }
+
+
+function CartLineItem({ line}) {
+  const {id, title,featuredImage,priceRange } = line;
   // const {amountPerQuantity} = cost;
-  const {product, title, image, selectedOptions} = selectedProducts;
+  // const {product, title, image, selectedOptions} = selectedProducts;
   // const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
-
+  const image = featuredImage.url;
+  console.log(image);
   return (
     <li key={id} className="cart-line pl-[10px] mb-5 flex gap-4">
-      {image && (
-        <Image
-          // alt={title}
-          // aspectRatio="1/1"
-          data={image}
-          height={100}
-          loading="lazy"
-          width={72}
-        />
-      )}
+      {featuredImage && (
+       
+        <img src={image} alt=""height={100}
+        loading="lazy"
+        width={72} />
+        )}
 
       <div className="flex  flex-1 pr-[10px] justify-between items-center ">
         <div className="h-fit flex-1">
-          <Link
-            prefetch="intent"
-            to={lineItemUrl}
-            className="font-semibold text-[14px]  text-center "
-            // onClick={() => {
-            //   if (layout === 'aside') {
-            //     // close the drawer
-            //     window.location.href = lineItemUrl;
-            //   }
-            // }}
-          >
-            <p>
-              <strong className="pr-[10px] flex justify-center">
-                {title}
-              </strong>
+        
+            <p className="font-semibold text-[14px]  text-center ">
+              <strong className="pr-[10px] flex justify-center">{title}</strong>
             </p>
-          </Link>
-           <p className='font-bold text-center text-[25px]'>${amountPerQuantity.amount}</p>
+          
+          <p className="font-bold text-center text-[25px]">
+            ${priceRange.maxVariantPrice.amount}
+          </p>
           {/* <CartLinePrice line={line} as="span" /> */}
         </div>
         {/* <ul>
@@ -188,11 +191,73 @@ function CartLineItem({layout, line , selectedProducts}) {
             </li>
           ))}
         </ul> */}
-        <CartLineQuantity  line={line} />
+        <CartLineQuantity line={line} />
       </div>
     </li>
   );
 }
+// /**
+//  * @param {{
+//  *   layout: CartMainProps['layout'];
+//  *   line: CartLine;
+//  * }}
+//  */
+// function CartLineItem({layout, line, selectedProducts}) {
+//   console.log(selectedProducts);
+//   const {id, merchandise, cost} = line;
+//   const {amountPerQuantity} = cost;
+//   const {product, title, image, selectedOptions} = selectedProducts;
+//   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
+
+//   return (
+//     <li key={id} className="cart-line pl-[10px] mb-5 flex gap-4">
+//       {image && (
+//         <Image
+//           // alt={title}
+//           // aspectRatio="1/1"
+//           data={image}
+//           height={100}
+//           loading="lazy"
+//           width={72}
+//         />
+//       )}
+
+//       <div className="flex  flex-1 pr-[10px] justify-between items-center ">
+//         <div className="h-fit flex-1">
+//           <Link
+//             prefetch="intent"
+//             to={lineItemUrl}
+//             className="font-semibold text-[14px]  text-center "
+//             // onClick={() => {
+//             //   if (layout === 'aside') {
+//             //     // close the drawer
+//             //     window.location.href = lineItemUrl;
+//             //   }
+//             // }}
+//           >
+//             <p>
+//               <strong className="pr-[10px] flex justify-center">{title}</strong>
+//             </p>
+//           </Link>
+//           <p className="font-bold text-center text-[25px]">
+//             ${amountPerQuantity.amount}
+//           </p>
+//           {/* <CartLinePrice line={line} as="span" /> */}
+//         </div>
+//         {/* <ul>
+//           {selectedOptions.map((option) => (
+//             <li key={option.name}>
+//               <small>
+//                 {option.name}: {option.value}
+//               </small>
+//             </li>
+//           ))}
+//         </ul> */}
+//         <CartLineQuantity line={line} />
+//       </div>
+//     </li>
+//   );
+// }
 
 /**
  * @param {{checkoutUrl: string}}
@@ -247,7 +312,6 @@ export function CartSummary({cost, layout, children = null}) {
         <dt>Total: </dt>
         {cost?.subtotalAmount?.amount ? (
           <span className="text-[20px] pr-1 line-through decoration-[#000] decoration-[3px] text-[#919191] ">
-            
             {addAmount(cost?.subtotalAmount?.amount, '11.45')}
           </span>
         ) : (
@@ -340,33 +404,28 @@ function CartLineRemoveButton({lineIds}) {
  */
 
 function CartLineQuantity({line}) {
-  
   if (!line || typeof line?.quantity === 'undefined') return null;
-  const {id: lineId, quantity ,cost} = line;
+  const {id: lineId, quantity, cost} = line;
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
   const nextQuantity = Number((quantity + 1).toFixed(0));
   const amountPrQTy = cost.amountPerQuantity.amount;
   const [updateQty, setUpdatedQty] = useState(1);
 
   // console.log(amountPrQTy * updateQty);
- 
 
-  useEffect(()=>{
+  useEffect(() => {
     setUpdatedQty(quantity);
-  },[]);
+  }, []);
 
- 
-
-
- const updateQuantity = (value)=>{
-  setUpdatedQty(value);
- };
+  const updateQuantity = (value) => {
+    setUpdatedQty(value);
+  };
   return (
     <div className="cart-line-quantity">
       <div className="flex gap-[5px] items-center bg-[#862e1b] justify-between p-[5px]">
         <CartLineUpdateButton lines={[{id: lineId, quantity: updateQty}]}>
           <button
-            onClick={()=>updateQuantity(updateQty <= 1 ? 1 : updateQty - 1)}
+            onClick={() => updateQuantity(updateQty <= 1 ? 1 : updateQty - 1)}
             aria-label="Decrease quantity"
             disabled={quantity <= 1}
             name="decrease-quantity"
@@ -381,7 +440,7 @@ function CartLineQuantity({line}) {
         </small>
         <CartLineUpdateButton lines={[{id: lineId, quantity: updateQty}]}>
           <button
-            onClick={()=>updateQuantity(updateQty + 1)}
+            onClick={() => updateQuantity(updateQty + 1)}
             className="text-[#862e1b] bg-white flex justify-center items-center rounded-[5px] p-[3px] w-[25px] h-[25px]"
             aria-label="Increase quantity"
             name="increase-quantity"
@@ -430,7 +489,7 @@ function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
  */
 export function CartEmpty({hidden = false, layout = 'aside'}) {
   return (
-    <div hidden={hidden} className='h-[260px]'>
+    <div hidden={hidden} className="h-[260px]">
       <br />
       <div className=" p-5 pb-3 absolute bottom-0 w-full ">
         <div className="border-b-4 flex justify-between items-end pb-[10px] border-black w-full ">
