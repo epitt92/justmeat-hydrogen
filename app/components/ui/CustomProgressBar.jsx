@@ -3,21 +3,23 @@ import { Progress } from './progress';
 
 
 
-const CustomProgressBar = () => {
-    const [progress, setProgress] = useState(25);
-
+const CustomProgressBar = ({cost}) => {
+    const [progress, setProgress] = useState(0);
     useEffect(() => {
-        const timer = setTimeout(() => setProgress(66), 500)
-        return () => clearTimeout(timer)
-      }, [])
+      if(cost >= 100){
+        setProgress(100);
+
+      }else{
+
+        setProgress(cost);
+      }
+      }, [cost])
 
       return ( 
         <div className='py-4 px-7 flex justify-center'>
             <Progress value={progress} className="w-[90%] min-h-3 border border-[#000]" />
         </div>
       )
-
-
 
 }
 

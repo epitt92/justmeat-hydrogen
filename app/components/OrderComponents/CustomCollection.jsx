@@ -16,7 +16,6 @@ import ProductModal from '../ui/ProductModal';
 import CustomProgressBar from '../ui/CustomProgressBar';
 import { Aside } from '../Aside';
 
-
  const AsideCart = ()=>{
   const rootData = useRootLoaderData();
   const cartPromise = rootData.cart;
@@ -41,7 +40,6 @@ import { Aside } from '../Aside';
 
 const CustomCollection = ({col}) => {
   const {nodes} = col;
-  // console.log(nodes[0])
   return (
     <section className="max-w-ful ">
       <div className=" flex gap-3">
@@ -78,7 +76,7 @@ const CustomCollection = ({col}) => {
                     </p>
                   </div>
                 </div>
-                <div className="progress-bar border">
+                {/* <div className="progress-bar border">
                   <CustomProgressBar />
                 </div>
                 <div className="free-item pl-[10px] mb-5">
@@ -86,7 +84,7 @@ const CustomCollection = ({col}) => {
                     src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Ranch_Rub_Chicken_Breast_Free.png"
                     alt="cart free"
                   />
-                </div>
+                </div> */}
                 <AsideCart />
               </div>
             </div>
@@ -98,7 +96,6 @@ const CustomCollection = ({col}) => {
 };
 
 function ProductCard({product}) {
-  console.log(product);
 
   const image = product.featuredImage.url;
   const variantId = '8249959383266';

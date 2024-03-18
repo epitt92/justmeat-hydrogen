@@ -2,22 +2,26 @@ import {CartForm, Image, Money} from '@shopify/hydrogen';
 import {Link} from '@remix-run/react';
 import {useVariantUrl} from '~/lib/variants';
 import {useRootLoaderData} from '~/root';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
+import CustomProgressBar from './ui/CustomProgressBar';
 
 /**
  * @param {CartMainProps}
  */
 export function CartMain({layout, cart}) {
+   const {cost} = cart;
   const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
   const withDiscount =
     cart &&
     Boolean(cart?.discountCodes?.filter((code) => code.applicable)?.length);
   const className = `cart-main ${withDiscount ? 'with-discount' : ''}`;
 
+    
   return (
     <div className={className}>
+      <ProgessBar cost={cost.subtotalAmount.amount} />
       <CartEmpty hidden={linesCount} layout={layout} />
-      <CartDetails cart={cart} layout={layout} />
+      <CartDetails  cart={cart} layout={layout} />
     </div>
   );
 }
@@ -25,11 +29,11 @@ export function CartMain({layout, cart}) {
 /**
  * @param {CartMainProps}
  */
-function CartDetails({layout, cart}) {
+function CartDetails({layout, cart }) {
   const cartHasItems = !!cart && cart.totalQuantity > 0;
-
   return (
     <div className="cart-details flex flex-col justify-between">
+      
       <CartLines lines={cart?.lines} layout={layout} />
       {cartHasItems && (
         <div className="p-5 pb-3 bg-white">
@@ -59,6 +63,25 @@ function CartDetails({layout, cart}) {
       )}
     </div>
   );
+}
+
+
+function ProgessBar ({cost}){
+
+  return (
+    <div>
+      <div className="progress-bar ">
+                  <CustomProgressBar cost={cost} />
+                </div>
+                <div className="free-item pl-[10px] mb-5">
+                  <img
+                    src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Ranch_Rub_Chicken_Breast_Free.png"
+                    alt="cart free"
+                  />
+                </div>
+    </div>
+  )
+
 }
 
 function LockedItem({cost}) {
@@ -97,7 +120,7 @@ function CartLines({lines, layout}) {
     <div aria-labelledby="cart-lines" className="h-[260px] overflow-auto">
       <ul>
         {lines.nodes.map((line) => (
-          <CartLineItem key={line.id} line={line} layout={layout} />
+          <CartLineItem  key={line.id} line={line} layout={layout} />
         ))}
       </ul>
     </div>
@@ -160,7 +183,7 @@ function CartLineItem({layout, line}) {
             </li>
           ))}
         </ul> */}
-        <CartLineQuantity line={line} />
+        <CartLineQuantity  line={line} />
       </div>
     </li>
   );
@@ -310,13 +333,26 @@ function CartLineRemoveButton({lineIds}) {
 /**
  * @param {{line: CartLine}}
  */
+
 function CartLineQuantity({line}) {
+  
   if (!line || typeof line?.quantity === 'undefined') return null;
-  const {id: lineId, quantity} = line;
+  const {id: lineId, quantity ,cost} = line;
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
   const nextQuantity = Number((quantity + 1).toFixed(0));
+  const amountPrQTy = cost.amountPerQuantity.amount;
   const [updateQty, setUpdatedQty] = useState(1);
+
+  // console.log(amountPrQTy * updateQty);
  
+
+  useEffect(()=>{
+    setUpdatedQty(quantity);
+  },[]);
+
+ 
+
+
  const updateQuantity = (value)=>{
   setUpdatedQty(value);
  };
