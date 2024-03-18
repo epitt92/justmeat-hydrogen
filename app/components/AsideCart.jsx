@@ -14,9 +14,8 @@ export function CartMain({layout, cart, selectedProducts,setSelectedProducts}) {
       prevSelectedProducts.filter((selectedProduct) => selectedProduct.id !== product.id)
     );
   }
-  const {cost} = cart;
+  // const {cost} = cart;
   console.log(selectedProducts.length);
-  console.log(cost);
   const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
   const withDiscount =
     cart &&
@@ -25,7 +24,7 @@ export function CartMain({layout, cart, selectedProducts,setSelectedProducts}) {
 
   return (
     <div className={className}>
-      <ProgessBar cost={cost.subtotalAmount.amount} />
+      <ProgessBar cost={15} />
       {/* {selectedProducts.length > 0 && <div>hellow World</div>} */}
       <CartDetails
         cart={cart}
