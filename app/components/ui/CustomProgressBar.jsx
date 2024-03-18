@@ -34,7 +34,7 @@ const CustomProgressBar = () => {
               style={{ transform: `translateX(-${100 - progress}%)` }}
             />
           </Progress.Root>
-          <div className='flex flex-column '>
+          <div className='flex flex-column justify-end'>
             <p style={{textAlign: "center"}}>$75<br/><span style={{fontSize: "14px"}}>Unlock Order</span></p>
             <p style={{marginRight: "20%", marginLeft: "20px", textAlign: "center"}}>$125<br/><span style={{fontSize: "14px"}}>Free Meat</span></p>
           </div>
