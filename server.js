@@ -49,7 +49,6 @@ export default {
         storefrontAccessToken: env.PUBLIC_RECHARGE_STOREFRONT_ACCESS_TOKEN,
       });
       const rechargeSession = await RechargeSession.init(request, [env.SESSION_SECRET]);
-      
       /**
        * Create Hydrogen's Storefront client.
        */

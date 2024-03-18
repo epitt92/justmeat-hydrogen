@@ -44,33 +44,56 @@ export async function loader({context}) {
   );
 }
 
-export default function AccountLayout(subscriptionsResponse) {
-  /** @type {LoaderReturnData} */
-  const {customer} = useLoaderData();
+// export default function AccountLayout(subscriptionsResponse) {
+//   /** @type {LoaderReturnData} */
+//   const {customer} = useLoaderData();
 
+//   const heading = customer
+//     ? customer.firstName
+//       ? `Welcome, ${customer.firstName}`
+//       : `Welcome to your account.`
+//     : 'Account Details';
+// console.log(subscriptionsResponse.subscriptions);
+// console.log("CALLING");
+//   return (
+//     <div className="account">
+//       <h1>{heading}</h1>
+//       {subscriptionsResponse.subscriptions && (        
+//         <AccountSubscriptions subscriptions={subscriptionsResponse.subscriptions} />
+//       )}
+//       <br />
+//       {/*<AccountMenu />*/}
+//       <br />
+//       <br />
+//       <Outlet context={{customer}} />
+//     </div>
+//   );
+// }
+export default function AccountLayout() {
+  /** @type {LoaderReturnData} */
+  const { subscriptionsResponse, customer } = useLoaderData();
   const heading = customer
     ? customer.firstName
       ? `Welcome, ${customer.firstName}`
       : `Welcome to your account.`
     : 'Account Details';
-console.log(subscriptionsResponse.subscriptions);
-console.log(customer);
+  console.log(subscriptionsResponse.subscriptions);
+  console.log(customer);
   return (
     <div className="account">
       <h1>{heading}</h1>
       <h1>{customer.defaultAddress.id}</h1>
-      {subscriptionsResponse.subscriptions && (        
+      {subscriptionsResponse.subscriptions && (
         <AccountSubscriptions subscriptions={subscriptionsResponse.subscriptions} />
       )}
       <br />
       {/*<AccountMenu />*/}
       <br />
       <br />
-      <Outlet context={{customer}} />
+      <Outlet context={{ customer }} />
     </div>
   );
 }
-
 function AccountMenu() {
   function isActiveStyle({isActive, isPending}) {
     return {

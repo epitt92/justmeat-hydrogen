@@ -2,13 +2,16 @@ import { loginWithShopifyCustomerAccount } from '@rechargeapps/storefront-client
 import { json } from '@shopify/remix-oxygen';
 
 const RECHARGE_SESSION_KEY = 'rechargeSession';
-
+console.log("recharge unit");
 // loginHelper function
 async function loginRecharge(context) {
+
   const customerAccessToken = await context.customerAccount.getAccessToken();
   const rechargeSession = await loginWithShopifyCustomerAccount(customerAccessToken);
-
+console.log("hello from recharge");
+console.log("console.recharge session", rechargeSession);
   if (rechargeSession) {
+
     context.rechargeSession.set(RECHARGE_SESSION_KEY, rechargeSession);
   } else {
     // this should match your catch boundary
