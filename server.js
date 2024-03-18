@@ -97,11 +97,11 @@ export default {
         getLoadContext: () => ({
           session,
           rechargeSession,
+          waitUntil,
           storefront,
           customerAccount,
           cart,
           env,
-          waitUntil,
         }),
       });
 
