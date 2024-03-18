@@ -14,12 +14,7 @@ module.exports = {
   serverConditions: ['worker', process.env.NODE_ENV],
   serverDependenciesToBundle: 'all',
   serverModuleFormat: 'esm',
-  serverNodeBuiltinsPolyfill: {
-    modules: {
-      crypto: true, 
-      util: true,
-    },
-  },
+  
   serverPlatform: 'neutral',
   serverMinify: process.env.NODE_ENV === 'production',
   future: {
@@ -27,6 +22,11 @@ module.exports = {
     v3_relativeSplatpath: true,
     v3_throwAbortReason: true,
   },
-  
+  serverNodeBuiltinsPolyfill: {
+    modules: {
+      crypto: true,
+      util: true,
+    },
+  },
 };
 
