@@ -6,17 +6,17 @@ import {
   getPaginationVariables,
   getSelectedProductOptions,
 } from '@shopify/hydrogen';
-import React, {Suspense} from 'react';
-import {CartProvider, useCart, ProductProvider} from '@shopify/hydrogen-react';
-import {defer, json, redirect} from '@remix-run/server-runtime';
-import {Await, Link, useLoaderData} from '@remix-run/react';
-import {CartMain} from '~/components/AsideCart';
-import {useRootLoaderData} from '~/root';
+import React, { Suspense, useState } from 'react';
+import { CartProvider, useCart, ProductProvider } from '@shopify/hydrogen-react';
+import { defer, json, redirect } from '@remix-run/server-runtime';
+import { Await, Link, useLoaderData } from '@remix-run/react';
+import { CartMain } from '~/components/AsideCart';
+import { useRootLoaderData } from '~/root';
 import ProductModal from '../ui/ProductModal';
 import CustomProgressBar from '../ui/CustomProgressBar';
 import { Aside } from '../Aside';
 
- const AsideCart = ()=>{
+const AsideCart = ({selectedProducts}) => {
   const rootData = useRootLoaderData();
   const cartPromise = rootData.cart;
   // console.log(pro)
@@ -29,77 +29,18 @@ import { Aside } from '../Aside';
           errorElement={<div>An error occurred</div>}
         >
           {(cart) => {
-            return <CartMain layout="aside" cart={cart} />;
+            return <CartMain layout="aside" cart={cart} selectedProducts={selectedProducts} />;
           }}
         </Await>
       </Suspense>
     </div>
   );
 
- }
+}
 
-const CustomCollection = ({col}) => {
-  const {nodes} = col;
-  return (
-    <section className="max-w-ful ">
-      <div className=" flex gap-3">
-        <div className="w-[60px] h-[60px] hidden lg:flex rounded-[100%] bg-black justify-center items-center">
-          <span className="text-[40px] font-bold text-white">2</span>
-        </div>
-        
-        <main className="main-section flex gap-2 flex-1 flex-col bg-white sm:border border-gray-400 border-solid">
-           <div className="flex w-full  items-center py-3 sm:py-0 gap-2">
-             <div className="w-[35px] h-[35px] ml-3 lg:hidden lg:w-[60px] lg:h-[60px] rounded-[100%] sm:border-none border-2 border-[#425C35] sm:bg-black flex justify-center items-center  ">
-              <span className=" text-[22px] lg:text-[40px] font-bold text-black sm:text-white ">2</span>
-            </div>
-            <div className="h-fit sm:border-b-4 w-fit sm:border-[#425B34] sm:m-3 ">
-            <h2 className="font-semibold leading-7 text-[20px] sm:text-[22px] text-[#1d1d1d] sm:uppercase  ">
-              Select Your Meats
-            </h2>
-             </div>
-          </div>
-          <div className="product-and-cart flex">
-            <div className="product-grid grid grid-cols-2 md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12">
-              {nodes.map((product, key) => (
-                <ProductCard product={product} key={key} />
-              ))}
-            </div>
-            <div className="cart-wrapper sticky top-[10px] h-fit mb-[10px] hidden xl:block w-4/12">
-              <div className='border h-full'>
-                <div className="top-section py-5 bg-black text-white text-center">
-                  <div className="text-wrapper py-5">
-                    <h1 className="font-roboto_medium text-[17px] leading-none">
-                      Subscribers Save 25% on Orders
-                    </h1>
-                    <p className="text-[14px] leading-none font-roboto_medium mt-3">
-                      Applied at checkout
-                    </p>
-                  </div>
-                </div>
-                {/* <div className="progress-bar border">
-                  <CustomProgressBar />
-                </div>
-                <div className="free-item pl-[10px] mb-5">
-                  <img
-                    src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Ranch_Rub_Chicken_Breast_Free.png"
-                    alt="cart free"
-                  />
-                </div> */}
-                <AsideCart />
-              </div>
-            </div>
-          </div>
-        </main>
-      </div>
-    </section>
-  );
-};
-
-function ProductCard({product}) {
+function ProductCard({ product, setSelectedProducts, selectedProducts }) {
 
   const image = product.featuredImage.url;
-  const variantId = '8249959383266';
-  const product2 = product;
   const productHandle = product.handle;
   const selectedVariant = product.variants.nodes[0];
 
@@ -112,6 +53,21 @@ function ProductCard({product}) {
     const dialogClose = document.querySelector(`#${productHandle}`);
     dialogClose.close();
   }
+
+  function addToSelectedProducts() {
+    setSelectedProducts((prevSelectedProducts) => [
+      ...prevSelectedProducts,
+      product,
+    ]);
+  }
+
+  function removeFromSelectedProducts() {
+    setSelectedProducts((prevSelectedProducts) =>
+      prevSelectedProducts.filter((selectedProduct) => selectedProduct.id !== product.id)
+    );
+  }
+
+  const isSelected = selectedProducts.some((selectedProduct) => selectedProduct.id === product.id);
 
   return (
     <div className="product-grid mb-[40px] ">
@@ -141,7 +97,7 @@ function ProductCard({product}) {
             </svg>
           </button>
         </div>
-        <ProductModal product={product2} key={Math.random()} />
+        <ProductModal product={product} key={Math.random()} />
       </dialog>
       <div className="img-wrapper">
         <img
@@ -160,30 +116,12 @@ function ProductCard({product}) {
       </div>
       <div className="mx-auto text-center my-5">
         <div className="cart custom-add-to-cart ">
-          <Suspense
-            fallback={
-              <ProductForm
-                product={product}
-                selectedVariant={selectedVariant}
-                variants={[]}
-              />
-            }
-          >
-            <Await
-              errorElement="There was a problem loading product variants"
-              resolve={product}
-            >
-              {(data) => (
-                <ProductForm
-                  product={product}
-                  selectedVariant={selectedVariant}
-                  variants={product?.variants.nodes || []}
-                />
-              )}
-            </Await>
-          </Suspense>
+          <button onClick={isSelected ? removeFromSelectedProducts : addToSelectedProducts}>
+            {isSelected ? 'Remove from Selection' : 'Add to Selection'}
+          </button>
         </div>
       </div>
+
     </div>
   );
 }
@@ -195,7 +133,8 @@ function ProductCard({product}) {
  *   variants: Array<ProductVariantFragment>;
  * }}
  */
-export function ProductForm({product, selectedVariant, variants}) {
+function ProductForm({ product, selectedVariant, variants, setSelectedProductId }) {
+  console.log(selectedVariant);
   return (
     <div className="product-form">
       <VariantSelector
@@ -203,7 +142,7 @@ export function ProductForm({product, selectedVariant, variants}) {
         options={product.options}
         variants={variants}
       >
-        {({option}) => <ProductOptions key={option.name} option={option} />}
+        {({ option }) => <ProductOptions key={option.name} option={option} />}
       </VariantSelector>
       {/* <br /> */}
       <AddToCartButton
@@ -214,11 +153,11 @@ export function ProductForm({product, selectedVariant, variants}) {
         lines={
           selectedVariant
             ? [
-                {
-                  merchandiseId: selectedVariant.id,
-                  quantity: 1,
-                },
-              ]
+              {
+                merchandiseId: selectedVariant.id,
+                quantity: 1,
+              },
+            ]
             : []
         }
       >
@@ -234,12 +173,12 @@ export function ProductForm({product, selectedVariant, variants}) {
 /**
  * @param {{option: VariantOption}}
  */
-function ProductOptions({option}) {
+function ProductOptions({ option }) {
   return (
     <div className="product-options" key={option.name}>
       <h5>{option.name}</h5>
       <div className="product-options-grid">
-        {option.values.map(({value, isAvailable, isActive, to}) => {
+        {option.values.map(({ value, isAvailable, isActive, to }) => {
           return (
             <Link
               className="product-options-item"
@@ -272,9 +211,11 @@ function ProductOptions({option}) {
  *   onClick?: () => void;
  * }}
  */
-function AddToCartButton({analytics, children, disabled, lines, onClick}) {
+function AddToCartButton({ analytics, children, disabled, lines, onClick }) {
+  // console.log(children);
+  // console.log(lines);
   return (
-    <CartForm route="/products/custom-bundle" inputs={{lines}} action={CartForm.ACTIONS.LinesAdd}>
+    <CartForm route="/products/custom-bundle" inputs={{ lines }} action={CartForm.ACTIONS.LinesAdd}>
       {(fetcher) => (
         <>
           <input
@@ -294,5 +235,60 @@ function AddToCartButton({analytics, children, disabled, lines, onClick}) {
     </CartForm>
   );
 }
+
+const CustomCollection = ({ col }) => {
+  const { nodes } = col;
+  const [selectedProducts, setSelectedProducts] = useState([]);
+  console.log(selectedProducts);
+  return (
+    <section className="max-w-ful ">
+      <div className=" flex gap-3">
+        <div className="w-[60px] h-[60px] hidden lg:flex rounded-[100%] bg-black justify-center items-center">
+          <span className="text-[40px] font-bold text-white">2</span>
+        </div>
+
+        <main className="main-section flex gap-2 flex-1 flex-col bg-white sm:border border-gray-400 border-solid">
+          <div className="flex w-full  items-center py-3 sm:py-0 gap-2">
+            <div className="w-[35px] h-[35px] ml-3 lg:hidden lg:w-[60px] lg:h-[60px] rounded-[100%] sm:border-none border-2 border-[#425C35] sm:bg-black flex justify-center items-center  ">
+              <span className=" text-[22px] lg:text-[40px] font-bold text-black sm:text-white ">2</span>
+            </div>
+            <div className="h-fit sm:border-b-4 w-fit sm:border-[#425B34] sm:m-3 ">
+              <h2 className="font-semibold leading-7 text-[20px] sm:text-[22px] text-[#1d1d1d] sm:uppercase  ">
+                Select Your Meats
+              </h2>
+            </div>
+          </div>
+          <div className="product-and-cart flex">
+            <div className="product-grid grid grid-cols-2 md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12">
+              {nodes.map((product, key) => (
+                <ProductCard
+                  key={key}
+                  product={product}
+                  setSelectedProducts={setSelectedProducts}
+                  selectedProducts={selectedProducts}
+                />
+              ))}
+            </div>
+            <div className="cart-wrapper sticky top-[10px] h-fit mb-[10px] hidden xl:block w-4/12">
+              <div className='border h-full'>
+                <div className="top-section py-5 bg-black text-white text-center">
+                  <div className="text-wrapper py-5">
+                    <h1 className="font-roboto_medium text-[17px] leading-none">
+                      Subscribers Save 25% on Orders
+                    </h1>
+                    <p className="text-[14px] leading-none font-roboto_medium mt-3">
+                      Applied at checkout
+                    </p>
+                  </div>
+                </div>
+                <AsideCart selectedProducts={selectedProducts} />
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </section>
+  );
+};
 
 export default CustomCollection;

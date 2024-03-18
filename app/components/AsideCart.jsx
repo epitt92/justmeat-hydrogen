@@ -8,8 +8,9 @@ import CustomProgressBar from './ui/CustomProgressBar';
 /**
  * @param {CartMainProps}
  */
-export function CartMain({layout, cart}) {
+export function CartMain({layout, cart,selectedProducts}) {
    const {cost} = cart;
+   console.log(selectedProducts.length);
   const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
   const withDiscount =
     cart &&
@@ -20,8 +21,11 @@ export function CartMain({layout, cart}) {
   return (
     <div className={className}>
       <ProgessBar cost={cost.subtotalAmount.amount} />
+      {selectedProducts.length > 0 &&
+        <div>hellow World</div>
+      }
       <CartEmpty hidden={linesCount} layout={layout} />
-      <CartDetails  cart={cart} layout={layout} />
+      <CartDetails  cart={cart} layout={layout} selectedProducts={selectedProducts} />
     </div>
   );
 }
@@ -29,12 +33,12 @@ export function CartMain({layout, cart}) {
 /**
  * @param {CartMainProps}
  */
-function CartDetails({layout, cart }) {
-  const cartHasItems = !!cart && cart.totalQuantity > 0;
+function CartDetails({layout, cart ,selectedProducts }) {
+  const cartHasItems = !!cart && cart.totalQuantity < 0;
   return (
     <div className="cart-details flex flex-col justify-between">
       
-      <CartLines lines={cart?.lines} layout={layout} />
+      <CartLines lines={cart?.lines} layout={layout} selectedProducts={selectedProducts} />
       {cartHasItems && (
         <div className="p-5 pb-3 bg-white">
           <div className="border-b-4 pb-[10px] border-black">
@@ -113,14 +117,14 @@ function LockedItem({cost}) {
  *   lines: CartApiQueryFragment['lines'] | undefined;
  * }}
  */
-function CartLines({lines, layout}) {
+function CartLines({lines, layout ,selectedProducts}) {
   if (!lines) return null;
 
   return (
     <div aria-labelledby="cart-lines" className="h-[260px] overflow-auto">
       <ul>
         {lines.nodes.map((line) => (
-          <CartLineItem  key={line.id} line={line} layout={layout} />
+          <CartLineItem  key={line.id} line={line} selectedProducts={selectedProducts} layout={layout} />
         ))}
       </ul>
     </div>
@@ -133,17 +137,18 @@ function CartLines({lines, layout}) {
  *   line: CartLine;
  * }}
  */
-function CartLineItem({layout, line}) {
-  const {id, merchandise,cost} = line;
-  const {amountPerQuantity} = cost;
-  const {product, title, image, selectedOptions} = merchandise;
-  const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
+function CartLineItem({layout, line , selectedProducts}) {
+  console.log(selectedProducts);
+  // const {id, merchandise,cost} = line;
+  // const {amountPerQuantity} = cost;
+  const {product, title, image, selectedOptions} = selectedProducts;
+  // const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
 
   return (
     <li key={id} className="cart-line pl-[10px] mb-5 flex gap-4">
       {image && (
         <Image
-          alt={title}
+          // alt={title}
           // aspectRatio="1/1"
           data={image}
           height={100}
@@ -158,16 +163,16 @@ function CartLineItem({layout, line}) {
             prefetch="intent"
             to={lineItemUrl}
             className="font-semibold text-[14px]  text-center "
-            onClick={() => {
-              if (layout === 'aside') {
-                // close the drawer
-                window.location.href = lineItemUrl;
-              }
-            }}
+            // onClick={() => {
+            //   if (layout === 'aside') {
+            //     // close the drawer
+            //     window.location.href = lineItemUrl;
+            //   }
+            // }}
           >
             <p>
               <strong className="pr-[10px] flex justify-center">
-                {product.title}
+                {title}
               </strong>
             </p>
           </Link>
