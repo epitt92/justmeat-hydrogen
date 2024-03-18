@@ -2,7 +2,8 @@ import {CartForm, Image, Money} from '@shopify/hydrogen';
 import {Link} from '@remix-run/react';
 import {useVariantUrl} from '~/lib/variants';
 import {useRootLoaderData} from '~/root';
-import {useState} from 'react';
+import {useContext, useState} from 'react';
+import HeaderContext from './HeaderContext';
 
 /**
  * @param {CartMainProps}
@@ -27,6 +28,12 @@ export function CartMain({layout, cart}) {
  */
 function CartDetails({layout, cart}) {
   const cartHasItems = !!cart && cart.totalQuantity > 0;
+
+  const { setCartTotal } = useContext(HeaderContext);
+
+  setCartTotal(cart.cost.subtotalAmount["amount"])
+
+  // console.log("cart cost", typeof(cart.cost.subtotalAmount["amount"]) )
 
   return (
     <div className="cart-details flex flex-col justify-between">
@@ -240,7 +247,7 @@ export function CartSummary({cost, layout, children = null}) {
 
 function addAmount(baseAmount, additionalAmount) {
   // Parse the base amount and additional amount as floats
-  const base = parseFloat(baseAmount);
+  const base = parseFloat(baseAmount["amount"]);
   const additional = parseFloat(additionalAmount);
 
   // Check if the base amount is a valid number
