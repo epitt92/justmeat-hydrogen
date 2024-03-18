@@ -54,10 +54,11 @@ export default function AccountLayout(subscriptionsResponse) {
       : `Welcome to your account.`
     : 'Account Details';
 console.log(subscriptionsResponse.subscriptions);
-console.log("CALLING");
+console.log(customer);
   return (
     <div className="account">
       <h1>{heading}</h1>
+      <h1>{customer.defaultAddress.id}</h1>
       {subscriptionsResponse.subscriptions && (        
         <AccountSubscriptions subscriptions={subscriptionsResponse.subscriptions} />
       )}

@@ -12,7 +12,7 @@ async function loginRecharge(context) {
     context.rechargeSession.set(RECHARGE_SESSION_KEY, rechargeSession);
   } else {
     // this should match your catch boundary
-    throw json(error, { status: 400 });
+    throw json(customerAccessToken, { status: 400 });
   }
 
   return rechargeSession;
