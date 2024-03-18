@@ -71,6 +71,7 @@ export default function Product() {
     <div className='custom-collection-wrap'>
       <CustomCollection/>
     </div>
+    
     </>
   );
 }

@@ -66,48 +66,48 @@ const PrivacyPolicy = () => {
 We have, in the past 12 months disclosed the following categories of personal information and sensitive personal information (denoted by *) about users for the purposes set out above in "How we Collect and Use your Personal Information" and "How we Disclose Personal Information":</li>
                     </ul>
                 </p>
-                <table class="border-collapse border border-2 rounded">
-                <thead class="">
-                    <tr class="text-center ">
-                    <th class="border-collapse border border-2 rounded pt-3 pb-4 px-4 text-lg">Category</th>
-                    <th class="border-collapse border border-2 rounded pt-3 pb-4 px-4 text-lg">Categories of Recipients</th>
+                <table className="border-collapse border border-2 rounded">
+                <thead className="">
+                    <tr className="text-center ">
+                    <th className="border-collapse border border-2 rounded pt-3 pb-4 px-4 text-lg">Category</th>
+                    <th className="border-collapse border border-2 rounded pt-3 pb-4 px-4 text-lg">Categories of Recipients</th>
                     
                     </tr>
                 </thead>
-                <tbody class="text-lg text-[#555]">
-                    <tr class="text-start ">
-                    <td class="border-collapse border border-2 rounded pl-4">Identifiers such as basic contact details and certain order and account information</td>
-                    <td class="border-collapse border border-2 rounded pl-4">Vendors and third parties who perform services on our behalf (such as Internet service providers, payment processors, fulfillment partners, customer support partners and data analytics providers)</td>
+                <tbody className="text-lg text-[#555]">
+                    <tr className="text-start ">
+                    <td className="border-collapse border border-2 rounded pl-4">Identifiers such as basic contact details and certain order and account information</td>
+                    <td className="border-collapse border border-2 rounded pl-4">Vendors and third parties who perform services on our behalf (such as Internet service providers, payment processors, fulfillment partners, customer support partners and data analytics providers)</td>
                     </tr>
-                    <tr class="text-start">
-                    <td class="border-collapse border border-2 rounded pl-4">Commercial information such as order information, shopping information and customer support information</td>
-                    <td class="border-collapse border border-2 rounded pl-4">Business and marketing partners</td>
+                    <tr className="text-start">
+                    <td className="border-collapse border border-2 rounded pl-4">Commercial information such as order information, shopping information and customer support information</td>
+                    <td className="border-collapse border border-2 rounded pl-4">Business and marketing partners</td>
                     </tr>
-                    <tr class="text-start">
-                    <td class="border-collapse border border-2 rounded pl-4">Internet or other similar network activity, such as Usage Data</td>
-                    <td class="border-collapse border border-2 rounded pl-4">Affiliates</td>
+                    <tr className="text-start">
+                    <td className="border-collapse border border-2 rounded pl-4">Internet or other similar network activity, such as Usage Data</td>
+                    <td className="border-collapse border border-2 rounded pl-4">Affiliates</td>
                     </tr>
                 </tbody>
                 </table>
                 <p className='my-3'>We do not use or disclose sensitive personal information for the purposes of inferring characteristics about you.</p>
                 <p className='my-3'>We have “sold” and “shared” (as those terms are defined in applicable law) personal information over the preceding 12 months for the purpose of engaging in advertising and marketing activities, as follows.</p>
-                <table class="border-collapse border border-2 rounded">
-                <tbody class="text-lg text-[#555]">
-                    <tr class="text-start ">
-                    <td class="border-collapse border border-2 rounded p-4">Category of Personal Information</td>
-                    <td class="border-collapse border border-2 rounded p-4">Categories of Recipients</td>
+                <table className="border-collapse border border-2 rounded">
+                <tbody className="text-lg text-[#555]">
+                    <tr className="text-start ">
+                    <td className="border-collapse border border-2 rounded p-4">Category of Personal Information</td>
+                    <td className="border-collapse border border-2 rounded p-4">Categories of Recipients</td>
                     </tr>
-                    <tr class="text-start">
-                    <td class="border-collapse border border-2 rounded p-4">Identifiers such as basic contact details and certain order and account information</td>
-                    <td class="border-collapse border border-2 rounded p-4">Business and marketing partners</td>
+                    <tr className="text-start">
+                    <td className="border-collapse border border-2 rounded p-4">Identifiers such as basic contact details and certain order and account information</td>
+                    <td className="border-collapse border border-2 rounded p-4">Business and marketing partners</td>
                     </tr>
-                    <tr class="text-start">
-                    <td class="border-collapse border border-2 rounded p-4">Commercial information such as records of products or services purchased and shopping information</td>
-                    <td class="border-collapse border border-2 rounded p-4">Business and marketing partners</td>
+                    <tr className="text-start">
+                    <td className="border-collapse border border-2 rounded p-4">Commercial information such as records of products or services purchased and shopping information</td>
+                    <td className="border-collapse border border-2 rounded p-4">Business and marketing partners</td>
                     </tr>
-                    <tr class="text-start">
-                    <td class="border-collapse border border-2 rounded p-4">Internet or other similar network activity, such as Usage Data</td>
-                    <td class="border-collapse border border-2 rounded p-4">Business and marketing partners</td>
+                    <tr className="text-start">
+                    <td className="border-collapse border border-2 rounded p-4">Internet or other similar network activity, such as Usage Data</td>
+                    <td className="border-collapse border border-2 rounded p-4">Business and marketing partners</td>
                     </tr>
                 </tbody>
                 </table>
