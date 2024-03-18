@@ -6,22 +6,13 @@ const RECHARGE_SESSION_KEY = 'rechargeSession';
 // loginHelper function
 async function loginRecharge(context) {
   const customerAccessToken = await context.customerAccount.getAccessToken();
-  // const rechargeSession = await loginWithShopifyCustomerAccount(customerAccessToken);
-
-  let rechargeSession;
-try {
-  rechargeSession = await loginWithShopifyCustomerAccount(customerAccessToken);
-} catch (error) {
-  // Handle the error here. For instance, log it or throw a custom error.
-  console.error("Failed to log in with Shopify customer account:", error);
-  throw new Error("Login failed due to an unexpected issue.");
-}
+  const rechargeSession = await loginWithShopifyCustomerAccount(customerAccessToken);
 
   if (rechargeSession) {
     context.rechargeSession.set(RECHARGE_SESSION_KEY, rechargeSession);
   } else {
     // this should match your catch boundary
-    throw json(rechargeSession, { status: 400 });
+    throw json(error, { status: 400 });
   }
 
   return rechargeSession;
