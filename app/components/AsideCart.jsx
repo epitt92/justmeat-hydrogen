@@ -191,7 +191,7 @@ function CartLineItem({ line}) {
             </li>
           ))}
         </ul> */}
-        <CartLineQuantity line={line} />
+        {/* <CartLineQuantity line={line} /> */}
       </div>
     </li>
   );
