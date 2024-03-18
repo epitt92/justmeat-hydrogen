@@ -8,9 +8,15 @@ import CustomProgressBar from './ui/CustomProgressBar';
 /**
  * @param {CartMainProps}
  */
-export function CartMain({layout, cart, selectedProducts}) {
+export function CartMain({layout, cart, selectedProducts,setSelectedProducts}) {
+  function removeFromSelectedProducts() {
+    setSelectedProducts((prevSelectedProducts) =>
+      prevSelectedProducts.filter((selectedProduct) => selectedProduct.id !== product.id)
+    );
+  }
   const {cost} = cart;
   console.log(selectedProducts.length);
+  console.log(cost);
   const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
   const withDiscount =
     cart &&
@@ -25,6 +31,7 @@ export function CartMain({layout, cart, selectedProducts}) {
         cart={cart}
         layout={layout}
         selectedProducts={selectedProducts}
+        removeFromSelectedProducts={removeFromSelectedProducts}
       />
       <CartEmpty hidden={linesCount} layout={layout} />
     </div>
@@ -160,7 +167,6 @@ function CartLineItem({ line}) {
   // const {product, title, image, selectedOptions} = selectedProducts;
   // const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
   const image = featuredImage.url;
-  console.log(image);
   return (
     <li key={id} className="cart-line pl-[10px] mb-5 flex gap-4">
       {featuredImage && (
@@ -182,16 +188,8 @@ function CartLineItem({ line}) {
           </p>
           {/* <CartLinePrice line={line} as="span" /> */}
         </div>
-        {/* <ul>
-          {selectedOptions.map((option) => (
-            <li key={option.name}>
-              <small>
-                {option.name}: {option.value}
-              </small>
-            </li>
-          ))}
-        </ul> */}
-        {/* <CartLineQuantity line={line} /> */}
+
+        <CartLineQuantity line={line} />
       </div>
     </li>
   );
@@ -404,18 +402,18 @@ function CartLineRemoveButton({lineIds}) {
  */
 
 function CartLineQuantity({line}) {
-  if (!line || typeof line?.quantity === 'undefined') return null;
-  const {id: lineId, quantity, cost} = line;
-  const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
-  const nextQuantity = Number((quantity + 1).toFixed(0));
-  const amountPrQTy = cost.amountPerQuantity.amount;
+  // if (!line || typeof line?.quantity === 'undefined') return null;
+  // const {id: lineId, quantity, cost} = line;
+  // const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
+  // const nextQuantity = Number((quantity + 1).toFixed(0));
+  // const amountPrQTy = cost.amountPerQuantity.amount;
   const [updateQty, setUpdatedQty] = useState(1);
 
   // console.log(amountPrQTy * updateQty);
 
-  useEffect(() => {
-    setUpdatedQty(quantity);
-  }, []);
+  // useEffect(() => {
+  //   setUpdatedQty(quantity);
+  // }, []);
 
   const updateQuantity = (value) => {
     setUpdatedQty(value);
@@ -423,34 +421,40 @@ function CartLineQuantity({line}) {
   return (
     <div className="cart-line-quantity">
       <div className="flex gap-[5px] items-center bg-[#862e1b] justify-between p-[5px]">
-        <CartLineUpdateButton lines={[{id: lineId, quantity: updateQty}]}>
+        {/* <CartLineUpdateButton lines={[{id: lineId, quantity: updateQty}]}> */}
           <button
             onClick={() => updateQuantity(updateQty <= 1 ? 1 : updateQty - 1)}
             aria-label="Decrease quantity"
-            disabled={quantity <= 1}
+            disabled={updateQty <= 1}
             name="decrease-quantity"
-            value={prevQuantity}
+            // value={prevQuantity}
             className="text-[#862e1b] w-[25px] flex justify-center items-center h-[25px] bg-white rounded-[5px] p-[3px] "
           >
             <span>&#8722; </span>
           </button>
-        </CartLineUpdateButton>
+        {/* </CartLineUpdateButton> */}
         <small className="text-[#000] font-bold text-[14px] text-center bg-white flex justify-center items-center w-[32px] h-[25px] p-[3px] ">
           {updateQty}
         </small>
-        <CartLineUpdateButton lines={[{id: lineId, quantity: updateQty}]}>
+        {/* <CartLineUpdateButton lines={[{id: lineId, quantity: updateQty}]}> */}
           <button
             onClick={() => updateQuantity(updateQty + 1)}
             className="text-[#862e1b] bg-white flex justify-center items-center rounded-[5px] p-[3px] w-[25px] h-[25px]"
             aria-label="Increase quantity"
             name="increase-quantity"
-            value={nextQuantity}
+            // value={nextQuantity}
           >
             <span>&#43;</span>
           </button>
-        </CartLineUpdateButton>
+        {/* </CartLineUpdateButton> */}
       </div>
-      <CartLineRemoveButton lineIds={[lineId]} />
+      {/* <CartLineRemoveButton lineIds={[lineId]} /> */}
+      <button
+        className="text-[14px] text-center text-[#862e1b] font-bold w-[100%]"
+        type="submit"
+      >
+        Remove
+      </button>
     </div>
   );
 }

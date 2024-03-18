@@ -19,7 +19,7 @@ import { Aside } from '../Aside';
 const AsideCart = ({selectedProducts}) => {
   const rootData = useRootLoaderData();
   const cartPromise = rootData.cart;
-  // console.log(pro)
+  console.log(rootData);
   return (
     <div className="cart">
       {/* <h1>Cart</h1> */}
@@ -120,6 +120,10 @@ function ProductCard({ product, setSelectedProducts, selectedProducts }) {
             {isSelected ? 'Remove from Selection' : 'Add to Selection'}
           </button>
         </div>
+        <button onClick={addToSelectedProducts} className="bg-[#862e1b] mx-auto flex justify-center items-center py-[10px] gap-[5px] px-[20px] leading-none font-bold text-white">
+          <span className=" p-[3px] text-[25px] leading-[13px] bg-white text-[#862e1b]  ">+</span>
+          ADD
+        </button>
       </div>
 
     </div>
@@ -281,7 +285,7 @@ const CustomCollection = ({ col }) => {
                     </p>
                   </div>
                 </div>
-                <AsideCart selectedProducts={selectedProducts} />
+                <AsideCart selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} />
               </div>
             </div>
           </div>
