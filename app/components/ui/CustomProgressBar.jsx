@@ -4,7 +4,7 @@ import { Progress } from './progress';
 
 
 const CustomProgressBar = () => {
-    const [progress, setProgress] = useState(13)
+    const [progress, setProgress] = useState(25);
 
     useEffect(() => {
         const timer = setTimeout(() => setProgress(66), 500)
@@ -12,8 +12,8 @@ const CustomProgressBar = () => {
       }, [])
 
       return ( 
-        <div className='py-4'>
-            <Progress value={progress} className="w-[90%] min-h-7" />
+        <div className='py-4 px-7 flex justify-center'>
+            <Progress value={progress} className="w-[90%] min-h-3 border border-[#000]" />
         </div>
       )
 

@@ -2,13 +2,12 @@ import {CartForm, Image, Money} from '@shopify/hydrogen';
 import {Link} from '@remix-run/react';
 import {useVariantUrl} from '~/lib/variants';
 import {useRootLoaderData} from '~/root';
-import React, { useState } from 'react';
-
+import {useState} from 'react';
 
 /**
  * @param {CartMainProps}
  */
-const CartMain = React.memo( ({layout, cart}) => {
+export function CartMain({layout, cart}) {
   const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
   const withDiscount =
     cart &&
@@ -21,12 +20,12 @@ const CartMain = React.memo( ({layout, cart}) => {
       <CartDetails cart={cart} layout={layout} />
     </div>
   );
-});
+}
 
 /**
  * @param {CartMainProps}
  */
-const  CartDetails =  React.memo (({layout, cart})=> {
+function CartDetails({layout, cart}) {
   const cartHasItems = !!cart && cart.totalQuantity > 0;
 
   return (
@@ -60,9 +59,9 @@ const  CartDetails =  React.memo (({layout, cart})=> {
       )}
     </div>
   );
-});
+}
 
-const LockedItem = React.memo(({cost})=> {
+function LockedItem({cost}) {
   return (
     <>
       {addAmount(cost.subtotalAmount.amount, '0') >= 125 ? (
@@ -83,7 +82,7 @@ const LockedItem = React.memo(({cost})=> {
       )}
     </>
   );
-})
+}
 
 /**
  * @param {{
@@ -91,7 +90,7 @@ const LockedItem = React.memo(({cost})=> {
  *   lines: CartApiQueryFragment['lines'] | undefined;
  * }}
  */
-const CartLines = React.memo(({lines, layout}) =>{
+function CartLines({lines, layout}) {
   if (!lines) return null;
 
   return (
@@ -103,7 +102,7 @@ const CartLines = React.memo(({lines, layout}) =>{
       </ul>
     </div>
   );
-})
+}
 
 /**
  * @param {{
@@ -111,7 +110,7 @@ const CartLines = React.memo(({lines, layout}) =>{
  *   line: CartLine;
  * }}
  */
-const CartLineItem = React.memo(({layout, line})=> {
+function CartLineItem({layout, line}) {
   const {id, merchandise,cost} = line;
   const {amountPerQuantity} = cost;
   const {product, title, image, selectedOptions} = merchandise;
@@ -165,12 +164,12 @@ const CartLineItem = React.memo(({layout, line})=> {
       </div>
     </li>
   );
-})
+}
 
 /**
  * @param {{checkoutUrl: string}}
  */
-const CartCheckoutActions = React.memo(({checkoutUrl, cost})=> {
+function CartCheckoutActions({checkoutUrl, cost}) {
   if (!checkoutUrl) return null;
 
   return (
@@ -198,7 +197,7 @@ const CartCheckoutActions = React.memo(({checkoutUrl, cost})=> {
       )}
     </>
   );
-})
+}
 
 /**
  * @param {{
@@ -207,7 +206,7 @@ const CartCheckoutActions = React.memo(({checkoutUrl, cost})=> {
  *   layout: CartMainProps['layout'];
  * }}
  */
- const CartSummary = React.memo(({cost, layout, children = null}) =>{
+export function CartSummary({cost, layout, children = null}) {
   const className =
     layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
   return (
@@ -237,7 +236,7 @@ const CartCheckoutActions = React.memo(({checkoutUrl, cost})=> {
       {children}
     </div>
   );
-})
+}
 
 function addAmount(baseAmount, additionalAmount) {
   // Parse the base amount and additional amount as floats
@@ -291,7 +290,7 @@ function addAmount(baseAmount, additionalAmount) {
 /**
  * @param {{lineIds: string[]}}
  */
-const CartLineRemoveButton = React.memo(({lineIds}) =>{
+function CartLineRemoveButton({lineIds}) {
   return (
     <CartForm
       route="/products/custom-bundle"
@@ -306,12 +305,12 @@ const CartLineRemoveButton = React.memo(({lineIds}) =>{
       </button>
     </CartForm>
   );
-});
+}
 
 /**
  * @param {{line: CartLine}}
  */
-const CartLineQuantity = React.memo(({line})=> {
+function CartLineQuantity({line}) {
   if (!line || typeof line?.quantity === 'undefined') return null;
   const {id: lineId, quantity} = line;
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
@@ -354,7 +353,7 @@ const CartLineQuantity = React.memo(({line})=> {
       <CartLineRemoveButton lineIds={[lineId]} />
     </div>
   );
-});
+}
 
 /**
  * @param {{
@@ -363,7 +362,7 @@ const CartLineQuantity = React.memo(({line})=> {
  *   [key: string]: any;
  * }}
  */
-const CartLinePrice = React.memo(({line, priceType = 'regular', ...passthroughProps})=> {
+function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
   if (!line?.cost?.amountPerQuantity || !line?.cost?.totalAmount) return null;
 
   const moneyV2 =
@@ -380,7 +379,7 @@ const CartLinePrice = React.memo(({line, priceType = 'regular', ...passthroughPr
       <Money withoutTrailingZeros {...passthroughProps} data={moneyV2} />
     </div>
   );
-})
+}
 
 /**
  * @param {{
@@ -388,7 +387,7 @@ const CartLinePrice = React.memo(({line, priceType = 'regular', ...passthroughPr
  *   layout?: CartMainProps['layout'];
  * }}
  */
- const CartEmpty = React.memo(({hidden = false, layout = 'aside'}) =>{
+export function CartEmpty({hidden = false, layout = 'aside'}) {
   return (
     <div hidden={hidden} className='h-[260px]'>
       <br />
@@ -426,14 +425,14 @@ const CartLinePrice = React.memo(({line, priceType = 'regular', ...passthroughPr
       </div>
     </div>
   );
-})
+}
 
 /**
  * @param {{
  *   discountCodes: CartApiQueryFragment['discountCodes'];
  * }}
  */
-const CartDiscounts = React.memo(({discountCodes})=> {
+function CartDiscounts({discountCodes}) {
   const codes =
     discountCodes
       ?.filter((discount) => discount.applicable)
@@ -465,7 +464,7 @@ const CartDiscounts = React.memo(({discountCodes})=> {
       </UpdateDiscountForm>
     </div>
   );
-});
+}
 
 /**
  * @param {{
@@ -473,10 +472,10 @@ const CartDiscounts = React.memo(({discountCodes})=> {
  *   children: React.ReactNode;
  * }}
  */
-const UpdateDiscountForm = React.memo (({discountCodes, children})=> {
+function UpdateDiscountForm({discountCodes, children}) {
   return (
     <CartForm
-      route="/cart"
+      route="/products/custom-bundle"
       action={CartForm.ACTIONS.DiscountCodesUpdate}
       inputs={{
         discountCodes: discountCodes || [],
@@ -485,7 +484,7 @@ const UpdateDiscountForm = React.memo (({discountCodes, children})=> {
       {children}
     </CartForm>
   );
-})
+}
 
 /**
  * @param {{
@@ -493,17 +492,17 @@ const UpdateDiscountForm = React.memo (({discountCodes, children})=> {
  *   lines: CartLineUpdateInput[];
  * }}
  */
-const CartLineUpdateButton = React.memo(({children, lines})=> {
+function CartLineUpdateButton({children, lines}) {
   return (
     <CartForm
-      route="/cart"
+      route="/products/custom-bundle"
       action={CartForm.ACTIONS.LinesUpdate}
       inputs={{lines}}
     >
       {children}
     </CartForm>
   );
-})
+}
 
 /** @typedef {CartApiQueryFragment['lines']['nodes'][0]} CartLine */
 /**
@@ -515,5 +514,3 @@ const CartLineUpdateButton = React.memo(({children, lines})=> {
 
 /** @typedef {import('@shopify/hydrogen/storefront-api-types').CartLineUpdateInput} CartLineUpdateInput */
 /** @typedef {import('storefrontapi.generated').CartApiQueryFragment} CartApiQueryFragment */
-
-export { CartMain,CartEmpty,CartSummary };
