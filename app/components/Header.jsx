@@ -16,7 +16,9 @@ export function Header({header, isLoggedIn, cart,setMenuToggle}) {
 
   // console.log("location", pathname)
 
-  const {switchHeader} = useContext(HeaderContext);
+  // const {switchHeader} = useContext(HeaderContext);
+  const { switchHeader } = useContext(HeaderContext) || {};
+
 
   const Mainheader = () => {
     return (
