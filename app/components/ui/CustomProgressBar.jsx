@@ -8,7 +8,6 @@ const CustomProgressBar = ({cost}) => {
     useEffect(() => {
       if(cost >= 100){
         setProgress(100);
-
       }else{
 
         setProgress(cost);
