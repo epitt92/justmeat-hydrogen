@@ -71,9 +71,26 @@ function OrdersTable({orders}) {
                 <PreviousLink>
                   {isLoading ? 'Loading...' : <span>↑ Load previous</span>}
                 </PreviousLink>
+                <table className='w-full flex flex-col '>
+                  <thead className='pb-2 ' >
+                    <tr className='w-full flex px-9 rounded-t-xl text-center bg-gray-200 py-3 border-b-2 text-start '>
+                      <th className='w-1/5 text-center'>Order</th>
+                      <th className='w-1/5 text-center'>Date</th>
+                      <th className='w-1/5 text-center'>Payment Status</th>
+                      <th className='w-1/5 text-center'>Fullfillment status</th>
+                      <th className='w-1/5 text-center'>Total</th>
+                    </tr>
+                  </thead>
+                <tbody>
+          
                 {nodes.map((order) => {
                   return <OrderItem key={order.id} order={order} />;
                 })}
+          
+              </tbody>
+              </table>
+
+               
                 <NextLink>
                   {isLoading ? 'Loading...' : <span>Load more ↓</span>}
                 </NextLink>
@@ -106,18 +123,18 @@ function EmptyOrders() {
 function OrderItem({order}) {
   const fulfillmentStatus = flattenConnection(order.fulfillments)[0]?.status;
   return (
+
     <>
-      <fieldset>
-        <Link to={`/account/orders/${order.id}`}>
-          <strong>#{order.number}</strong>
-        </Link>
-        <p>{new Date(order.processedAt).toDateString()}</p>
-        <p>{order.financialStatus}</p>
-        {fulfillmentStatus && <p>{fulfillmentStatus}</p>}
-        <Money data={order.totalPrice} />
-        <Link to={`/account/orders/${btoa(order.id)}`}>View Order 00→</Link>
-      </fieldset>
-      <br />
+        <tr className='w-full flex text-start  items-center px-8 py-3 text-center'>
+          <td className='w-1/5 text-center'>  <Link to={`/account/orders/${order.id}`}>
+                <strong>#{order.number}</strong>
+                </Link>
+          </td>
+          <td className='w-1/5 text-center'><p>{new Date(order.processedAt).toDateString()}</p></td>
+          <td className='w-1/5 text-center'><p>{order.financialStatus}</p></td>
+          <td className='w-1/5 text-center'>{fulfillmentStatus}</td>
+          <td className='w-1/5 text-center'><Money data={order.totalPrice} /></td>
+      </tr>
     </>
   );
 }
