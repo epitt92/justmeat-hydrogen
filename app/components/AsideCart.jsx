@@ -8,12 +8,8 @@ import CustomProgressBar from './ui/CustomProgressBar';
 /**
  * @param {CartMainProps}
  */
-export function CartMain({layout, cart, selectedProducts,setSelectedProducts}) {
-  function removeFromSelectedProducts() {
-    setSelectedProducts((prevSelectedProducts) =>
-      prevSelectedProducts.filter((selectedProduct) => selectedProduct.id !== product.id)
-    );
-  }
+export function CartMain({layout, cart, selectedProducts}) {
+ 
   // const {cost} = cart;
   console.log(selectedProducts.length);
   const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
@@ -25,12 +21,13 @@ export function CartMain({layout, cart, selectedProducts,setSelectedProducts}) {
   return (
     <div className={className}>
       <ProgessBar cost={15} />
+  
       {/* {selectedProducts.length > 0 && <div>hellow World</div>} */}
       <CartDetails
         cart={cart}
         layout={layout}
         selectedProducts={selectedProducts}
-        removeFromSelectedProducts={removeFromSelectedProducts}
+       
       />
       <CartEmpty hidden={linesCount} layout={layout} />
     </div>
