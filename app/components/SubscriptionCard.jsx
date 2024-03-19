@@ -25,7 +25,7 @@ export function SubscriptionCard({ subscription, currentcustomer ,shopCurrency =
             <h2 className='font-bold text-lead text-[22px]'>{subscription.product_title}</h2>
             <h2 className='text-lead text-[16px] mb-5 text-custombgGreen'>Ships every {subscription.charge_interval_frequency} {subscription.order_interval_unit}</h2>
             <Link
-              to="/account/subscriptions/463457939"
+              to="/subscriptions/463457939"
               className="border border-2 font-bold text-lead text-[20px] border-custombgGreen px-4 py-2 text-lg block text-center"
               prefetch="intent">
               Edit Selection
