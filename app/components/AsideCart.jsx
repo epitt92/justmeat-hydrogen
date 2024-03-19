@@ -324,9 +324,9 @@ function CartLineItem({ line ,onRemove,selectedProducts,setSelectedProducts}) {
 //   );
 // }
 
-/**
- * @param {{checkoutUrl: string}}
- */
+// /**
+//  * @param {{checkoutUrl: string}}
+//  */
 function CartCheckoutActions({checkoutUrl, cost}) {
   // if (!checkoutUrl) return null;
     console.log(checkoutUrl);
