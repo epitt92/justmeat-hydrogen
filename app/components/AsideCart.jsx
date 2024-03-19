@@ -330,7 +330,7 @@ function CartLineItem({ line ,onRemove,selectedProducts,setSelectedProducts}) {
  */
 function CartCheckoutActions({checkoutUrl, cost}) {
   if (!checkoutUrl) return null;
-
+    console.log(checkoutUrl);
   return (
     <>
       {addAmount(cost, '0') >= 75 ? (
