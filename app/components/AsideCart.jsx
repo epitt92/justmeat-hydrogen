@@ -8,8 +8,14 @@ import CustomProgressBar from './ui/CustomProgressBar';
 /**
  * @param {CartMainProps}
  */
-export function CartMain({layout, cart, selectedProducts}) {
+export function CartMain({layout, cart, selectedProducts ,setSelectedProducts}) {
  
+  const handleRemove = (productId) => {
+    setSelectedProducts((prevSelectedProducts) =>
+      prevSelectedProducts.filter((product) => product.id !== productId)
+    );
+  };
+
   // const {cost} = cart;
   console.log(selectedProducts.length);
   const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
@@ -27,7 +33,7 @@ export function CartMain({layout, cart, selectedProducts}) {
         cart={cart}
         layout={layout}
         selectedProducts={selectedProducts}
-       
+        onRemove={handleRemove}
       />
       <CartEmpty hidden={linesCount} layout={layout} />
     </div>
@@ -37,13 +43,14 @@ export function CartMain({layout, cart, selectedProducts}) {
 /**
  * @param {CartMainProps}
  */
-function CartDetails({layout, cart, selectedProducts}) {
+function CartDetails({layout, cart, selectedProducts,onRemove}) {
   const cartHasItems = selectedProducts > 0;
   // const cartHasItems = !!cart && cart.totalQuantity < 0;
   return (
     <div className="cart-details flex flex-col justify-between">
       <CartLines
         selectedProducts={selectedProducts}
+        onRemove={onRemove}
       />
       {cartHasItems && (
         <div className="p-5 pb-3 bg-white">
@@ -115,7 +122,7 @@ function LockedItem({cost}) {
 }
 
 
-function CartLines({ selectedProducts}) {
+function CartLines({ selectedProducts , onRemove}) {
   if (!selectedProducts) return null;
 
   return (
@@ -125,6 +132,7 @@ function CartLines({ selectedProducts}) {
           <CartLineItem
             key={product.id}
             line={product}
+            onRemove={onRemove}
           />
         ))}
       </ul>
@@ -157,16 +165,16 @@ function CartLines({ selectedProducts}) {
 // }
 
 
-function CartLineItem({ line}) {
+function CartLineItem({ line ,onRemove}) {
   const {id, title,featuredImage,priceRange } = line;
   // const {amountPerQuantity} = cost;
   // const {product, title, image, selectedOptions} = selectedProducts;
   // const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
   const image = featuredImage.url;
+ 
   return (
     <li key={id} className="cart-line pl-[10px] mb-5 flex gap-4">
       {featuredImage && (
-       
         <img src={image} alt=""height={100}
         loading="lazy"
         width={72} />
@@ -185,11 +193,16 @@ function CartLineItem({ line}) {
           {/* <CartLinePrice line={line} as="span" /> */}
         </div>
 
-        <CartLineQuantity line={line} />
+        <CartLineQuantity line={line} onRemove={onRemove} />
       </div>
     </li>
   );
 }
+
+
+
+
+
 // /**
 //  * @param {{
 //  *   layout: CartMainProps['layout'];
@@ -397,14 +410,16 @@ function CartLineRemoveButton({lineIds}) {
  * @param {{line: CartLine}}
  */
 
-function CartLineQuantity({line}) {
+function CartLineQuantity({line , onRemove}) {
   // if (!line || typeof line?.quantity === 'undefined') return null;
-  // const {id: lineId, quantity, cost} = line;
+  const {id} = line;
   // const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
   // const nextQuantity = Number((quantity + 1).toFixed(0));
   // const amountPrQTy = cost.amountPerQuantity.amount;
   const [updateQty, setUpdatedQty] = useState(1);
-
+  const handleRemove = () => {
+    onRemove(id);
+  };
   // console.log(amountPrQTy * updateQty);
 
   // useEffect(() => {
@@ -448,7 +463,8 @@ function CartLineQuantity({line}) {
       <button
         className="text-[14px] text-center text-[#862e1b] font-bold w-[100%]"
         type="submit"
-      >
+        onClick={handleRemove}
+      > 
         Remove
       </button>
     </div>

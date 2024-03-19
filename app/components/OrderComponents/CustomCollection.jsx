@@ -16,7 +16,7 @@ import ProductModal from '../ui/ProductModal';
 import CustomProgressBar from '../ui/CustomProgressBar';
 import { Aside } from '../Aside';
 
-const AsideCart = ({selectedProducts}) => {
+const AsideCart = ({selectedProducts,setSelectedProducts}) => {
   const rootData = useRootLoaderData();
   const cartPromise = rootData.cart;
   return (
@@ -28,7 +28,7 @@ const AsideCart = ({selectedProducts}) => {
           errorElement={<div>An error occurred</div>}
         >
           {(cart) => {
-            return <CartMain layout="aside" cart={cart} selectedProducts={selectedProducts} />;
+            return <CartMain layout="aside" cart={cart} selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} />;
           }}
         </Await>
       </Suspense>
@@ -118,11 +118,7 @@ function ProductCard({ product, setSelectedProducts, selectedProducts }) {
         </span>
       </div>
       <div className="mx-auto text-center my-5">
-        <div className="cart custom-add-to-cart ">
-          <button onClick={isSelected ? removeFromSelectedProducts : addToSelectedProducts}>
-            {isSelected ? 'Remove from Selection' : 'Add to Selection'}
-          </button>
-        </div>
+        
         <button onClick={addToSelectedProducts} className="bg-[#862e1b] mx-auto flex justify-center items-center py-[10px] gap-[5px] px-[20px] leading-none font-bold text-white">
           <span className=" p-[3px] text-[25px] leading-[13px] bg-white text-[#862e1b]  ">+</span>
           ADD
