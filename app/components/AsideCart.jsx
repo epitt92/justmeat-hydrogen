@@ -11,22 +11,15 @@ import CustomProgressBar from './ui/CustomProgressBar';
 
 
 export function CartMain({layout, cart, selectedProducts ,setSelectedProducts}) {
-  const [mainCart, setMainCart] = useState({ cost: 0 });
-
+  const [subTotal, setSubTotal] = useState(0);
+  const linesCount = Boolean(selectedProducts.length || 0);
   useEffect(() => {
     // Calculate the total cost of all products in selectedProducts
     const totalCost = selectedProducts.reduce((acc, curr) => acc + parseFloat(curr.totalAmount), 0);
     // Update the mainCart state with the total cost
-    console.log(totalCost);
-    setMainCart({ cost: totalCost });
+    setSubTotal(totalCost);
   }, [selectedProducts]);
-
-  useEffect(() => {
-    console.log(mainCart);
-  }, [mainCart]);
   
-  // const {cost} = cart; 
-  const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
   const withDiscount =
     cart &&
     Boolean(cart?.discountCodes?.filter((code) => code.applicable)?.length);
@@ -40,7 +33,7 @@ export function CartMain({layout, cart, selectedProducts ,setSelectedProducts}) 
 
   return (
     <div className={className}>
-      <ProgessBar cost={mainCart.cost} />
+      <ProgessBar cost={subTotal} />
       {/* {selectedProducts.length > 0 && <div>hellow World</div>} */}
       <CartDetails
         cart={cart}
@@ -48,6 +41,7 @@ export function CartMain({layout, cart, selectedProducts ,setSelectedProducts}) 
         selectedProducts={selectedProducts}
         setSelectedProducts={setSelectedProducts}
         onRemove={handleRemove}
+        subTotal={subTotal}
       />
       <CartEmpty hidden={linesCount} layout={layout} />
     </div>
@@ -57,8 +51,8 @@ export function CartMain({layout, cart, selectedProducts ,setSelectedProducts}) 
 /**
  * @param {CartMainProps}
  */
-function CartDetails({layout, cart, selectedProducts,onRemove,setSelectedProducts}) {
-  const cartHasItems = selectedProducts > 0;
+function CartDetails({layout, cart, selectedProducts,onRemove,setSelectedProducts,subTotal}) {
+  const cartHasItems = selectedProducts.length > 0;
   // const cartHasItems = !!cart && cart.totalQuantity < 0;
   return (
     <div className="cart-details flex flex-col justify-between">
@@ -70,11 +64,11 @@ function CartDetails({layout, cart, selectedProducts,onRemove,setSelectedProduct
       {cartHasItems && (
         <div className="p-5 pb-3 bg-white">
           <div className="border-b-4 pb-[10px] border-black">
-            <CartSummary cost={cart.cost} layout={layout}>
+            <CartSummary cost={subTotal} layout={layout}>
               {/* <CartDiscounts discountCodes={cart.discountCodes} /> */}
               <CartCheckoutActions
                 checkoutUrl={cart.checkoutUrl}
-                cost={cart.cost}
+                cost={subTotal}
               />
             </CartSummary>
           </div>
@@ -83,7 +77,7 @@ function CartDetails({layout, cart, selectedProducts,onRemove,setSelectedProduct
               <p className="text-[14px] font-semibold text-black">
                 Free Bonus Meat (unlocked at $125)
               </p>
-              <LockedItem cost={cart.cost} />
+              <LockedItem cost={subTotal} />
             </div>
             <img
               className="w-[80px] h-[80px] object-contain "
@@ -116,7 +110,7 @@ function ProgessBar({cost}) {
 function LockedItem({cost}) {
   return (
     <>
-      {addAmount(cost.subtotalAmount.amount, '0') >= 125 ? (
+      {addAmount(cost, '0') >= 125 ? (
         <select
           className="text-[12px] py-[8px] w-[70%] rounded-[5px] outline-none focus:outline-none bg-auto  focus:border-none bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')] shadow-none  focus:shadow-none focus:border-[#1d1d1d99] border border-[#1d1d1d49] text-[#131515]  "
           name=""
@@ -339,7 +333,7 @@ function CartCheckoutActions({checkoutUrl, cost}) {
 
   return (
     <>
-      {addAmount(cost.subtotalAmount.amount, '0') >= 75 ? (
+      {addAmount(cost, '0') >= 75 ? (
         <div className="flex justify-center items-center w-1/2 bg-[#425b34]">
           <a
             href={checkoutUrl}
@@ -364,13 +358,7 @@ function CartCheckoutActions({checkoutUrl, cost}) {
   );
 }
 
-/**
- * @param {{
- *   children?: React.ReactNode;
- *   cost: CartApiQueryFragment['cost'];
- *   layout: CartMainProps['layout'];
- * }}
- */
+
 export function CartSummary({cost, layout, children = null}) {
   const className =
     layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
@@ -382,16 +370,17 @@ export function CartSummary({cost, layout, children = null}) {
       {/* <h4>Totals</h4> */}
       <dl className="cart-subtotal flex font-semibold text-base">
         <dt>Total: </dt>
-        {cost?.subtotalAmount?.amount ? (
+        {cost ? (
           <span className="text-[20px] pr-1 line-through decoration-[#000] decoration-[3px] text-[#919191] ">
-            {addAmount(cost?.subtotalAmount?.amount, '11.45')}
+            {addAmount(cost, '11.45')}
           </span>
         ) : (
           '-'
         )}
         <dd>
-          {cost?.subtotalAmount?.amount ? (
-            <Money data={cost?.subtotalAmount} />
+          {cost ? (
+            // <Money data={cost} />
+            <span className='font-semibold text-center text-base'>{cost.toFixed(2)}</span>
           ) : (
             '-'
           )}
@@ -473,76 +462,76 @@ function addAmount(baseAmount, additionalAmount) {
 //   );
 // }
 
-/**
- * @param {{line: CartLine}}
- */
+// /**
+//  * @param {{line: CartLine}}
+//  */
 
-function CartLineQuantity({line , onRemove}) {
+// function CartLineQuantity({line , onRemove}) {
 
-  const {id,priceRange} = line;
-  const price = priceRange?.maxVariantPrice?.amount;
-  const [updateQty, setUpdatedQty] = useState(1);
+//   const {id,priceRange} = line;
+//   const price = priceRange?.maxVariantPrice?.amount;
+//   const [updateQty, setUpdatedQty] = useState(1);
 
-  const handleRemove = () => {
-    onRemove(id);
-  };
+//   const handleRemove = () => {
+//     onRemove(id);
+//   };
 
-  // useEffect(() => {
-  //   // Update the selected products array when the quantity changes
-  //   const updatedProducts = selectedProducts.map((product) => {
-  //     if (product.id === id) {
-  //       return { ...product, quantity: updateQty };
-  //     }
-  //     return product;
-  //   });
-  //   setSelectedProducts(updatedProducts);
-  // }, [updateQty]);
+//   // useEffect(() => {
+//   //   // Update the selected products array when the quantity changes
+//   //   const updatedProducts = selectedProducts.map((product) => {
+//   //     if (product.id === id) {
+//   //       return { ...product, quantity: updateQty };
+//   //     }
+//   //     return product;
+//   //   });
+//   //   setSelectedProducts(updatedProducts);
+//   // }, [updateQty]);
 
-  const updateQuantity = (value) => {
-    setUpdatedQty(value);
-  };
+//   const updateQuantity = (value) => {
+//     setUpdatedQty(value);
+//   };
 
-  return (
-    <div className="cart-line-quantity">
-      <div className="flex gap-[5px] items-center bg-[#862e1b] justify-between p-[5px]">
-        {/* <CartLineUpdateButton lines={[{id: lineId, quantity: updateQty}]}> */}
-          <button
-            onClick={() => updateQuantity(updateQty <= 1 ? 1 : updateQty - 1)}
-            aria-label="Decrease quantity"
-            disabled={updateQty <= 1}
-            name="decrease-quantity"
-            // value={prevQuantity}
-            className="text-[#862e1b] w-[25px] flex justify-center items-center h-[25px] bg-white rounded-[5px] p-[3px] "
-          >
-            <span>&#8722; </span>
-          </button>
-        {/* </CartLineUpdateButton> */}
-        <small className="text-[#000] font-bold text-[14px] text-center bg-white flex justify-center items-center w-[32px] h-[25px] p-[3px] ">
-          {updateQty}
-        </small>
-        {/* <CartLineUpdateButton lines={[{id: lineId, quantity: updateQty}]}> */}
-          <button
-            onClick={() => updateQuantity(updateQty + 1)}
-            className="text-[#862e1b] bg-white flex justify-center items-center rounded-[5px] p-[3px] w-[25px] h-[25px]"
-            aria-label="Increase quantity"
-            name="increase-quantity"
-            // value={nextQuantity}
-          >
-            <span>&#43;</span>
-          </button>
-        {/* </CartLineUpdateButton> */}
-      </div>
-      {/* <CartLineRemoveButton lineIds={[lineId]} /> */}
-      <button
-        className="text-[14px] text-center text-[#862e1b] font-bold w-[100%]"
-        type="submit"
-        onClick={handleRemove}
-      > 
-        Remove
-      </button>
-    </div>
-  );
-}
+//   return (
+//     <div className="cart-line-quantity">
+//       <div className="flex gap-[5px] items-center bg-[#862e1b] justify-between p-[5px]">
+//         {/* <CartLineUpdateButton lines={[{id: lineId, quantity: updateQty}]}> */}
+//           <button
+//             onClick={() => updateQuantity(updateQty <= 1 ? 1 : updateQty - 1)}
+//             aria-label="Decrease quantity"
+//             disabled={updateQty <= 1}
+//             name="decrease-quantity"
+//             // value={prevQuantity}
+//             className="text-[#862e1b] w-[25px] flex justify-center items-center h-[25px] bg-white rounded-[5px] p-[3px] "
+//           >
+//             <span>&#8722; </span>
+//           </button>
+//         {/* </CartLineUpdateButton> */}
+//         <small className="text-[#000] font-bold text-[14px] text-center bg-white flex justify-center items-center w-[32px] h-[25px] p-[3px] ">
+//           {updateQty}
+//         </small>
+//         {/* <CartLineUpdateButton lines={[{id: lineId, quantity: updateQty}]}> */}
+//           <button
+//             onClick={() => updateQuantity(updateQty + 1)}
+//             className="text-[#862e1b] bg-white flex justify-center items-center rounded-[5px] p-[3px] w-[25px] h-[25px]"
+//             aria-label="Increase quantity"
+//             name="increase-quantity"
+//             // value={nextQuantity}
+//           >
+//             <span>&#43;</span>
+//           </button>
+//         {/* </CartLineUpdateButton> */}
+//       </div>
+//       {/* <CartLineRemoveButton lineIds={[lineId]} /> */}
+//       <button
+//         className="text-[14px] text-center text-[#862e1b] font-bold w-[100%]"
+//         type="submit"
+//         onClick={handleRemove}
+//       > 
+//         Remove
+//       </button>
+//     </div>
+//   );
+// }
 
 /**
  * @param {{
@@ -577,6 +566,7 @@ function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
  * }}
  */
 export function CartEmpty({hidden = false, layout = 'aside'}) {
+
   return (
     <div hidden={hidden} className="h-[260px]">
       <br />
