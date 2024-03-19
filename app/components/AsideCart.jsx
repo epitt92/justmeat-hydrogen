@@ -66,7 +66,7 @@ function CartDetails({layout, cart, selectedProducts,onRemove,setSelectedProduct
             <CartSummary cost={subTotal} layout={layout}>
               {/* <CartDiscounts discountCodes={cart.discountCodes} /> */}
               <CartCheckoutActions
-                checkoutUrl={cart.checkoutUrl}
+                // checkoutUrl={cart.checkoutUrl}
                 cost={subTotal}
               />
             </CartSummary>
@@ -327,9 +327,8 @@ function CartLineItem({ line ,onRemove,selectedProducts,setSelectedProducts}) {
 // /**
 //  * @param {{checkoutUrl: string}}
 //  */
-function CartCheckoutActions({checkoutUrl, cost}) {
+function CartCheckoutActions({ cost}) {
   // if (!checkoutUrl) return null;
-    console.log(checkoutUrl);
   return (
     <>
       {addAmount(cost, '0') >= 75 ? (
