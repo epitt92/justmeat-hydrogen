@@ -14,6 +14,12 @@ export default {
     fontFamily: {
       body: ['Roboto', 'sans-serif'],
     },
+    extend: {
+      colors: {
+        custombgGreen: '#425b34',
+        sublistbgGray: '#eee',
+      },
+    },
     
   },
 };

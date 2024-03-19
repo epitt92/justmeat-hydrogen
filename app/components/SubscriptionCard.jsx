@@ -1,65 +1,38 @@
 import { Money } from '@shopify/hydrogen';
+import { Link } from 'react-router-dom';
 
-import Link from '../components/Link';
-import Heading from '../components/Heading';
-import Text from '~/components/Text'; 
-
-export function SubscriptionCard({ subscription, shopCurrency = 'USD' }) {
+export function SubscriptionCard({ subscription, currentcustomer ,shopCurrency = 'USD' }) {
   if (!subscription?.id) return null;
 
   return (
     <li className="grid text-center border rounded">
-      <Link
-        className="grid items-center gap-4 p-4 md:gap-6 md:p-6 md:grid-cols-2"
-        to={`/account/subscriptions/${subscription.id}`}
-        prefetch="intent"
-      >
-        <div className={`flex-col justify-center text-left md:col-span-2`}>
-          <Heading as="h3" format size="copy">
-            {`${subscription.product_title}${subscription.variant_title ? ` (${subscription.variant_title})` : ''}`}
-          </Heading>
-          <dl className="grid grid-gap-1">
-            <dt className="sr-only">Subscription ID</dt>
-            <dd>
-              <Text size="fine" color="subtle">
-                Subscription No. {subscription.id}
-              </Text>
-            </dd>
-            <dt className="sr-only">Subscription Date</dt>
-            <dd>
-              <Text size="fine" color="subtle">
-                {new Date(subscription.created_at).toDateString()}
-              </Text>
-            </dd>
-            <dt className="sr-only">Frequency</dt>
-            <dd className="mt-2">
-              <Text size="fine">{`${subscription.quantity} Every ${subscription.order_interval_frequency} ${subscription.order_interval_unit}(s)`}</Text>
-            </dd>
-            <dt className="sr-only">Price</dt>
-            <dd className="mt-2">
-              <Text size="fine">
-                <Money
-                  data={{
-                    amount: subscription.price,
-                    currencyCode: subscription.presentment_currency ?? shopCurrency,
-                  }}
-                />
-              </Text>
-            </dd>
-          </dl>
+      <div className="grid items-center gap-4 p-4 md:gap-6 md:p-6 md:grid-cols-3">
+        <div className="flex-col justify-center text-center md:text-left">
+          <h1 className='text-[22px] font-bold'>Personal Information</h1>
         </div>
-      </Link>
-      <div className="self-end border-t">
-        <Link
-          className="block w-full p-2 text-center"
-          to={`/account/subscriptions/${subscription.id}`}
-          prefetch="intent"
-        >
-          <Text color="subtle" className="ml-3">
-            View Details
-          </Text>
-        </Link>
+        <div className=''>
+          <p><h2>{currentcustomer.firstName} {currentcustomer.lastName}</h2></p>
+          <p><h2>{currentcustomer.defaultAddress.address1}</h2></p>
+        </div>
+        <div className='text-center md:text-right'>
+            <a class="bg-custombgGreen text-white py-2 px-4 rounded">EDIT</a>
+        </div>
       </div>
+      <div className="self-end border-t-2 border-custombgGreen">
+        <div className='block md:flex'>
+          <div className='p-[25px] '><img className='mx-auto md:ml-0' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/custom-bundle-623742_100x100.png?v=1697650046" alt="Custom Bundle" /></div>
+          <div className='p-[25px]'>
+            <h2 className='font-bold text-lead text-[22px]'>{subscription.product_title}</h2>
+            <h2 className='text-lead text-[16px] mb-5 text-custombgGreen'>Ships every {subscription.charge_interval_frequency} {subscription.order_interval_unit}</h2>
+            <Link
+              to="/subscriptions/463457939"
+              className="border border-2 font-bold text-lead text-[20px] border-custombgGreen px-4 py-2 text-lg block text-center"
+              prefetch="intent">
+              Edit Selection
+            </Link>
+          </div>
+          </div>
+        </div>
     </li>
   );
 }

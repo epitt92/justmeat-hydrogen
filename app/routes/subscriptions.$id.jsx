@@ -72,11 +72,11 @@ export default function SubscriptionRoute() {
   const address = subscription.include?.address;
   return (
     <div>
-      <PageHeader heading="Subscription detail">
+      <div heading="Subscription detail">
         <Link to="/account">
           <Text color="subtle">Return to Account Overview</Text>
         </Link>
-      </PageHeader>
+      </div>
       <div className="w-full p-6 sm:grid-cols-1 md:p-8 lg:p-12 lg:py-6">
         <div>
           <Text as="h3" size="lead">
