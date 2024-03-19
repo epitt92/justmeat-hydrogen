@@ -51,8 +51,17 @@ export default function Orders() {
   const {customer} = useLoaderData();
   const {orders} = customer;
   return (
-    <div className="orders">
+    <div className="w-[95%] md:w-[80%] mx-auto">
+      <div className='flex flex-col md:flex-row justify-center gap-8 md:gap-[30px] w-full mb-28'>
+      
+      <div className='basis-8/12 border border-gray p-0 rounded-[13px] '>
       {orders.nodes.length ? <OrdersTable orders={orders} /> : <EmptyOrders />}
+      </div>
+      <div className='basis-4/12  rounded-[13px]'>
+        <CustomerDetails/>
+      </div>
+      </div>
+      
     </div>
   );
 }
@@ -62,7 +71,7 @@ export default function Orders() {
  */
 function OrdersTable({orders}) {
   return (
-    <div className="acccount-orders">
+    <div className="acccount-orders w-full">
       {orders?.nodes.length ? (
         <Pagination connection={orders}>
           {({nodes, isLoading, PreviousLink, NextLink}) => {
@@ -136,6 +145,26 @@ function OrderItem({order}) {
           <td className='w-1/5 text-center'><Money data={order.totalPrice} /></td>
       </tr>
     </>
+  );
+}
+const CustomerDetails = ()=>{
+  return(
+    <div class="w-full border border-gray p-0 rounded-[13px]  text-start text-black ">
+      <div class="bg-[#E5E7EB] rounded-t-xl  px-6 py-3">
+        Brandn Barclay
+      </div>
+      <div class="p-6">
+        <h2 class="mb-2 text-xl font-medium leading-tight ">
+        Brandn Barclay
+        </h2>
+        <p class="mb-4 text-base ">
+          address
+        </p>
+        <p class="mb-4 text-base ">
+          address 2
+        </p>
+      </div>
+    </div>
   );
 }
 
