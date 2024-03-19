@@ -8,31 +8,45 @@ import CustomProgressBar from './ui/CustomProgressBar';
 /**
  * @param {CartMainProps}
  */
-export function CartMain({layout, cart, selectedProducts ,setSelectedProducts}) {
- 
-  const handleRemove = (productId) => {
-    setSelectedProducts((prevSelectedProducts) =>
-      prevSelectedProducts.filter((product) => product.id !== productId)
-    );
-  };
 
-  // const {cost} = cart;
-  console.log(selectedProducts.length);
+
+export function CartMain({layout, cart, selectedProducts ,setSelectedProducts}) {
+  const [mainCart, setMainCart] = useState({ cost: 0 });
+
+  useEffect(() => {
+    // Calculate the total cost of all products in selectedProducts
+    const totalCost = selectedProducts.reduce((acc, curr) => acc + parseFloat(curr.totalAmount), 0);
+    // Update the mainCart state with the total cost
+    console.log(totalCost);
+    setMainCart({ cost: totalCost });
+  }, [selectedProducts]);
+
+  useEffect(() => {
+    console.log(mainCart);
+  }, [mainCart]);
+  
+  // const {cost} = cart; 
   const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
   const withDiscount =
     cart &&
     Boolean(cart?.discountCodes?.filter((code) => code.applicable)?.length);
   const className = `cart-main ${withDiscount ? 'with-discount' : ''}`;
 
+  const handleRemove = (productId) => {
+    setSelectedProducts((prevSelectedProducts) =>
+      prevSelectedProducts.filter((product) => product.id !== productId)
+    );
+  };
+
   return (
     <div className={className}>
-      <ProgessBar cost={15} />
-  
+      <ProgessBar cost={mainCart.cost} />
       {/* {selectedProducts.length > 0 && <div>hellow World</div>} */}
       <CartDetails
         cart={cart}
         layout={layout}
         selectedProducts={selectedProducts}
+        setSelectedProducts={setSelectedProducts}
         onRemove={handleRemove}
       />
       <CartEmpty hidden={linesCount} layout={layout} />
@@ -43,13 +57,14 @@ export function CartMain({layout, cart, selectedProducts ,setSelectedProducts}) 
 /**
  * @param {CartMainProps}
  */
-function CartDetails({layout, cart, selectedProducts,onRemove}) {
+function CartDetails({layout, cart, selectedProducts,onRemove,setSelectedProducts}) {
   const cartHasItems = selectedProducts > 0;
   // const cartHasItems = !!cart && cart.totalQuantity < 0;
   return (
     <div className="cart-details flex flex-col justify-between">
       <CartLines
         selectedProducts={selectedProducts}
+        setSelectedProducts={setSelectedProducts}
         onRemove={onRemove}
       />
       {cartHasItems && (
@@ -122,7 +137,7 @@ function LockedItem({cost}) {
 }
 
 
-function CartLines({ selectedProducts , onRemove}) {
+function CartLines({ selectedProducts , onRemove ,setSelectedProducts}) {
   if (!selectedProducts) return null;
 
   return (
@@ -133,6 +148,8 @@ function CartLines({ selectedProducts , onRemove}) {
             key={product.id}
             line={product}
             onRemove={onRemove}
+            setSelectedProducts={setSelectedProducts}
+            selectedProducts={selectedProducts}
           />
         ))}
       </ul>
@@ -165,13 +182,33 @@ function CartLines({ selectedProducts , onRemove}) {
 // }
 
 
-function CartLineItem({ line ,onRemove}) {
+function CartLineItem({ line ,onRemove,selectedProducts,setSelectedProducts}) {
   const {id, title,featuredImage,priceRange } = line;
-  // const {amountPerQuantity} = cost;
-  // const {product, title, image, selectedOptions} = selectedProducts;
-  // const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
   const image = featuredImage.url;
- 
+  const price = priceRange?.maxVariantPrice?.amount;
+  const [updateQty, setUpdatedQty] = useState(1);
+  const [productAmount,setProductAmount] = useState(price);
+  
+  const handleRemove = () => {
+    onRemove(id);
+  };
+
+  useEffect(() => {
+    // Update the selected products array when the quantity changes
+    const updatedProducts = selectedProducts.map((product) => {
+
+      if (product.id === id) {
+        return { ...product, quantity: updateQty , totalAmount:productAmount };
+      }
+      return product;
+    });
+    setSelectedProducts(updatedProducts);
+  }, [updateQty]);
+
+  const updateQuantity = (value) => {
+    setUpdatedQty(value);
+    setProductAmount((value * price).toFixed(2));
+  };
   return (
     <li key={id} className="cart-line pl-[10px] mb-5 flex gap-4">
       {featuredImage && (
@@ -192,16 +229,44 @@ function CartLineItem({ line ,onRemove}) {
           </p>
           {/* <CartLinePrice line={line} as="span" /> */}
         </div>
-
-        <CartLineQuantity line={line} onRemove={onRemove} />
+        <div className="cart-line-quantity">
+      <div className="flex gap-[5px] items-center bg-[#862e1b] justify-between p-[5px]">
+          <button
+            onClick={() => updateQuantity(updateQty <= 1 ? 1 : updateQty - 1)}
+            aria-label="Decrease quantity"
+            disabled={updateQty <= 1}
+            name="decrease-quantity"
+            // value={prevQuantity}
+            className="text-[#862e1b] w-[25px] flex justify-center items-center h-[25px] bg-white rounded-[5px] p-[3px] "
+          >
+            <span>&#8722; </span>
+          </button>
+        <small className="text-[#000] font-bold text-[14px] text-center bg-white flex justify-center items-center w-[32px] h-[25px] p-[3px] ">
+          {updateQty}
+        </small>
+          <button
+            onClick={() => updateQuantity(updateQty + 1)}
+            className="text-[#862e1b] bg-white flex justify-center items-center rounded-[5px] p-[3px] w-[25px] h-[25px]"
+            aria-label="Increase quantity"
+            name="increase-quantity"
+            // value={nextQuantity}
+          >
+            <span>&#43;</span>
+          </button>
+      </div>
+      <button
+        className="text-[14px] text-center text-[#862e1b] font-bold w-[100%]"
+        type="submit"
+        onClick={handleRemove}
+      > 
+        Remove
+      </button>
+    </div>
+        {/* <CartLineQuantity line={line} onRemove={onRemove} /> */}
       </div>
     </li>
   );
 }
-
-
-
-
 
 // /**
 //  * @param {{
@@ -386,49 +451,57 @@ function addAmount(baseAmount, additionalAmount) {
 // // Example usage:
 // const result = addAmount("11.45", "11.45");
 // console.log(result); // Output: "32.85"
-/**
- * @param {{lineIds: string[]}}
- */
-function CartLineRemoveButton({lineIds}) {
-  return (
-    <CartForm
-      route="/products/custom-bundle"
-      action={CartForm.ACTIONS.LinesRemove}
-      inputs={{lineIds}}
-    >
-      <button
-        className="text-[14px] text-center text-[#862e1b] font-bold w-[100%]"
-        type="submit"
-      >
-        Remove
-      </button>
-    </CartForm>
-  );
-}
+
+
+// /**
+//  * @param {{lineIds: string[]}}
+//  */
+// function CartLineRemoveButton({lineIds}) {
+//   return (
+//     <CartForm
+//       route="/products/custom-bundle"
+//       action={CartForm.ACTIONS.LinesRemove}
+//       inputs={{lineIds}}
+//     >
+//       <button
+//         className="text-[14px] text-center text-[#862e1b] font-bold w-[100%]"
+//         type="submit"
+//       >
+//         Remove
+//       </button>
+//     </CartForm>
+//   );
+// }
 
 /**
  * @param {{line: CartLine}}
  */
 
 function CartLineQuantity({line , onRemove}) {
-  // if (!line || typeof line?.quantity === 'undefined') return null;
-  const {id} = line;
-  // const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
-  // const nextQuantity = Number((quantity + 1).toFixed(0));
-  // const amountPrQTy = cost.amountPerQuantity.amount;
+
+  const {id,priceRange} = line;
+  const price = priceRange?.maxVariantPrice?.amount;
   const [updateQty, setUpdatedQty] = useState(1);
+
   const handleRemove = () => {
     onRemove(id);
   };
-  // console.log(amountPrQTy * updateQty);
 
   // useEffect(() => {
-  //   setUpdatedQty(quantity);
-  // }, []);
+  //   // Update the selected products array when the quantity changes
+  //   const updatedProducts = selectedProducts.map((product) => {
+  //     if (product.id === id) {
+  //       return { ...product, quantity: updateQty };
+  //     }
+  //     return product;
+  //   });
+  //   setSelectedProducts(updatedProducts);
+  // }, [updateQty]);
 
   const updateQuantity = (value) => {
     setUpdatedQty(value);
   };
+
   return (
     <div className="cart-line-quantity">
       <div className="flex gap-[5px] items-center bg-[#862e1b] justify-between p-[5px]">

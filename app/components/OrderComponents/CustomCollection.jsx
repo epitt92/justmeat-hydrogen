@@ -38,11 +38,11 @@ const AsideCart = ({selectedProducts,setSelectedProducts}) => {
 }
 
 function ProductCard({ product, setSelectedProducts, selectedProducts }) {
-
   const image = product.featuredImage.url;
   const productHandle = product.handle;
+  const productPrice = product?.priceRange?.maxVariantPrice?.amount;
   const selectedVariant = product.variants.nodes[0];
-
+  
   function openModal() {
     const dialog = document.querySelector(`#${productHandle}`);
     dialog.showModal();
@@ -53,11 +53,20 @@ function ProductCard({ product, setSelectedProducts, selectedProducts }) {
     dialogClose.close();
   }
 
+  // function addToSelectedProducts() {
+  //   setSelectedProducts((prevSelectedProducts) => {
+  //     // Check if the product is already in the array
+  //     if (!prevSelectedProducts.some((selectedProduct) => selectedProduct.id === product.id)) {
+  //       return [...prevSelectedProducts, product];
+  //     }
+  //     return prevSelectedProducts;
+  //   });
+  // }
   function addToSelectedProducts() {
     setSelectedProducts((prevSelectedProducts) => {
       // Check if the product is already in the array
       if (!prevSelectedProducts.some((selectedProduct) => selectedProduct.id === product.id)) {
-        return [...prevSelectedProducts, product];
+        return [...prevSelectedProducts, { ...product, quantity: 1, amount: productPrice ,totalAmount:productPrice}];
       }
       return prevSelectedProducts;
     });
