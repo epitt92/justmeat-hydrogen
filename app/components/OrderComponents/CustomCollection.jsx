@@ -19,7 +19,7 @@ import { Aside } from '../Aside';
 const AsideCart = ({selectedProducts,setSelectedProducts}) => {
   const rootData = useRootLoaderData();
   const cartPromise = rootData.cart;
-  console.log(cartPromise);
+  console.log(rootData);
   return (
     <div className="cart">
       {/* <h1>Cart</h1> */}
@@ -63,6 +63,7 @@ function ProductCard({ product, setSelectedProducts, selectedProducts }) {
   //     return prevSelectedProducts;
   //   });
   // }
+
   function addToSelectedProducts() {
     setSelectedProducts((prevSelectedProducts) => {
       // Check if the product is already in the array

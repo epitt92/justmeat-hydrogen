@@ -34,7 +34,6 @@ export function CartMain({layout, cart, selectedProducts ,setSelectedProducts}) 
   return (
     <div className={className}>
       <ProgessBar cost={subTotal} />
-      {/* {selectedProducts.length > 0 && <div>hellow World</div>} */}
       <CartDetails
         cart={cart}
         layout={layout}
@@ -329,14 +328,14 @@ function CartLineItem({ line ,onRemove,selectedProducts,setSelectedProducts}) {
  * @param {{checkoutUrl: string}}
  */
 function CartCheckoutActions({checkoutUrl, cost}) {
-  if (!checkoutUrl) return null;
+  // if (!checkoutUrl) return null;
     console.log(checkoutUrl);
   return (
     <>
       {addAmount(cost, '0') >= 75 ? (
         <div className="flex justify-center items-center w-1/2 bg-[#425b34]">
           <a
-            href={checkoutUrl}
+            // href={checkoutUrl}
             className="bg-[#425b34] text-[15px] py-[10px] font-semibold text-white"
             target="_self"
           >
