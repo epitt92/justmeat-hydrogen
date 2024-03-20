@@ -47,3 +47,28 @@
 
 
 }
+
+
+.product-grid .img-wrapper{
+  cursor: pointer;
+}
+
+.dialog-content {
+  max-width: 1080px;
+  height: 80vh;
+  padding: 1em;
+  background: white;
+  overflow-y: scroll;
+  position: relative;
+}
+
+.dialog-content .close-panel {
+  text-align: right;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+::backdrop {
+  background-color: rgba(0,0,0,.75);
+}

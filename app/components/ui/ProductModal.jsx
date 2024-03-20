@@ -8,22 +8,47 @@ import {
   DotGroup
 } from 'pure-react-carousel';
 import {Button} from '../ui/button'
+import {defer, json, redirect} from '@shopify/remix-oxygen';
+import {Await, Link, useLoaderData} from '@remix-run/react';
+
+async function loader({request, context}) {
+  const { metafields } = await storefront.query(METAFIELDS_QUERY, {
+    variables: { productId: product.id },
+  });
+  console.log("METAFIELDS QUERY", metafields)
+
+  return json(metafields);
+}
 
 const ProductModal = ({product}) => {
   const {images} = product;
   const media = images.nodes;
+  console.log("Product:",product);
+  const productidstring = product.id;
+  const productidsplit = productidstring.split('/');
+  const productID = parseInt(productidsplit[productidsplit.length - 1]);
+  // console.log("Product ID", productID);
+  
+  // metafields = getMetafields(productID);
+
+  /**
+ * @param {LoaderFunctionArgs}
+ */
+
+
+
 
   return (
     <>
-      <main className="dialog-box border border-red-700 grid grid-cols-2">
+      <main className="grid grid-cols-3 mb-8">
         <div className="product-gallary overflow-hidden">
           <ProductGallary media={media} />
         </div>
-        <div className="content">
-          <h1 className="title font-roboto_bold font-bold text-[55px]">
+        <div className="content col-span-2">
+          <h1 className="title font-roboto_bold font-bold text-[50px]">
             {product.title}
           </h1>
-          <p className="product-details  text-[16px] text-[#1d1d1d] leading-[24px] uppercase font-roboto_bold ">
+          <p className="product-details  text-[14px] text-[#1d1d1d] leading-[24px] uppercase font-roboto_bold font-bold">
             90% lean ground chuck roast with a tasty spice rub
           </p>
           <p class="custom-serving py-5 text-[28px] text-[#1d1d1d] font-roboto_bold">
@@ -87,7 +112,7 @@ const ProductModal = ({product}) => {
 
         </div>
       </main>
-      <div className='flex justify-around py-4'>
+      <div className='flex justify-around pt-4 pb-0 border-t-4'>
         <div className="money-back flex gap-6 items-center ">
           <img src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/1279px-Font_Awesome_5_solid_money-bill-wave_svg.png" alt="money" width={65} />
           <h1 className='text-[28px] font-roboto_bold text-[#1d1d1d]'>Money back guarantee</h1>
@@ -109,7 +134,7 @@ function Content({slide}) {
   return (
     <div tabIndex="0">
       <div className="w-[100%]">
-        <img className="max-w-full w-96" draggable="false" src={slide.url} />
+        <img className="max-w-60 mx-auto" draggable="false" src={slide.url} style={{maxHeight: "400px"}} />
       </div>
     </div>
   );
@@ -152,7 +177,7 @@ function ProductGallary({media}) {
 
 function Thumbs({ media, currentSlide, onClick }) {
   return (
-    <div className="thumbnail-container flex gap-4 items-center justify-center">
+    <div className="thumbnail-container flex gap-4 items-center justify-center py-1">
       {media.map((slide, index) => (
         <button
           key={index}
@@ -170,6 +195,38 @@ function Thumbs({ media, currentSlide, onClick }) {
     </div>
   );
 }
+
+// async function getMetafields(productID) {
+//   const url = "https://just-meats-sandbox.myshopify.com/admin/api/2024-01"
+//   const productURL = `${url}/products/${productID}.json`
+//   const response = await fetch(productURL, {
+//     headers: {
+//       "X-Shopify-Access-Token": "apikey:apipassword",
+//     },
+//   });
+
+//   if (!response.ok) {
+//     console.log(`Error retrieving product info ${response.status}`)
+//     return null;
+//   }
+
+//   const productData = await response.json();
+
+//   const metafielsURL = `${url}/products/${productID}/metafields.json`;
+//   const metafieldsResponse = await fetch(metafielsURL, {
+//     headers: {
+//       "X-Shopify-Access-Token": "apikey:apipassword",
+//     },
+//   });
+
+//   if (!metafieldsResponse.ok) {
+//     console.log(`Error retrieving metafields: ${metafieldsResponse.status}`);
+//     return null;
+//   }
+
+//   const metafields = await metafieldsResponse.json();
+//   return metafields;
+// }
 
 
 

@@ -473,3 +473,21 @@ const COLLECTION_QUERY = `#graphql
     }
   }
 `;
+
+const METAFIELDS_QUERY = `#graphql
+  query Metafields($productId: ID!) {
+    node(id: $productId) {
+      ... on Product {
+        metafields(first: 10) {
+          edges {
+            node {
+              namespace
+              key
+              value
+            }
+          }
+        }
+      }
+    }
+  }
+`
