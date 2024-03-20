@@ -10,7 +10,7 @@ import HeaderContext from './HeaderContext';
  */
 export function Header({header, isLoggedIn, cart,setMenuToggle}) {
 
-  const {switchHeader} = useContext(HeaderContext);
+  const { switchHeader } = useContext(HeaderContext);
 
   const Mainheader = () => {
     return (
@@ -117,7 +117,7 @@ export function Header({header, isLoggedIn, cart,setMenuToggle}) {
   
   return (
     <header className="container max-w-[100%] bg-[#eeeeee]  ">
-      { switchHeader === true ? <Landingheader/> : <Mainheader/>  }
+      { switchHeader ? <Landingheader/> : <Mainheader/>  }
     </header>
   );
 }

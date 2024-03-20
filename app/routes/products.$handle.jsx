@@ -15,6 +15,7 @@ import {getVariantUrl} from '~/lib/variants';
 import PlanPicker from '~/components/OrderComponents/PlanPicker';
 import CustomCollection from '~/components/OrderComponents/CustomCollection';
 import {useVariantUrl} from '~/lib/variants';
+import Notification from "~/components/Notification"
 
 
 /**

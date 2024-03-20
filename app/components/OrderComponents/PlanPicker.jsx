@@ -10,7 +10,7 @@ const PlanPicker = () => {
     setActiveOption(option);
   };
 
-  const {setSwitchHeader} = useContext(HeaderContext);
+  const { setSwitchHeader } = useContext(HeaderContext);
 
   useEffect(() => {
     setSwitchHeader(true);
