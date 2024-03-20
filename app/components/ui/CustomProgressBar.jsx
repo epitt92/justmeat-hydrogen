@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Progress } from './progress';
+import Progress from './progress';
 
 
 
