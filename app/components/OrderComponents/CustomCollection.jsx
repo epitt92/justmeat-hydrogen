@@ -20,6 +20,7 @@ import { Aside } from '../Aside';
 const AsideCart = ({ selectedProducts, setSelectedProducts }) => {
   const rootData = useRootLoaderData()
   const cartPromise = rootData.cart
+  console.log(cart);
   return (
     <div className="cart">
       {/* <h1>Cart</h1> */}
