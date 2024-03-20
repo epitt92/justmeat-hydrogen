@@ -48,6 +48,9 @@
 
 }
 
+.carousel__slider {
+  max-height: 400px;
+}
 
 .product-grid .img-wrapper{
   cursor: pointer;
