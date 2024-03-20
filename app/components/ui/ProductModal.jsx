@@ -41,7 +41,6 @@ const ProductModal = ({product}) => {
   return (
     <>
       <main className="grid grid-cols-3 mb-8">
-      <main className="grid grid-cols-3 mb-8">
         <div className="product-gallary overflow-hidden">
           <ProductGallary media={media} />
         </div>
@@ -179,7 +178,6 @@ function ProductGallary({media}) {
 
 function Thumbs({ media, currentSlide, onClick }) {
   return (
-    <div className="thumbnail-container flex gap-4 items-center justify-center py-1">
     <div className="thumbnail-container flex gap-4 items-center justify-center py-1">
       {media.map((slide, index) => (
         <button
