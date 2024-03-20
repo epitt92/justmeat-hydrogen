@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const PlanPicker = () => {
 
-  const [activeOption, setActiveOption] = useState(null);
+  const [activeOption, setActiveOption] = useState('option1');
 
   // Function to handle click on option
   const handleOptionClick = (option) => {
