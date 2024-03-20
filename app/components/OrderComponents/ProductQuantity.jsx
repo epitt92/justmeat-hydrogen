@@ -37,7 +37,7 @@ const ProductQuantity = ({ line , onRemove , selectedProducts,setSelectedProduct
     <div className="cart-line-quantity flex flex-col items-center justify-center">
     <div className="flex gap-[5px] w-fit items-center bg-[#862e1b] justify-between p-[5px]">
     <button
-      onClick={() => updateQuantity(updateQty <= 1 ? 1 : updateQty - 1)}
+      onClick={() => updateQuantity(quantity <= 1 ? 1 : quantity - 1)}
       aria-label="Decrease quantity"
       disabled={updateQty <= 1}
       name="decrease-quantity"
@@ -50,7 +50,7 @@ const ProductQuantity = ({ line , onRemove , selectedProducts,setSelectedProduct
     {quantity}
   </small>
     <button
-      onClick={() => updateQuantity(updateQty + 1)}
+      onClick={() => updateQuantity(quantity + 1)}
       className="text-[#862e1b] bg-white flex justify-center items-center rounded-[5px] p-[3px] w-[25px] h-[25px]"
       aria-label="Increase quantity"
       name="increase-quantity"
