@@ -86,32 +86,34 @@ function ProductCard({ product, setSelectedProducts, selectedProducts }) {
   return (
     <div className="product-grid mb-[40px] ">
       <dialog className="bg-[#edeaea] custom-dialog" id={productHandle}>
-        <div className="close-panel text-right p-5">
-          <button onClick={() => closeModal()} className="close-modal">
-            <svg
-              width={18}
-              height={18}
-              viewBox="0 0 18 18"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M17 1L1 17"
-                stroke="black"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M1 1L17 17"
-                stroke="black"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
+        <div className='dialog-content'>
+          <div className="close-panel p-5">
+            <button onClick={() => closeModal()} className="close-modal">
+              <svg
+                width={18}
+                height={18}
+                viewBox="0 0 18 18"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17 1L1 17"
+                  stroke="black"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M1 1L17 17"
+                  stroke="black"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+          <ProductModal product={product} key={Math.random()} />
         </div>
-        <ProductModal product={product} key={Math.random()} />
       </dialog>
       <div className="img-wrapper">
         <img
