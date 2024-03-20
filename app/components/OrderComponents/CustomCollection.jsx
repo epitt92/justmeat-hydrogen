@@ -22,11 +22,7 @@ const AsideCart = ({selectedProducts,setSelectedProducts}) => {
   return (
     <div className="cart">
       {/* <h1>Cart</h1> */}
-      
-       <CartMain selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} />;
-          
-      
-      {/* <Suspense fallback={<p>Loading cart ...</p>}>
+      <Suspense fallback={<p>Loading cart ...</p>}>
         <Await
           resolve={cartPromise}
           errorElement={<div>An error occurred</div>}
@@ -35,7 +31,7 @@ const AsideCart = ({selectedProducts,setSelectedProducts}) => {
             return <CartMain layout="aside" cart={cart} selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} />;
           }}
         </Await>
-      </Suspense> */}
+      </Suspense>
     </div>
   );
 
