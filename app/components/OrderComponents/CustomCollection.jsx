@@ -24,7 +24,7 @@ const AsideCart = ({selectedProducts,setSelectedProducts}) => {
     <div className="cart">
       {/* <h1>Cart</h1> */}
       
-       <CartMain selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} />;
+       <CartMain selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} />
           
       
       {/* <Suspense fallback={<p>Loading cart ...</p>}>
