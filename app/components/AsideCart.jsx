@@ -160,45 +160,18 @@ function CartLines({ selectedProducts, onRemove, setSelectedProducts }) {
         ))}
       </ul>
     </div>
-  )
+  );
 }
-// /**
-//  * @param {{
-//  *   layout: CartMainProps['layout'];
-//  *   lines: CartApiQueryFragment['lines'] | undefined;
-//  * }}
-//  */
-// function CartLines({lines, layout, selectedProducts}) {
-//   if (!lines) return null;
 
-//   return (
-//     <div aria-labelledby="cart-lines" className="h-[260px] overflow-auto">
-//       <ul>
-//         {lines.nodes.map((line) => (
-//           <CartLineItem
-//             key={line.id}
-//             line={line}
-//             selectedProducts={selectedProducts}
-//             layout={layout}
-//           />
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// }
 
-function CartLineItem({
-  line,
-  onRemove,
-  selectedProducts,
-  setSelectedProducts,
-}) {
-  const { id, title, featuredImage, priceRange } = line
-  const image = featuredImage.url
-  const price = priceRange?.maxVariantPrice?.amount
-  const [updateQty, setUpdatedQty] = useState(1)
-  const [productAmount, setProductAmount] = useState(price)
 
+function CartLineItem({ line ,onRemove,selectedProducts,setSelectedProducts}) {
+  const {id, title,featuredImage,priceRange } = line;
+  const image = featuredImage.url;
+  const price = priceRange?.maxVariantPrice?.amount;
+  const [updateQty, setUpdatedQty] = useState(1);
+  const [productAmount,setProductAmount] = useState(price);
+  
   const handleRemove = () => {
     onRemove(id)
   }
@@ -274,77 +247,12 @@ function CartLineItem({
   )
 }
 
-// /**
-//  * @param {{
-//  *   layout: CartMainProps['layout'];
-//  *   line: CartLine;
-//  * }}
-//  */
-// function CartLineItem({layout, line, selectedProducts}) {
-//   console.log(selectedProducts);
-//   const {id, merchandise, cost} = line;
-//   const {amountPerQuantity} = cost;
-//   const {product, title, image, selectedOptions} = selectedProducts;
-//   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
 
-//   return (
-//     <li key={id} className="cart-line pl-[10px] mb-5 flex gap-4">
-//       {image && (
-//         <Image
-//           // alt={title}
-//           // aspectRatio="1/1"
-//           data={image}
-//           height={100}
-//           loading="lazy"
-//           width={72}
-//         />
-//       )}
-
-//       <div className="flex  flex-1 pr-[10px] justify-between items-center ">
-//         <div className="h-fit flex-1">
-//           <Link
-//             prefetch="intent"
-//             to={lineItemUrl}
-//             className="font-semibold text-[14px]  text-center "
-//             // onClick={() => {
-//             //   if (layout === 'aside') {
-//             //     // close the drawer
-//             //     window.location.href = lineItemUrl;
-//             //   }
-//             // }}
-//           >
-//             <p>
-//               <strong className="pr-[10px] flex justify-center">{title}</strong>
-//             </p>
-//           </Link>
-//           <p className="font-bold text-center text-[25px]">
-//             ${amountPerQuantity.amount}
-//           </p>
-//           {/* <CartLinePrice line={line} as="span" /> */}
-//         </div>
-//         {/* <ul>
-//           {selectedOptions.map((option) => (
-//             <li key={option.name}>
-//               <small>
-//                 {option.name}: {option.value}
-//               </small>
-//             </li>
-//           ))}
-//         </ul> */}
-//         <CartLineQuantity line={line} />
-//       </div>
-//     </li>
-//   );
-// }
-
-// /**
-//  * @param {{checkoutUrl: string}}
-//  */
-function CartCheckoutActions({ cost }) {
+function CartCheckoutActions({ cost}) {
   // if (!checkoutUrl) return null;
   return (
     <>
-      {addAmount(cost, '0') >= 75 ? (
+      {cost >= 75 ? (
         <div className="flex justify-center items-center w-1/2 bg-[#425b34]">
           <a
             // href={checkoutUrl}
@@ -449,100 +357,7 @@ function addAmount(baseAmount, additionalAmount) {
   return sumStr
 }
 
-// // Example usage:
-// const result = addAmount("11.45", "11.45");
-// console.log(result); // Output: "32.85"
 
-// /**
-//  * @param {{lineIds: string[]}}
-//  */
-// function CartLineRemoveButton({lineIds}) {
-//   return (
-//     <CartForm
-//       route="/products/custom-bundle"
-//       action={CartForm.ACTIONS.LinesRemove}
-//       inputs={{lineIds}}
-//     >
-//       <button
-//         className="text-[14px] text-center text-[#862e1b] font-bold w-[100%]"
-//         type="submit"
-//       >
-//         Remove
-//       </button>
-//     </CartForm>
-//   );
-// }
-
-// /**
-//  * @param {{line: CartLine}}
-//  */
-
-// function CartLineQuantity({line , onRemove}) {
-
-//   const {id,priceRange} = line;
-//   const price = priceRange?.maxVariantPrice?.amount;
-//   const [updateQty, setUpdatedQty] = useState(1);
-
-//   const handleRemove = () => {
-//     onRemove(id);
-//   };
-
-//   // useEffect(() => {
-//   //   // Update the selected products array when the quantity changes
-//   //   const updatedProducts = selectedProducts.map((product) => {
-//   //     if (product.id === id) {
-//   //       return { ...product, quantity: updateQty };
-//   //     }
-//   //     return product;
-//   //   });
-//   //   setSelectedProducts(updatedProducts);
-//   // }, [updateQty]);
-
-//   const updateQuantity = (value) => {
-//     setUpdatedQty(value);
-//   };
-
-//   return (
-//     <div className="cart-line-quantity">
-//       <div className="flex gap-[5px] items-center bg-[#862e1b] justify-between p-[5px]">
-//         {/* <CartLineUpdateButton lines={[{id: lineId, quantity: updateQty}]}> */}
-//           <button
-//             onClick={() => updateQuantity(updateQty <= 1 ? 1 : updateQty - 1)}
-//             aria-label="Decrease quantity"
-//             disabled={updateQty <= 1}
-//             name="decrease-quantity"
-//             // value={prevQuantity}
-//             className="text-[#862e1b] w-[25px] flex justify-center items-center h-[25px] bg-white rounded-[5px] p-[3px] "
-//           >
-//             <span>&#8722; </span>
-//           </button>
-//         {/* </CartLineUpdateButton> */}
-//         <small className="text-[#000] font-bold text-[14px] text-center bg-white flex justify-center items-center w-[32px] h-[25px] p-[3px] ">
-//           {updateQty}
-//         </small>
-//         {/* <CartLineUpdateButton lines={[{id: lineId, quantity: updateQty}]}> */}
-//           <button
-//             onClick={() => updateQuantity(updateQty + 1)}
-//             className="text-[#862e1b] bg-white flex justify-center items-center rounded-[5px] p-[3px] w-[25px] h-[25px]"
-//             aria-label="Increase quantity"
-//             name="increase-quantity"
-//             // value={nextQuantity}
-//           >
-//             <span>&#43;</span>
-//           </button>
-//         {/* </CartLineUpdateButton> */}
-//       </div>
-//       {/* <CartLineRemoveButton lineIds={[lineId]} /> */}
-//       <button
-//         className="text-[14px] text-center text-[#862e1b] font-bold w-[100%]"
-//         type="submit"
-//         onClick={handleRemove}
-//       >
-//         Remove
-//       </button>
-//     </div>
-//   );
-// }
 
 /**
  * @param {{
