@@ -53,15 +53,6 @@ function ProductCard({ product, setSelectedProducts, selectedProducts }) {
     dialogClose.close();
   }
 
-  // function addToSelectedProducts() {
-  //   setSelectedProducts((prevSelectedProducts) => {
-  //     // Check if the product is already in the array
-  //     if (!prevSelectedProducts.some((selectedProduct) => selectedProduct.id === product.id)) {
-  //       return [...prevSelectedProducts, product];
-  //     }
-  //     return prevSelectedProducts;
-  //   });
-  // }
 
   function addToSelectedProducts() {
     setSelectedProducts((prevSelectedProducts) => {
