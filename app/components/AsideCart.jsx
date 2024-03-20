@@ -5,14 +5,14 @@ import {useRootLoaderData} from '~/root';
 import {useEffect, useState} from 'react';
 import CustomProgressBar from './ui/CustomProgressBar';
 
-/**
- * @param {CartMainProps}
- */
 
 
-export function CartMain({layout, cart, selectedProducts ,setSelectedProducts}) {
+
+export function CartMain({ selectedProducts ,setSelectedProducts}) {
   const [subTotal, setSubTotal] = useState(0);
   const linesCount = Boolean(selectedProducts.length || 0);
+
+
   useEffect(() => {
     // Calculate the total cost of all products in selectedProducts
     const totalCost = selectedProducts.reduce((acc, curr) => acc + parseFloat(curr.totalAmount), 0);
@@ -20,10 +20,6 @@ export function CartMain({layout, cart, selectedProducts ,setSelectedProducts}) 
     setSubTotal(totalCost);
   }, [selectedProducts]);
   
-  const withDiscount =
-    cart &&
-    Boolean(cart?.discountCodes?.filter((code) => code.applicable)?.length);
-  const className = `cart-main ${withDiscount ? 'with-discount' : ''}`;
 
   const handleRemove = (productId) => {
     setSelectedProducts((prevSelectedProducts) =>
@@ -32,17 +28,17 @@ export function CartMain({layout, cart, selectedProducts ,setSelectedProducts}) 
   };
 
   return (
-    <div className={className}>
+    <div className='cart-main'>
       <ProgessBar cost={subTotal} />
       <CartDetails
-        cart={cart}
-        layout={layout}
+        // cart={cart}
+        // layout={layout}
         selectedProducts={selectedProducts}
         setSelectedProducts={setSelectedProducts}
         onRemove={handleRemove}
         subTotal={subTotal}
       />
-      <CartEmpty hidden={linesCount} layout={layout} />
+      <CartEmpty hidden={linesCount}  />
     </div>
   );
 }
@@ -50,7 +46,7 @@ export function CartMain({layout, cart, selectedProducts ,setSelectedProducts}) 
 /**
  * @param {CartMainProps}
  */
-function CartDetails({layout, cart, selectedProducts,onRemove,setSelectedProducts,subTotal}) {
+function CartDetails({ selectedProducts,onRemove,setSelectedProducts,subTotal}) {
   const cartHasItems = selectedProducts.length > 0;
   // const cartHasItems = !!cart && cart.totalQuantity < 0;
   return (
@@ -63,7 +59,7 @@ function CartDetails({layout, cart, selectedProducts,onRemove,setSelectedProduct
       {cartHasItems && (
         <div className="p-5 pb-3 bg-white">
           <div className="border-b-4 pb-[10px] border-black">
-            <CartSummary cost={subTotal} layout={layout}>
+            <CartSummary cost={subTotal} >
               {/* <CartDiscounts discountCodes={cart.discountCodes} /> */}
               <CartCheckoutActions
                 // checkoutUrl={cart.checkoutUrl}
