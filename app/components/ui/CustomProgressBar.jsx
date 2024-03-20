@@ -1,7 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
-// import { Progress } from './progress';
-import * as Progress from '@radix-ui/react-progress';
-import HeaderContext from '../HeaderContext';
+import React, { useEffect, useState } from 'react'
+import Progress from './progress';
 
 
 
