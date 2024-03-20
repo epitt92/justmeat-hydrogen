@@ -239,7 +239,7 @@ function CartCheckoutActions({ cost}) {
   // if (!checkoutUrl) return null;
   return (
     <>
-      {addAmount(cost, '0') >= 75 ? (
+      {cost >= 75 ? (
         <div className="flex justify-center items-center w-1/2 bg-[#425b34]">
           <a
             // href={checkoutUrl}
