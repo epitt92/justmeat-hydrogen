@@ -4,6 +4,7 @@ import {useVariantUrl} from '~/lib/variants';
 import {useRootLoaderData} from '~/root';
 import {useEffect, useState} from 'react';
 import CustomProgressBar from './ui/CustomProgressBar';
+import ProductQuantity from './OrderComponents/ProductQuantity';
 
 
 
@@ -149,12 +150,12 @@ function CartLines({ selectedProducts , onRemove ,setSelectedProducts}) {
 
 
 function CartLineItem({ line ,onRemove,selectedProducts,setSelectedProducts}) {
-  const {id, title,featuredImage,priceRange } = line;
+  const {id, title,featuredImage,priceRange,quantity } = line;
   const image = featuredImage.url;
   const price = priceRange?.maxVariantPrice?.amount;
   const [updateQty, setUpdatedQty] = useState(1);
   const [productAmount,setProductAmount] = useState(price);
-  
+  console.log(line);
   const handleRemove = () => {
     onRemove(id);
   };
@@ -195,8 +196,8 @@ function CartLineItem({ line ,onRemove,selectedProducts,setSelectedProducts}) {
           </p>
           {/* <CartLinePrice line={line} as="span" /> */}
         </div>
-        <div className="cart-line-quantity">
-      <div className="flex gap-[5px] items-center bg-[#862e1b] justify-between p-[5px]">
+        {/* <div className="cart-line-quantity">
+          <div className="flex gap-[5px] items-center bg-[#862e1b] justify-between p-[5px]">
           <button
             onClick={() => updateQuantity(updateQty <= 1 ? 1 : updateQty - 1)}
             aria-label="Decrease quantity"
@@ -208,7 +209,7 @@ function CartLineItem({ line ,onRemove,selectedProducts,setSelectedProducts}) {
             <span>&#8722; </span>
           </button>
         <small className="text-[#000] font-bold text-[14px] text-center bg-white flex justify-center items-center w-[32px] h-[25px] p-[3px] ">
-          {updateQty}
+          {quantity}
         </small>
           <button
             onClick={() => updateQuantity(updateQty + 1)}
@@ -219,16 +220,17 @@ function CartLineItem({ line ,onRemove,selectedProducts,setSelectedProducts}) {
           >
             <span>&#43;</span>
           </button>
-      </div>
-      <button
-        className="text-[14px] text-center text-[#862e1b] font-bold w-[100%]"
-        type="submit"
-        onClick={handleRemove}
-      > 
-        Remove
-      </button>
-    </div>
-        {/* <CartLineQuantity line={line} onRemove={onRemove} /> */}
+          </div>
+         <button
+           className="text-[14px] text-center text-[#862e1b] font-bold w-[100%]"
+          type="submit"
+          onClick={handleRemove}
+          > 
+           Remove
+         </button>
+          </div> */}
+           {/* <CartLineQuantity line={line} onRemove={onRemove} /> */}
+           <ProductQuantity line ={line} layout={"aside"} onRemove={onRemove} selectedProducts ={selectedProducts} setSelectedProducts={setSelectedProducts}/>
       </div>
     </li>
   );
