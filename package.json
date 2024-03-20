@@ -8,9 +8,9 @@
     "dev": "shopify hydrogen dev --codegen",
     "preview": "npm run build && shopify hydrogen preview",
     "lint": "eslint --no-error-on-unmatched-pattern --ext .js,.ts,.jsx,.tsx .",
-    "codegen": "shopify hydrogen codegen"
+    "codegen": "shopify hydrogen codegen",
+    "prettier": "prettier --write \"./app/**/*.{js,jsx,html,md}\""
   },
-  "prettier": "@shopify/prettier-config",
   "dependencies": {
     "@material-tailwind/html": "^2.2.2",
     "@material-tailwind/react": "^2.1.9",
