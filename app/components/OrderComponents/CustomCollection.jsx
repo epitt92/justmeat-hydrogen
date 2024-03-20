@@ -19,7 +19,6 @@ import { Aside } from '../Aside';
 const AsideCart = ({selectedProducts,setSelectedProducts}) => {
   const rootData = useRootLoaderData();
   const cartPromise = rootData.cart;
-  console.log(rootData);
   return (
     <div className="cart">
       {/* <h1>Cart</h1> */}
@@ -150,7 +149,6 @@ function ProductCard({ product, setSelectedProducts, selectedProducts }) {
  * }}
  */
 function ProductForm({ product, selectedVariant, variants, setSelectedProductId }) {
-  console.log(selectedVariant);
   return (
     <div className="product-form">
       <VariantSelector
@@ -228,8 +226,7 @@ function ProductOptions({ option }) {
  * }}
  */
 function AddToCartButton({ analytics, children, disabled, lines, onClick }) {
-  // console.log(children);
-  // console.log(lines);
+
   return (
     <CartForm route="/products/custom-bundle" inputs={{ lines }} action={CartForm.ACTIONS.LinesAdd}>
       {(fetcher) => (
@@ -255,7 +252,6 @@ function AddToCartButton({ analytics, children, disabled, lines, onClick }) {
 const CustomCollection = ({ col }) => {
   const { nodes } = col;
   const [selectedProducts, setSelectedProducts] = useState([]);
-  console.log(selectedProducts);
   return (
     <section className="max-w-ful ">
       <div className=" flex gap-3">
