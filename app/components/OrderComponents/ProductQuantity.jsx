@@ -39,7 +39,7 @@ const ProductQuantity = ({ line , onRemove , selectedProducts,setSelectedProduct
     <button
       onClick={() => updateQuantity(quantity <= 1 ? 1 : quantity - 1)}
       aria-label="Decrease quantity"
-      disabled={updateQty <= 1}
+      disabled={quantity <= 1}
       name="decrease-quantity"
       // value={prevQuantity}
       className="text-[#862e1b] w-[25px] flex justify-center items-center h-[25px] bg-white rounded-[5px] p-[3px] "
