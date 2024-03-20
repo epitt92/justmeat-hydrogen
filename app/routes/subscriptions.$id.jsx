@@ -69,10 +69,12 @@ export async function loader({ request, context, params }) {
 export default function SubscriptionRoute() {
   const { subscription, product, cancelUrl, shopCurrency } = useLoaderData();
   const address = subscription.include?.address;
+  console.log("-+-+-+-");
+  console.log(subscription);
   return (
     <div className='w-full flex flex-col justify-center items-center'>
 
-      <div>
+      <div className='hidden'>
         <div heading="Subscription detail">
           <Link to="/account">
             <Text color="subtle">Return to Account Overview</Text>
@@ -223,19 +225,18 @@ export default function SubscriptionRoute() {
         </div>
       </div>
 
-      <div className='w-11/12 flex flex-col justify-center items-center'>
-        <div className='w-full flex flex-col justify-start items-start border-b-2 border-slate-600  sm:flex sm:justify-around '>
-          <button className='text-xl border-solid border-2 	border-lime-900 py-1 px-8'>Back To Account</button>
-          <h1 className='text-2xl font-semibold pb-3'>Customize Your Order</h1>
+      <div className='w-11/12 mt-15 md:w-8/12 flex flex-col justify-center'>
+        <div className='w-full block md:flex text-center  justify-start pb-[30px] items-start border-b-2 border-slate-600'>
+          <button className='text-xl border-solid mb-5 border-2 border-lime-900 py-1 px-8'>Back To Account</button>
+          <h1 className='text-3xl font-semibold pb-3 md:ml-[20%]'>Customize Your Order</h1>
         </div>
-        <div className='w-full mt-6 sm:mt-12 mb-6 flex justify-between float-start items-start'>
-          <button className='text-base sm:text-2xl mr-3 border-solid border-2 	border-lime-900 py-1 px-8'>Process Now</button>
-          <button className='text-base sm:text-2xl border-solid border-2 	border-lime-900 py-1 px-8'>1 Week Delay</button>
+        <div className='w-full md:w-1/3 mt-6 sm:mt-12 mb-6 block md:flex float-start items-start'>
+          <button className='w-full md:w-1/2 mt-6 text-2xl mr-3 border-solid border-2 border-lime-900 py-3'>Process Now</button>
+          <button className='w-full md:w-1/2 mt-6 text-2xl border-solid border-2 border-lime-900 py-3'>1 Week Delay</button>
         </div>
 
-        <div className='w-full flex items-center'>
+        <div className='w-full block md:flex'>
           <div className='w-[100%] md:w-[65%] flex flex-col justify-around border-solid border-2 border-lime-950 '>
-
             <div className='flex mt-3'>
               <div className='w-1/3 flex flex-col items-center'>
                 <img className='w-56' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
@@ -356,19 +357,32 @@ export default function SubscriptionRoute() {
               </div>
             </div>
           </div>
-
-          <div className='hidden md:w-[35%] md:block'>
-            <div>
-
+          <div className='md:w-[35%] md:block md:ml-[35px] border-solid border-2 border-lime-950 h-[600px]'>
+            <div className='bg-black text-center'>
+              <h2 className='text-white py-5'>YOUR SUBSCRIPTION</h2> 
             </div>
             <div>
-
+              <div class="progress-bar ">
+                <div class="py-4 px-10 flex justify-center">
+                  <div aria-valuemax="100" aria-valuemin="0" role="progressbar" data-state="indeterminate" data-max="100" class="relative h-2 overflow-hidden rounded-full bg-primary/20 w-[100%] min-h-3 border border-[#000]">
+                    <div data-state="indeterminate" data-max="100" class="h-full w-full flex-1 bg-[#1c7084bf] transition-all content-[hellow]"></div>
+                  </div>
+                </div>
+                <div class="flex flex-column justify-end gap-2  px-7 ">
+                  <p class="text-center text-base flex flex-col mr-3 relative">
+                    <span class="w-[10px] h-[10px] bg-black rounded-[100%] absolute top-[-27px] left-[50%] translate-x-[-50%]  "></span> 
+                    <span class="text-[16px] uppercase leading-normal">$75 </span>
+                  </p>
+                  <p class="text-base text-center flex flex-col mr-5 relative">
+                    <span class="w-[10px] h-[10px] bg-black rounded-[100%] absolute top-[-27px] left-[50%] translate-x-[-50%]  "></span>
+                    <span class="text-[16px] leading-normal">$125 </span>
+                    <span class="text-[11px] uppercase leading-normal">Free Meat </span>
+                  </p>
+                </div>
+              </div>
             </div>
-            <div>
-
-            </div>
-          </div>
-
+            
+          </div> 
         </div>
       </div>
     </div>
