@@ -15,11 +15,11 @@ const ProductModal = ({product}) => {
 
   return (
     <>
-      <main className="dialog-box border border-red-700 grid grid-cols-2">
+      <main className="grid grid-cols-3 mb-8">
         <div className="product-gallary overflow-hidden">
           <ProductGallary media={media} />
         </div>
-        <div className="content">
+        <div className="content col-span-2">
           <h1 className="title font-roboto_bold font-bold text-[55px]">
             {product.title}
           </h1>
@@ -87,7 +87,7 @@ const ProductModal = ({product}) => {
 
         </div>
       </main>
-      <div className='flex justify-around py-4'>
+      <div className='flex justify-around py-4 border-t-4'>
         <div className="money-back flex gap-6 items-center ">
           <img src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/1279px-Font_Awesome_5_solid_money-bill-wave_svg.png" alt="money" width={65} />
           <h1 className='text-[28px] font-roboto_bold text-[#1d1d1d]'>Money back guarantee</h1>
@@ -109,7 +109,7 @@ function Content({slide}) {
   return (
     <div tabIndex="0">
       <div className="w-[100%]">
-        <img className="max-w-full w-96" draggable="false" src={slide.url} />
+        <img className="max-w-60 mx-auto" draggable="false" src={slide.url} style={{maxHeight: "400px"}} />
       </div>
     </div>
   );
@@ -152,7 +152,7 @@ function ProductGallary({media}) {
 
 function Thumbs({ media, currentSlide, onClick }) {
   return (
-    <div className="thumbnail-container flex gap-4 items-center justify-center">
+    <div className="thumbnail-container flex gap-4 items-center justify-center py-1">
       {media.map((slide, index) => (
         <button
           key={index}
