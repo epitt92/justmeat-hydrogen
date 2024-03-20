@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
 const Video = ({ url, poster, width, height, videoId }) => {
-  const [playing, setPlaying] = useState(false);
+  const [playing, setPlaying] = useState(false)
 
   const togglePlay = () => {
-    const video = document.getElementById(videoId); // Dynamically select the video element by ID
+    const video = document.getElementById(videoId) // Dynamically select the video element by ID
     if (playing) {
-      video.pause();
+      video.pause()
     } else {
-      video.play();
+      video.play()
     }
-    setPlaying(!playing);
-  };
+    setPlaying(!playing)
+  }
 
   return (
     <div className="relative">
@@ -47,7 +47,7 @@ const Video = ({ url, poster, width, height, videoId }) => {
         </svg>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Video;
+export default Video

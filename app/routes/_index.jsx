@@ -1,39 +1,49 @@
-import {defer} from '@shopify/remix-oxygen';
-import {Await, useLoaderData, Link, NavLink} from '@remix-run/react';
-import {Suspense} from 'react';
-import {Image, Money} from '@shopify/hydrogen';
-import OrderButton from 'app/components/OrderButton';
-import ProductSlider from '~/components/ProductSlider';
-import FaqAccordion from '~/components/FaqAccordion';
+import { defer } from '@shopify/remix-oxygen'
+import { Await, useLoaderData, Link, NavLink } from '@remix-run/react'
+import { Suspense } from 'react'
+import { Image, Money } from '@shopify/hydrogen'
+import OrderButton from 'app/components/OrderButton'
+import ProductSlider from '~/components/ProductSlider'
+import FaqAccordion from '~/components/FaqAccordion'
 
 /**
  * @type {MetaFunction}
  */
 export const meta = () => {
-  return [{title: 'Hydrogen | Home'}];
-};
+  return [{ title: 'Hydrogen | Home' }]
+}
 
 /**
  * @param {LoaderFunctionArgs}
  */
-export async function loader({context}) {
-  const {storefront} = context;
-  const {collections} = await storefront.query(FEATURED_COLLECTION_QUERY);
-  const featuredCollection = collections.nodes[0];
-  const recommendedProducts = storefront.query(RECOMMENDED_PRODUCTS_QUERY);
+export async function loader({ context }) {
+  const { storefront } = context
+  const { collections } = await storefront.query(FEATURED_COLLECTION_QUERY)
+  const featuredCollection = collections.nodes[0]
+  const recommendedProducts = storefront.query(RECOMMENDED_PRODUCTS_QUERY)
 
-  return defer({featuredCollection, recommendedProducts});
+  return defer({ featuredCollection, recommendedProducts })
 }
 
 export default function Homepage() {
   /** @type {LoaderReturnData} */
-  const data = useLoaderData();
+  const data = useLoaderData()
   return (
     <div className="home relative">
-      <div className=' p-[20px] xl:hidden hidden md:block text-center bg-[#c5972d] '><h2 className='font-bold text-[35px]  text-[#f0f0f0] '>Premium Meat, Expertly Cooked, Chilled, & Delivered </h2></div>
+      <div className=" p-[20px] xl:hidden hidden md:block text-center bg-[#c5972d] ">
+        <h2 className="font-bold text-[35px]  text-[#f0f0f0] ">
+          Premium Meat, Expertly Cooked, Chilled, & Delivered{' '}
+        </h2>
+      </div>
       <section className="heroSection relative flex justify-center items-center overflow-hidden">
         <div className="bg-video absolute top-0 left-0 w-[100%] h-[100%]">
-          <video className="h-full w-full object-cover" autoPlay muted playsInline loop>
+          <video
+            className="h-full w-full object-cover"
+            autoPlay
+            muted
+            playsInline
+            loop
+          >
             <source
               src="https://cdn.shopify.com/videos/c/o/v/32c027bc585340199844575c5e85cf42.mp4"
               type="video/mp4"
@@ -59,12 +69,20 @@ export default function Homepage() {
       </section>
 
       <section>
-      <NavLink end prefetch="intent" to="/products/custom-bundle">
-        
-        <img src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/subcription_banner.webp?v=1709994462" className='sm:block hidden' width="100%" alt="" />
-        <img src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/Ranch_Rub_Mobile.webp?v=1710451473" className='sm:hidden block' width="100%" alt="" />
-
-                </NavLink>
+        <NavLink end prefetch="intent" to="/products/custom-bundle">
+          <img
+            src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/subcription_banner.webp?v=1709994462"
+            className="sm:block hidden"
+            width="100%"
+            alt=""
+          />
+          <img
+            src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/Ranch_Rub_Mobile.webp?v=1710451473"
+            className="sm:hidden block"
+            width="100%"
+            alt=""
+          />
+        </NavLink>
       </section>
 
       <section className=" bg-white flex justify-center items-center bg-no-repeat min-h-72 sm:min-h-96 bg-contain bg-center sm:bg-left bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Group_4179_2x_c20de474-5eef-421d-a248-f3a6c09ae36a.png')] my-5">
@@ -184,19 +202,17 @@ export default function Homepage() {
         </div>
       </section>
       <section className="heroSection bg-[#c5972d] px-4 py-10 flex justify-center items-center bg-no-repeat min-h-96 bg-contain bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Group_4161.png')]">
-         <div className='max-w-[1440px] flex justify-center items-center '>
-        <div className='xl:w-[40%] lg:w-[100%]  bg-[#0001]'>
-          <h2 className='text-black text-5xl mt-2 ' >You Ask. We Answer.</h2>
-          <div className='p-5'>
-
-        <FaqAccordion />
+        <div className="max-w-[1440px] flex justify-center items-center ">
+          <div className="xl:w-[40%] lg:w-[100%]  bg-[#0001]">
+            <h2 className="text-black text-5xl mt-2 ">You Ask. We Answer.</h2>
+            <div className="p-5">
+              <FaqAccordion />
+            </div>
           </div>
-
         </div>
-         </div>
       </section>
     </div>
-  );
+  )
 }
 
 /**
@@ -204,9 +220,9 @@ export default function Homepage() {
  *   collection: FeaturedCollectionFragment;
  * }}
  */
-function FeaturedCollection({collection}) {
-  if (!collection) return null;
-  const image = collection?.image;
+function FeaturedCollection({ collection }) {
+  if (!collection) return null
+  const image = collection?.image
   return (
     <Link
       className="featured-collection"
@@ -219,7 +235,7 @@ function FeaturedCollection({collection}) {
       )}
       <h1>{collection.title}</h1>
     </Link>
-  );
+  )
 }
 
 /**
@@ -283,7 +299,7 @@ const FEATURED_COLLECTION_QUERY = `#graphql
       }
     }
   }
-`;
+`
 
 const RECOMMENDED_PRODUCTS_QUERY = `#graphql
   fragment RecommendedProduct on Product {
@@ -314,7 +330,7 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
       }
     }
   }
-`;
+`
 
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
 /** @template T @typedef {import('@remix-run/react').MetaFunction<T>} MetaFunction */

@@ -5,20 +5,20 @@ import {
   VariantSelector,
   getPaginationVariables,
   getSelectedProductOptions,
-} from '@shopify/hydrogen';
-import React, { Suspense, useState } from 'react';
-import { CartProvider, useCart, ProductProvider } from '@shopify/hydrogen-react';
-import { defer, json, redirect } from '@remix-run/server-runtime';
-import { Await, Link, useLoaderData } from '@remix-run/react';
-import { CartMain } from '~/components/AsideCart';
-import { useRootLoaderData } from '~/root';
-import ProductModal from '../ui/ProductModal';
-import CustomProgressBar from '../ui/CustomProgressBar';
-import { Aside } from '../Aside';
+} from '@shopify/hydrogen'
+import React, { Suspense, useState } from 'react'
+import { CartProvider, useCart, ProductProvider } from '@shopify/hydrogen-react'
+import { defer, json, redirect } from '@remix-run/server-runtime'
+import { Await, Link, useLoaderData } from '@remix-run/react'
+import { CartMain } from '~/components/AsideCart'
+import { useRootLoaderData } from '~/root'
+import ProductModal from '../ui/ProductModal'
+import CustomProgressBar from '../ui/CustomProgressBar'
+import { Aside } from '../Aside'
 
-const AsideCart = ({selectedProducts,setSelectedProducts}) => {
-  const rootData = useRootLoaderData();
-  const cartPromise = rootData.cart;
+const AsideCart = ({ selectedProducts, setSelectedProducts }) => {
+  const rootData = useRootLoaderData()
+  const cartPromise = rootData.cart
   return (
     <div className="cart">
       {/* <h1>Cart</h1> */}
@@ -28,55 +28,75 @@ const AsideCart = ({selectedProducts,setSelectedProducts}) => {
           errorElement={<div>An error occurred</div>}
         >
           {(cart) => {
-            return <CartMain layout="aside" cart={cart} selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} />;
+            return (
+              <CartMain
+                layout="aside"
+                cart={cart}
+                selectedProducts={selectedProducts}
+                setSelectedProducts={setSelectedProducts}
+              />
+            )
           }}
         </Await>
       </Suspense>
     </div>
-  );
-
+  )
 }
 
 function ProductCard({ product, setSelectedProducts, selectedProducts }) {
-  const image = product.featuredImage.url;
-  const productHandle = product.handle;
-  const productPrice = product?.priceRange?.maxVariantPrice?.amount;
-  const selectedVariant = product.variants.nodes[0];
-  
+  const image = product.featuredImage.url
+  const productHandle = product.handle
+  const productPrice = product?.priceRange?.maxVariantPrice?.amount
+  const selectedVariant = product.variants.nodes[0]
+
   function openModal() {
-    const dialog = document.querySelector(`#${productHandle}`);
-    dialog.showModal();
+    const dialog = document.querySelector(`#${productHandle}`)
+    dialog.showModal()
   }
 
   function closeModal() {
-    const dialogClose = document.querySelector(`#${productHandle}`);
-    dialogClose.close();
+    const dialogClose = document.querySelector(`#${productHandle}`)
+    dialogClose.close()
   }
-
 
   function addToSelectedProducts() {
     setSelectedProducts((prevSelectedProducts) => {
       // Check if the product is already in the array
-      if (!prevSelectedProducts.some((selectedProduct) => selectedProduct.id === product.id)) {
-        return [...prevSelectedProducts, { ...product, quantity: 1, amount: productPrice ,totalAmount:productPrice}];
+      if (
+        !prevSelectedProducts.some(
+          (selectedProduct) => selectedProduct.id === product.id,
+        )
+      ) {
+        return [
+          ...prevSelectedProducts,
+          {
+            ...product,
+            quantity: 1,
+            amount: productPrice,
+            totalAmount: productPrice,
+          },
+        ]
       }
-      return prevSelectedProducts;
-    });
+      return prevSelectedProducts
+    })
   }
-  
 
   function removeFromSelectedProducts() {
     setSelectedProducts((prevSelectedProducts) =>
-      prevSelectedProducts.filter((selectedProduct) => selectedProduct.id !== product.id)
-    );
+      prevSelectedProducts.filter(
+        (selectedProduct) => selectedProduct.id !== product.id,
+      ),
+    )
   }
 
-  const isSelected = selectedProducts.some((selectedProduct) => selectedProduct.id === product.id);
+  const isSelected = selectedProducts.some(
+    (selectedProduct) => selectedProduct.id === product.id,
+  )
 
   return (
     <div className="product-grid mb-[40px] ">
       <dialog className="bg-[#edeaea] custom-dialog" id={productHandle}>
-        <div className='dialog-content'>
+        <div className="dialog-content">
           <div className="close-panel p-5">
             <button onClick={() => closeModal()} className="close-modal">
               <svg
@@ -121,15 +141,18 @@ function ProductCard({ product, setSelectedProducts, selectedProducts }) {
         </span>
       </div>
       <div className="mx-auto text-center my-5">
-        
-        <button onClick={addToSelectedProducts} className="bg-[#862e1b] mx-auto flex justify-center items-center py-[10px] gap-[5px] px-[20px] leading-none font-bold text-white">
-          <span className=" p-[3px] text-[25px] leading-[13px] bg-white text-[#862e1b]  ">+</span>
+        <button
+          onClick={addToSelectedProducts}
+          className="bg-[#862e1b] mx-auto flex justify-center items-center py-[10px] gap-[5px] px-[20px] leading-none font-bold text-white"
+        >
+          <span className=" p-[3px] text-[25px] leading-[13px] bg-white text-[#862e1b]  ">
+            +
+          </span>
           ADD
         </button>
       </div>
-
     </div>
-  );
+  )
 }
 
 /**
@@ -139,7 +162,12 @@ function ProductCard({ product, setSelectedProducts, selectedProducts }) {
  *   variants: Array<ProductVariantFragment>;
  * }}
  */
-function ProductForm({ product, selectedVariant, variants, setSelectedProductId }) {
+function ProductForm({
+  product,
+  selectedVariant,
+  variants,
+  setSelectedProductId,
+}) {
   return (
     <div className="product-form">
       <VariantSelector
@@ -158,21 +186,23 @@ function ProductForm({ product, selectedVariant, variants, setSelectedProductId 
         lines={
           selectedVariant
             ? [
-              {
-                merchandiseId: selectedVariant.id,
-                quantity: 1,
-              },
-            ]
+                {
+                  merchandiseId: selectedVariant.id,
+                  quantity: 1,
+                },
+              ]
             : []
         }
       >
         <div className="bg-[#862e1b] flex justify-center items-center py-[10px] gap-[5px] px-[20px] leading-none font-bold text-white">
-          <span className=" p-[3px] text-[25px] leading-[13px] bg-white text-[#862e1b]  ">+</span>
+          <span className=" p-[3px] text-[25px] leading-[13px] bg-white text-[#862e1b]  ">
+            +
+          </span>
           {selectedVariant?.availableForSale ? 'Add to cart' : 'ADD'}
         </div>
       </AddToCartButton>
     </div>
-  );
+  )
 }
 
 /**
@@ -199,12 +229,12 @@ function ProductOptions({ option }) {
             >
               {value}
             </Link>
-          );
+          )
         })}
       </div>
       <br />
     </div>
-  );
+  )
 }
 
 /**
@@ -217,9 +247,12 @@ function ProductOptions({ option }) {
  * }}
  */
 function AddToCartButton({ analytics, children, disabled, lines, onClick }) {
-
   return (
-    <CartForm route="/products/custom-bundle" inputs={{ lines }} action={CartForm.ACTIONS.LinesAdd}>
+    <CartForm
+      route="/products/custom-bundle"
+      inputs={{ lines }}
+      action={CartForm.ACTIONS.LinesAdd}
+    >
       {(fetcher) => (
         <>
           <input
@@ -237,12 +270,12 @@ function AddToCartButton({ analytics, children, disabled, lines, onClick }) {
         </>
       )}
     </CartForm>
-  );
+  )
 }
 
 const CustomCollection = ({ col }) => {
-  const { nodes } = col;
-  const [selectedProducts, setSelectedProducts] = useState([]);
+  const { nodes } = col
+  const [selectedProducts, setSelectedProducts] = useState([])
   return (
     <section className="max-w-ful ">
       <div className=" flex gap-3">
@@ -253,7 +286,9 @@ const CustomCollection = ({ col }) => {
         <main className="main-section flex gap-2 flex-1 flex-col bg-white sm:border border-gray-400 border-solid">
           <div className="flex w-full  items-center py-3 sm:py-0 gap-2">
             <div className="w-[35px] h-[35px] ml-3 lg:hidden lg:w-[60px] lg:h-[60px] rounded-[100%] sm:border-none border-2 border-[#425C35] sm:bg-black flex justify-center items-center  ">
-              <span className=" text-[22px] lg:text-[40px] font-bold text-black sm:text-white ">2</span>
+              <span className=" text-[22px] lg:text-[40px] font-bold text-black sm:text-white ">
+                2
+              </span>
             </div>
             <div className="h-fit sm:border-b-4 w-fit sm:border-[#425B34] sm:m-3 ">
               <h2 className="font-semibold leading-7 text-[20px] sm:text-[22px] text-[#1d1d1d] sm:uppercase  ">
@@ -273,7 +308,7 @@ const CustomCollection = ({ col }) => {
               ))}
             </div>
             <div className="cart-wrapper sticky top-[10px] h-fit mb-[10px] hidden xl:block w-4/12">
-              <div className='border h-full'>
+              <div className="border h-full">
                 <div className="top-section py-5 bg-black text-white text-center">
                   <div className="text-wrapper py-5">
                     <h1 className="font-roboto_medium text-[17px] leading-none">
@@ -284,14 +319,17 @@ const CustomCollection = ({ col }) => {
                     </p>
                   </div>
                 </div>
-                <AsideCart selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} />
+                <AsideCart
+                  selectedProducts={selectedProducts}
+                  setSelectedProducts={setSelectedProducts}
+                />
               </div>
             </div>
           </div>
         </main>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default CustomCollection;
+export default CustomCollection

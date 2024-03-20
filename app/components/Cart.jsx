@@ -1,30 +1,30 @@
-import { CartForm, Image, Money } from '@shopify/hydrogen';
-import { Link } from '@remix-run/react';
-import { useVariantUrl } from '~/lib/variants';
+import { CartForm, Image, Money } from '@shopify/hydrogen'
+import { Link } from '@remix-run/react'
+import { useVariantUrl } from '~/lib/variants'
 
 /**
  * @param {CartMainProps}
  */
 export function CartMain({ layout, cart }) {
-  const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
+  const linesCount = Boolean(cart?.lines?.nodes?.length || 0)
   const withDiscount =
     cart &&
-    Boolean(cart?.discountCodes?.filter((code) => code.applicable)?.length);
-  const className = `cart-main ${withDiscount ? 'with-discount' : ''}`;
+    Boolean(cart?.discountCodes?.filter((code) => code.applicable)?.length)
+  const className = `cart-main ${withDiscount ? 'with-discount' : ''}`
 
   return (
     <div className={className}>
       <CartEmpty hidden={linesCount} layout={layout} />
       <CartDetails cart={cart} layout={layout} />
     </div>
-  );
+  )
 }
 
 /**
  * @param {CartMainProps}
  */
 function CartDetails({ layout, cart }) {
-  const cartHasItems = !!cart && cart.totalQuantity > 0;
+  const cartHasItems = !!cart && cart.totalQuantity > 0
 
   return (
     <div className="cart-details flex flex-col md:flex-row justify-center gap-8 md:gap-[30px] w-full mb-28">
@@ -36,7 +36,7 @@ function CartDetails({ layout, cart }) {
         </CartSummary>
       )}
     </div>
-  );
+  )
 }
 
 /**
@@ -46,29 +46,30 @@ function CartDetails({ layout, cart }) {
  * }}
  */
 function CartLines({ lines, layout }) {
-  if (!lines) return null;
+  if (!lines) return null
 
   return (
-    <div aria-labelledby="cart-lines" className='basis-8/12 border border-gray p-0 rounded-[13px] '>
-      <table className='w-full flex flex-col '>
-        <thead className='pb-2 ' >
-          <tr className='w-full flex px-9 rounded-t-xl text-center bg-gray-200 py-3 border-b-2 text-start '>
-            <th className='w-1/5 text-center'>Product</th>
-            <th className='w-2/5 text-center'>Title</th>
-            <th className='w-1/5 text-center'>Remove</th>
-            <th className='w-1/5 text-center'>Total</th>
+    <div
+      aria-labelledby="cart-lines"
+      className="basis-8/12 border border-gray p-0 rounded-[13px] "
+    >
+      <table className="w-full flex flex-col ">
+        <thead className="pb-2 ">
+          <tr className="w-full flex px-9 rounded-t-xl text-center bg-gray-200 py-3 border-b-2 text-start ">
+            <th className="w-1/5 text-center">Product</th>
+            <th className="w-2/5 text-center">Title</th>
+            <th className="w-1/5 text-center">Remove</th>
+            <th className="w-1/5 text-center">Total</th>
           </tr>
         </thead>
         <tbody>
-          
-            {lines.nodes.map((line) => (
-              <CartLineItem key={line.id} line={line} layout={layout} />
-            ))}
-          
+          {lines.nodes.map((line) => (
+            <CartLineItem key={line.id} line={line} layout={layout} />
+          ))}
         </tbody>
       </table>
     </div>
-  );
+  )
 }
 
 /**
@@ -78,14 +79,13 @@ function CartLines({ lines, layout }) {
  * }}
  */
 function CartLineItem({ layout, line }) {
-  const { id, merchandise } = line;
-  const { product, title, image, selectedOptions } = merchandise;
-  const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
+  const { id, merchandise } = line
+  const { product, title, image, selectedOptions } = merchandise
+  const lineItemUrl = useVariantUrl(product.handle, selectedOptions)
 
   return (
-
-    <tr className='w-full flex text-start  items-center px-8 py-3 text-center' >
-      <td className='w-1/5 text-center'>
+    <tr className="w-full flex text-start  items-center px-8 py-3 text-center">
+      <td className="w-1/5 text-center">
         {image && (
           <Image
             alt={title}
@@ -97,7 +97,7 @@ function CartLineItem({ layout, line }) {
           />
         )}
       </td>
-      <td className='text-sm w-2/5 text-center'>
+      <td className="text-sm w-2/5 text-center">
         <Link
           prefetch="intent"
           to={lineItemUrl}
@@ -105,38 +105,42 @@ function CartLineItem({ layout, line }) {
           onClick={() => {
             if (layout === 'aside') {
               // close the drawer
-              window.location.href = lineItemUrl;
+              window.location.href = lineItemUrl
             }
           }}
         >
           <p>
-            <strong >{product.title}</strong>
+            <strong>{product.title}</strong>
           </p>
         </Link>
       </td>
-      <td className='text-center w-1/5 '>
+      <td className="text-center w-1/5 ">
         <CartLineQuantity line={line} />
       </td>
-      <td className='w-1/5 text-center'>
+      <td className="w-1/5 text-center">
         <CartLinePrice line={line} as="span" />
       </td>
     </tr>
-  );
+  )
 }
 
 /**
  * @param {{checkoutUrl: string}}
  */
 function CartCheckoutActions({ checkoutUrl }) {
-  if (!checkoutUrl) return null;
+  if (!checkoutUrl) return null
 
   return (
-    <div className=''>
-      <a href={checkoutUrl} target="_self" className='border border-black bg-[#FFFFFF] cursor-pointer hover:bg-[#862e1b] hover:text-white transition font-bold text-base py-3 block w-full text-center'>
+    <div className="">
+      <a
+        href={checkoutUrl}
+        target="_self"
+        className="border border-black bg-[#FFFFFF] cursor-pointer hover:bg-[#862e1b] hover:text-white transition font-bold text-base py-3 block w-full text-center"
+      >
         Check out
       </a>
     </div>
-  );
+  )
 }
 
 /**
@@ -148,14 +152,16 @@ function CartCheckoutActions({ checkoutUrl }) {
  */
 export function CartSummary({ cost, layout, children = null }) {
   const className =
-    layout === 'page' ? 'cart-summary-page basis-4/12 border-2 border-gray p-6 rounded-[13px]' : 'cart-summary-aside w-30 border border-gray p-10 rounded-[5px] ml-10';
+    layout === 'page'
+      ? 'cart-summary-page basis-4/12 border-2 border-gray p-6 rounded-[13px]'
+      : 'cart-summary-aside w-30 border border-gray p-10 rounded-[5px] ml-10'
 
   return (
     <div aria-labelledby="cart-summary" className={className}>
       <div>
-        <h4 className='text-gray-600'>Subtotal</h4>
+        <h4 className="text-gray-600">Subtotal</h4>
         <dl className="cart-total">
-          <dd className='font-Roboto text-[42px] md:text-[28px] font-medium mb-3'>
+          <dd className="font-Roboto text-[42px] md:text-[28px] font-medium mb-3">
             {cost?.subtotalAmount?.amount ? (
               <Money data={cost?.subtotalAmount} />
             ) : (
@@ -165,14 +171,14 @@ export function CartSummary({ cost, layout, children = null }) {
         </dl>
       </div>
       <div>
-        <h4 className='text-gray-600 '>Discounts</h4>
-        <h4 className='font-semibold'>save50 ( -$86.98 )</h4>
+        <h4 className="text-gray-600 ">Discounts</h4>
+        <h4 className="font-semibold">save50 ( -$86.98 )</h4>
       </div>
 
-      <div className='mt-5'>
-        <h4 className='text-gray-600'>Total</h4>
+      <div className="mt-5">
+        <h4 className="text-gray-600">Total</h4>
         <dl className="cart-total">
-          <dd className='font-Roboto text-[42px] md:text-[38px] font-medium  mb-3'>
+          <dd className="font-Roboto text-[42px] md:text-[38px] font-medium  mb-3">
             {cost?.subtotalAmount?.amount ? (
               <Money data={cost?.subtotalAmount} />
             ) : (
@@ -181,11 +187,12 @@ export function CartSummary({ cost, layout, children = null }) {
           </dd>
         </dl>
       </div>
-      <p className='mb-5 text-xs text-gray-500 font-medium pb-2'>Taxes and shipping calculated at checkout</p>
+      <p className="mb-5 text-xs text-gray-500 font-medium pb-2">
+        Taxes and shipping calculated at checkout
+      </p>
       {children}
-
     </div>
-  );
+  )
 }
 
 /**
@@ -198,19 +205,24 @@ function CartLineRemoveButton({ lineIds }) {
       action={CartForm.ACTIONS.LinesRemove}
       inputs={{ lineIds }}
     >
-      <button className="text-[14px] text-center text-[#862e1b] font-bold w-[100%]" type="submit">Remove</button>
+      <button
+        className="text-[14px] text-center text-[#862e1b] font-bold w-[100%]"
+        type="submit"
+      >
+        Remove
+      </button>
     </CartForm>
-  );
+  )
 }
 
 /**
  * @param {{line: CartLine}}
  */
 function CartLineQuantity({ line }) {
-  if (!line || typeof line?.quantity === 'undefined') return null;
-  const { id: lineId, quantity } = line;
-  const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
-  const nextQuantity = Number((quantity + 1).toFixed(0));
+  if (!line || typeof line?.quantity === 'undefined') return null
+  const { id: lineId, quantity } = line
+  const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0))
+  const nextQuantity = Number((quantity + 1).toFixed(0))
 
   return (
     <div className="cart-line-quantity">
@@ -240,7 +252,7 @@ function CartLineQuantity({ line }) {
 
       <CartLineRemoveButton lineIds={[lineId]} />
     </div>
-  );
+  )
 }
 
 /**
@@ -251,22 +263,22 @@ function CartLineQuantity({ line }) {
  * }}
  */
 function CartLinePrice({ line, priceType = 'regular', ...passthroughProps }) {
-  if (!line?.cost?.amountPerQuantity || !line?.cost?.totalAmount) return null;
+  if (!line?.cost?.amountPerQuantity || !line?.cost?.totalAmount) return null
 
   const moneyV2 =
     priceType === 'regular'
       ? line.cost.totalAmount
-      : line.cost.compareAtAmountPerQuantity;
+      : line.cost.compareAtAmountPerQuantity
 
   if (moneyV2 == null) {
-    return null;
+    return null
   }
 
   return (
     <div className="font-bold text-center text-[25px] ">
       <Money withoutTrailingZeros {...passthroughProps} data={moneyV2} />
     </div>
-  );
+  )
 }
 
 /**
@@ -279,16 +291,15 @@ export function CartEmpty({ hidden = false, layout = 'aside' }) {
   return (
     <div hidden={hidden} className="mb-20">
       <br />
-      <p className='font-Roboto text-[19px]'>
-        Your cart is currently empty.
-      </p>
+      <p className="font-Roboto text-[19px]">Your cart is currently empty.</p>
       <br />
       <br />
       <Link
-        to="/collections" className="bg-[#1d1d1d] rounded-[8px] cursor-pointer text-[#fff] hover:bg-[#862E1B] transition text-xl font-bold py-5 px-9 "
+        to="/collections"
+        className="bg-[#1d1d1d] rounded-[8px] cursor-pointer text-[#fff] hover:bg-[#862E1B] transition text-xl font-bold py-5 px-9 "
         onClick={() => {
           if (layout === 'aside') {
-            window.location.href = '/collections';
+            window.location.href = '/collections'
           }
         }}
       >
@@ -297,7 +308,7 @@ export function CartEmpty({ hidden = false, layout = 'aside' }) {
       <br />
       <br />
     </div>
-  );
+  )
 }
 
 /**
@@ -309,7 +320,7 @@ function CartDiscounts({ discountCodes }) {
   const codes =
     discountCodes
       ?.filter((discount) => discount.applicable)
-      ?.map(({ code }) => code) || [];
+      ?.map(({ code }) => code) || []
 
   return (
     <div>
@@ -336,7 +347,7 @@ function CartDiscounts({ discountCodes }) {
         </div>
       </UpdateDiscountForm>
     </div>
-  );
+  )
 }
 
 /**
@@ -356,7 +367,7 @@ function UpdateDiscountForm({ discountCodes, children }) {
     >
       {children}
     </CartForm>
-  );
+  )
 }
 
 /**
@@ -374,7 +385,7 @@ function CartLineUpdateButton({ children, lines }) {
     >
       {children}
     </CartForm>
-  );
+  )
 }
 
 /** @typedef {CartApiQueryFragment['lines']['nodes'][0]} CartLine */

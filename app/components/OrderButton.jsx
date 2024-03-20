@@ -1,5 +1,5 @@
-import { NavLink } from '@remix-run/react';
-import React from 'react';
+import { NavLink } from '@remix-run/react'
+import React from 'react'
 
 const OrderButton = () => {
   return (
@@ -10,7 +10,7 @@ const OrderButton = () => {
         </span>
       </NavLink>
     </div>
-  );
-};
+  )
+}
 
-export default OrderButton;
+export default OrderButton

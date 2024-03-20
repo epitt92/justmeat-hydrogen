@@ -1,8 +1,8 @@
 // Text.jsx
-import React from 'react';
+import React from 'react'
 
 const Text = ({ children }) => {
-  return <p>{children}</p>;
-};
+  return <p>{children}</p>
+}
 
-export default Text;
+export default Text

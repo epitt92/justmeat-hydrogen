@@ -1,6 +1,6 @@
-import {Suspense} from 'react';
-import {defer, json, redirect} from '@shopify/remix-oxygen';
-import {Await, Link, useLoaderData} from '@remix-run/react';
+import { Suspense } from 'react'
+import { defer, json, redirect } from '@shopify/remix-oxygen'
+import { Await, Link, useLoaderData } from '@remix-run/react'
 
 import {
   Image,
@@ -9,14 +9,13 @@ import {
   getSelectedProductOptions,
   CartForm,
   getPaginationVariables,
-  Pagination
-} from '@shopify/hydrogen';
-import {getVariantUrl} from '~/lib/variants';
-import PlanPicker from '~/components/OrderComponents/PlanPicker';
-import CustomCollection from '~/components/OrderComponents/CustomCollection';
-import {useVariantUrl} from '~/lib/variants';
-import Notification from "~/components/Notification"
-
+  Pagination,
+} from '@shopify/hydrogen'
+import { getVariantUrl } from '~/lib/variants'
+import PlanPicker from '~/components/OrderComponents/PlanPicker'
+import CustomCollection from '~/components/OrderComponents/CustomCollection'
+import { useVariantUrl } from '~/lib/variants'
+import Notification from '~/components/Notification'
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -26,62 +25,59 @@ import Notification from "~/components/Notification"
 //   return [{title: `Hydrogen | ${data?.product.title ?? ''}`}];
 // };
 
-
 /**
  * @param {LoaderFunctionArgs}
  */
-export async function loader({request, params, context}) {
-  const handle = 'all-products';
-  const {storefront} = context;
+export async function loader({ request, params, context }) {
+  const handle = 'all-products'
+  const { storefront } = context
   const paginationVariables = getPaginationVariables(request, {
     pageBy: 15,
-  });
+  })
 
   if (!handle) {
-    return redirect('/collections');
+    return redirect('/collections')
   }
 
-  const {collection} = await storefront.query(COLLECTION_QUERY, {
-    variables: {handle, ...paginationVariables},
-  });
+  const { collection } = await storefront.query(COLLECTION_QUERY, {
+    variables: { handle, ...paginationVariables },
+  })
 
   if (!collection) {
     throw new Response(`Collection ${handle} not found`, {
       status: 404,
-    });
+    })
   }
-  return json({collection});
+  return json({ collection })
 }
-
-
 
 export default function Product() {
   /** @type {LoaderReturnData} */
 
-  const data =  useLoaderData()
+  const data = useLoaderData()
   const customCollectionProducts = data.collection.products
 
   return (
     <>
-    <Notification />
-    <div className='bg-cover h-[100%] w-[100%] bg-fixed	flex justify-center sm:bg-[url("https://cdn.shopify.com/s/files/1/0672/4776/7778/files/orderpage_bg.png")]'>
-    <div className='max-w-[1440px] w-[100%] px-5 sm:px-10'>
-    <PlanPicker/>
-    <div className='custom-collection-wrap'>
-    <CustomCollection col={customCollectionProducts}/>
-    </div>
-    </div>
-    </div>
-   </>
-  );
+      <Notification />
+      <div className='bg-cover h-[100%] w-[100%] bg-fixed	flex justify-center sm:bg-[url("https://cdn.shopify.com/s/files/1/0672/4776/7778/files/orderpage_bg.png")]'>
+        <div className="max-w-[1440px] w-[100%] px-5 sm:px-10">
+          <PlanPicker />
+          <div className="custom-collection-wrap">
+            <CustomCollection col={customCollectionProducts} />
+          </div>
+        </div>
+      </div>
+    </>
+  )
 }
 
 /**
  * @param {{image: ProductVariantFragment['image']}}
  */
-function ProductImage({image}) {
+function ProductImage({ image }) {
   if (!image) {
-    return <div className="product-image" />;
+    return <div className="product-image" />
   }
   return (
     <div className="product-image">
@@ -93,7 +89,7 @@ function ProductImage({image}) {
         sizes="(min-width: 45em) 50vw, 100vw"
       />
     </div>
-  );
+  )
 }
 
 /**
@@ -309,7 +305,7 @@ const PRODUCT_VARIANT_FRAGMENT = `#graphql
       currencyCode
     }
   }
-`;
+`
 
 const PRODUCT_FRAGMENT = `#graphql
   fragment Product on Product {
@@ -337,7 +333,7 @@ const PRODUCT_FRAGMENT = `#graphql
     }
   }
   ${PRODUCT_VARIANT_FRAGMENT}
-`;
+`
 
 const PRODUCT_QUERY = `#graphql
   query Product(
@@ -351,7 +347,7 @@ const PRODUCT_QUERY = `#graphql
     }
   }
   ${PRODUCT_FRAGMENT}
-`;
+`
 
 const PRODUCT_VARIANTS_FRAGMENT = `#graphql
   fragment ProductVariants on Product {
@@ -362,7 +358,7 @@ const PRODUCT_VARIANTS_FRAGMENT = `#graphql
     }
   }
   ${PRODUCT_VARIANT_FRAGMENT}
-`;
+`
 
 const VARIANTS_QUERY = `#graphql
   ${PRODUCT_VARIANTS_FRAGMENT}
@@ -375,7 +371,7 @@ const VARIANTS_QUERY = `#graphql
       ...ProductVariants
     }
   }
-`;
+`
 
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
 /** @template T @typedef {import('@remix-run/react').MetaFunction<T>} MetaFunction */
@@ -388,10 +384,7 @@ const VARIANTS_QUERY = `#graphql
 /** @typedef {import('@shopify/hydrogen/storefront-api-types').SelectedOption} SelectedOption */
 /** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */
 
-
-
-// custom collection qusery 
-
+// custom collection qusery
 
 const PRODUCT_ITEM_FRAGMENT = `#graphql
   fragment MoneyProductItem on MoneyV2 {
@@ -436,7 +429,7 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
       }
     }
   }
-`;
+`
 
 const COLLECTION_QUERY = `#graphql
   ${PRODUCT_ITEM_FRAGMENT}
@@ -473,7 +466,7 @@ const COLLECTION_QUERY = `#graphql
       }
     }
   }
-`;
+`
 
 const METAFIELDS_QUERY = `#graphql
   query Metafields($productId: ID!) {
