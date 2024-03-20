@@ -37,8 +37,6 @@ export async function loader({context}) {
 
 const AccountOrderHistory = () => {
     const { subscriptionsResponse,listOrdersResponse } = useLoaderData();
-    console.log("subscriptionsResponse",subscriptionsResponse);
-    console.log("listOrdersResponse",listOrdersResponse.orders);
   return (
         <div className='w-[95%] md:w-[80%] mx-auto'>
            <div className='flex flex-col md:flex-row items-center border-gray-500 border-b-2 py-4 my-4'>
