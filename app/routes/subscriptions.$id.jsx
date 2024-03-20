@@ -16,9 +16,8 @@ import { rechargeQueryWrapper } from '~/lib/rechargeUtils';
 export const meta = ({ data }) => {
   return [
     {
-      title: `Subscription ${data?.subscription?.product_title}${
-        data?.subscription?.variant_title ? ` (${data?.subscription?.variant_title})` : ''
-      }`,
+      title: `Subscription ${data?.subscription?.product_title}${data?.subscription?.variant_title ? ` (${data?.subscription?.variant_title})` : ''
+        }`,
     },
   ];
 };
@@ -71,154 +70,306 @@ export default function SubscriptionRoute() {
   const { subscription, product, cancelUrl, shopCurrency } = useLoaderData();
   const address = subscription.include?.address;
   return (
-    <div>
-      <div heading="Subscription detail">
-        <Link to="/account">
-          <Text color="subtle">Return to Account Overview</Text>
-        </Link>
-      </div>
-      <div className="w-full p-6 sm:grid-cols-1 md:p-8 lg:p-12 lg:py-6">
-        <div>
-          <Text as="h3" size="lead">
-            Subscription No. {subscription.id}
-          </Text>
-          <Text className="mt-2" as="p">
-            Placed on {new Date(subscription.created_at).toDateString()}
-          </Text>
-          <div className="grid items-start gap-12 sm:grid-cols-1 md:grid-cols-4 md:gap-16 sm:divide-y sm:divide-gray-200">
-            <table className="min-w-full my-8 divide-y divide-gray-300 md:col-span-3">
-              <thead>
-                <tr className="align-baseline ">
-                  <th scope="col" className="pb-4 pl-0 pr-3 font-semibold text-left">
-                    Product
-                  </th>
-                  <th scope="col" className="hidden px-4 pb-4 font-semibold text-right sm:table-cell md:table-cell">
-                    Price
-                  </th>
-                  <th scope="col" className="hidden px-4 pb-4 font-semibold text-right sm:table-cell md:table-cell">
-                    Quantity
-                  </th>
-                  <th scope="col" className="px-4 pb-4 font-semibold text-right">
-                    Frequency
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                <tr>
-                  <td className="w-full py-4 pl-0 pr-3 align-top sm:align-middle max-w-0 sm:w-auto sm:max-w-none">
-                    <div className="flex gap-6">
-                      <Link to={`/products/${product?.handle}`}>View Product</Link>
-                      <div className="flex-col justify-center hidden lg:flex">
-                        <Text as="p">{subscription.product_title}</Text>
-                        {subscription.variant_title && (
-                          <Text size="fine" className="mt-1" as="p">
-                            {subscription.variant_title}
-                          </Text>
-                        )}
-                      </div>
-                      <dl className="grid">
-                        <dt className="sr-only">Product</dt>
-                        <dd className="truncate lg:hidden">
-                          <Heading size="copy" format as="h3">
-                            {subscription.product_title}
-                          </Heading>
+    <div className='w-full flex flex-col justify-center items-center'>
+
+      <div>
+        <div heading="Subscription detail">
+          <Link to="/account">
+            <Text color="subtle">Return to Account Overview</Text>
+          </Link>
+        </div>
+        <div className="w-full p-6 sm:grid-cols-1 md:p-8 lg:p-12 lg:py-6">
+          <div>
+            <Text as="h3" size="lead">
+              Subscription No. {subscription.id}
+            </Text>
+            <Text className="mt-2" as="p">
+              Placed on {new Date(subscription.created_at).toDateString()}
+            </Text>
+            <div className="grid items-start gap-12 sm:grid-cols-1 md:grid-cols-4 md:gap-16 sm:divide-y sm:divide-gray-200">
+              <table className="min-w-full my-8 divide-y divide-gray-300 md:col-span-3">
+                <thead>
+                  <tr className="align-baseline ">
+                    <th scope="col" className="pb-4 pl-0 pr-3 font-semibold text-left">
+                      Product
+                    </th>
+                    <th scope="col" className="hidden px-4 pb-4 font-semibold text-right sm:table-cell md:table-cell">
+                      Price
+                    </th>
+                    <th scope="col" className="hidden px-4 pb-4 font-semibold text-right sm:table-cell md:table-cell">
+                      Quantity
+                    </th>
+                    <th scope="col" className="px-4 pb-4 font-semibold text-right">
+                      Frequency
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  <tr>
+                    <td className="w-full py-4 pl-0 pr-3 align-top sm:align-middle max-w-0 sm:w-auto sm:max-w-none">
+                      <div className="flex gap-6">
+                        <Link to={`/products/${product?.handle}`}>View Product</Link>
+                        <div className="flex-col justify-center hidden lg:flex">
+                          <Text as="p">{subscription.product_title}</Text>
                           {subscription.variant_title && (
-                            <Text size="fine" className="mt-1">
+                            <Text size="fine" className="mt-1" as="p">
                               {subscription.variant_title}
                             </Text>
                           )}
-                        </dd>
-                        <dt className="sr-only">Price</dt>
-                        <dd className="truncate sm:hidden">
-                          <Text size="fine" className="mt-4">
-                            <Money
-                              data={{
-                                amount: subscription.price,
-                                currencyCode: subscription.presentment_currency ?? shopCurrency,
-                              }}
-                            />
-                          </Text>
-                        </dd>
-                        <dt className="sr-only">Quantity</dt>
-                        <dd className="truncate sm:hidden">
-                          <Text className="mt-1" size="fine">
-                            Qty: {subscription.quantity}
-                          </Text>
-                        </dd>
-                      </dl>
-                    </div>
-                  </td>
-                  <td className="hidden px-3 py-4 text-right align-top sm:align-middle sm:table-cell">
-                    <Money
-                      data={{
-                        amount: subscription.price,
-                        currencyCode: subscription.presentment_currency ?? shopCurrency,
-                      }}
-                    />
-                  </td>
-                  <td className="hidden px-3 py-4 text-right align-top sm:align-middle sm:table-cell">
-                    {subscription.quantity}
-                  </td>
-                  <td className="px-3 py-4 text-right align-top sm:align-middle sm:table-cell">
-                    <Text>
-                      {`Every ${subscription.order_interval_frequency} ${subscription.order_interval_unit}(s)`}
-                    </Text>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div className="sticky border-none top-nav md:my-8">
-              <Heading size="copy" className="font-semibold" as="h3">
-                Address
-              </Heading>
-              {address ? (
-                <ul className="mt-6">
-                  <li>
-                    <Text>
-                      {address.first_name && address.first_name + ' '}
-                      {address.last_name}
-                    </Text>
-                  </li>
-                  {address ? (
-                    <>
-                      <li>
-                        <Text>{address.address1}</Text>
-                      </li>
-                      {address.address2 && (
+                        </div>
+                        <dl className="grid">
+                          <dt className="sr-only">Product</dt>
+                          <dd className="truncate lg:hidden">
+                            <Heading size="copy" format as="h3">
+                              {subscription.product_title}
+                            </Heading>
+                            {subscription.variant_title && (
+                              <Text size="fine" className="mt-1">
+                                {subscription.variant_title}
+                              </Text>
+                            )}
+                          </dd>
+                          <dt className="sr-only">Price</dt>
+                          <dd className="truncate sm:hidden">
+                            <Text size="fine" className="mt-4">
+                              <Money
+                                data={{
+                                  amount: subscription.price,
+                                  currencyCode: subscription.presentment_currency ?? shopCurrency,
+                                }}
+                              />
+                            </Text>
+                          </dd>
+                          <dt className="sr-only">Quantity</dt>
+                          <dd className="truncate sm:hidden">
+                            <Text className="mt-1" size="fine">
+                              Qty: {subscription.quantity}
+                            </Text>
+                          </dd>
+                        </dl>
+                      </div>
+                    </td>
+                    <td className="hidden px-3 py-4 text-right align-top sm:align-middle sm:table-cell">
+                      <Money
+                        data={{
+                          amount: subscription.price,
+                          currencyCode: subscription.presentment_currency ?? shopCurrency,
+                        }}
+                      />
+                    </td>
+                    <td className="hidden px-3 py-4 text-right align-top sm:align-middle sm:table-cell">
+                      {subscription.quantity}
+                    </td>
+                    <td className="px-3 py-4 text-right align-top sm:align-middle sm:table-cell">
+                      <Text>
+                        {`Every ${subscription.order_interval_frequency} ${subscription.order_interval_unit}(s)`}
+                      </Text>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div className="sticky border-none top-nav md:my-8">
+                <Heading size="copy" className="font-semibold" as="h3">
+                  Address
+                </Heading>
+                {address ? (
+                  <ul className="mt-6">
+                    <li>
+                      <Text>
+                        {address.first_name && address.first_name + ' '}
+                        {address.last_name}
+                      </Text>
+                    </li>
+                    {address ? (
+                      <>
                         <li>
-                          <Text>{address.address2}</Text>
+                          <Text>{address.address1}</Text>
                         </li>
-                      )}
-                      <li>
-                        <Text>
-                          {address.city} {address.province} {address.zip} {address.country_code}
-                        </Text>
-                      </li>
-                    </>
-                  ) : (
-                    <></>
-                  )}
-                </ul>
-              ) : (
-                <p className="mt-3">No address defined</p>
-              )}
-              <Heading size="copy" className="mt-8 font-semibold" as="h3">
-                Status
-              </Heading>
-              <div
-                className="mt-3 px-3 py-1 text-xs font-medium rounded-full inline-block w-auto bg-green-100 text-green-800">
-                <Text size="fine" className="uppercase">
-                  {subscription.status}
-                </Text>
+                        {address.address2 && (
+                          <li>
+                            <Text>{address.address2}</Text>
+                          </li>
+                        )}
+                        <li>
+                          <Text>
+                            {address.city} {address.province} {address.zip} {address.country_code}
+                          </Text>
+                        </li>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </ul>
+                ) : (
+                  <p className="mt-3">No address defined</p>
+                )}
+                <Heading size="copy" className="mt-8 font-semibold" as="h3">
+                  Status
+                </Heading>
+                <div
+                  className="mt-3 px-3 py-1 text-xs font-medium rounded-full inline-block w-auto bg-green-100 text-green-800">
+                  <Text size="fine" className="uppercase">
+                    {subscription.status}
+                  </Text>
+                </div>
               </div>
             </div>
           </div>
+          {subscription.status === 'active' && (
+            <Button as={Link} variant="secondary" to={cancelUrl}>
+              Cancel Subscription
+            </Button>
+          )}
         </div>
-        {subscription.status === 'active' && (
-          <Button as={Link} variant="secondary" to={cancelUrl}>
-            Cancel Subscription
-          </Button>
-        )}
+      </div>
+
+      <div className='w-11/12 flex flex-col justify-center items-center'>
+        <div className='w-full flex flex-col justify-start items-start border-b-2 border-slate-600  sm:flex sm:justify-around '>
+          <button className='text-xl border-solid border-2 	border-lime-900 py-1 px-8'>Back To Account</button>
+          <h1 className='text-2xl font-semibold pb-3'>Customize Your Order</h1>
+        </div>
+        <div className='w-full mt-6 sm:mt-12 mb-6 flex justify-between float-start items-start'>
+          <button className='text-base sm:text-2xl mr-3 border-solid border-2 	border-lime-900 py-1 px-8'>Process Now</button>
+          <button className='text-base sm:text-2xl border-solid border-2 	border-lime-900 py-1 px-8'>1 Week Delay</button>
+        </div>
+
+        <div className='w-full flex items-center'>
+          <div className='w-[100%] md:w-[65%] flex flex-col justify-around border-solid border-2 border-lime-950 '>
+
+            <div className='flex mt-3'>
+              <div className='w-1/3 flex flex-col items-center'>
+                <img className='w-56' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
+                <button className='text-base font-semibold mb-3 py-1 px-3 text-white bg-red-950'>Add</button>
+              </div>
+
+              <div className='w-1/3 flex flex-col items-center'>
+                <img className='w-56' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
+                <button className='text-base font-semibold mb-3 py-1 px-3 text-white bg-red-950'>Add</button>
+              </div>
+
+              <div className='w-1/3 flex flex-col items-center'>
+                <img className='w-56' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
+                <button className='text-base font-semibold mb-3 py-1 px-3 text-white bg-red-950'>Add</button>
+              </div>
+            </div>
+
+            <div className='flex mt-3'>
+              <div className='w-1/3 flex flex-col items-center'>
+                <img className='w-56' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
+                <button className='text-base font-semibold mb-3 py-1 px-3 text-white bg-red-950'>Add</button>
+              </div>
+
+              <div className='w-1/3 flex flex-col items-center'>
+                <img className='w-56' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
+                <button className='text-base font-semibold mb-3 py-1 px-3 text-white bg-red-950'>Add</button>
+              </div>
+
+              <div className='w-1/3 flex flex-col items-center'>
+                <img className='w-56' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
+                <button className='text-base font-semibold mb-3 py-1 px-3 text-white bg-red-950'>Add</button>
+              </div>
+            </div>
+
+            <div className='flex mt-3'>
+              <div className='w-1/3 flex flex-col items-center'>
+                <img className='w-56' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
+                <button className='text-base font-semibold mb-3 py-1 px-3 text-white bg-red-950'>Add</button>
+              </div>
+
+              <div className='w-1/3 flex flex-col items-center'>
+                <img className='w-56' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
+                <button className='text-base font-semibold mb-3 py-1 px-3 text-white bg-red-950'>Add</button>
+              </div>
+
+              <div className='w-1/3 flex flex-col items-center'>
+                <img className='w-56' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
+                <button className='text-base font-semibold mb-3 py-1 px-3 text-white bg-red-950'>Add</button>
+              </div>
+            </div>
+
+            <div className='flex mt-3'>
+              <div className='w-1/3 flex flex-col items-center'>
+                <img className='w-56' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
+                <button className='text-base font-semibold mb-3 py-1 px-3 text-white bg-red-950'>Add</button>
+              </div>
+
+              <div className='w-1/3 flex flex-col items-center'>
+                <img className='w-56' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
+                <button className='text-base font-semibold mb-3 py-1 px-3 text-white bg-red-950'>Add</button>
+              </div>
+
+              <div className='w-1/3 flex flex-col items-center'>
+                <img className='w-56' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
+                <button className='text-base font-semibold mb-3 py-1 px-3 text-white bg-red-950'>Add</button>
+              </div>
+            </div>
+
+            <div className='flex mt-3'>
+              <div className='w-1/3 flex flex-col items-center'>
+                <img className='w-56' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
+                <button className='text-base font-semibold mb-3 py-1 px-3 text-white bg-red-950'>Add</button>
+              </div>
+
+              <div className='w-1/3 flex flex-col items-center'>
+                <img className='w-56' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
+                <button className='text-base font-semibold mb-3 py-1 px-3 text-white bg-red-950'>Add</button>
+              </div>
+
+              <div className='w-1/3 flex flex-col items-center'>
+                <img className='w-56' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
+                <button className='text-base font-semibold mb-3 py-1 px-3 text-white bg-red-950'>Add</button>
+              </div>
+            </div>
+
+            <div className='flex mt-3'>
+              <div className='w-1/3 flex flex-col items-center'>
+                <img className='w-56' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
+                <button className='text-base font-semibold mb-3 py-1 px-3 text-white bg-red-950'>Add</button>
+              </div>
+
+              <div className='w-1/3 flex flex-col items-center'>
+                <img className='w-56' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
+                <button className='text-base font-semibold mb-3 py-1 px-3 text-white bg-red-950'>Add</button>
+              </div>
+
+              <div className='w-1/3 flex flex-col items-center'>
+                <img className='w-56' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
+                <button className='text-base font-semibold mb-3 py-1 px-3 text-white bg-red-950'>Add</button>
+              </div>
+            </div>
+          </div>
+
+          <div className='hidden md:w-[35%] md:block'>
+            <div>
+
+            </div>
+            <div>
+
+            </div>
+            <div>
+
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
   );
