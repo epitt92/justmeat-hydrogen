@@ -151,70 +151,66 @@ const PlanPicker = () => {
               </h3>
             </div>
           </div>
-
-          <div className=" flex gap-2 flex-col sm:flex-row w-[100%] lg:w-9/12 ">
-            <div className="w-full sm:w-7/12 md:w-6/12 xl:w-4/12">
-              <p
-                className={`${
-                  activeOption === 'option1'
-                    ? 'text-[#fff] bg-[#000]'
-                    : 'text-[#1d1d1d] bg-[#ebeae9]'
-                } px-[15px] pt-[6px] text-[12px] font-bold  w-fit`}
-              >
-                SAVE 25% ON YOUR FIRST ORDER
-              </p>
-              <div
-                className={`${
-                  activeOption === 'option1' ? 'bg-[#862E1B]' : ''
-                } p-[10px] border-[3px] border-solid flex gap-6 border-[#862E1B] subscriptionlabel`}
-                onClick={() => handleOptionClick('option1')}
-              >
-                <div
-                  className={`${
-                    activeOption === 'option1'
-                      ? 'text-[#fff]'
-                      : 'text-[#1d1d1d]'
-                  } text-[20px]   font-bold `}
-                >
-                  Subscribe & Save
-                </div>
-                <div className="flex-1">
-                  <select
-                    name=""
-                    className={`${
-                      activeOption === 'option1'
-                        ? 'text-[#fff] brightness-0 invert '
-                        : 'text-[#1d1d1d] '
-                    } text-[12px] focus:shadow-none shadow-none p-0 w-full outline-none border-none bg-transparent focus:outline-none bg-auto  focus:border-none bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')] subscriptionlabel`}
+          
+            <div className=' flex gap-2 flex-col sm:flex-row w-[100%] lg:w-9/12 '>
+              
+                <div className="w-full sm:w-7/12 md:w-6/12 xl:w-4/12">
+                   <p 
+                   className={`${
+                    activeOption === 'option1' ? 'text-[#fff] bg-[#000]' : 'text-[#1d1d1d] bg-[#ebeae9]'
+                  } px-[15px] pt-[6px] text-[12px] font-bold  w-fit`}
+                   >SAVE 25% ON YOUR FIRST ORDER</p>
+                  <div
+                      className={`${
+                        activeOption === 'option1' ? 'bg-[#862E1B]' : ''
+                      } p-[10px] border-[3px] border-solid flex gap-6 border-[#862E1B]`}
+                      onClick={() => handleOptionClick('option1')}
+                  
                   >
-                    <option className="text-[#000]" value="">
-                      Every 30 days
-                    </option>
-                    <option className="text-[#000]" value="">
-                      Every 15 days
-                    </option>
-                  </select>
+                    <div 
+                    className={`${
+                      activeOption === 'option1' ? 'text-[#fff]' : 'text-[#1d1d1d]'
+                    } text-[20px]   font-bold`}
+                    
+                    >
+                      Subscribe & Save
+                    </div>
+                    <div className="flex-1">
+                      <select name=""
+                      className={`${
+                        activeOption === 'option1' ? 'text-[#fff] brightness-0 invert ' : 'text-[#1d1d1d] '
+                      } text-[12px] focus:shadow-none shadow-none p-0 w-full outline-none border-none bg-transparent focus:outline-none bg-auto  focus:border-none bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')]`}
+                      
+                      >
+                        <option  
+                        className='text-[#000]'
+                        value="">Every 15 days</option>
+                        <option
+                        className='text-[#000]'
+                        value="">Every 30 days</option>
+                       
+                      </select>
+                    </div>
+                  </div>
+                  <div className="bg-[#ebeae9] px-[12px] py-[5px] ">
+                    <ul className='flex flex-col gap-2'>
+                      <li className='flex items-center text-[12px] font-bold m-0 '>
+                        <span>{checkBox}</span> Save 10% on Future Orders
+                      </li>
+                      <li className='flex items-center text-[12px] font-bold m-0'>
+                     
+                        <span>{checkBox}</span> Exclusive Meat Options
+                      </li>
+                      <li className='flex items-center text-[12px] font-bold m-0'>
+                        <span>{checkBox}</span> Customize or Cancel Anytime
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-              </div>
-              <div className="bg-[#ebeae9] px-[12px] py-[5px] ">
-                <ul className="flex flex-col gap-2">
-                  <li className="flex items-center text-[12px] font-bold m-0 ">
-                    <span>{checkBox}</span> Save 10% on Future Orders
-                  </li>
-                  <li className="flex items-center text-[12px] font-bold m-0">
-                    <span>{checkBox}</span> Exclusive Meat Options
-                  </li>
-                  <li className="flex items-center text-[12px] font-bold m-0">
-                    <span>{checkBox}</span> Customize or Cancel Anytime
-                  </li>
-                </ul>
-              </div>
-            </div>
+             
 
-            <div className=" w-full sm:w-7/12 md:w-5/12 xl:w-4/12">
-              <p className="px-[15px] hidden sm:block pt-[6px] text-[12px] font-bold bg-transparent text-transparent ">
-                " "
-              </p>
+              <div  className=" w-full sm:w-7/12 md:w-5/12 xl:w-4/12">
+              <p className='px-[15px] hidden sm:block pt-[6px] text-[12px] font-bold bg-transparent text-transparent '>" "</p>
 
               <div
                 className={`${
