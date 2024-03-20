@@ -175,12 +175,13 @@ const PlanPicker = () => {
                       } text-[12px] focus:shadow-none shadow-none p-0 w-full outline-none border-none bg-transparent focus:outline-none bg-auto  focus:border-none bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')]`}
                       
                       >
-                        <option
-                        className='text-[#000]'
-                        value="">Every 30 days</option>
                         <option  
                         className='text-[#000]'
                         value="">Every 15 days</option>
+                        <option
+                        className='text-[#000]'
+                        value="">Every 30 days</option>
+                       
                       </select>
                     </div>
                   </div>
