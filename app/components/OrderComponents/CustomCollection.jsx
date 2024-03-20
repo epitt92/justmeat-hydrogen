@@ -5,16 +5,17 @@ import {
   VariantSelector,
   getPaginationVariables,
   getSelectedProductOptions,
-} from '@shopify/hydrogen'
-import React, { Suspense, useState } from 'react'
-import { CartProvider, useCart, ProductProvider } from '@shopify/hydrogen-react'
-import { defer, json, redirect } from '@remix-run/server-runtime'
-import { Await, Link, useLoaderData } from '@remix-run/react'
-import { CartMain } from '~/components/AsideCart'
-import { useRootLoaderData } from '~/root'
-import ProductModal from '../ui/ProductModal'
-import CustomProgressBar from '../ui/CustomProgressBar'
-import { Aside } from '../Aside'
+} from '@shopify/hydrogen';
+import React, { Suspense, useState } from 'react';
+import { CartProvider, useCart, ProductProvider } from '@shopify/hydrogen-react';
+import { defer, json, redirect } from '@remix-run/server-runtime';
+import { Await, Link, useLoaderData } from '@remix-run/react';
+import { CartMain } from '~/components/AsideCart';
+import ProductQuantity from '~/components/OrderComponents/ProductQuantity';
+import { useRootLoaderData } from '~/root';
+import ProductModal from '../ui/ProductModal';
+import CustomProgressBar from '../ui/CustomProgressBar';
+import { Aside } from '../Aside';
 
 const AsideCart = ({ selectedProducts, setSelectedProducts }) => {
   const rootData = useRootLoaderData()
@@ -44,11 +45,11 @@ const AsideCart = ({ selectedProducts, setSelectedProducts }) => {
 }
 
 function ProductCard({ product, setSelectedProducts, selectedProducts }) {
-  const image = product.featuredImage.url
-  const productHandle = product.handle
-  const productPrice = product?.priceRange?.maxVariantPrice?.amount
-  const selectedVariant = product.variants.nodes[0]
-
+  const image = product.featuredImage.url;
+  const productHandle = product.handle;
+  const productPrice = product?.priceRange?.maxVariantPrice?.amount;
+  const [selectedVariant,setSelectedVariant] = useState([]);
+  
   function openModal() {
     const dialog = document.querySelector(`#${productHandle}`)
     dialog.showModal()
@@ -62,20 +63,10 @@ function ProductCard({ product, setSelectedProducts, selectedProducts }) {
   function addToSelectedProducts() {
     setSelectedProducts((prevSelectedProducts) => {
       // Check if the product is already in the array
-      if (
-        !prevSelectedProducts.some(
-          (selectedProduct) => selectedProduct.id === product.id,
-        )
-      ) {
-        return [
-          ...prevSelectedProducts,
-          {
-            ...product,
-            quantity: 1,
-            amount: productPrice,
-            totalAmount: productPrice,
-          },
-        ]
+      if (!prevSelectedProducts.some((selectedProduct) => selectedProduct.id === product.id)) {
+        const newProduct = { ...product, quantity: 1, amount: productPrice, totalAmount: productPrice };
+          setSelectedVariant(newProduct);
+          return [...prevSelectedProducts, newProduct];
       }
       return prevSelectedProducts
     })
@@ -141,15 +132,14 @@ function ProductCard({ product, setSelectedProducts, selectedProducts }) {
         </span>
       </div>
       <div className="mx-auto text-center my-5">
-        <button
-          onClick={addToSelectedProducts}
-          className="bg-[#862e1b] mx-auto flex justify-center items-center py-[10px] gap-[5px] px-[20px] leading-none font-bold text-white"
-        >
-          <span className=" p-[3px] text-[25px] leading-[13px] bg-white text-[#862e1b]  ">
-            +
-          </span>
-          ADD
-        </button>
+        
+      {isSelected ? null : (
+          <button onClick={addToSelectedProducts} className="bg-[#862e1b] mx-auto flex justify-center items-center py-[10px] gap-[5px] px-[20px] leading-none font-bold text-white">
+            <span className=" p-[3px] text-[25px] leading-[13px] bg-white text-[#862e1b]  ">+</span>
+            ADD
+          </button>
+        )}
+        <ProductQuantity line={selectedProducts.find((selectedProduct) => selectedProduct.id === product.id)} selectedProducts={selectedProducts} layout={"collection"} setSelectedProducts={setSelectedProducts}  />
       </div>
     </div>
   )
@@ -274,8 +264,9 @@ function AddToCartButton({ analytics, children, disabled, lines, onClick }) {
 }
 
 const CustomCollection = ({ col }) => {
-  const { nodes } = col
-  const [selectedProducts, setSelectedProducts] = useState([])
+  const { nodes } = col;
+  const [selectedProducts, setSelectedProducts] = useState([]);
+
   return (
     <section className="max-w-ful ">
       <div className=" flex gap-3">
@@ -304,6 +295,7 @@ const CustomCollection = ({ col }) => {
                   product={product}
                   setSelectedProducts={setSelectedProducts}
                   selectedProducts={selectedProducts}
+                 
                 />
               ))}
             </div>

@@ -1,13 +1,13 @@
-import { CartForm, Image, Money } from '@shopify/hydrogen'
-import { Link } from '@remix-run/react'
-import { useVariantUrl } from '~/lib/variants'
-import { useRootLoaderData } from '~/root'
-import { useEffect, useState } from 'react'
-import CustomProgressBar from './ui/CustomProgressBar'
+import {CartForm, Image, Money} from '@shopify/hydrogen';
+import {Link} from '@remix-run/react';
+import {useVariantUrl} from '~/lib/variants';
+import {useRootLoaderData} from '~/root';
+import {useEffect, useState} from 'react';
+import CustomProgressBar from './ui/CustomProgressBar';
+import ProductQuantity from './OrderComponents/ProductQuantity';
 
-/**
- * @param {CartMainProps}
- */
+
+
 
 export function CartMain({
   layout,
@@ -166,31 +166,12 @@ function CartLines({ selectedProducts, onRemove, setSelectedProducts }) {
 
 
 function CartLineItem({ line ,onRemove,selectedProducts,setSelectedProducts}) {
-  const {id, title,featuredImage,priceRange } = line;
+  const {id, title,featuredImage,priceRange,quantity } = line;
   const image = featuredImage.url;
   const price = priceRange?.maxVariantPrice?.amount;
   const [updateQty, setUpdatedQty] = useState(1);
   const [productAmount,setProductAmount] = useState(price);
-  
-  const handleRemove = () => {
-    onRemove(id)
-  }
 
-  useEffect(() => {
-    // Update the selected products array when the quantity changes
-    const updatedProducts = selectedProducts.map((product) => {
-      if (product.id === id) {
-        return { ...product, quantity: updateQty, totalAmount: productAmount }
-      }
-      return product
-    })
-    setSelectedProducts(updatedProducts)
-  }, [updateQty])
-
-  const updateQuantity = (value) => {
-    setUpdatedQty(value)
-    setProductAmount((value * price).toFixed(2))
-  }
   return (
     <li key={id} className="cart-line pl-[10px] mb-5 flex gap-4">
       {featuredImage && (
@@ -206,42 +187,9 @@ function CartLineItem({ line ,onRemove,selectedProducts,setSelectedProducts}) {
           <p className="font-bold text-center text-[25px]">
             ${priceRange.maxVariantPrice.amount}
           </p>
-          {/* <CartLinePrice line={line} as="span" /> */}
         </div>
-        <div className="cart-line-quantity">
-          <div className="flex gap-[5px] items-center bg-[#862e1b] justify-between p-[5px]">
-            <button
-              onClick={() => updateQuantity(updateQty <= 1 ? 1 : updateQty - 1)}
-              aria-label="Decrease quantity"
-              disabled={updateQty <= 1}
-              name="decrease-quantity"
-              // value={prevQuantity}
-              className="text-[#862e1b] w-[25px] flex justify-center items-center h-[25px] bg-white rounded-[5px] p-[3px] "
-            >
-              <span>&#8722; </span>
-            </button>
-            <small className="text-[#000] font-bold text-[14px] text-center bg-white flex justify-center items-center w-[32px] h-[25px] p-[3px] ">
-              {updateQty}
-            </small>
-            <button
-              onClick={() => updateQuantity(updateQty + 1)}
-              className="text-[#862e1b] bg-white flex justify-center items-center rounded-[5px] p-[3px] w-[25px] h-[25px]"
-              aria-label="Increase quantity"
-              name="increase-quantity"
-              // value={nextQuantity}
-            >
-              <span>&#43;</span>
-            </button>
-          </div>
-          <button
-            className="text-[14px] text-center text-[#862e1b] font-bold w-[100%]"
-            type="submit"
-            onClick={handleRemove}
-          >
-            Remove
-          </button>
-        </div>
-        {/* <CartLineQuantity line={line} onRemove={onRemove} /> */}
+
+           <ProductQuantity line ={line} layout={"aside"} onRemove={onRemove} selectedProducts ={selectedProducts} setSelectedProducts={setSelectedProducts}/>
       </div>
     </li>
   )
