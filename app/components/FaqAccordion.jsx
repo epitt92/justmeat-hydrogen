@@ -4,6 +4,7 @@ import {
   AccordionHeader,
   AccordionBody,
 } from '@material-tailwind/react';
+import HeaderContext from './HeaderContext';
 
 function Icon({id, open}) {
   return (
@@ -31,6 +32,12 @@ function Icon({id, open}) {
 
 function FaqAccordion() {
   const [open, setOpen] = React.useState(0);
+
+  const {setSwitchHeader} = useContext(HeaderContext);
+
+  useEffect(() => {
+    setSwitchHeader(false);
+  }, [])
 
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
