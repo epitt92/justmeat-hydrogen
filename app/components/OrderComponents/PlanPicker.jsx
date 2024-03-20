@@ -163,7 +163,7 @@ const PlanPicker = () => {
                   <div
                       className={`${
                         activeOption === 'option1' ? 'bg-[#862E1B]' : ''
-                      } p-[10px] border-[3px] border-solid flex gap-6 border-[#862E1B]`}
+                      } p-[10px] border-[3px] border-solid flex gap-6 border-[#862E1B] subscriptionlabel`}
                       onClick={() => handleOptionClick('option1')}
                   
                   >
@@ -179,7 +179,7 @@ const PlanPicker = () => {
                       <select name=""
                       className={`${
                         activeOption === 'option1' ? 'text-[#fff] brightness-0 invert ' : 'text-[#1d1d1d] '
-                      } text-[12px] focus:shadow-none shadow-none p-0 w-full outline-none border-none bg-transparent focus:outline-none bg-auto  focus:border-none bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')]`}
+                      } text-[12px] focus:shadow-none shadow-none p-0 w-full outline-none border-none bg-transparent focus:outline-none bg-auto  focus:border-none bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')] subscriptionlabel`}
                       
                       >
                         <option
@@ -214,7 +214,7 @@ const PlanPicker = () => {
                 <div 
                  className={`${
                   activeOption === 'option2' ? 'bg-[#862E1B]' : ''
-                } p-[10px] border-[3px] border-solid flex gap-6 border-[#862E1B]`}
+                } p-[10px] border-[3px] border-solid flex gap-6 border-[#862E1B] subscriptionlabel`}
                 onClick={() => handleOptionClick('option2')}
                 >
                   <div
