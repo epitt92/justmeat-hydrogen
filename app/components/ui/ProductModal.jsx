@@ -135,7 +135,6 @@ function Content({slide}) {
     <div tabIndex="0">
       <div className="w-[100%]">
         <img className="max-w-60 mx-auto" draggable="false" src={slide.url} style={{maxHeight: "400px"}} />
-        <img className="max-w-60 mx-auto" draggable="false" src={slide.url} style={{maxHeight: "400px"}} />
       </div>
     </div>
   );
