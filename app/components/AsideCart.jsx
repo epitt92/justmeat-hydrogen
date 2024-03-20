@@ -279,7 +279,7 @@ export function CartSummary({cost, layout, children = null}) {
         {cost ? (
           <span className="text-[20px] pr-1 line-through decoration-[#000] decoration-[3px] text-[#919191] ">
 
-            {(cost + 11.45).toFixed(2)}
+            {`$${(cost + 11.45).toFixed(2)}`}
           </span>
         ) : (
           '-'
@@ -287,7 +287,7 @@ export function CartSummary({cost, layout, children = null}) {
         <dd>
           {cost ? (
             // <Money data={cost} />
-            <span className='font-semibold text-center text-base'>{cost.toFixed(2)}</span>
+            <span className='font-semibold text-center text-base'>${cost.toFixed(2)}</span>
           ) : (
             '-'
           )}
