@@ -15,7 +15,6 @@ import { getVariantUrl } from '~/lib/variants'
 import PlanPicker from '~/components/OrderComponents/PlanPicker'
 import CustomCollection from '~/components/OrderComponents/CustomCollection'
 import { useVariantUrl } from '~/lib/variants'
-import Notification from '~/components/Notification'
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -24,6 +23,79 @@ import Notification from '~/components/Notification'
 // export const meta = ({data}) => {
 //   return [{title: `Hydrogen | ${data?.product.title ?? ''}`}];
 // };
+
+/**
+ * @param {ActionFunctionArgs}
+ */
+export async function action({ request, context }) {
+  const { cart } = context
+
+  const formData = await request.formData()
+
+  const { action, inputs } = CartForm.getFormInput(formData)
+
+  if (!action) {
+    throw new Error('No action provided')
+  }
+
+  let status = 200
+  let result
+
+  switch (action) {
+    case CartForm.ACTIONS.LinesAdd:
+      result = await cart.addLines(inputs.lines)
+      break
+    case CartForm.ACTIONS.LinesUpdate:
+      result = await cart.updateLines(inputs.lines)
+      break
+    case CartForm.ACTIONS.LinesRemove:
+      result = await cart.removeLines(inputs.lineIds)
+      break
+    case CartForm.ACTIONS.DiscountCodesUpdate: {
+      const formDiscountCode = inputs.discountCode
+
+      // User inputted discount code
+      const discountCodes = formDiscountCode ? [formDiscountCode] : []
+
+      // Combine discount codes already applied on cart
+      discountCodes.push(...inputs.discountCodes)
+
+      result = await cart.updateDiscountCodes(discountCodes)
+      break
+    }
+    case CartForm.ACTIONS.BuyerIdentityUpdate: {
+      result = await cart.updateBuyerIdentity({
+        ...inputs.buyerIdentity,
+      })
+      break
+    }
+    default:
+      throw new Error(`${action} cart action is not defined`)
+  }
+
+  const cartId = result.cart.id
+  const headers = cart.setCartId(result.cart.id)
+  const { cart: cartResult, errors } = result
+
+  const redirectTo = formData.get('redirectTo') ?? null
+  if (typeof redirectTo === 'string') {
+    status = 303
+    headers.set('Location', redirectTo)
+  }
+
+  headers.append('Set-Cookie', await context.session.commit())
+
+  return json(
+    {
+      cart: cartResult,
+      errors,
+      analytics: {
+        cartId,
+      },
+    },
+    { status, headers },
+  )
+}
 
 /**
  * @param {LoaderFunctionArgs}
@@ -58,17 +130,14 @@ export default function Product() {
   const customCollectionProducts = data.collection.products
 
   return (
-    <>
-      <Notification />
-      <div className='bg-cover h-[100%] w-[100%] bg-fixed	flex justify-center sm:bg-[url("https://cdn.shopify.com/s/files/1/0672/4776/7778/files/orderpage_bg.png")]'>
-        <div className="max-w-[1440px] w-[100%] px-5 sm:px-10">
-          <PlanPicker />
-          <div className="custom-collection-wrap">
-            <CustomCollection col={customCollectionProducts} />
-          </div>
+    <div className='bg-cover h-[100%] w-[100%] bg-fixed	flex justify-center sm:bg-[url("https://cdn.shopify.com/s/files/1/0672/4776/7778/files/orderpage_bg.png")]'>
+      <div className="max-w-[1440px] w-[100%] px-5 sm:px-10">
+        <PlanPicker />
+        <div className="custom-collection-wrap">
+          <CustomCollection col={customCollectionProducts} />
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
@@ -462,24 +531,6 @@ const COLLECTION_QUERY = `#graphql
           hasNextPage
           endCursor
           startCursor
-        }
-      }
-    }
-  }
-`
-
-const METAFIELDS_QUERY = `#graphql
-  query Metafields($productId: ID!) {
-    node(id: $productId) {
-      ... on Product {
-        metafields(first: 10) {
-          edges {
-            node {
-              namespace
-              key
-              value
-            }
-          }
         }
       }
     }

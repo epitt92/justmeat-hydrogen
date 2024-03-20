@@ -1,6 +1,6 @@
-import {Link} from '@remix-run/react';
-import {Image} from '@shopify/hydrogen';
-import React from 'react';
+import { Link } from '@remix-run/react'
+import { Image } from '@shopify/hydrogen'
+import React from 'react'
 
 const OrderHeader = () => {
   return (
@@ -16,7 +16,8 @@ const OrderHeader = () => {
               stroke="currentColor"
             >
               <path
-                strokeLinecap="round" strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 strokeWidth="2"
                 d="M15 19l-7-7 7-7"
               ></path>
@@ -26,19 +27,21 @@ const OrderHeader = () => {
         <div className="w-[100%] flex justify-center">
           <Link to="/">
             <img
-            className="object-cover w-30 h-20"
+              className="object-cover w-30 h-20"
               src="/logo.svg"
               alt=""
-              loading='lazy'
+              loading="lazy"
             />
           </Link>
         </div>
-      </div> 
-      <div className='flex w-[100%] items-center justify-center bg-[#1c7084] py-1 '>
-        <p className='text-white text-lg font-semibold '>LIMITED TIME: GET FREE RANCH RUB CHICKEN</p>
+      </div>
+      <div className="flex w-[100%] items-center justify-center bg-[#1c7084] py-1 ">
+        <p className="text-white text-lg font-semibold ">
+          LIMITED TIME: GET FREE RANCH RUB CHICKEN
+        </p>
       </div>
     </header>
-  );
-};
+  )
+}
 
-export default OrderHeader;
+export default OrderHeader

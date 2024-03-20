@@ -1,39 +1,39 @@
-import {json} from '@shopify/remix-oxygen';
-import {useLoaderData, Link} from '@remix-run/react';
+import { json } from '@shopify/remix-oxygen'
+import { useLoaderData, Link } from '@remix-run/react'
 
 /**
  * @param {LoaderFunctionArgs}
  */
-export async function loader({context}) {
-  const data = await context.storefront.query(POLICIES_QUERY);
-  const policies = Object.values(data.shop || {});
+export async function loader({ context }) {
+  const data = await context.storefront.query(POLICIES_QUERY)
+  const policies = Object.values(data.shop || {})
 
   if (!policies.length) {
-    throw new Response('No policies found', {status: 404});
+    throw new Response('No policies found', { status: 404 })
   }
 
-  return json({policies});
+  return json({ policies })
 }
 
 export default function Policies() {
   /** @type {LoaderReturnData} */
-  const {policies} = useLoaderData();
+  const { policies } = useLoaderData()
 
   return (
     <div className="policies">
       <h1>Policies</h1>
       <div>
         {policies.map((policy) => {
-          if (!policy) return null;
+          if (!policy) return null
           return (
             <fieldset key={policy.id}>
               <Link to={`/policies/${policy.handle}`}>{policy.title}</Link>
             </fieldset>
-          );
+          )
         })}
       </div>
     </div>
-  );
+  )
 }
 
 const POLICIES_QUERY = `#graphql
@@ -64,7 +64,7 @@ const POLICIES_QUERY = `#graphql
       }
     }
   }
-`;
+`
 
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
 /** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */

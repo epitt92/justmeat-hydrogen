@@ -1,54 +1,60 @@
 // import clsx from 'clsx';
-import { json, redirect } from '@shopify/remix-oxygen';
-import { useLoaderData } from '@remix-run/react';
-import { Money } from '@shopify/hydrogen';
-import { getActiveChurnLandingPageURL, getSubscription } from '@rechargeapps/storefront-client';
+import { json, redirect } from '@shopify/remix-oxygen'
+import { useLoaderData } from '@remix-run/react'
+import { Money } from '@shopify/hydrogen'
+import {
+  getActiveChurnLandingPageURL,
+  getSubscription,
+} from '@rechargeapps/storefront-client'
 
 // import { Link, Heading, PageHeader, Text, Button } from '~/components';
-import Link from '../components/Link';
-import Heading from '../components/Heading';
-import Text from '~/components/Text';
-import Button from '~/components/Button';
+import Link from '../components/Link'
+import Heading from '../components/Heading'
+import Text from '~/components/Text'
+import Button from '~/components/Button'
 
-import { rechargeQueryWrapper } from '~/lib/rechargeUtils';
+import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
 // import { CACHE_NONE } from '~/data/cache';
 
 export const meta = ({ data }) => {
   return [
     {
-      title: `Subscription ${data?.subscription?.product_title}${data?.subscription?.variant_title ? ` (${data?.subscription?.variant_title})` : ''
-        }`,
+      title: `Subscription ${data?.subscription?.product_title}${
+        data?.subscription?.variant_title
+          ? ` (${data?.subscription?.variant_title})`
+          : ''
+      }`,
     },
-  ];
-};
+  ]
+}
 
 export async function loader({ request, context, params }) {
   if (!params.id) {
-    return redirect(params?.locale ? `${params.locale}/account` : '/account');
+    return redirect(params?.locale ? `${params.locale}/account` : '/account')
   }
 
   const subscription = await rechargeQueryWrapper(
-    session =>
+    (session) =>
       getSubscription(session, params.id, {
         include: ['address'],
       }),
-    context
-  );
+    context,
+  )
 
   if (!subscription) {
-    throw new Response('Subscription not found', { status: 404 });
+    throw new Response('Subscription not found', { status: 404 })
   }
 
   const cancelUrl = await rechargeQueryWrapper(
-    session => getActiveChurnLandingPageURL(session, params.id, request.url),
-    context
-  );
+    (session) => getActiveChurnLandingPageURL(session, params.id, request.url),
+    context,
+  )
 
   const { product } = await context.storefront.query(PRODUCT_QUERY, {
     variables: {
       id: `gid://shopify/Product/${subscription.external_variant_id.ecommerce}`,
     },
-  });
+  })
 
   return json(
     {
@@ -62,13 +68,13 @@ export async function loader({ request, context, params }) {
         'Cache-Control': 'no-cache, no-store, must-revalidate',
         'Set-Cookie': await context.rechargeSession.commit(),
       },
-    }
-  );
+    },
+  )
 }
 
 export default function SubscriptionRoute() {
-  const { subscription, product, cancelUrl, shopCurrency } = useLoaderData();
-  const address = subscription.include?.address;
+  const { subscription, product, cancelUrl, shopCurrency } = useLoaderData()
+  const address = subscription.include?.address
   console.log("-+-+-+-");
   console.log(subscription);
   return (
@@ -386,7 +392,7 @@ export default function SubscriptionRoute() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 const PRODUCT_QUERY = `#graphql
@@ -396,4 +402,4 @@ const PRODUCT_QUERY = `#graphql
       handle
     }
   }
-`;
+`

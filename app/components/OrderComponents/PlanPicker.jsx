@@ -1,21 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react';
-import HeaderContext from '../HeaderContext';
+import React, { useContext, useEffect, useState } from 'react'
+import HeaderContext from '../HeaderContext'
 
 const PlanPicker = () => {
-
-  const [activeOption, setActiveOption] = useState(null);
+  const [activeOption, setActiveOption] = useState('option1')
 
   // Function to handle click on option
   const handleOptionClick = (option) => {
-    setActiveOption(option);
-  };
+    setActiveOption(option)
+  }
 
-  const {setSwitchHeader} = useContext(HeaderContext);
+  const { setSwitchHeader } = useContext(HeaderContext)
 
   useEffect(() => {
-    setSwitchHeader(true);
+    setSwitchHeader(true)
   }, [])
-
 
   const checkBox = (
     <svg
@@ -44,7 +42,7 @@ const PlanPicker = () => {
         />
       </g>
     </svg>
-  );
+  )
 
   const review = (
     <div className="flex gap-1">
@@ -57,7 +55,7 @@ const PlanPicker = () => {
           x="0px"
           y="0px"
           xmlSpace="preserve"
-          style={{fill: '#EBB932'}}
+          style={{ fill: '#EBB932' }}
         >
           <polygon points="256.814,12.705 317.205,198.566 512.631,198.566 354.529,313.435 414.918,499.295 256.814,384.427 98.713,499.295 159.102,313.435 1,198.566 196.426,198.566" />
         </svg>
@@ -69,7 +67,7 @@ const PlanPicker = () => {
           x="0px"
           y="0px"
           xmlSpace="preserve"
-          style={{fill: '#EBB932'}}
+          style={{ fill: '#EBB932' }}
         >
           <polygon points="256.814,12.705 317.205,198.566 512.631,198.566 354.529,313.435 414.918,499.295 256.814,384.427 98.713,499.295 159.102,313.435 1,198.566 196.426,198.566" />
         </svg>
@@ -81,7 +79,7 @@ const PlanPicker = () => {
           x="0px"
           y="0px"
           xmlSpace="preserve"
-          style={{fill: '#EBB932'}}
+          style={{ fill: '#EBB932' }}
         >
           <polygon points="256.814,12.705 317.205,198.566 512.631,198.566 354.529,313.435 414.918,499.295 256.814,384.427 98.713,499.295 159.102,313.435 1,198.566 196.426,198.566" />
         </svg>
@@ -93,7 +91,7 @@ const PlanPicker = () => {
           x="0px"
           y="0px"
           xmlSpace="preserve"
-          style={{fill: '#EBB932'}}
+          style={{ fill: '#EBB932' }}
         >
           <polygon points="256.814,12.705 317.205,198.566 512.631,198.566 354.529,313.435 414.918,499.295 256.814,384.427 98.713,499.295 159.102,313.435 1,198.566 196.426,198.566" />
         </svg>
@@ -110,11 +108,11 @@ const PlanPicker = () => {
             <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop
                 offset="65%"
-                style={{stopColor: '#EBB932', stopOpacity: 1}}
+                style={{ stopColor: '#EBB932', stopOpacity: 1 }}
               />
               <stop
                 offset="65%"
-                style={{stopColor: '#FFFFFF', stopOpacity: 1}}
+                style={{ stopColor: '#FFFFFF', stopOpacity: 1 }}
               />
             </linearGradient>
           </defs>
@@ -128,7 +126,7 @@ const PlanPicker = () => {
         <span className="font-bold text-base text-black">1,134 Reviews</span>
       </div>
     </div>
-  );
+  )
   return (
     <div className=" w-[100%] border-b-2 border-solid border-[#0003]  mb-[30px] ">
       <div className="flex justify-center flex-col items-center sm:py-14 py-5 ">
@@ -143,11 +141,13 @@ const PlanPicker = () => {
         <div className="flex justify-start flex-col lg:flex-row lg:items-start lg:gap-0 gap-8 lg:items-center pt-5 w-[100%]">
           <div className="flex w-full lg:w-4/12 items-center  xl:w-3/12 gap-2">
             <div className="w-[35px] h-[35px] lg:w-[60px] lg:h-[60px] rounded-[100%] border-2 border-[#425C35] sm:border-none sm:bg-black flex justify-center items-center  ">
-              <span className=" text-[22px] lg:text-[40px] font-bold text-black sm:text-white ">1</span>
+              <span className=" text-[22px] lg:text-[40px] font-bold text-black sm:text-white ">
+                1
+              </span>
             </div>
             <div className="h-fit sm:border-b-4  sm:border-[#425B3499] sm:pb-1">
               <h3 className="font-semibold leading-7 text-[20px] lg:text-[22px] text-[#1d1d1d] sm:uppercase ">
-                Select Your <br className='lg:block hidden' /> Frequency
+                Select Your <br className="lg:block hidden" /> Frequency
               </h3>
             </div>
           </div>
@@ -163,14 +163,14 @@ const PlanPicker = () => {
                   <div
                       className={`${
                         activeOption === 'option1' ? 'bg-[#862E1B]' : ''
-                      } p-[10px] border-[3px] border-solid flex gap-6 border-[#862E1B] subscriptionlabel`}
+                      } p-[10px] border-[3px] border-solid flex gap-6 border-[#862E1B]`}
                       onClick={() => handleOptionClick('option1')}
                   
                   >
                     <div 
                     className={`${
                       activeOption === 'option1' ? 'text-[#fff]' : 'text-[#1d1d1d]'
-                    } text-[20px]   font-bold `}
+                    } text-[20px]   font-bold`}
                     
                     >
                       Subscribe & Save
@@ -179,15 +179,16 @@ const PlanPicker = () => {
                       <select name=""
                       className={`${
                         activeOption === 'option1' ? 'text-[#fff] brightness-0 invert ' : 'text-[#1d1d1d] '
-                      } text-[12px] focus:shadow-none shadow-none p-0 w-full outline-none border-none bg-transparent focus:outline-none bg-auto  focus:border-none bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')] subscriptionlabel`}
+                      } text-[12px] focus:shadow-none shadow-none p-0 w-full outline-none border-none bg-transparent focus:outline-none bg-auto  focus:border-none bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')]`}
                       
                       >
-                        <option
-                        className='text-[#000]'
-                        value="">Every 30 days</option>
                         <option  
                         className='text-[#000]'
                         value="">Every 15 days</option>
+                        <option
+                        className='text-[#000]'
+                        value="">Every 30 days</option>
+                       
                       </select>
                     </div>
                   </div>
@@ -211,29 +212,28 @@ const PlanPicker = () => {
               <div  className=" w-full sm:w-7/12 md:w-5/12 xl:w-4/12">
               <p className='px-[15px] hidden sm:block pt-[6px] text-[12px] font-bold bg-transparent text-transparent '>" "</p>
 
-                <div 
-                 className={`${
+              <div
+                className={`${
                   activeOption === 'option2' ? 'bg-[#862E1B]' : ''
                 } p-[10px] border-[3px] border-solid flex gap-6 border-[#862E1B] subscriptionlabel`}
                 onClick={() => handleOptionClick('option2')}
-                >
-                  <div
+              >
+                <div
                   className={`${
-                    activeOption === 'option2' ? 'text-[#fff]' : 'text-[#1d1d1d]'
+                    activeOption === 'option2'
+                      ? 'text-[#fff]'
+                      : 'text-[#1d1d1d]'
                   } text-[20px]  font-bold`}
-                  >
-                    One Time
-                  </div>
+                >
+                  One Time
                 </div>
               </div>
-
             </div>
-          
+          </div>
         </div>
       </div>
     </div>
-    
-  );
-};
+  )
+}
 
-export default PlanPicker;
+export default PlanPicker
