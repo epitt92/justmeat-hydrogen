@@ -33,7 +33,7 @@ function Icon({id, open}) {
 function FaqAccordion() {
   const [open, setOpen] = React.useState(0);
 
-  const {setSwitchHeader} = useContext(HeaderContext);
+  const { setSwitchHeader } = useContext(HeaderContext);
 
   useEffect(() => {
     setSwitchHeader(false);

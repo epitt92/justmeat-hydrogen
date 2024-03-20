@@ -1,10 +1,9 @@
 import {Await, NavLink} from '@remix-run/react';
-import {Suspense, useContext, useEffect, useState} from 'react';
+import {Suspense, useContext} from 'react';
 import {useRootLoaderData} from '~/root';
 import OrderButton from './OrderButton';
 import {number} from 'prop-types';
 import HeaderContext from './HeaderContext';
-
 
 // import {useLocation} from "react-router-dom"
 /**
@@ -12,13 +11,7 @@ import HeaderContext from './HeaderContext';
  */
 export function Header({header, isLoggedIn, cart,setMenuToggle}) {
 
-  // const { pathname, search, hash, host } = window.Location;
-
-  // console.log("location", pathname)
-
-  // const {switchHeader} = useContext(HeaderContext);
-  const { switchHeader } = useContext(HeaderContext) || {};
-
+  const { switchHeader } = useContext(HeaderContext);
 
   const Mainheader = () => {
     return (
@@ -122,101 +115,10 @@ export function Header({header, isLoggedIn, cart,setMenuToggle}) {
   }
   
   const {shop, menu} = header;
+  
   return (
     <header className="container max-w-[100%] bg-[#eeeeee]  ">
-      {/* <Landingheader/> */}
-      { switchHeader === true ? <Landingheader/> : <Mainheader/>  }
-      {/* <div className="content flex justify-between items-center  py-4 px-5 sm:px-10 max-w-[1440px] mx-auto mainheader">
-        <NavLink end prefetch="intent" to="/">
-          <img
-            src="/logo.svg"
-            className="object-cover w-30 h-16 sm:h-24"
-            alt=""
-          />
-        </NavLink>
-        <div className="navBar flex justify-between items-center gap-10">
-          <ul className="navLinks lg:flex hidden">
-            <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base ">
-              <NavLink
-                end
-                prefetch="intent"
-                style={activeLinkStyle}
-                to="/products/custom-bundle"
-              >
-                Menu
-              </NavLink>
-            </li>
-
-            <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base">
-              <NavLink
-                end
-                prefetch="intent"
-                style={activeLinkStyle}
-                to="/about-us"
-              >
-                About Us
-              </NavLink>
-            </li>
-            <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base">
-              <NavLink
-                end
-                prefetch="intent"
-                style={activeLinkStyle}
-                to="/recipes"
-              >
-                Recipies
-              </NavLink>
-            </li>
-          </ul>
-          <div className="lg:block hidden">
-            <OrderButton />
-          </div>
-          <div className="headerIcons flex justify-between items-center gap-4 sm:gap-10">
-            <NavLink end prefetch="intent" to="/account">
-              <span className="loginIcon lg:flex hidden w-5 flex cursor-pointer">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  id="Group_4154"
-                  data-name="Group 4154"
-                  width="27.473"
-                  height="33.937"
-                  viewBox="0 0 27.473 33.937"
-                  className="icon-account"
-                >
-                  <path
-                    id="Path_1"
-                    data-name="Path 1"
-                    d="M259.545,42.272A7.272,7.272,0,1,1,252.272,35a7.272,7.272,0,0,1,7.272,7.272"
-                    transform="translate(-238.536 -35)"
-                    fill="#030303"
-                    fillRule="evenodd"
-                  ></path>
-                  <path
-                    id="Path_2"
-                    data-name="Path 2"
-                    d="M177.528,286.105a1.616,1.616,0,0,0,1.616-1.616v-2.424a13.736,13.736,0,1,0-27.473,0v2.424a1.616,1.616,0,0,0,1.616,1.616h24.241Z"
-                    transform="translate(-151.672 -252.168)"
-                    fill="#030303"
-                    fillRule="evenodd"
-                  ></path>
-                </svg>
-              </span>
-            </NavLink>
-             <NavLink className="lg:hidden block" onClick={()=>setMenuToggle(true)}>
-            <HeaderMenuMobileToggle setMenuToggle={setMenuToggle} />
-             </NavLink>
-            <CartToggle cart={cart}/>
-          </div>
-        </div>
-      </div>
-      <div className='content flex justify-center items-center py-4 px-5 sm:px-10 max-w-[1440px] mx-auto relative landingheader'>
-        <img
-          src="/logo.svg"
-          className="object-cover w-30 h-16 sm:h-24"
-          alt=""
-        />
-        <NavLink end prefetch="intent" to="/" className='absolute left-0'><svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 m-4 " fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" aria-label='Back Home'></path></svg></NavLink>
-      </div> */}
+      { switchHeader ? <Landingheader/> : <Mainheader/>  }
     </header>
   );
 }

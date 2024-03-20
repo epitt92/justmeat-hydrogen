@@ -21,10 +21,10 @@ import {SubscriptionCard} from '~/components/SubscriptionCard';
 
 import sliderStyles from 'swiper/css';
 import sliderNavigation from 'swiper/css/navigation';
+
 import { useState } from 'react';
 
 import HeaderContext from './components/HeaderContext';
-
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
  * @type {ShouldRevalidateFunction}
