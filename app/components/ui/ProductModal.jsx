@@ -1,42 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import {
   CarouselProvider,
   Slider,
   Slide,
   ButtonBack,
   ButtonNext,
-  DotGroup
-} from 'pure-react-carousel';
-import {Button} from '../ui/button'
-import {defer, json, redirect} from '@shopify/remix-oxygen';
-import {Await, Link, useLoaderData} from '@remix-run/react';
+  DotGroup,
+} from 'pure-react-carousel'
+import { Button } from '../ui/button'
+import { defer, json, redirect } from '@shopify/remix-oxygen'
+import { Await, Link, useLoaderData } from '@remix-run/react'
 
-async function loader({request, context}) {
+async function loader({ request, context }) {
   const { metafields } = await storefront.query(METAFIELDS_QUERY, {
     variables: { productId: product.id },
-  });
-  console.log("METAFIELDS QUERY", metafields)
+  })
+  console.log('METAFIELDS QUERY', metafields)
 
-  return json(metafields);
+  return json(metafields)
 }
 
-const ProductModal = ({product}) => {
-  const {images} = product;
-  const media = images.nodes;
-  console.log("Product:",product);
-  const productidstring = product.id;
-  const productidsplit = productidstring.split('/');
-  const productID = parseInt(productidsplit[productidsplit.length - 1]);
+const ProductModal = ({ product }) => {
+  const { images } = product
+  const media = images.nodes
+  console.log('Product:', product)
+  const productidstring = product.id
+  const productidsplit = productidstring.split('/')
+  const productID = parseInt(productidsplit[productidsplit.length - 1])
   // console.log("Product ID", productID);
-  
+
   // metafields = getMetafields(productID);
 
   /**
- * @param {LoaderFunctionArgs}
- */
-
-
-
+   * @param {LoaderFunctionArgs}
+   */
 
   return (
     <>
@@ -77,18 +74,30 @@ const ProductModal = ({product}) => {
           {/* ingredient */}
           <div className="ingridiant_metafield flex justify-between max-w-[40%] my-5">
             <div className="ingridiant_width">
-              <div className="ingridiant_value text-[26px] font-bold text-[#1d1d1d] font-roboto_bold">34g</div>
-              <div className="ingridiant_label font-roboto_medium text-xl  text-[#1d1d1d]  font-[400]">Protein</div>
+              <div className="ingridiant_value text-[26px] font-bold text-[#1d1d1d] font-roboto_bold">
+                34g
+              </div>
+              <div className="ingridiant_label font-roboto_medium text-xl  text-[#1d1d1d]  font-[400]">
+                Protein
+              </div>
             </div>
 
             <div className="ingridiant_width">
-              <div className="ingridiant_value text-[26px] font-bold text-[#1d1d1d] font-roboto_bold">14g</div>
-              <div className="ingridiant_label font-roboto_medium text-xl  text-[#1d1d1d]  font-[400]">Fat</div>
+              <div className="ingridiant_value text-[26px] font-bold text-[#1d1d1d] font-roboto_bold">
+                14g
+              </div>
+              <div className="ingridiant_label font-roboto_medium text-xl  text-[#1d1d1d]  font-[400]">
+                Fat
+              </div>
             </div>
 
             <div className="ingridiant_width">
-              <div className="ingridiant_value text-[26px] font-bold text-[#1d1d1d] font-roboto_bold">8g</div>
-              <div className="ingridiant_label font-roboto_medium text-xl  text-[#1d1d1d]  font-[400]">Carbs</div>
+              <div className="ingridiant_value text-[26px] font-bold text-[#1d1d1d] font-roboto_bold">
+                8g
+              </div>
+              <div className="ingridiant_label font-roboto_medium text-xl  text-[#1d1d1d]  font-[400]">
+                Carbs
+              </div>
             </div>
           </div>
 
@@ -101,21 +110,29 @@ const ProductModal = ({product}) => {
             <p className="font-roboto_medium text-[#1d1d1d] text-sm">
               {product.description}
             </p>
-
           </div>
           {/* ingredeints */}
           <div className="ingredeints mt-4">
-            <h1 className='font-roboto_medium text-[#1d1d1d] text-[16px] font-[600]'>INGREDIENTS:</h1>
-            <p className='text-[17px] font-roboto_medium text-[#1d1d1d] font-[400]'>Ground Beef, Beef Rendering, Water, Carrots, Celery, Onions, Spg Rub (Spice)</p>
+            <h1 className="font-roboto_medium text-[#1d1d1d] text-[16px] font-[600]">
+              INGREDIENTS:
+            </h1>
+            <p className="text-[17px] font-roboto_medium text-[#1d1d1d] font-[400]">
+              Ground Beef, Beef Rendering, Water, Carrots, Celery, Onions, Spg
+              Rub (Spice)
+            </p>
           </div>
-
-
         </div>
       </main>
-      <div className='flex justify-around pt-4 pb-0 border-t-4'>
+      <div className="flex justify-around pt-4 pb-0 border-t-4">
         <div className="money-back flex gap-6 items-center ">
-          <img src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/1279px-Font_Awesome_5_solid_money-bill-wave_svg.png" alt="money" width={65} />
-          <h1 className='text-[28px] font-roboto_bold text-[#1d1d1d]'>Money back guarantee</h1>
+          <img
+            src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/1279px-Font_Awesome_5_solid_money-bill-wave_svg.png"
+            alt="money"
+            width={65}
+          />
+          <h1 className="text-[28px] font-roboto_bold text-[#1d1d1d]">
+            Money back guarantee
+          </h1>
         </div>
         <div className="price-bottom flex gap-3 justify-center items-center">
           <div className="price-text text-[40px] font-roboto_bold text-[#1d1d1d]">
@@ -127,21 +144,26 @@ const ProductModal = ({product}) => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-function Content({slide}) {
+function Content({ slide }) {
   return (
     <div tabIndex="0">
       <div className="w-[100%]">
-        <img className="max-w-60 mx-auto" draggable="false" src={slide.url} style={{maxHeight: "400px"}} />
+        <img
+          className="max-w-60 mx-auto"
+          draggable="false"
+          src={slide.url}
+          style={{ maxHeight: '400px' }}
+        />
       </div>
     </div>
-  );
+  )
 }
 
-function ProductGallary({media}) {
-  const [currentSlide, setCurrentSlide] = useState(0);
+function ProductGallary({ media }) {
+  const [currentSlide, setCurrentSlide] = useState(0)
 
   return (
     <>
@@ -157,7 +179,6 @@ function ProductGallary({media}) {
         currentSlide={currentSlide}
         infinite={true}
       >
-
         <Slider classNameTray="tray">
           {media.map((slide, index) => (
             <Slide className="slide" index={index} key={index}>
@@ -166,14 +187,15 @@ function ProductGallary({media}) {
           ))}
         </Slider>
 
-        <Thumbs media={media} currentSlide={currentSlide} onClick={setCurrentSlide} />
-
+        <Thumbs
+          media={media}
+          currentSlide={currentSlide}
+          onClick={setCurrentSlide}
+        />
       </CarouselProvider>
     </>
-  );
+  )
 }
-
-
 
 function Thumbs({ media, currentSlide, onClick }) {
   return (
@@ -193,7 +215,7 @@ function Thumbs({ media, currentSlide, onClick }) {
         </button>
       ))}
     </div>
-  );
+  )
 }
 
 // async function getMetafields(productID) {
@@ -228,6 +250,4 @@ function Thumbs({ media, currentSlide, onClick }) {
 //   return metafields;
 // }
 
-
-
-export default ProductModal;
+export default ProductModal

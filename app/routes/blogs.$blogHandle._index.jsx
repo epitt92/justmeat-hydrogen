@@ -1,51 +1,51 @@
-import {json} from '@shopify/remix-oxygen';
-import {Link, useLoaderData} from '@remix-run/react';
-import {Image, Pagination, getPaginationVariables} from '@shopify/hydrogen';
+import { json } from '@shopify/remix-oxygen'
+import { Link, useLoaderData } from '@remix-run/react'
+import { Image, Pagination, getPaginationVariables } from '@shopify/hydrogen'
 
 /**
  * @type {MetaFunction<({ request, params, context: { storefront }, }: LoaderFunctionArgs) => unknown>}
  */
-export const meta = ({data}) => {
-  return [{title: `Hydrogen | ${data?.blog.title ?? ''} blog`}];
-};
+export const meta = ({ data }) => {
+  return [{ title: `Hydrogen | ${data?.blog.title ?? ''} blog` }]
+}
 
 /**
  * @param {LoaderFunctionArgs}
  */
-export const loader = async ({request, params, context: {storefront}}) => {
+export const loader = async ({ request, params, context: { storefront } }) => {
   const paginationVariables = getPaginationVariables(request, {
     pageBy: 4,
-  });
+  })
 
   if (!params.blogHandle) {
-    throw new Response(`blog not found`, {status: 404});
+    throw new Response(`blog not found`, { status: 404 })
   }
 
-  const {blog} = await storefront.query(BLOGS_QUERY, {
+  const { blog } = await storefront.query(BLOGS_QUERY, {
     variables: {
       blogHandle: params.blogHandle,
       ...paginationVariables,
     },
-  });
+  })
 
   if (!blog?.articles) {
-    throw new Response('Not found', {status: 404});
+    throw new Response('Not found', { status: 404 })
   }
 
-  return json({blog});
-};
+  return json({ blog })
+}
 
 export default function Blog() {
   /** @type {LoaderReturnData} */
-  const {blog} = useLoaderData();
-  const {articles} = blog;
+  const { blog } = useLoaderData()
+  const { articles } = blog
 
   return (
     <div className="blog">
       <h1>{blog.title}</h1>
       <div className="blog-grid">
         <Pagination connection={articles}>
-          {({nodes, isLoading, PreviousLink, NextLink}) => {
+          {({ nodes, isLoading, PreviousLink, NextLink }) => {
             return (
               <>
                 <PreviousLink>
@@ -58,18 +58,18 @@ export default function Blog() {
                       key={article.id}
                       loading={index < 2 ? 'eager' : 'lazy'}
                     />
-                  );
+                  )
                 })}
                 <NextLink>
                   {isLoading ? 'Loading...' : <span>Load more ↓</span>}
                 </NextLink>
               </>
-            );
+            )
           }}
         </Pagination>
       </div>
     </div>
-  );
+  )
 }
 
 /**
@@ -78,12 +78,12 @@ export default function Blog() {
  *   loading?: HTMLImageElement['loading'];
  * }}
  */
-function ArticleItem({article, loading}) {
+function ArticleItem({ article, loading }) {
   const publishedAt = new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-  }).format(new Date(article.publishedAt));
+  }).format(new Date(article.publishedAt))
   return (
     <div className="blog-article" key={article.id}>
       <Link to={`/blogs/${article.blog.handle}/${article.handle}`}>
@@ -102,7 +102,7 @@ function ArticleItem({article, loading}) {
         <small>{publishedAt}</small>
       </Link>
     </div>
-  );
+  )
 }
 
 // NOTE: https://shopify.dev/docs/api/storefront/latest/objects/blog
@@ -161,7 +161,7 @@ const BLOGS_QUERY = `#graphql
       handle
     }
   }
-`;
+`
 
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
 /** @template T @typedef {import('@remix-run/react').MetaFunction<T>} MetaFunction */

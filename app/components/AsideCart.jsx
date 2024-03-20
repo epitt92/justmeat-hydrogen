@@ -1,35 +1,42 @@
-import {CartForm, Image, Money} from '@shopify/hydrogen';
-import {Link} from '@remix-run/react';
-import {useVariantUrl} from '~/lib/variants';
-import {useRootLoaderData} from '~/root';
-import {useEffect, useState} from 'react';
-import CustomProgressBar from './ui/CustomProgressBar';
+import { CartForm, Image, Money } from '@shopify/hydrogen'
+import { Link } from '@remix-run/react'
+import { useVariantUrl } from '~/lib/variants'
+import { useRootLoaderData } from '~/root'
+import { useEffect, useState } from 'react'
+import CustomProgressBar from './ui/CustomProgressBar'
 
 /**
  * @param {CartMainProps}
  */
 
-
-export function CartMain({layout, cart, selectedProducts ,setSelectedProducts}) {
-  const [subTotal, setSubTotal] = useState(0);
-  const linesCount = Boolean(selectedProducts.length || 0);
+export function CartMain({
+  layout,
+  cart,
+  selectedProducts,
+  setSelectedProducts,
+}) {
+  const [subTotal, setSubTotal] = useState(0)
+  const linesCount = Boolean(selectedProducts.length || 0)
   useEffect(() => {
     // Calculate the total cost of all products in selectedProducts
-    const totalCost = selectedProducts.reduce((acc, curr) => acc + parseFloat(curr.totalAmount), 0);
+    const totalCost = selectedProducts.reduce(
+      (acc, curr) => acc + parseFloat(curr.totalAmount),
+      0,
+    )
     // Update the mainCart state with the total cost
-    setSubTotal(totalCost);
-  }, [selectedProducts]);
-  
+    setSubTotal(totalCost)
+  }, [selectedProducts])
+
   const withDiscount =
     cart &&
-    Boolean(cart?.discountCodes?.filter((code) => code.applicable)?.length);
-  const className = `cart-main ${withDiscount ? 'with-discount' : ''}`;
+    Boolean(cart?.discountCodes?.filter((code) => code.applicable)?.length)
+  const className = `cart-main ${withDiscount ? 'with-discount' : ''}`
 
   const handleRemove = (productId) => {
     setSelectedProducts((prevSelectedProducts) =>
-      prevSelectedProducts.filter((product) => product.id !== productId)
-    );
-  };
+      prevSelectedProducts.filter((product) => product.id !== productId),
+    )
+  }
 
   return (
     <div className={className}>
@@ -44,14 +51,21 @@ export function CartMain({layout, cart, selectedProducts ,setSelectedProducts}) 
       />
       <CartEmpty hidden={linesCount} layout={layout} />
     </div>
-  );
+  )
 }
 
 /**
  * @param {CartMainProps}
  */
-function CartDetails({layout, cart, selectedProducts,onRemove,setSelectedProducts,subTotal}) {
-  const cartHasItems = selectedProducts.length > 0;
+function CartDetails({
+  layout,
+  cart,
+  selectedProducts,
+  onRemove,
+  setSelectedProducts,
+  subTotal,
+}) {
+  const cartHasItems = selectedProducts.length > 0
   // const cartHasItems = !!cart && cart.totalQuantity < 0;
   return (
     <div className="cart-details flex flex-col justify-between">
@@ -87,10 +101,10 @@ function CartDetails({layout, cart, selectedProducts,onRemove,setSelectedProduct
         </div>
       )}
     </div>
-  );
+  )
 }
 
-function ProgessBar({cost}) {
+function ProgessBar({ cost }) {
   return (
     <div>
       <div className="progress-bar ">
@@ -103,10 +117,10 @@ function ProgessBar({cost}) {
         />
       </div>
     </div>
-  );
+  )
 }
 
-function LockedItem({cost}) {
+function LockedItem({ cost }) {
   return (
     <>
       {addAmount(cost, '0') >= 125 ? (
@@ -126,12 +140,11 @@ function LockedItem({cost}) {
         </span>
       )}
     </>
-  );
+  )
 }
 
-
-function CartLines({ selectedProducts , onRemove ,setSelectedProducts}) {
-  if (!selectedProducts) return null;
+function CartLines({ selectedProducts, onRemove, setSelectedProducts }) {
+  if (!selectedProducts) return null
 
   return (
     <div aria-labelledby="cart-lines" className="h-[260px] overflow-auto">
@@ -147,7 +160,7 @@ function CartLines({ selectedProducts , onRemove ,setSelectedProducts}) {
         ))}
       </ul>
     </div>
-  );
+  )
 }
 // /**
 //  * @param {{
@@ -174,91 +187,91 @@ function CartLines({ selectedProducts , onRemove ,setSelectedProducts}) {
 //   );
 // }
 
+function CartLineItem({
+  line,
+  onRemove,
+  selectedProducts,
+  setSelectedProducts,
+}) {
+  const { id, title, featuredImage, priceRange } = line
+  const image = featuredImage.url
+  const price = priceRange?.maxVariantPrice?.amount
+  const [updateQty, setUpdatedQty] = useState(1)
+  const [productAmount, setProductAmount] = useState(price)
 
-function CartLineItem({ line ,onRemove,selectedProducts,setSelectedProducts}) {
-  const {id, title,featuredImage,priceRange } = line;
-  const image = featuredImage.url;
-  const price = priceRange?.maxVariantPrice?.amount;
-  const [updateQty, setUpdatedQty] = useState(1);
-  const [productAmount,setProductAmount] = useState(price);
-  
   const handleRemove = () => {
-    onRemove(id);
-  };
+    onRemove(id)
+  }
 
   useEffect(() => {
     // Update the selected products array when the quantity changes
     const updatedProducts = selectedProducts.map((product) => {
-
       if (product.id === id) {
-        return { ...product, quantity: updateQty , totalAmount:productAmount };
+        return { ...product, quantity: updateQty, totalAmount: productAmount }
       }
-      return product;
-    });
-    setSelectedProducts(updatedProducts);
-  }, [updateQty]);
+      return product
+    })
+    setSelectedProducts(updatedProducts)
+  }, [updateQty])
 
   const updateQuantity = (value) => {
-    setUpdatedQty(value);
-    setProductAmount((value * price).toFixed(2));
-  };
+    setUpdatedQty(value)
+    setProductAmount((value * price).toFixed(2))
+  }
   return (
     <li key={id} className="cart-line pl-[10px] mb-5 flex gap-4">
       {featuredImage && (
-        <img src={image} alt=""height={100}
-        loading="lazy"
-        width={72} />
-        )}
+        <img src={image} alt="" height={100} loading="lazy" width={72} />
+      )}
 
       <div className="flex  flex-1 pr-[10px] justify-between items-center ">
         <div className="h-fit flex-1">
-        
-            <p className="font-semibold text-[14px]  text-center ">
-              <strong className="pr-[10px] flex justify-center">{title}</strong>
-            </p>
-          
+          <p className="font-semibold text-[14px]  text-center ">
+            <strong className="pr-[10px] flex justify-center">{title}</strong>
+          </p>
+
           <p className="font-bold text-center text-[25px]">
             ${priceRange.maxVariantPrice.amount}
           </p>
           {/* <CartLinePrice line={line} as="span" /> */}
         </div>
         <div className="cart-line-quantity">
-      <div className="flex gap-[5px] items-center bg-[#862e1b] justify-between p-[5px]">
+          <div className="flex gap-[5px] items-center bg-[#862e1b] justify-between p-[5px]">
+            <button
+              onClick={() => updateQuantity(updateQty <= 1 ? 1 : updateQty - 1)}
+              aria-label="Decrease quantity"
+              disabled={updateQty <= 1}
+              name="decrease-quantity"
+              // value={prevQuantity}
+              className="text-[#862e1b] w-[25px] flex justify-center items-center h-[25px] bg-white rounded-[5px] p-[3px] "
+            >
+              <span>&#8722; </span>
+            </button>
+            <small className="text-[#000] font-bold text-[14px] text-center bg-white flex justify-center items-center w-[32px] h-[25px] p-[3px] ">
+              {updateQty}
+            </small>
+            <button
+              onClick={() => updateQuantity(updateQty + 1)}
+              className="text-[#862e1b] bg-white flex justify-center items-center rounded-[5px] p-[3px] w-[25px] h-[25px]"
+              aria-label="Increase quantity"
+              name="increase-quantity"
+              // value={nextQuantity}
+            >
+              <span>&#43;</span>
+            </button>
+          </div>
           <button
-            onClick={() => updateQuantity(updateQty <= 1 ? 1 : updateQty - 1)}
-            aria-label="Decrease quantity"
-            disabled={updateQty <= 1}
-            name="decrease-quantity"
-            // value={prevQuantity}
-            className="text-[#862e1b] w-[25px] flex justify-center items-center h-[25px] bg-white rounded-[5px] p-[3px] "
+            className="text-[14px] text-center text-[#862e1b] font-bold w-[100%]"
+            type="submit"
+            onClick={handleRemove}
           >
-            <span>&#8722; </span>
+            Remove
           </button>
-        <small className="text-[#000] font-bold text-[14px] text-center bg-white flex justify-center items-center w-[32px] h-[25px] p-[3px] ">
-          {updateQty}
-        </small>
-          <button
-            onClick={() => updateQuantity(updateQty + 1)}
-            className="text-[#862e1b] bg-white flex justify-center items-center rounded-[5px] p-[3px] w-[25px] h-[25px]"
-            aria-label="Increase quantity"
-            name="increase-quantity"
-            // value={nextQuantity}
-          >
-            <span>&#43;</span>
-          </button>
-      </div>
-      <button
-        className="text-[14px] text-center text-[#862e1b] font-bold w-[100%]"
-        type="submit"
-        onClick={handleRemove}
-      > 
-        Remove
-      </button>
-    </div>
+        </div>
         {/* <CartLineQuantity line={line} onRemove={onRemove} /> */}
       </div>
     </li>
-  );
+  )
 }
 
 // /**
@@ -327,7 +340,7 @@ function CartLineItem({ line ,onRemove,selectedProducts,setSelectedProducts}) {
 // /**
 //  * @param {{checkoutUrl: string}}
 //  */
-function CartCheckoutActions({ cost}) {
+function CartCheckoutActions({ cost }) {
   // if (!checkoutUrl) return null;
   return (
     <>
@@ -353,13 +366,12 @@ function CartCheckoutActions({ cost}) {
         </div>
       )}
     </>
-  );
+  )
 }
 
-
-export function CartSummary({cost, layout, children = null}) {
+export function CartSummary({ cost, layout, children = null }) {
   const className =
-    layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
+    layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside'
   return (
     <div
       aria-labelledby="cart-summary"
@@ -378,7 +390,9 @@ export function CartSummary({cost, layout, children = null}) {
         <dd>
           {cost ? (
             // <Money data={cost} />
-            <span className='font-semibold text-center text-base'>{cost.toFixed(2)}</span>
+            <span className="font-semibold text-center text-base">
+              {cost.toFixed(2)}
+            </span>
           ) : (
             '-'
           )}
@@ -386,59 +400,58 @@ export function CartSummary({cost, layout, children = null}) {
       </dl>
       {children}
     </div>
-  );
+  )
 }
 
 function addAmount(baseAmount, additionalAmount) {
   // Parse the base amount and additional amount as floats
-  const base = parseFloat(baseAmount["amount"]);
-  const additional = parseFloat(additionalAmount);
+  const base = parseFloat(baseAmount['amount'])
+  const additional = parseFloat(additionalAmount)
 
   // Check if the base amount is a valid number
   if (isNaN(base)) {
-    console.error('Invalid base amount:', baseAmount);
-    return null;
+    console.error('Invalid base amount:', baseAmount)
+    return null
   }
 
   // Check if the additional amount is a valid number
   if (isNaN(additional)) {
-    console.error('Invalid additional amount:', additionalAmount);
-    return null;
+    console.error('Invalid additional amount:', additionalAmount)
+    return null
   }
 
   // Calculate the sum of base and additional amounts
-  let sum = base + additional;
+  let sum = base + additional
 
   // Round the sum to 2 decimal places
-  sum = Math.round((sum + Number.EPSILON) * 100) / 100;
+  sum = Math.round((sum + Number.EPSILON) * 100) / 100
 
   // Convert the sum to a string
-  let sumStr = sum.toString();
+  let sumStr = sum.toString()
 
   // Check if the sum has decimal part
-  const decimalIndex = sumStr.indexOf('.');
+  const decimalIndex = sumStr.indexOf('.')
   if (decimalIndex === -1) {
     // If no decimal part, add '.00' to the end
-    sumStr += '.00';
+    sumStr += '.00'
   } else {
     // If decimal part exists, ensure there are always two digits after the decimal point
-    const decimalDigits = sumStr.length - decimalIndex - 1;
+    const decimalDigits = sumStr.length - decimalIndex - 1
     if (decimalDigits === 1) {
       // If only one digit after the decimal point, add a zero
-      sumStr += '0';
+      sumStr += '0'
     } else if (decimalDigits > 2) {
       // If more than two digits after the decimal point, round to two digits
-      sumStr = sum.toFixed(2);
+      sumStr = sum.toFixed(2)
     }
   }
-  const finalResult = parseFloat(sumStr);
-  return sumStr;
+  const finalResult = parseFloat(sumStr)
+  return sumStr
 }
 
 // // Example usage:
 // const result = addAmount("11.45", "11.45");
 // console.log(result); // Output: "32.85"
-
 
 // /**
 //  * @param {{lineIds: string[]}}
@@ -524,7 +537,7 @@ function addAmount(baseAmount, additionalAmount) {
 //         className="text-[14px] text-center text-[#862e1b] font-bold w-[100%]"
 //         type="submit"
 //         onClick={handleRemove}
-//       > 
+//       >
 //         Remove
 //       </button>
 //     </div>
@@ -538,25 +551,25 @@ function addAmount(baseAmount, additionalAmount) {
  *   [key: string]: any;
  * }}
  */
-function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
-  if (!line?.cost?.amountPerQuantity || !line?.cost?.totalAmount) return null;
+function CartLinePrice({ line, priceType = 'regular', ...passthroughProps }) {
+  if (!line?.cost?.amountPerQuantity || !line?.cost?.totalAmount) return null
 
   const moneyV2 =
     priceType === 'regular'
       ? line.cost.totalAmount
-      : line.cost.compareAtAmountPerQuantity;
+      : line.cost.compareAtAmountPerQuantity
 
-  const moneyV3 = line.cost.amountPerQuantity;
+  const moneyV3 = line.cost.amountPerQuantity
 
   if (moneyV2 == null) {
-    return null;
+    return null
   }
 
   return (
     <div className="font-bold text-center text-[25px] ">
       <Money withoutTrailingZeros {...passthroughProps} data={moneyV3} />
     </div>
-  );
+  )
 }
 
 /**
@@ -565,8 +578,7 @@ function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
  *   layout?: CartMainProps['layout'];
  * }}
  */
-export function CartEmpty({hidden = false, layout = 'aside'}) {
-
+export function CartEmpty({ hidden = false, layout = 'aside' }) {
   return (
     <div hidden={hidden} className="h-[260px]">
       <br />
@@ -603,7 +615,7 @@ export function CartEmpty({hidden = false, layout = 'aside'}) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 /**
@@ -611,11 +623,11 @@ export function CartEmpty({hidden = false, layout = 'aside'}) {
  *   discountCodes: CartApiQueryFragment['discountCodes'];
  * }}
  */
-function CartDiscounts({discountCodes}) {
+function CartDiscounts({ discountCodes }) {
   const codes =
     discountCodes
       ?.filter((discount) => discount.applicable)
-      ?.map(({code}) => code) || [];
+      ?.map(({ code }) => code) || []
 
   return (
     <div>
@@ -642,7 +654,7 @@ function CartDiscounts({discountCodes}) {
         </div>
       </UpdateDiscountForm>
     </div>
-  );
+  )
 }
 
 /**
@@ -651,7 +663,7 @@ function CartDiscounts({discountCodes}) {
  *   children: React.ReactNode;
  * }}
  */
-function UpdateDiscountForm({discountCodes, children}) {
+function UpdateDiscountForm({ discountCodes, children }) {
   return (
     <CartForm
       route="/products/custom-bundle"
@@ -662,7 +674,7 @@ function UpdateDiscountForm({discountCodes, children}) {
     >
       {children}
     </CartForm>
-  );
+  )
 }
 
 /**
@@ -671,16 +683,16 @@ function UpdateDiscountForm({discountCodes, children}) {
  *   lines: CartLineUpdateInput[];
  * }}
  */
-function CartLineUpdateButton({children, lines}) {
+function CartLineUpdateButton({ children, lines }) {
   return (
     <CartForm
       route="/products/custom-bundle"
       action={CartForm.ACTIONS.LinesUpdate}
-      inputs={{lines}}
+      inputs={{ lines }}
     >
       {children}
     </CartForm>
-  );
+  )
 }
 
 /** @typedef {CartApiQueryFragment['lines']['nodes'][0]} CartLine */

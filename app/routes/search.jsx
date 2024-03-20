@@ -1,61 +1,61 @@
-import {defer} from '@shopify/remix-oxygen';
-import {useLoaderData} from '@remix-run/react';
-import {getPaginationVariables} from '@shopify/hydrogen';
+import { defer } from '@shopify/remix-oxygen'
+import { useLoaderData } from '@remix-run/react'
+import { getPaginationVariables } from '@shopify/hydrogen'
 
-import {SearchForm, SearchResults, NoSearchResults} from '~/components/Search';
+import { SearchForm, SearchResults, NoSearchResults } from '~/components/Search'
 
 /**
  * @type {MetaFunction}
  */
 export const meta = () => {
-  return [{title: `Hydrogen | Search`}];
-};
+  return [{ title: `Hydrogen | Search` }]
+}
 
 /**
  * @param {LoaderFunctionArgs}
  */
-export async function loader({request, context}) {
-  const url = new URL(request.url);
-  const searchParams = new URLSearchParams(url.search);
-  const variables = getPaginationVariables(request, {pageBy: 8});
-  const searchTerm = String(searchParams.get('q') || '');
+export async function loader({ request, context }) {
+  const url = new URL(request.url)
+  const searchParams = new URLSearchParams(url.search)
+  const variables = getPaginationVariables(request, { pageBy: 8 })
+  const searchTerm = String(searchParams.get('q') || '')
 
   if (!searchTerm) {
     return {
-      searchResults: {results: null, totalResults: 0},
+      searchResults: { results: null, totalResults: 0 },
       searchTerm,
-    };
+    }
   }
 
-  const {errors, ...data} = await context.storefront.query(SEARCH_QUERY, {
+  const { errors, ...data } = await context.storefront.query(SEARCH_QUERY, {
     variables: {
       query: searchTerm,
       ...variables,
     },
-  });
+  })
 
   if (!data) {
-    throw new Error('No search data returned from Shopify API');
+    throw new Error('No search data returned from Shopify API')
   }
 
   const totalResults = Object.values(data).reduce((total, value) => {
-    return total + value.nodes.length;
-  }, 0);
+    return total + value.nodes.length
+  }, 0)
 
   const searchResults = {
     results: data,
     totalResults,
-  };
+  }
 
   return defer({
     searchTerm,
     searchResults,
-  });
+  })
 }
 
 export default function SearchPage() {
   /** @type {LoaderReturnData} */
-  const {searchTerm, searchResults} = useLoaderData();
+  const { searchTerm, searchResults } = useLoaderData()
 
   return (
     <div className="search">
@@ -70,7 +70,7 @@ export default function SearchPage() {
         />
       )}
     </div>
-  );
+  )
 }
 
 const SEARCH_QUERY = `#graphql
@@ -178,7 +178,7 @@ const SEARCH_QUERY = `#graphql
       }
     }
   }
-`;
+`
 
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
 /** @template T @typedef {import('@remix-run/react').MetaFunction<T>} MetaFunction */

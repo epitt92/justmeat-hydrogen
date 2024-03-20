@@ -1,55 +1,60 @@
 // import clsx from 'clsx';
-import { json, redirect } from '@shopify/remix-oxygen';
-import { useLoaderData } from '@remix-run/react';
-import { Money } from '@shopify/hydrogen';
-import { getActiveChurnLandingPageURL, getSubscription } from '@rechargeapps/storefront-client';
+import { json, redirect } from '@shopify/remix-oxygen'
+import { useLoaderData } from '@remix-run/react'
+import { Money } from '@shopify/hydrogen'
+import {
+  getActiveChurnLandingPageURL,
+  getSubscription,
+} from '@rechargeapps/storefront-client'
 
 // import { Link, Heading, PageHeader, Text, Button } from '~/components';
-import Link from '../components/Link';
-import Heading from '../components/Heading';
-import Text from '~/components/Text';
-import Button from '~/components/Button';
+import Link from '../components/Link'
+import Heading from '../components/Heading'
+import Text from '~/components/Text'
+import Button from '~/components/Button'
 
-import { rechargeQueryWrapper } from '~/lib/rechargeUtils';
+import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
 // import { CACHE_NONE } from '~/data/cache';
 
 export const meta = ({ data }) => {
   return [
     {
       title: `Subscription ${data?.subscription?.product_title}${
-        data?.subscription?.variant_title ? ` (${data?.subscription?.variant_title})` : ''
+        data?.subscription?.variant_title
+          ? ` (${data?.subscription?.variant_title})`
+          : ''
       }`,
     },
-  ];
-};
+  ]
+}
 
 export async function loader({ request, context, params }) {
   if (!params.id) {
-    return redirect(params?.locale ? `${params.locale}/account` : '/account');
+    return redirect(params?.locale ? `${params.locale}/account` : '/account')
   }
 
   const subscription = await rechargeQueryWrapper(
-    session =>
+    (session) =>
       getSubscription(session, params.id, {
         include: ['address'],
       }),
-    context
-  );
+    context,
+  )
 
   if (!subscription) {
-    throw new Response('Subscription not found', { status: 404 });
+    throw new Response('Subscription not found', { status: 404 })
   }
 
   const cancelUrl = await rechargeQueryWrapper(
-    session => getActiveChurnLandingPageURL(session, params.id, request.url),
-    context
-  );
+    (session) => getActiveChurnLandingPageURL(session, params.id, request.url),
+    context,
+  )
 
   const { product } = await context.storefront.query(PRODUCT_QUERY, {
     variables: {
       id: `gid://shopify/Product/${subscription.external_variant_id.ecommerce}`,
     },
-  });
+  })
 
   return json(
     {
@@ -63,13 +68,13 @@ export async function loader({ request, context, params }) {
         'Cache-Control': 'no-cache, no-store, must-revalidate',
         'Set-Cookie': await context.rechargeSession.commit(),
       },
-    }
-  );
+    },
+  )
 }
 
 export default function SubscriptionRoute() {
-  const { subscription, product, cancelUrl, shopCurrency } = useLoaderData();
-  const address = subscription.include?.address;
+  const { subscription, product, cancelUrl, shopCurrency } = useLoaderData()
+  const address = subscription.include?.address
   return (
     <div>
       <div heading="Subscription detail">
@@ -89,16 +94,28 @@ export default function SubscriptionRoute() {
             <table className="min-w-full my-8 divide-y divide-gray-300 md:col-span-3">
               <thead>
                 <tr className="align-baseline ">
-                  <th scope="col" className="pb-4 pl-0 pr-3 font-semibold text-left">
+                  <th
+                    scope="col"
+                    className="pb-4 pl-0 pr-3 font-semibold text-left"
+                  >
                     Product
                   </th>
-                  <th scope="col" className="hidden px-4 pb-4 font-semibold text-right sm:table-cell md:table-cell">
+                  <th
+                    scope="col"
+                    className="hidden px-4 pb-4 font-semibold text-right sm:table-cell md:table-cell"
+                  >
                     Price
                   </th>
-                  <th scope="col" className="hidden px-4 pb-4 font-semibold text-right sm:table-cell md:table-cell">
+                  <th
+                    scope="col"
+                    className="hidden px-4 pb-4 font-semibold text-right sm:table-cell md:table-cell"
+                  >
                     Quantity
                   </th>
-                  <th scope="col" className="px-4 pb-4 font-semibold text-right">
+                  <th
+                    scope="col"
+                    className="px-4 pb-4 font-semibold text-right"
+                  >
                     Frequency
                   </th>
                 </tr>
@@ -107,7 +124,9 @@ export default function SubscriptionRoute() {
                 <tr>
                   <td className="w-full py-4 pl-0 pr-3 align-top sm:align-middle max-w-0 sm:w-auto sm:max-w-none">
                     <div className="flex gap-6">
-                      <Link to={`/products/${product?.handle}`}>View Product</Link>
+                      <Link to={`/products/${product?.handle}`}>
+                        View Product
+                      </Link>
                       <div className="flex-col justify-center hidden lg:flex">
                         <Text as="p">{subscription.product_title}</Text>
                         {subscription.variant_title && (
@@ -134,7 +153,9 @@ export default function SubscriptionRoute() {
                             <Money
                               data={{
                                 amount: subscription.price,
-                                currencyCode: subscription.presentment_currency ?? shopCurrency,
+                                currencyCode:
+                                  subscription.presentment_currency ??
+                                  shopCurrency,
                               }}
                             />
                           </Text>
@@ -152,7 +173,8 @@ export default function SubscriptionRoute() {
                     <Money
                       data={{
                         amount: subscription.price,
-                        currencyCode: subscription.presentment_currency ?? shopCurrency,
+                        currencyCode:
+                          subscription.presentment_currency ?? shopCurrency,
                       }}
                     />
                   </td>
@@ -191,7 +213,8 @@ export default function SubscriptionRoute() {
                       )}
                       <li>
                         <Text>
-                          {address.city} {address.province} {address.zip} {address.country_code}
+                          {address.city} {address.province} {address.zip}{' '}
+                          {address.country_code}
                         </Text>
                       </li>
                     </>
@@ -205,8 +228,7 @@ export default function SubscriptionRoute() {
               <Heading size="copy" className="mt-8 font-semibold" as="h3">
                 Status
               </Heading>
-              <div
-                className="mt-3 px-3 py-1 text-xs font-medium rounded-full inline-block w-auto bg-green-100 text-green-800">
+              <div className="mt-3 px-3 py-1 text-xs font-medium rounded-full inline-block w-auto bg-green-100 text-green-800">
                 <Text size="fine" className="uppercase">
                   {subscription.status}
                 </Text>
@@ -221,7 +243,7 @@ export default function SubscriptionRoute() {
         )}
       </div>
     </div>
-  );
+  )
 }
 
 const PRODUCT_QUERY = `#graphql
@@ -231,4 +253,4 @@ const PRODUCT_QUERY = `#graphql
       handle
     }
   }
-`;
+`

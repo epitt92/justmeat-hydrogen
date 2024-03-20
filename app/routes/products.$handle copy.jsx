@@ -1,6 +1,6 @@
-import {Suspense} from 'react';
-import {defer, json, redirect} from '@shopify/remix-oxygen';
-import {Await, Link, useLoaderData} from '@remix-run/react';
+import { Suspense } from 'react'
+import { defer, json, redirect } from '@shopify/remix-oxygen'
+import { Await, Link, useLoaderData } from '@remix-run/react'
 
 import {
   Image,
@@ -9,13 +9,12 @@ import {
   getSelectedProductOptions,
   CartForm,
   getPaginationVariables,
-  Pagination
-} from '@shopify/hydrogen';
-import {getVariantUrl} from '~/lib/variants';
-import PlanPicker from '~/components/OrderComponents/PlanPicker';
-import CustomCollection from '~/components/OrderComponents/CustomCollection';
-import {useVariantUrl} from '~/lib/variants';
-
+  Pagination,
+} from '@shopify/hydrogen'
+import { getVariantUrl } from '~/lib/variants'
+import PlanPicker from '~/components/OrderComponents/PlanPicker'
+import CustomCollection from '~/components/OrderComponents/CustomCollection'
+import { useVariantUrl } from '~/lib/variants'
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -28,63 +27,63 @@ import {useVariantUrl} from '~/lib/variants';
 /**
  * @param {ActionFunctionArgs}
  */
-export async function action({request, context}) {
-  const {cart} = context;
+export async function action({ request, context }) {
+  const { cart } = context
 
-  const formData = await request.formData();
+  const formData = await request.formData()
 
-  const {action, inputs} = CartForm.getFormInput(formData);
+  const { action, inputs } = CartForm.getFormInput(formData)
 
   if (!action) {
-    throw new Error('No action provided');
+    throw new Error('No action provided')
   }
 
-  let status = 200;
-  let result;
+  let status = 200
+  let result
 
   switch (action) {
     case CartForm.ACTIONS.LinesAdd:
-      result = await cart.addLines(inputs.lines);
-      break;
+      result = await cart.addLines(inputs.lines)
+      break
     case CartForm.ACTIONS.LinesUpdate:
-      result = await cart.updateLines(inputs.lines);
-      break;
+      result = await cart.updateLines(inputs.lines)
+      break
     case CartForm.ACTIONS.LinesRemove:
-      result = await cart.removeLines(inputs.lineIds);
-      break;
+      result = await cart.removeLines(inputs.lineIds)
+      break
     case CartForm.ACTIONS.DiscountCodesUpdate: {
-      const formDiscountCode = inputs.discountCode;
+      const formDiscountCode = inputs.discountCode
 
       // User inputted discount code
-      const discountCodes = formDiscountCode ? [formDiscountCode] : [];
+      const discountCodes = formDiscountCode ? [formDiscountCode] : []
 
       // Combine discount codes already applied on cart
-      discountCodes.push(...inputs.discountCodes);
+      discountCodes.push(...inputs.discountCodes)
 
-      result = await cart.updateDiscountCodes(discountCodes);
-      break;
+      result = await cart.updateDiscountCodes(discountCodes)
+      break
     }
     case CartForm.ACTIONS.BuyerIdentityUpdate: {
       result = await cart.updateBuyerIdentity({
         ...inputs.buyerIdentity,
-      });
-      break;
+      })
+      break
     }
     default:
-      throw new Error(`${action} cart action is not defined`);
+      throw new Error(`${action} cart action is not defined`)
   }
 
-  const cartId = result.cart.id;
-  const headers = cart.setCartId(result.cart.id);
-  const {cart: cartResult, errors} = result;
+  const cartId = result.cart.id
+  const headers = cart.setCartId(result.cart.id)
+  const { cart: cartResult, errors } = result
 
-  const redirectTo = formData.get('redirectTo') ?? null;
+  const redirectTo = formData.get('redirectTo') ?? null
   if (typeof redirectTo === 'string') {
-    status = 303;
-    headers.set('Location', redirectTo);
+    status = 303
+    headers.set('Location', redirectTo)
   }
 
-  headers.append('Set-Cookie', await context.session.commit());
+  headers.append('Set-Cookie', await context.session.commit())
 
   return json(
     {
@@ -94,65 +93,60 @@ export async function action({request, context}) {
         cartId,
       },
     },
-    {status, headers},
-  );
+    { status, headers },
+  )
 }
-
-
 
 /**
  * @param {LoaderFunctionArgs}
  */
-export async function loader({request, params, context}) {
-  const handle = 'all-products';
-  const {storefront} = context;
+export async function loader({ request, params, context }) {
+  const handle = 'all-products'
+  const { storefront } = context
   const paginationVariables = getPaginationVariables(request, {
     pageBy: 15,
-  });
+  })
 
   if (!handle) {
-    return redirect('/collections');
+    return redirect('/collections')
   }
 
-  const {collection} = await storefront.query(COLLECTION_QUERY, {
-    variables: {handle, ...paginationVariables},
-  });
+  const { collection } = await storefront.query(COLLECTION_QUERY, {
+    variables: { handle, ...paginationVariables },
+  })
 
   if (!collection) {
     throw new Response(`Collection ${handle} not found`, {
       status: 404,
-    });
+    })
   }
-  return json({collection});
+  return json({ collection })
 }
-
-
 
 export default function Product() {
   /** @type {LoaderReturnData} */
 
-  const data =  useLoaderData()
+  const data = useLoaderData()
   const customCollectionProducts = data.collection.products
 
   return (
     <div className='bg-cover h-[100%] w-[100%] bg-fixed	flex justify-center sm:bg-[url("https://cdn.shopify.com/s/files/1/0672/4776/7778/files/orderpage_bg.png")]'>
-    <div className='max-w-[1440px] w-[100%] px-5 sm:px-10'>
-    <PlanPicker/>
-    <div className='custom-collection-wrap'>
-    <CustomCollection col={customCollectionProducts}/>
+      <div className="max-w-[1440px] w-[100%] px-5 sm:px-10">
+        <PlanPicker />
+        <div className="custom-collection-wrap">
+          <CustomCollection col={customCollectionProducts} />
+        </div>
+      </div>
     </div>
-    </div>
-    </div>
-   
-  );
+  )
 }
 
 /**
  * @param {{image: ProductVariantFragment['image']}}
  */
-function ProductImage({image}) {
+function ProductImage({ image }) {
   if (!image) {
-    return <div className="product-image" />;
+    return <div className="product-image" />
   }
   return (
     <div className="product-image">
@@ -164,7 +158,7 @@ function ProductImage({image}) {
         sizes="(min-width: 45em) 50vw, 100vw"
       />
     </div>
-  );
+  )
 }
 
 /**
@@ -380,7 +374,7 @@ const PRODUCT_VARIANT_FRAGMENT = `#graphql
       currencyCode
     }
   }
-`;
+`
 
 const PRODUCT_FRAGMENT = `#graphql
   fragment Product on Product {
@@ -408,7 +402,7 @@ const PRODUCT_FRAGMENT = `#graphql
     }
   }
   ${PRODUCT_VARIANT_FRAGMENT}
-`;
+`
 
 const PRODUCT_QUERY = `#graphql
   query Product(
@@ -422,7 +416,7 @@ const PRODUCT_QUERY = `#graphql
     }
   }
   ${PRODUCT_FRAGMENT}
-`;
+`
 
 const PRODUCT_VARIANTS_FRAGMENT = `#graphql
   fragment ProductVariants on Product {
@@ -433,7 +427,7 @@ const PRODUCT_VARIANTS_FRAGMENT = `#graphql
     }
   }
   ${PRODUCT_VARIANT_FRAGMENT}
-`;
+`
 
 const VARIANTS_QUERY = `#graphql
   ${PRODUCT_VARIANTS_FRAGMENT}
@@ -446,7 +440,7 @@ const VARIANTS_QUERY = `#graphql
       ...ProductVariants
     }
   }
-`;
+`
 
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
 /** @template T @typedef {import('@remix-run/react').MetaFunction<T>} MetaFunction */
@@ -459,10 +453,7 @@ const VARIANTS_QUERY = `#graphql
 /** @typedef {import('@shopify/hydrogen/storefront-api-types').SelectedOption} SelectedOption */
 /** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */
 
-
-
-// custom collection qusery 
-
+// custom collection qusery
 
 const PRODUCT_ITEM_FRAGMENT = `#graphql
   fragment MoneyProductItem on MoneyV2 {
@@ -507,7 +498,7 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
       }
     }
   }
-`;
+`
 
 const COLLECTION_QUERY = `#graphql
   ${PRODUCT_ITEM_FRAGMENT}
@@ -544,4 +535,4 @@ const COLLECTION_QUERY = `#graphql
       }
     }
   }
-`;
+`

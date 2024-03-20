@@ -1,6 +1,6 @@
-import {Suspense} from 'react';
-import {defer, redirect} from '@shopify/remix-oxygen';
-import {Await, Link, useLoaderData} from '@remix-run/react';
+import { Suspense } from 'react'
+import { defer, redirect } from '@shopify/remix-oxygen'
+import { Await, Link, useLoaderData } from '@remix-run/react'
 
 import {
   Image,
@@ -8,19 +8,15 @@ import {
   VariantSelector,
   getSelectedProductOptions,
   CartForm,
-} from '@shopify/hydrogen';
-import {getVariantUrl} from '~/lib/variants';
-import PlanPicker from '~/components/custom-components/PlanPicker';
-import CustomCollection from '~/components/custom-components/CustomCollection';
+} from '@shopify/hydrogen'
+import { getVariantUrl } from '~/lib/variants'
+import PlanPicker from '~/components/custom-components/PlanPicker'
+import CustomCollection from '~/components/custom-components/CustomCollection'
 
-// new 
-import {json} from '@shopify/remix-oxygen';
-import {
-  Pagination,
-  getPaginationVariables,
-} from '@shopify/hydrogen';
-import {useVariantUrl} from '~/lib/variants';
-
+// new
+import { json } from '@shopify/remix-oxygen'
+import { Pagination, getPaginationVariables } from '@shopify/hydrogen'
+import { useVariantUrl } from '~/lib/variants'
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -29,61 +25,49 @@ import {useVariantUrl} from '~/lib/variants';
 //   return [{title: `Hydrogen | ${data?.product.title ?? ''}`}];
 // };
 
-
-
-
 // loader
 
-export async function loader({request, params, context}) {
+export async function loader({ request, params, context }) {
   const handle = 'all-products'
-  const {storefront} = context;
+  const { storefront } = context
   const paginationVariables = getPaginationVariables(request, {
     pageBy: 100,
-  });
+  })
 
   if (!handle) {
-    return redirect('/collections');
+    return redirect('/collections')
   }
 
-  const {collection} = await storefront.query(COLLECTION_QUERY, {
-    variables: {handle, ...paginationVariables},
-  });
+  const { collection } = await storefront.query(COLLECTION_QUERY, {
+    variables: { handle, ...paginationVariables },
+  })
 
   if (!collection) {
     throw new Response(`Collection ${handle} not found`, {
       status: 404,
-    });
+    })
   }
-  return json({collection});
+  return json({ collection })
 }
 
-
-
-
 export default function Product() {
-
   const data = useLoaderData()
   // console.log(data)
 
   return (
     <>
-    <PlanPicker/>
-    <div className='custom-collection-wrap'>
-      <CustomCollection/>
-    </div>
-    
+      <PlanPicker />
+      <div className="custom-collection-wrap">
+        <CustomCollection />
+      </div>
     </>
-  );
+  )
 }
-
-
-
-
 
 /**
  * @param {{products: ProductItemFragment[]}}
  */
-function ProductsGrid({products}) {
+function ProductsGrid({ products }) {
   return (
     <div className="products-grid">
       {products.map((product, index) => {
@@ -93,10 +77,10 @@ function ProductsGrid({products}) {
             product={product}
             loading={index < 8 ? 'eager' : undefined}
           />
-        );
+        )
       })}
     </div>
-  );
+  )
 }
 
 /**
@@ -105,9 +89,9 @@ function ProductsGrid({products}) {
  *   loading?: 'eager' | 'lazy';
  * }}
  */
-function ProductItem({product, loading}) {
-  const variant = product.variants.nodes[0];
-  const variantUrl = useVariantUrl(product.handle, variant.selectedOptions);
+function ProductItem({ product, loading }) {
+  const variant = product.variants.nodes[0]
+  const variantUrl = useVariantUrl(product.handle, variant.selectedOptions)
   return (
     <Link
       className="product-item"
@@ -129,7 +113,7 @@ function ProductItem({product, loading}) {
         <Money data={product.priceRange.minVariantPrice} />
       </small>
     </Link>
-  );
+  )
 }
 
 const PRODUCT_ITEM_FRAGMENT = `#graphql
@@ -165,4 +149,4 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
       }
     }
   }
-`;
+`
