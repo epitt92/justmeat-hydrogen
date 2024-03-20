@@ -225,7 +225,7 @@ export default function SubscriptionRoute() {
         </div>
       </div>
 
-      <div className='w-11/12 mt-15 md:w-8/12 flex flex-col justify-center'>
+      <div className='w-11/12 mt-[75px] md:w-8/12 flex flex-col justify-center'>
         <div className='w-full block md:flex text-center  justify-start pb-[30px] items-start border-b-2 border-slate-600'>
           <button className='text-xl border-solid mb-5 border-2 border-lime-900 py-1 px-8'>Back To Account</button>
           <h1 className='text-3xl font-semibold pb-3 md:ml-[20%]'>Customize Your Order</h1>
@@ -357,7 +357,7 @@ export default function SubscriptionRoute() {
               </div>
             </div>
           </div>
-          <div className='md:w-[35%] md:block md:ml-[35px] border-solid border-2 border-lime-950 h-[600px]'>
+          <div className='md:w-[35%] mt-[35px] md:mt-0  md:block md:ml-[35px] border-solid border-2 border-lime-950 h-[600px]'>
             <div className='bg-black text-center'>
               <h2 className='text-white py-5'>YOUR SUBSCRIPTION</h2> 
             </div>
