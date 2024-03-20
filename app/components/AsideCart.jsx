@@ -204,7 +204,7 @@ function CartCheckoutActions({ cost}) {
         <div className="flex justify-center items-center w-1/2 bg-[#425b34]">
           <a
             // href={checkoutUrl}
-            className="bg-[#425b34] text-[15px] py-[10px] font-semibold text-white"
+            className="bg-[#425b34] text-[15px] py-[15px] font-semibold text-white"
             target="_self"
           >
             <p>Continue to Checkout </p>
@@ -214,7 +214,7 @@ function CartCheckoutActions({ cost}) {
         <div className="flex justify-center items-center w-6/12 pointer-events-none select-none  bg-[#6e6e6e]">
           <a
             // href={checkoutUrl}
-            className=" text-[15px] text-center py-[10px] font-semibold text-white"
+            className=" text-[15px] text-center py-[15px] font-semibold text-white"
             target="_self"
           >
             Spend $75 to Continue
@@ -350,10 +350,10 @@ export function CartEmpty({ hidden = false, layout = 'aside' }) {
             <p className="pr-1 text-base font-semibold">Total:</p>
             <p className="text-base font-semibold">$0.00</p>
           </div>
-          <div className="flex justify-center items-center w-8/12 pointer-events-none select-none  bg-[#6e6e6e]">
+          <div className="flex justify-end items-center w-8/12 pointer-events-none select-none  ">
             <a
               // href={checkoutUrl}
-              className=" text-[15px] text-center py-[10px] font-semibold text-white"
+              className=" text-[15px] text-center py-[15px] px-[20px] font-semibold text-white bg-[#6e6e6e]"
               target="_self"
             >
               Spend $75 to Continue
