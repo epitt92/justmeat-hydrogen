@@ -123,7 +123,7 @@ function ProgessBar({ cost }) {
 function LockedItem({ cost }) {
   return (
     <>
-      {addAmount(cost, '0') >= 125 ? (
+      {cost >= 125 ? (
         <select
           className="text-[12px] py-[8px] w-[70%] rounded-[5px] outline-none focus:outline-none bg-auto  focus:border-none bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')] shadow-none  focus:shadow-none focus:border-[#1d1d1d99] border border-[#1d1d1d49] text-[#131515]  "
           name=""
