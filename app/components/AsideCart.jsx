@@ -278,7 +278,8 @@ export function CartSummary({cost, layout, children = null}) {
         <dt>Total: </dt>
         {cost ? (
           <span className="text-[20px] pr-1 line-through decoration-[#000] decoration-[3px] text-[#919191] ">
-            {addAmount(cost, '11.45')}
+
+            {(cost + 11.45).toFixed(2)}
           </span>
         ) : (
           '-'
@@ -296,6 +297,8 @@ export function CartSummary({cost, layout, children = null}) {
     </div>
   );
 }
+
+
 function addAmount(baseAmount, additionalAmount) {
   // Parse the base amount and additional amount as floats
   const base = parseFloat(baseAmount);
@@ -319,54 +322,27 @@ function addAmount(baseAmount, additionalAmount) {
   // Round the sum to 2 decimal places
   sum = Math.round((sum + Number.EPSILON) * 100) / 100;
 
-  return sum;
+  // Convert the sum to a string
+  let sumStr = sum.toString();
+
+  // Check if the sum has decimal part
+  const decimalIndex = sumStr.indexOf('.');
+  if (decimalIndex === -1) {
+    // If no decimal part, add '.00' to the end
+    sumStr += '.00';
+  } else {
+    // If decimal part exists, ensure there are always two digits after the decimal point
+    const decimalDigits = sumStr.length - decimalIndex - 1;
+    if (decimalDigits === 1) {
+      // If only one digit after the decimal point, add a zero
+      sumStr += '0';
+    } else if (decimalDigits > 2) {
+      // If more than two digits after the decimal point, round to two digits
+      sumStr = sum.toFixed(2);
+    }
+  }
+  return sumStr;
 }
-
-// function addAmount(baseAmount, additionalAmount) {
-//   // Parse the base amount and additional amount as floats
-//   const base = parseFloat(baseAmount);
-//   const additional = parseFloat(additionalAmount);
-
-//   // Check if the base amount is a valid number
-//   if (isNaN(base)) {
-//     console.error('Invalid base amount:', baseAmount);
-//     return null;
-//   }
-
-//   // Check if the additional amount is a valid number
-//   if (isNaN(additional)) {
-//     console.error('Invalid additional amount:', additionalAmount);
-//     return null;
-//   }
-
-//   // Calculate the sum of base and additional amounts
-//   let sum = base + additional;
-
-//   // Round the sum to 2 decimal places
-//   sum = Math.round((sum + Number.EPSILON) * 100) / 100;
-
-//   // Convert the sum to a string
-//   let sumStr = sum.toString();
-
-//   // Check if the sum has decimal part
-//   const decimalIndex = sumStr.indexOf('.');
-//   if (decimalIndex === -1) {
-//     // If no decimal part, add '.00' to the end
-//     sumStr += '.00';
-//   } else {
-//     // If decimal part exists, ensure there are always two digits after the decimal point
-//     const decimalDigits = sumStr.length - decimalIndex - 1;
-//     if (decimalDigits === 1) {
-//       // If only one digit after the decimal point, add a zero
-//       sumStr += '0';
-//     } else if (decimalDigits > 2) {
-//       // If more than two digits after the decimal point, round to two digits
-//       sumStr = sum.toFixed(2);
-//     }
-//   }
-//   const finalResult = parseFloat(sumStr);
-//   return sumStr;
-// }
 
 
 
