@@ -19,8 +19,8 @@ import { Aside } from '../Aside';
 
 const AsideCart = ({ selectedProducts, setSelectedProducts }) => {
   const rootData = useRootLoaderData()
-  const cartPromise = rootData.cart
-  console.log(cart);
+  const cartPromise = rootData.cart;
+  console.log(cartPromise);
   return (
     <div className="cart">
       {/* <h1>Cart</h1> */}
@@ -28,7 +28,7 @@ const AsideCart = ({ selectedProducts, setSelectedProducts }) => {
        <CartMain selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} />
           
       
-      {/* <Suspense fallback={<p>Loading cart ...</p>}>
+       {/* <Suspense fallback={<p>Loading cart ...</p>}>
         <Await
           resolve={cartPromise}
           errorElement={<div>An error occurred</div>}
@@ -44,7 +44,7 @@ const AsideCart = ({ selectedProducts, setSelectedProducts }) => {
             )
           }}
         </Await>
-      </Suspense>
+      </Suspense> */}
     </div>
   )
 }
