@@ -12,7 +12,7 @@ const CustomProgressBar = ({ cost }) => {
           className="w-[100%] min-h-3 border border-[#000]"
         />
       </div>
-      <div className="flex flex-column justify-end gap-2  xl:px-7 px-10 ">
+      <div className="flex flex-column justify-end gap-2  px-7 ">
         <p className="text-center text-base flex flex-col mr-3 relative">
           {' '}
           <span className="w-[10px] h-[10px] bg-black rounded-[100%] absolute top-[-27px] left-[50%] translate-x-[-50%]  "></span>{' '}
