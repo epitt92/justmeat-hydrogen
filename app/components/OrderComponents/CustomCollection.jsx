@@ -6,7 +6,7 @@ import { useRootLoaderData } from '~/root'
 import ProductModal from '../ui/ProductModal'
 import ProductQuantity from './ProductQuantity'
 
-const AsideCart = ({ selectedProducts, setSelectedProducts }) => {
+const AsideCart = ({ selectedProducts, setSelectedProducts ,setShowCart }) => {
   const rootData = useRootLoaderData()
   const cartPromise = rootData.cart
   return (
@@ -24,6 +24,7 @@ const AsideCart = ({ selectedProducts, setSelectedProducts }) => {
                 cart={cart}
                 selectedProducts={selectedProducts}
                 setSelectedProducts={setSelectedProducts}
+                setShowCart={setShowCart}
               />
             )
           }}
@@ -252,7 +253,7 @@ const CustomCollection = ({ col }) => {
   const { nodes } = col
   const [selectedProducts, setSelectedProducts] = useState([])
   const [clickedProduct, setClickedProduct] = useState(null)
-
+  const [showCart,setShowCart] = useState(false);
   function onProductClick(product) {
     setClickedProduct(product)
   }
@@ -281,24 +282,37 @@ const CustomCollection = ({ col }) => {
               </h2>
             </div>
           </div>
-          <div className="flex product-and-cart">
-            <div className="grid grid-cols-2 product-grid md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12">
-              {nodes.map((product, key) =>
-                product.handle !== 'free-meat-unlocked-at-125' ? (
-                  <ProductCard
-                    key={key}
-                    product={product}
-                    onClick={() => onProductClick(product)}
-                    setSelectedProducts={setSelectedProducts}
-                    selectedProducts={selectedProducts}
-                  />
-                ) : null,
-              )}
+          <div className="product-and-cart flex">
+            <div className="product-grid grid grid-cols-2 md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12">
+              {nodes.map((product, key) => (
+                <ProductCard
+                  key={key}
+                  product={product}
+                  setSelectedProducts={setSelectedProducts}
+                  selectedProducts={selectedProducts}
+                />
+              ))}
             </div>
-            <div className="cart-wrapper sticky top-[10px] h-fit mb-[10px] hidden xl:block w-4/12">
-              <div className="h-full border">
+            <div className={`mobile-cart-toggle fixed left-0 bottom-0  h-fit  xl:hidden block w-full   transition-all duration-300  ${showCart ? '' : ''}`}>
+              <div className='flex justify-start items-center rounded-[20px] px-10'>
+              <div className=''>
+                 <img onClick={setShowCart(false)} src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/imgpsh_fullsize_anim_1_1.png?v=1711048163" alt="" />
+              </div>
+              <span onClick={()=>setShowCart(true)} className='text-[20px] font-semibold flex-1 bg-[#aaa] h-auto py-[15px] rounded-[15px] text-center text-white'>
+                 Add $85.78
+              </span>
+              </div>
+            </div>
+            <div className={`cart-wrapper fixed left-0 bottom-0 xl:sticky xl:top-[10px] h-fit xl:mb-[10px] md:block hidden w-full bg-white xl:bg-transparent xl:w-4/12 transition-all duration-300 xl:translate-y-0 ${showCart ? 'translate-y-0' : 'translate-y-[-1000px]'}`}>
+              <div className="h-full xl:border shadow-[0 -5px 20px #333] rounded-[10x]">
+                 <div className='bg-white p-2 flex justify-start  xl:hidden block'>
+                 <div className='w-[30px]'>
+                 <svg class="cartsvgarrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M32 15H3.41l8.29-8.29-1.41-1.42-10 10a1 1 0 0 0 0 1.41l10 10 1.41-1.41L3.41 17H32z" data-name="4-Arrow Left"></path></svg>
+                 </div>
+                 <p className='text-center flex-1 text-[20px] font-semibold text-[#1d1d1d]'>YOUR SHOPPING CART</p>
+                 </div>
                 <div className="py-5 text-center text-white bg-black top-section">
-                  <div className="py-5 text-wrapper">
+                  <div className="xl:py-5 text-wrapper">
                     <h1 className="font-roboto_medium text-[17px] leading-none">
                       Subscribers Save 25% on Orders
                     </h1>
@@ -310,6 +324,7 @@ const CustomCollection = ({ col }) => {
                 <AsideCart
                   selectedProducts={selectedProducts}
                   setSelectedProducts={setSelectedProducts}
+                  setShowCart={setShowCart}
                 />
               </div>
             </div>

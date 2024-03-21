@@ -8,6 +8,7 @@ export function CartMain({
   cart,
   selectedProducts,
   setSelectedProducts,
+  setShowCart
 }) {
   const [subTotal, setSubTotal] = useState(0)
   const linesCount = Boolean(selectedProducts.length || 0)
@@ -64,7 +65,10 @@ function CartDetails({
       />
       {cartHasItems && (
         <div className="p-5 pb-3 bg-white">
-          <div className="border-b-4 pb-[10px] border-black">
+          <div className='w-full flex justify-center block xl:hidden'>
+          <span className='w-fit text-[14px] p-[10px] font-semibold text-white bg-[#862e1b]'>Return to Shop</span>
+        </div>
+          <div className="border-b-4 pb-[10px] pt-[10px] border-black">
             <CartSummary cost={subTotal} layout={layout}>
               {/* <CartDiscounts discountCodes={cart.discountCodes} /> */}
               <CartCheckoutActions
@@ -98,7 +102,7 @@ function ProgessBar({ cost }) {
       <div className="progress-bar ">
         <CustomProgressBar cost={cost} />
       </div>
-      <div className="free-item pl-[10px] mb-5">
+      <div className="free-item hidden xl:block pl-[10px] mb-5 h-[100px] flex">
         <img
           src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Ranch_Rub_Chicken_Breast_Free.png"
           alt="cart free"
@@ -135,8 +139,16 @@ function CartLines({ selectedProducts, onRemove, setSelectedProducts }) {
   if (!selectedProducts) return null
 
   return (
-    <div aria-labelledby="cart-lines" className="h-[260px] overflow-auto">
+    <div aria-labelledby="cart-lines" className="max-h-[240px] h-full xl:max-h-[260px] xl:h-[260px] overflow-auto">
       <ul>
+        <li className='block xl:hidden'>
+          <div className="free-item pl-[10px] mb-5 h-[100px] flex">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Ranch_Rub_Chicken_Breast_Free.png"
+          alt="cart free"
+        />
+      </div>
+      </li>
         {selectedProducts.map((product) => (
           <CartLineItem
             key={product.id}
@@ -334,10 +346,13 @@ function CartLinePrice({ line, priceType = 'regular', ...passthroughProps }) {
  */
 export function CartEmpty({ hidden = false, layout = 'aside' }) {
   return (
-    <div hidden={hidden} className="h-[260px]">
+    <div hidden={hidden} className="h-[260px] ">
       <br />
-      <div className="absolute bottom-0 w-full p-5 pb-3 ">
-        <div className="border-b-4 flex justify-between items-end pb-[10px] border-black w-full ">
+      <div className="absolute bottom-0 w-full p-5 pb-3">
+        <div className='w-full flex justify-center block xl:hidden'>
+          <span className='w-fit text-[14px] p-[10px] font-semibold text-white bg-[#862e1b]'>Return to Shop</span>
+        </div>
+        <div className="border-b-4 flex justify-between items-end pb-[10px] border-black w-full">
           <div className="flex w-4/12">
             <p className="pr-1 text-base font-semibold">Total:</p>
             <p className="text-base font-semibold">$0.00</p>
