@@ -245,9 +245,9 @@ export default function SubscriptionRoute() {
             <div className='w-[100%]  bg-white lg:w-[65%] flex flex-col justify-around border-solid border-2 border-lime-950 '>
               <div className='flex mt-3 '>
                 <div className='w-1/3 flex p-2 flex-col items-center'>
-                  <img className='w-48' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
-                  <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
-                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-red-950'>
+                  <img className='w-[240px]' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                  <h1 className='text-[27px] my-2 font-semibold'>$22.50</h1>
+                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-[#862e1b]'>
                     <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm' >-</span>
                     <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm'>0</span>
                     <span className='px-1 sm:px-3 bg-white text-black rounded-sm'>+</span>
@@ -255,9 +255,9 @@ export default function SubscriptionRoute() {
                 </div>
 
                 <div className='w-1/3 flex p-2 flex-col items-center'>
-                  <img className='w-48' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
-                  <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
-                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-red-950'>
+                  <img className='w-[240px]' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                  <h1 className='text-[27px] my-2 font-semibold'>$22.50</h1>
+                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-[#862e1b]'>
                     <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm' >-</span>
                     <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm'>0</span>
                     <span className='px-1 sm:px-3 bg-white text-black rounded-sm'>+</span>
@@ -265,41 +265,9 @@ export default function SubscriptionRoute() {
                 </div>
 
                 <div className='w-1/3 flex p-2 flex-col items-center'>
-                  <img className='w-48' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
-                  <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
-                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-red-950'>
-                    <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm' >-</span>
-                    <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm'>0</span>
-                    <span className='px-1 sm:px-3 bg-white text-black rounded-sm'>+</span>
-                  </button>
-                </div>
-              </div>
-
-              <div className='flex mt-3'>
-                <div className='w-1/3 flex p-2 flex-col items-center'>
-                  <img className='w-48' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
-                  <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
-                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-red-950'>
-                    <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm' >-</span>
-                    <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm'>0</span>
-                    <span className='px-1 sm:px-3 bg-white text-black rounded-sm'>+</span>
-                  </button>
-                </div>
-
-                <div className='w-1/3 flex p-2 flex-col items-center'>
-                  <img className='w-48' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
-                  <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
-                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-red-950'>
-                    <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm' >-</span>
-                    <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm'>0</span>
-                    <span className='px-1 sm:px-3 bg-white text-black rounded-sm'>+</span>
-                  </button>
-                </div>
-
-                <div className='w-1/3 flex p-2 flex-col items-center'>
-                  <img className='w-48' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
-                  <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
-                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-red-950'>
+                  <img className='w-[240px]' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                  <h1 className='text-[27px] my-2 font-semibold'>$22.50</h1>
+                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-[#862e1b]'>
                     <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm' >-</span>
                     <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm'>0</span>
                     <span className='px-1 sm:px-3 bg-white text-black rounded-sm'>+</span>
@@ -309,9 +277,9 @@ export default function SubscriptionRoute() {
 
               <div className='flex mt-3'>
                 <div className='w-1/3 flex p-2 flex-col items-center'>
-                  <img className='w-48' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
-                  <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
-                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-red-950'>
+                  <img className='w-[240px]' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                  <h1 className='text-[27px] my-2 font-semibold'>$22.50</h1>
+                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-[#862e1b]'>
                     <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm' >-</span>
                     <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm'>0</span>
                     <span className='px-1 sm:px-3 bg-white text-black rounded-sm'>+</span>
@@ -319,9 +287,9 @@ export default function SubscriptionRoute() {
                 </div>
 
                 <div className='w-1/3 flex p-2 flex-col items-center'>
-                  <img className='w-48' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
-                  <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
-                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-red-950'>
+                  <img className='w-[240px]' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                  <h1 className='text-[27px] my-2 font-semibold'>$22.50</h1>
+                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-[#862e1b]'>
                     <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm' >-</span>
                     <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm'>0</span>
                     <span className='px-1 sm:px-3 bg-white text-black rounded-sm'>+</span>
@@ -329,41 +297,9 @@ export default function SubscriptionRoute() {
                 </div>
 
                 <div className='w-1/3 flex p-2 flex-col items-center'>
-                  <img className='w-48' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
-                  <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
-                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-red-950'>
-                    <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm' >-</span>
-                    <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm'>0</span>
-                    <span className='px-1 sm:px-3 bg-white text-black rounded-sm'>+</span>
-                  </button>
-                </div>
-              </div>
-
-              <div className='flex mt-3'>
-                <div className='w-1/3 flex p-2 flex-col items-center'>
-                  <img className='w-48' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
-                  <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
-                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-red-950'>
-                    <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm' >-</span>
-                    <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm'>0</span>
-                    <span className='px-1 sm:px-3 bg-white text-black rounded-sm'>+</span>
-                  </button>
-                </div>
-
-                <div className='w-1/3 flex p-2 flex-col items-center'>
-                  <img className='w-48' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
-                  <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
-                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-red-950'>
-                    <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm' >-</span>
-                    <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm'>0</span>
-                    <span className='px-1 sm:px-3 bg-white text-black rounded-sm'>+</span>
-                  </button>
-                </div>
-
-                <div className='w-1/3 flex p-2 flex-col items-center'>
-                  <img className='w-48' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
-                  <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
-                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-red-950'>
+                  <img className='w-[240px]' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                  <h1 className='text-[27px] my-2 font-semibold'>$22.50</h1>
+                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-[#862e1b]'>
                     <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm' >-</span>
                     <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm'>0</span>
                     <span className='px-1 sm:px-3 bg-white text-black rounded-sm'>+</span>
@@ -373,9 +309,9 @@ export default function SubscriptionRoute() {
 
               <div className='flex mt-3'>
                 <div className='w-1/3 flex p-2 flex-col items-center'>
-                  <img className='w-48' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
-                  <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
-                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-red-950'>
+                  <img className='w-[240px]' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                  <h1 className='text-[27px] my-2 font-semibold'>$22.50</h1>
+                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-[#862e1b]'>
                     <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm' >-</span>
                     <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm'>0</span>
                     <span className='px-1 sm:px-3 bg-white text-black rounded-sm'>+</span>
@@ -383,9 +319,9 @@ export default function SubscriptionRoute() {
                 </div>
 
                 <div className='w-1/3 flex p-2 flex-col items-center'>
-                  <img className='w-48' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
-                  <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
-                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-red-950'>
+                  <img className='w-[240px]' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                  <h1 className='text-[27px] my-2 font-semibold'>$22.50</h1>
+                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-[#862e1b]'>
                     <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm' >-</span>
                     <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm'>0</span>
                     <span className='px-1 sm:px-3 bg-white text-black rounded-sm'>+</span>
@@ -393,9 +329,9 @@ export default function SubscriptionRoute() {
                 </div>
 
                 <div className='w-1/3 flex p-2 flex-col items-center'>
-                  <img className='w-48' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
-                  <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
-                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-red-950'>
+                  <img className='w-[240px]' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                  <h1 className='text-[27px] my-2 font-semibold'>$22.50</h1>
+                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-[#862e1b]'>
                     <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm' >-</span>
                     <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm'>0</span>
                     <span className='px-1 sm:px-3 bg-white text-black rounded-sm'>+</span>
@@ -405,9 +341,9 @@ export default function SubscriptionRoute() {
 
               <div className='flex mt-3'>
                 <div className='w-1/3 flex p-2 flex-col items-center'>
-                  <img className='w-48' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
-                  <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
-                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-red-950'>
+                  <img className='w-[240px]' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                  <h1 className='text-[27px] my-2 font-semibold'>$22.50</h1>
+                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-[#862e1b]'>
                     <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm' >-</span>
                     <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm'>0</span>
                     <span className='px-1 sm:px-3 bg-white text-black rounded-sm'>+</span>
@@ -415,9 +351,9 @@ export default function SubscriptionRoute() {
                 </div>
 
                 <div className='w-1/3 flex p-2 flex-col items-center'>
-                  <img className='w-48' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
-                  <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
-                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-red-950'>
+                  <img className='w-[240px]' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                  <h1 className='text-[27px] my-2 font-semibold'>$22.50</h1>
+                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-[#862e1b]'>
                     <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm' >-</span>
                     <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm'>0</span>
                     <span className='px-1 sm:px-3 bg-white text-black rounded-sm'>+</span>
@@ -425,9 +361,73 @@ export default function SubscriptionRoute() {
                 </div>
 
                 <div className='w-1/3 flex p-2 flex-col items-center'>
-                  <img className='w-48' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
-                  <h1 className='text-lg my-2 font-semibold'>$22.50</h1>
-                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-red-950'>
+                  <img className='w-[240px]' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                  <h1 className='text-[27px] my-2 font-semibold'>$22.50</h1>
+                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-[#862e1b]'>
+                    <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm' >-</span>
+                    <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm'>0</span>
+                    <span className='px-1 sm:px-3 bg-white text-black rounded-sm'>+</span>
+                  </button>
+                </div>
+              </div>
+
+              <div className='flex mt-3'>
+                <div className='w-1/3 flex p-2 flex-col items-center'>
+                  <img className='w-[240px]' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                  <h1 className='text-[27px] my-2 font-semibold'>$22.50</h1>
+                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-[#862e1b]'>
+                    <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm' >-</span>
+                    <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm'>0</span>
+                    <span className='px-1 sm:px-3 bg-white text-black rounded-sm'>+</span>
+                  </button>
+                </div>
+
+                <div className='w-1/3 flex p-2 flex-col items-center'>
+                  <img className='w-[240px]' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                  <h1 className='text-[27px] my-2 font-semibold'>$22.50</h1>
+                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-[#862e1b]'>
+                    <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm' >-</span>
+                    <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm'>0</span>
+                    <span className='px-1 sm:px-3 bg-white text-black rounded-sm'>+</span>
+                  </button>
+                </div>
+
+                <div className='w-1/3 flex p-2 flex-col items-center'>
+                  <img className='w-[240px]' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                  <h1 className='text-[27px] my-2 font-semibold'>$22.50</h1>
+                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-[#862e1b]'>
+                    <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm' >-</span>
+                    <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm'>0</span>
+                    <span className='px-1 sm:px-3 bg-white text-black rounded-sm'>+</span>
+                  </button>
+                </div>
+              </div>
+
+              <div className='flex mt-3'>
+                <div className='w-1/3 flex p-2 flex-col items-center'>
+                  <img className='w-[240px]' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                  <h1 className='text-[27px] my-2 font-semibold'>$22.50</h1>
+                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-[#862e1b]'>
+                    <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm' >-</span>
+                    <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm'>0</span>
+                    <span className='px-1 sm:px-3 bg-white text-black rounded-sm'>+</span>
+                  </button>
+                </div>
+
+                <div className='w-1/3 flex p-2 flex-col items-center'>
+                  <img className='w-[240px]' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                  <h1 className='text-[27px] my-2 font-semibold'>$22.50</h1>
+                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-[#862e1b]'>
+                    <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm' >-</span>
+                    <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm'>0</span>
+                    <span className='px-1 sm:px-3 bg-white text-black rounded-sm'>+</span>
+                  </button>
+                </div>
+
+                <div className='w-1/3 flex p-2 flex-col items-center'>
+                  <img className='w-[240px]' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/hawaiian-shredded-pork-332683.png?v=1707508435" alt="" />
+                  <h1 className='text-[27px] my-2 font-semibold'>$22.50</h1>
+                  <button className='text-base flex items-center  font-semibold mb-3 py-2 px-4 text-white bg-[#862e1b]'>
                     <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm' >-</span>
                     <span className='mr-1 sm:mr-3 px-1 sm:px-3 bg-white text-black rounded-sm'>0</span>
                     <span className='px-1 sm:px-3 bg-white text-black rounded-sm'>+</span>
@@ -436,7 +436,7 @@ export default function SubscriptionRoute() {
               </div>
             </div>
 
-            <div className='lg:w-[35%] mt-[35px]  bg-white lg:mt-0 md:block lg:ml-[20px] border-solid w-full flex flex-col   border-2 border-lime-950 md:h-auto lg:h-[670px]'>
+            <div className='lg:w-[35%] mt-[35px]  bg-white lg:mt-0 md:block lg:ml-[20px] border-solid w-full flex flex-col   border-2 border-lime-950 md:h-auto lg:h-[800px] xl:h-[810px]'>
               <div className='bg-black text-center'>
                 <h2 className='text-white py-5'>YOUR SUBSCRIPTION</h2>
               </div>
@@ -469,19 +469,19 @@ export default function SubscriptionRoute() {
                 <div className='w-11/12 mt-3 flex justify-between items-center'>
                   <div className='flex items-center'>
                     <div>
-                      <img className='w-10' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/jamaican-jerk-beef-758700.png?v=1707508911" alt="" />
+                      <img className='w-16' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/jamaican-jerk-beef-758700.png?v=1707508911" alt="" />
                     </div>
                     <div className='pl-2'>
-                      <p className='text-xs font-semibold'>Jamaican Jerk Beef</p>
-                      <h1 className='text-base font-semibold'>$19.95</h1>
+                      <p className='text-sm font-semibold'>Jamaican Jerk Beef</p>
+                      <h1 className='text-[28px] font-semibold'>$19.95</h1>
                     </div>
                   </div>
                   <div>
-                  <button className='text-base flex items-center  font-semibold  py-1 px-2 text-white bg-red-950'>
-                    <span className='mr-2 px-2 bg-white text-black rounded-sm'>-</span>
-                    <span className='mr-2 px-2 bg-white text-black rounded-sm'>0</span>
-                    <span className='px-2 bg-white text-black rounded-sm'>+</span>
-                  </button>
+                    <button className='text-base flex items-center  font-semibold  py-1 px-2 text-white bg-[#862e1b]'>
+                      <span className='mr-2 px-2 bg-white text-black rounded-sm'>-</span>
+                      <span className='mr-2 px-2 bg-white text-black rounded-sm'>0</span>
+                      <span className='px-2 bg-white text-black rounded-sm'>+</span>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -490,19 +490,19 @@ export default function SubscriptionRoute() {
                 <div className='w-11/12 mt-3 flex justify-between items-center'>
                   <div className='flex items-center'>
                     <div>
-                      <img className='w-10' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/jamaican-jerk-beef-758700.png?v=1707508911" alt="" />
+                      <img className='w-16' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/jamaican-jerk-beef-758700.png?v=1707508911" alt="" />
                     </div>
                     <div className='pl-2'>
-                      <p className='text-xs font-semibold'>Jamaican Jerk Beef</p>
-                      <h1 className='text-base font-semibold'>$19.95</h1>
+                      <p className='text-sm font-semibold'>Jamaican Jerk Beef</p>
+                      <h1 className='text-[28px] font-semibold'>$19.95</h1>
                     </div>
                   </div>
                   <div>
-                  <button className='text-base flex items-center  font-semibold  py-1 px-2 text-white bg-red-950'>
-                    <span className='mr-2 px-2 bg-white text-black rounded-sm'>-</span>
-                    <span className='mr-2 px-2 bg-white text-black rounded-sm'>0</span>
-                    <span className='px-2 bg-white text-black rounded-sm'>+</span>
-                  </button>
+                    <button className='text-base flex items-center  font-semibold  py-1 px-2 text-white bg-[#862e1b]'>
+                      <span className='mr-2 px-2 bg-white text-black rounded-sm'>-</span>
+                      <span className='mr-2 px-2 bg-white text-black rounded-sm'>0</span>
+                      <span className='px-2 bg-white text-black rounded-sm'>+</span>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -511,19 +511,19 @@ export default function SubscriptionRoute() {
                 <div className='w-11/12 mt-3 flex justify-between items-center'>
                   <div className='flex items-center'>
                     <div>
-                      <img className='w-10' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/jamaican-jerk-beef-758700.png?v=1707508911" alt="" />
+                      <img className='w-16' src="https://cdn.shopify.com/s/files/1/0555/1751/1961/products/jamaican-jerk-beef-758700.png?v=1707508911" alt="" />
                     </div>
                     <div className='pl-2'>
-                      <p className='text-xs font-semibold'>Jamaican Jerk Beef</p>
-                      <h1 className='text-base font-semibold'>$19.95</h1>
+                      <p className='text-sm font-semibold'>Jamaican Jerk Beef</p>
+                      <h1 className='text-[28px] font-semibold'>$19.95</h1>
                     </div>
                   </div>
                   <div>
-                  <button className='text-base flex items-center  font-semibold  py-1 px-2 text-white bg-red-950'>
-                    <span className='mr-2 px-2 bg-white text-black rounded-sm'>-</span>
-                    <span className='mr-2 px-2 bg-white text-black rounded-sm'>0</span>
-                    <span className='px-2 bg-white text-black rounded-sm'>+</span>
-                  </button>
+                    <button className='text-base flex items-center  font-semibold  py-1 px-2 text-white bg-[#862e1b]'>
+                      <span className='mr-2 px-2 bg-white text-black rounded-sm'>-</span>
+                      <span className='mr-2 px-2 bg-white text-black rounded-sm'>0</span>
+                      <span className='px-2 bg-white text-black rounded-sm'>+</span>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -531,16 +531,16 @@ export default function SubscriptionRoute() {
 
               <div className='w-full flex  justify-center'>
                 <div className='w-11/12 flex items-end border-b-4 border-lime-800  justify-between'>
-                  <button className='text-sm font-semibold py-2 my-3 px-5 text-white bg-red-950'>Update Changes</button>
-                  <h1 className='my-3'>Total: $0.00</h1>
+                  <button className='text-sm md:text-xl font-semibold py-4 my-3 px-6 md:px-12 text-white bg-[#862e1b]'>Update Changes</button>
+                  <h1 className='my-3 text-xl'>Total: $0.00</h1>
                 </div>
               </div>
 
-              <div className='flex w-full items-center justify-center'>
+              <div className='flex w-full items-center flex-end justify-end'>
                 <div className='flex w-11/12 items-center justify-center'>
-                  <div className="bg-gray-100 p-3 rounded-lg shadow-md">
+                  <div className=" p-3 rounded-lg ">
                     <h2 className="text-xs font-bold mb-2">Free Meat (unlocked at $125)</h2>
-                    <select className="block w-full text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-400 focus:ring focus:ring-blue-200">
+                    <select className="block w-full text-sm border border-gray-300 rounded-md  ">
                       <option className='text-xs' value="Roasted Chicken Breast">Roasted Chicken Breast</option>
                       <option className='text-xs' value="Buffalo Chicken">Buffalo Chicken</option>
                       <option className='text-xs' value="Teriyaki Chicken">Teriyaki Chicken</option>
