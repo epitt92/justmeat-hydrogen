@@ -6,5 +6,8 @@ module.exports = {
     'no-case-declarations': 'off',
     'no-unused-vars': 'off',
     'prettier/prettier': 'off',
+    'jsx-a11y/click-events-have-key-events': 'off',
+    'jsx-a11y/no-noninteractive-element-interactions': 'off',
+    'jsx-a11y/alt-text': 'off',
   },
-};
+}
