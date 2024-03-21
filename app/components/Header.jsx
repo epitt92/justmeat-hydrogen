@@ -1,9 +1,10 @@
 import { Await, NavLink } from '@remix-run/react'
+import HeaderContext from './HeaderContext'
 import { Suspense, useContext } from 'react'
 import { useRootLoaderData } from '~/root'
 import OrderButton from './OrderButton'
 import { number } from 'prop-types'
-import HeaderContext from './HeaderContext'
+
 
 // import {useLocation} from "react-router-dom"
 /**
@@ -11,7 +12,7 @@ import HeaderContext from './HeaderContext'
  */
 export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
   
-  //const { switchHeader } = useContext(HeaderContext);
+  const { switchHeader } = useContext(HeaderContext);
 
   const Mainheader = () => {
     return (
@@ -137,8 +138,7 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
 
   return (
     <header className="container max-w-[100%] bg-[#eeeeee]  ">
-      <Mainheader />
-      {/*{ switchHeader === true ? <Landingheader /> : <Mainheader />}*/}
+      { switchHeader === true ? <Landingheader /> : <Mainheader />}
     </header>
   )
 }
