@@ -90,28 +90,28 @@ const DialogContent = ({ product }) => {
           {/* ingredient */}
           <div className="ingridiant_metafield flex justify-between max-w-[40%] my-5">
             <div className="ingridiant_width">
-              <div className="ingridiant_value text-[26px] font-bold text-[#1d1d1d] font-roboto_bold">
+              <div className="ingridiant_value text-[22px] font-bold text-[#1d1d1d] font-roboto_bold">
                 {product.protein.value}
               </div>
-              <div className="ingridiant_label font-roboto_medium text-xl  text-[#1d1d1d]  font-[400]">
+              <div className="ingridiant_label font-roboto_medium text-lg  text-[#1d1d1d]  font-[400]">
                 Protein
               </div>
             </div>
 
             <div className="ingridiant_width">
-              <div className="ingridiant_value text-[26px] font-bold text-[#1d1d1d] font-roboto_bold">
+              <div className="ingridiant_value text-[22px] font-bold text-[#1d1d1d] font-roboto_bold">
                 {product.fat.value}
               </div>
-              <div className="ingridiant_label font-roboto_medium text-xl  text-[#1d1d1d]  font-[400]">
+              <div className="ingridiant_label font-roboto_medium text-lg  text-[#1d1d1d]  font-[400]">
                 Fat
               </div>
             </div>
 
             <div className="ingridiant_width">
-              <div className="ingridiant_value text-[26px] font-bold text-[#1d1d1d] font-roboto_bold">
+              <div className="ingridiant_value text-[22px] font-bold text-[#1d1d1d] font-roboto_bold">
                 {product.carbs.value}
               </div>
-              <div className="ingridiant_label font-roboto_medium text-xl  text-[#1d1d1d]  font-[400]">
+              <div className="ingridiant_label font-roboto_medium text-lg  text-[#1d1d1d]  font-[400]">
                 Carbs
               </div>
             </div>
@@ -133,7 +133,7 @@ const DialogContent = ({ product }) => {
               <h1 className="font-roboto_medium text-[#1d1d1d] text-[16px] font-[600]">
                 INGREDIENTS:
               </h1>
-              <p className="text-[17px] font-roboto_medium text-[#1d1d1d] font-[400]">
+              <p className="text-[17px] font-roboto_medium text-[#1d1d1d] text-sm font-[400]">
                 {product.ingredients.value}
               </p>
             </div>
@@ -141,7 +141,7 @@ const DialogContent = ({ product }) => {
               <h1 className="font-roboto_medium text-[#1d1d1d] text-[16px] font-[600]">
                 ALLERGENS:
               </h1>
-              <p className="text-[17px] font-roboto_medium text-[#1d1d1d] font-[400]">
+              <p className="text-[17px] font-roboto_medium text-[#1d1d1d] text-sm font-[400]">
                 {product.allergens.value}
               </p>
             </div>
