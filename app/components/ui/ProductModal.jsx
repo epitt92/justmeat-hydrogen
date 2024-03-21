@@ -130,10 +130,10 @@ const DialogContent = ({ product }) => {
           {/* ingredeints */}
           <div className="grid grid-cols-5 mt-4">
             <div className="col-span-4 ingredeints">
-              <h1 className="font-roboto_medium text-[#1d1d1d] text-[16px] font-[600]">
+              <h1 className="font-roboto_medium text-[#1d1d1d] text-[16px] font-[600] ">
                 INGREDIENTS:
               </h1>
-              <p className="text-[17px] font-roboto_medium text-[#1d1d1d] text-sm font-[400]">
+              <p className="text-[17px] font-roboto_medium text-[#1d1d1d] text-sm max-w-[520px] font-[400]">
                 {product.ingredients.value}
               </p>
             </div>
