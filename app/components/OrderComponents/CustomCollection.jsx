@@ -284,13 +284,15 @@ const CustomCollection = ({ col }) => {
           <div className="flex product-and-cart">
             <div className="grid grid-cols-2 product-grid md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12">
               {nodes.map((product, key) => (
-                <ProductCard
+                product.handle !== "free-meat-unlocked-at-125" ? (
+                  <ProductCard
                   key={key}
                   product={product}
                   onClick={() => onProductClick(product)}
                   setSelectedProducts={setSelectedProducts}
                   selectedProducts={selectedProducts}
                 />
+                ) : null
               ))}
             </div>
             <div className="cart-wrapper sticky top-[10px] h-fit mb-[10px] hidden xl:block w-4/12">
