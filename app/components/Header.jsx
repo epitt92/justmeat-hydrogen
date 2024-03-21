@@ -10,7 +10,7 @@ import HeaderContext from './HeaderContext'
  * @param {HeaderProps}
  */
 export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
-  const { switchHeader } = useContext(HeaderContext)
+  // const { switchHeader } = useContext(HeaderContext)
 
   const Mainheader = () => {
     return (
@@ -18,12 +18,12 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
         <NavLink end prefetch="intent" to="/">
           <img
             src="/logo.svg"
-            className="object-cover w-30 h-16 sm:h-24"
+            className="object-cover h-16 w-30 sm:h-24"
             alt=""
           />
         </NavLink>
-        <div className="navBar flex justify-between items-center gap-10">
-          <ul className="navLinks lg:flex hidden">
+        <div className="flex items-center justify-between gap-10 navBar">
+          <ul className="hidden navLinks lg:flex">
             <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base ">
               <NavLink
                 end
@@ -56,12 +56,12 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
               </NavLink>
             </li>
           </ul>
-          <div className="lg:block hidden">
+          <div className="hidden lg:block">
             <OrderButton />
           </div>
-          <div className="headerIcons flex justify-between items-center gap-4 sm:gap-10">
+          <div className="flex items-center justify-between gap-4 headerIcons sm:gap-10">
             <NavLink end prefetch="intent" to="/account">
-              <span className="loginIcon lg:flex hidden w-5 flex cursor-pointer">
+              <span className="flex hidden w-5 cursor-pointer loginIcon lg:flex">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   id="Group_4154"
@@ -91,7 +91,7 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
               </span>
             </NavLink>
             <NavLink
-              className="lg:hidden block"
+              className="block lg:hidden"
               onClick={() => setMenuToggle(true)}
             >
               <HeaderMenuMobileToggle setMenuToggle={setMenuToggle} />
@@ -108,13 +108,13 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
       <div className="content flex justify-center items-center py-4 px-5 sm:px-10 max-w-[1440px] mx-auto relative landingheader">
         <img
           src="/logo.svg"
-          className="object-cover w-30 h-16 sm:h-24"
+          className="object-cover h-16 w-30 sm:h-24"
           alt=""
         />
         <NavLink end prefetch="intent" to="/" className="absolute left-0">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-8 w-8 m-4 "
+            className="w-8 h-8 m-4 "
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -136,7 +136,7 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
 
   return (
     <header className="container max-w-[100%] bg-[#eeeeee]  ">
-      {switchHeader ? <Landingheader /> : <Mainheader />}
+      {/* {switchHeader ? <Landingheader /> : <Mainheader />} */}
     </header>
   )
 }
@@ -250,7 +250,7 @@ function SearchToggle() {
 function CartBadge({ count }) {
   return (
     <NavLink end prefetch="intent" to="/cart">
-      <span className="CartIcon w-10 sm:w-5 relative  flex cursor-pointer">
+      <span className="relative flex w-10 cursor-pointer CartIcon sm:w-5">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           id="Group_4155"

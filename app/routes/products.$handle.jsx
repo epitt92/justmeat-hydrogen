@@ -428,6 +428,47 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
         }
       }
     }
+
+    nutration: metafield(namespace: "custom", key: "nutration") {
+      value
+      type
+    }
+    cardDescription: metafield(namespace: "custom", key: "card_description") {
+      value
+      type
+    }
+    protein: metafield(namespace: "custom", key: "protein") {
+      value
+      type
+    }
+    carbs: metafield(namespace: "custom", key: "carbs") {
+      value
+      type
+    }
+    fat: metafield(namespace: "custom", key: "fat") {
+      value
+      type
+    }
+    servings: metafield(namespace: "custom", key: "servings") {
+      value
+      type
+    }
+    ingredients: metafield(namespace: "custom", key: "ingredients") {
+      value
+      type
+    }
+    product_information: metafield(namespace: "custom", key: "product_information") {
+      value
+      type
+    }
+    allergens: metafield(namespace: "custom", key: "allergens") {
+      value
+      type
+    }
+    cart_drawer_img: metafield(namespace: "custom", key: "cart_drawer_img") {
+      value
+      type
+    }
   }
 `
 
