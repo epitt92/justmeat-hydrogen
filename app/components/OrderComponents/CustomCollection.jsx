@@ -6,7 +6,7 @@ import {
   getPaginationVariables,
   getSelectedProductOptions,
 } from '@shopify/hydrogen';
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { CartProvider, useCart, ProductProvider } from '@shopify/hydrogen-react';
 import { defer, json, redirect } from '@remix-run/server-runtime';
 import { Await, Link, useLoaderData } from '@remix-run/react';
@@ -260,6 +260,26 @@ const CustomCollection = ({ col }) => {
   const [selectedProducts, setSelectedProducts] = useState([])
   const [clickedProduct, setClickedProduct] = useState(null)
   const [showCart,setShowCart] = useState(false);
+  const [total,setTotal] = useState(0.00);
+
+  useEffect(() => {
+    // Calculate the total cost of all products in selectedProducts
+    const totalCost = selectedProducts.reduce(
+      (acc, curr) => acc + parseFloat(curr.totalAmount),
+      0,
+    )
+    // Update the mainCart state with the total cost
+    setTotal(totalCost)
+  }, [selectedProducts])
+
+    function roundNumber (amount){
+     const value = amount;
+     let roundAmount = amount.toFixed(2);
+
+     return roundAmount;
+
+    }
+
   function onProductClick(product) {
     setClickedProduct(product)
   }
@@ -274,7 +294,6 @@ const CustomCollection = ({ col }) => {
         <div className="w-[60px] h-[60px] hidden lg:flex rounded-[100%] bg-black justify-center items-center">
           <span className="text-[40px] font-bold text-white">2</span>
         </div>
-
         <main className="main-section flex gap-2 flex-1 flex-col bg-white sm:border border-gray-400 border-solid">
           <div className="flex w-full  items-center py-3 sm:py-0 gap-2">
             <div className="w-[35px] h-[35px] ml-3 lg:hidden lg:w-[60px] lg:h-[60px] rounded-[100%] sm:border-none border-2 border-[#425C35] sm:bg-black flex justify-center items-center  ">
@@ -297,13 +316,13 @@ const CustomCollection = ({ col }) => {
                 />
               ))}
             </div>
-            <div className={`mobile-cart-toggle fixed left-0 bottom-0  h-fit  xl:hidden block w-full   transition-all duration-300  ${showCart ? '' : ''}`}>
+            <div className={`mobile-cart-toggle fixed left-0 bottom-0  h-fit  xl:hidden block w-full   transition-all duration-500  ${showCart ? '' : ''}`}>
               <div className='flex justify-start items-center rounded-[20px] px-10'>
               <div className=''>
                  <img onClick={()=>setShowCart(false)} src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/imgpsh_fullsize_anim_1_1.png?v=1711048163" alt="" />
               </div>
-              <span onClick={()=>setShowCart(true)} className='text-[20px] font-semibold flex-1 bg-[#aaa] h-auto py-[15px] rounded-[15px] text-center text-white'>
-                 Add $85.78
+              <span onClick={()=>setShowCart(true)} className="text-[20px] font-semibold flex-1 bg-[#aaa] h-auto py-[15px] rounded-[15px] text-center text-white" >
+                 {total >= 75 ? ` View Cart-($${(roundNumber(total))})` : `Add $${roundNumber((75 - total))} to Unlock Cart ($${(roundNumber(total))})`}
               </span>
               </div>
             </div>
