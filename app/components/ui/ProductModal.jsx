@@ -41,7 +41,7 @@ const ProductModal = ({ product, onClose }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-[1240px] text-left align-middle transition-all transform bg-white shadow-xl">
+              <Dialog.Panel className="w-full max-w-[1120px] text-left align-middle transition-all transform bg-[#edeaea] text-[#1d1d1d] shadow-xl">
                 {product && <DialogContent product={product} />}
               </Dialog.Panel>
             </Transition.Child>
@@ -58,7 +58,7 @@ const DialogContent = ({ product }) => {
 
   return (
     <>
-      <div className="grid grid-cols-3 p-[50px]">
+      <div className="grid grid-cols-3 pt-[50px] pb-[20px] ">
         <div className="overflow-hidden product-gallary">
           <ProductGallary media={media} />
         </div>
@@ -72,16 +72,16 @@ const DialogContent = ({ product }) => {
           <p className="custom-serving py-5 text-[28px] text-[#1d1d1d] font-bold">
             ${product.servings.value}
           </p>
-          <div className="healthy grid grid-cols-2 max-w-[60%]">
+          <div className="healthy grid grid-cols-2 max-w-[70%]">
             <div className="flex items-center gap-2 fresh ">
               <div className="ball-circle"></div>
-              <p className="text text-[18px] text-[#1d1d1d] font-roboto_bold ">
+              <p className="text text-[18px] text-[#1d1d1d] font-roboto_bold font-semibold">
                 Healthy, Fresh
               </p>
             </div>
             <div className="flex items-center gap-2 2-minute">
               <div className="ball-circle"></div>
-              <p className="text text-[18px] text-[#1d1d1d] font-roboto_bold ">
+              <p className="text text-[18px] text-[#1d1d1d] font-roboto_bold font-semibold">
                 Prep Time 2 Minutes
               </p>
             </div>
@@ -123,7 +123,7 @@ const DialogContent = ({ product }) => {
             <h2 className="text-xl font-bold desc-title description font-roboto_bold">
               Product Information:
             </h2>
-            <p className="font-roboto_medium text-[#1d1d1d] text-sm">
+            <p className="font-roboto_medium text-[#1d1d1d] text-sm max-w-[520px]">
               {product.product_information.value}
             </p>
           </div>
@@ -148,19 +148,19 @@ const DialogContent = ({ product }) => {
           </div>
         </div>
       </div>
-      <div className="flex justify-around py-2 border-t-4">
+      <div className="flex justify-around py-2 " style={{borderTop: "3px solid #70707099"}}>
         <div className="flex items-center gap-6 money-back ">
           <img
             src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/1279px-Font_Awesome_5_solid_money-bill-wave_svg.png"
             alt="money"
             width={65}
           />
-          <h1 className="text-[28px] font-roboto_bold text-[#1d1d1d]">
+          <h1 className="text-[24px] font-roboto_bold text-[#1d1d1d] font-semibold">
             Money back guarantee
           </h1>
         </div>
         <div className="flex items-center justify-center gap-3 price-bottom">
-          <div className="price-text text-[40px] font-roboto_bold text-[#1d1d1d]">
+          <div className="price-text text-[36px] font-roboto_bold text-[#1d1d1d] font-semibold">
             ${product.priceRange.minVariantPrice.amount}
           </div>
           <div className="cta-btn">
