@@ -7,11 +7,10 @@ import { useRootLoaderData } from '~/root'
  * @param {FooterQuery & {shop: HeaderQuery['shop']}}
  */
 export function Footer({ menu, shop }) {
-  const {switchHeader} = useContext(HeaderContext)
-  return (
-    <>
-    { switchHeader === false ? (
-      <footer className="footer max-w-[100%] bg-black ">
+  //const {switchHeader} = useContext(HeaderContext);
+
+  const Footer = () => {
+    <footer className="footer max-w-[100%] bg-black ">
         <div className="content max-w-[1440px] px-5 sm:px-10 mx-auto ">
           <div className="flex justify-between items-start flex-wrap lg:flex-nowrap gap-10 lg:gap-10 py-10 sm:py-20 ">
             <div className="footerLogo flex justify-center items-center  sm:w-5/12 lg:w-1/4 ">
@@ -89,7 +88,11 @@ export function Footer({ menu, shop }) {
           </div>
         </div>
       </footer>
-    ) : null }
+  }
+  return (
+    <>
+      <Footer />
+      {/*{ switchHeader === false ? <Footer /> : null }*\}
     </>
     
   )
