@@ -24,7 +24,7 @@ const AsideCart = ({ selectedProducts, setSelectedProducts ,setShowCart }) => {
     <div className="cart">
       {/* <h1>Cart</h1> */}
       
-       <CartMain selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} />
+       <CartMain selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} setShowCart={setShowCart} />
           
       
       {/* <Suspense fallback={<p>Loading cart ...</p>}>
@@ -300,17 +300,17 @@ const CustomCollection = ({ col }) => {
             <div className={`mobile-cart-toggle fixed left-0 bottom-0  h-fit  xl:hidden block w-full   transition-all duration-300  ${showCart ? '' : ''}`}>
               <div className='flex justify-start items-center rounded-[20px] px-10'>
               <div className=''>
-                 <img onClick={setShowCart(false)} src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/imgpsh_fullsize_anim_1_1.png?v=1711048163" alt="" />
+                 <img onClick={()=>setShowCart(false)} src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/imgpsh_fullsize_anim_1_1.png?v=1711048163" alt="" />
               </div>
               <span onClick={()=>setShowCart(true)} className='text-[20px] font-semibold flex-1 bg-[#aaa] h-auto py-[15px] rounded-[15px] text-center text-white'>
                  Add $85.78
               </span>
               </div>
             </div>
-            <div className={`cart-wrapper fixed left-0 bottom-0 xl:sticky xl:top-[10px] h-fit xl:mb-[10px] md:block hidden w-full bg-white xl:bg-transparent xl:w-4/12 transition-all duration-300 xl:translate-y-0 ${showCart ? 'translate-y-0' : 'translate-y-[-1000px]'}`}>
+            <div className={`cart-wrapper fixed left-0 bottom-0 xl:sticky xl:top-[10px] h-fit xl:mb-[10px] md:block hidden w-full bg-white xl:bg-transparent xl:w-4/12 transition-all duration-300 xl:translate-y-0 ${showCart ? 'translate-y-0' : 'translate-y-[15000px]'}`}>
               <div className="h-full xl:border shadow-[0 -5px 20px #333] rounded-[10x]">
                  <div className='bg-white p-2 flex justify-start  xl:hidden block'>
-                 <div className='w-[30px]'>
+                 <div className='w-[30px]' onClick={()=>setShowCart(false)}>
                  <svg class="cartsvgarrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M32 15H3.41l8.29-8.29-1.41-1.42-10 10a1 1 0 0 0 0 1.41l10 10 1.41-1.41L3.41 17H32z" data-name="4-Arrow Left"></path></svg>
                  </div>
                  <p className='text-center flex-1 text-[20px] font-semibold text-[#1d1d1d]'>YOUR SHOPPING CART</p>

@@ -1,13 +1,7 @@
-import {CartForm, Image, Money} from '@shopify/hydrogen';
-import {Link} from '@remix-run/react';
-import {useVariantUrl} from '~/lib/variants';
-import {useRootLoaderData} from '~/root';
-import {useEffect, useState} from 'react';
-import CustomProgressBar from './ui/CustomProgressBar';
-import ProductQuantity from './OrderComponents/ProductQuantity';
-
-
-
+import { CartForm, Image, Money } from '@shopify/hydrogen'
+import { useEffect, useState } from 'react'
+import CustomProgressBar from './ui/CustomProgressBar'
+import ProductQuantity from './OrderComponents/ProductQuantity'
 
 export function CartMain({
   layout,
@@ -21,42 +15,49 @@ export function CartMain({
 
   useEffect(() => {
     // Calculate the total cost of all products in selectedProducts
-    const totalCost = selectedProducts.reduce((acc, curr) => acc + parseFloat(curr.totalAmount), 0);
+    const totalCost = selectedProducts.reduce(
+      (acc, curr) => acc + parseFloat(curr.totalAmount),
+      0,
+    )
     // Update the mainCart state with the total cost
-    setSubTotal(totalCost);
-  }, [selectedProducts]);
-  
+    setSubTotal(totalCost)
+  }, [selectedProducts])
 
-  const handleRemove = (productId) => {
-    setSelectedProducts((prevSelectedProducts) =>
-      prevSelectedProducts.filter((product) => product.id !== productId)
-    );
-  };
+  const withDiscount =
+    cart &&
+    Boolean(cart?.discountCodes?.filter((code) => code.applicable)?.length)
+  const className = `cart-main ${withDiscount ? 'with-discount' : ''}`
 
   return (
-    <div className='cart-main'>
+    <div className={className}>
       <ProgessBar cost={subTotal} />
       <CartDetails
-        // cart={cart}
-        // layout={layout}
+        cart={cart}
+        layout={layout}
         selectedProducts={selectedProducts}
         setSelectedProducts={setSelectedProducts}
-        onRemove={handleRemove}
         subTotal={subTotal}
       />
-      <CartEmpty hidden={linesCount}  />
+      <CartEmpty hidden={linesCount} layout={layout} />
     </div>
-  );
+  )
 }
 
 /**
  * @param {CartMainProps}
  */
-function CartDetails({ selectedProducts,onRemove,setSelectedProducts,subTotal}) {
-  const cartHasItems = selectedProducts.length > 0;
+function CartDetails({
+  layout,
+  cart,
+  selectedProducts,
+  onRemove,
+  setSelectedProducts,
+  subTotal,
+}) {
+  const cartHasItems = selectedProducts.length > 0
   // const cartHasItems = !!cart && cart.totalQuantity < 0;
   return (
-    <div className="cart-details flex flex-col justify-between">
+    <div className="flex flex-col justify-between cart-details">
       <CartLines
         selectedProducts={selectedProducts}
         setSelectedProducts={setSelectedProducts}
@@ -76,8 +77,8 @@ function CartDetails({ selectedProducts,onRemove,setSelectedProducts,subTotal}) 
               />
             </CartSummary>
           </div>
-          <div className=" pt-4 flex gap-3 justify-end ">
-            <div className="flex flex-1 flex-col items-end gap-1 justify-end">
+          <div className="flex justify-end gap-3 pt-0 ">
+            <div className="flex flex-col items-end justify-end flex-1 gap-1">
               <p className="text-[14px] font-semibold text-black">
                 Free Bonus Meat (unlocked at $125)
               </p>
@@ -92,10 +93,10 @@ function CartDetails({ selectedProducts,onRemove,setSelectedProducts,subTotal}) 
         </div>
       )}
     </div>
-  );
+  )
 }
 
-function ProgessBar({cost}) {
+function ProgessBar({ cost }) {
   return (
     <div>
       <div className="progress-bar ">
@@ -108,10 +109,10 @@ function ProgessBar({cost}) {
         />
       </div>
     </div>
-  );
+  )
 }
 
-function LockedItem({cost}) {
+function LockedItem({ cost }) {
   return (
     <>
       {cost >= 125 ? (
@@ -131,12 +132,11 @@ function LockedItem({cost}) {
         </span>
       )}
     </>
-  );
+  )
 }
 
-
-function CartLines({ selectedProducts , onRemove ,setSelectedProducts}) {
-  if (!selectedProducts) return null;
+function CartLines({ selectedProducts, onRemove, setSelectedProducts }) {
+  if (!selectedProducts) return null
 
   return (
     <div aria-labelledby="cart-lines" className="max-h-[240px] h-full xl:max-h-[260px] xl:h-[260px] overflow-auto">
@@ -160,46 +160,49 @@ function CartLines({ selectedProducts , onRemove ,setSelectedProducts}) {
         ))}
       </ul>
     </div>
-  );
+  )
 }
 
-
-
-function CartLineItem({ line ,onRemove,selectedProducts,setSelectedProducts}) {
-  const {id, title,featuredImage,priceRange,quantity } = line;
-  const image = featuredImage.url;
-  const price = priceRange?.maxVariantPrice?.amount;
-  const [updateQty, setUpdatedQty] = useState(1);
-  const [productAmount,setProductAmount] = useState(price);
+function CartLineItem({
+  line,
+  onRemove,
+  selectedProducts,
+  setSelectedProducts,
+}) {
+  const { id, title, featuredImage, priceRange, quantity } = line
+  const image = featuredImage.url
+  const price = priceRange?.maxVariantPrice?.amount
 
   return (
-    <li key={id} className="cart-line pl-[10px] mb-5 flex gap-4">
+    <li key={id} className="cart-line pl-[10px] mb-2 flex gap-4">
       {featuredImage && (
-        <img src={image} alt=""height={100}
-        loading="lazy"
-        width={72} />
-        )}
+        <img src={image} alt="" height={100} loading="lazy" width={72} />
+      )}
 
       <div className="flex  flex-1 pr-[10px] justify-between items-center ">
-        <div className="h-fit flex-1">
-        
-            <p className="font-semibold text-[14px]  text-center ">
-              <strong className="pr-[10px] flex justify-center">{title}</strong>
-            </p>
-          
+        <div className="flex-1 h-fit">
+          <p className="font-semibold text-[14px]  text-center ">
+            <strong className="pr-[10px] flex justify-center">{title}</strong>
+          </p>
+
           <p className="font-bold text-center text-[25px]">
             ${priceRange.maxVariantPrice.amount}
           </p>
         </div>
-
-           <ProductQuantity line ={line} layout={"aside"} onRemove={onRemove} selectedProducts ={selectedProducts} setSelectedProducts={setSelectedProducts}/>
+        {line && (
+          <ProductQuantity
+            line={line}
+            onRemove={onRemove}
+            selectedProducts={selectedProducts}
+            setSelectedProducts={setSelectedProducts}
+          />
+        )}
       </div>
     </li>
-  );
+  )
 }
 
-
-function CartCheckoutActions({ cost}) {
+function CartCheckoutActions({ cost }) {
   // if (!checkoutUrl) return null;
   return (
     <>
@@ -225,24 +228,22 @@ function CartCheckoutActions({ cost}) {
         </div>
       )}
     </>
-  );
+  )
 }
 
-
-export function CartSummary({cost, layout, children = null}) {
+export function CartSummary({ cost, layout, children = null }) {
   const className =
-    layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
+    layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside'
   return (
     <div
       aria-labelledby="cart-summary"
       className={`${className} flex justify-between items-end `}
     >
       {/* <h4>Totals</h4> */}
-      <dl className="cart-subtotal flex font-semibold text-base">
+      <dl className="flex text-base font-semibold cart-subtotal">
         <dt>Total: </dt>
         {cost ? (
-          <span className="text-[20px] pr-1 line-through decoration-[#000] decoration-[3px] text-[#919191] ">
-
+          <span className="text-[16px] pr-1 line-through decoration-[#000] decoration-[3px] text-[#919191] ">
             {`$${(cost + 11.45).toFixed(2)}`}
           </span>
         ) : (
@@ -251,7 +252,9 @@ export function CartSummary({cost, layout, children = null}) {
         <dd>
           {cost ? (
             // <Money data={cost} />
-            <span className='font-semibold text-center text-base'>${cost.toFixed(2)}</span>
+            <span className="text-[16px] font-semibold text-center">
+              ${cost.toFixed(2)}
+            </span>
           ) : (
             '-'
           )}
@@ -259,56 +262,53 @@ export function CartSummary({cost, layout, children = null}) {
       </dl>
       {children}
     </div>
-  );
+  )
 }
-
 
 function addAmount(baseAmount, additionalAmount) {
   // Parse the base amount and additional amount as floats
-  const base = parseFloat(baseAmount);
-  const additional = parseFloat(additionalAmount);
+  const base = parseFloat(baseAmount['amount'])
+  const additional = parseFloat(additionalAmount)
 
   // Check if the base amount is a valid number
   if (isNaN(base)) {
-    console.error('Invalid base amount:', baseAmount);
-    return null;
+    console.error('Invalid base amount:', baseAmount)
+    return null
   }
 
   // Check if the additional amount is a valid number
   if (isNaN(additional)) {
-    console.error('Invalid additional amount:', additionalAmount);
-    return null;
+    console.error('Invalid additional amount:', additionalAmount)
+    return null
   }
 
   // Calculate the sum of base and additional amounts
-  let sum = base + additional;
+  let sum = base + additional
 
   // Round the sum to 2 decimal places
-  sum = Math.round((sum + Number.EPSILON) * 100) / 100;
+  sum = Math.round((sum + Number.EPSILON) * 100) / 100
 
   // Convert the sum to a string
-  let sumStr = sum.toString();
+  let sumStr = sum.toString()
 
   // Check if the sum has decimal part
-  const decimalIndex = sumStr.indexOf('.');
+  const decimalIndex = sumStr.indexOf('.')
   if (decimalIndex === -1) {
     // If no decimal part, add '.00' to the end
-    sumStr += '.00';
+    sumStr += '.00'
   } else {
     // If decimal part exists, ensure there are always two digits after the decimal point
-    const decimalDigits = sumStr.length - decimalIndex - 1;
+    const decimalDigits = sumStr.length - decimalIndex - 1
     if (decimalDigits === 1) {
       // If only one digit after the decimal point, add a zero
-      sumStr += '0';
+      sumStr += '0'
     } else if (decimalDigits > 2) {
       // If more than two digits after the decimal point, round to two digits
-      sumStr = sum.toFixed(2);
+      sumStr = sum.toFixed(2)
     }
   }
-  return sumStr;
+  return sumStr
 }
-
-
 
 /**
  * @param {{
@@ -317,23 +317,25 @@ function addAmount(baseAmount, additionalAmount) {
  *   [key: string]: any;
  * }}
  */
-function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
-  if (!line?.cost?.amountPerQuantity || !line?.cost?.totalAmount) return null;
+function CartLinePrice({ line, priceType = 'regular', ...passthroughProps }) {
+  if (!line?.cost?.amountPerQuantity || !line?.cost?.totalAmount) return null
 
   const moneyV2 =
     priceType === 'regular'
       ? line.cost.totalAmount
-      : line.cost.compareAtAmountPerQuantity;
+      : line.cost.compareAtAmountPerQuantity
+
+  const moneyV3 = line.cost.amountPerQuantity
 
   if (moneyV2 == null) {
-    return null;
+    return null
   }
 
   return (
     <div className="font-bold text-center text-[25px] ">
-      <Money withoutTrailingZeros {...passthroughProps} data={moneyV2} />
+      <Money withoutTrailingZeros {...passthroughProps} data={moneyV3} />
     </div>
-  );
+  )
 }
 
 /**
@@ -342,8 +344,7 @@ function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
  *   layout?: CartMainProps['layout'];
  * }}
  */
-export function CartEmpty({hidden = false, layout = 'aside'}) {
-
+export function CartEmpty({ hidden = false, layout = 'aside' }) {
   return (
     <div hidden={hidden} className="h-[260px] ">
       <br />
@@ -356,7 +357,7 @@ export function CartEmpty({hidden = false, layout = 'aside'}) {
             <p className="pr-1 text-base font-semibold">Total:</p>
             <p className="text-base font-semibold">$0.00</p>
           </div>
-          <div className="flex justify-end items-center w-8/12 pointer-events-none select-none  ">
+          <div className="flex items-center justify-end w-8/12 pointer-events-none select-none ">
             <a
               // href={checkoutUrl}
               className=" text-[15px] text-center py-[15px] px-[20px] font-semibold text-white bg-[#6e6e6e]"
@@ -366,8 +367,8 @@ export function CartEmpty({hidden = false, layout = 'aside'}) {
             </a>
           </div>
         </div>
-        <div className=" pt-6 flex gap-3 justify-end ">
-          <div className="flex  flex-col items-end gap-1 justify-end">
+        <div className="flex justify-end gap-3 pt-6 ">
+          <div className="flex flex-col items-end justify-end gap-1">
             <p className="text-[14px] font-semibold text-black">
               Free Bonus Meat (unlocked at $125)
             </p>
@@ -383,7 +384,7 @@ export function CartEmpty({hidden = false, layout = 'aside'}) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 /**
@@ -391,11 +392,11 @@ export function CartEmpty({hidden = false, layout = 'aside'}) {
  *   discountCodes: CartApiQueryFragment['discountCodes'];
  * }}
  */
-function CartDiscounts({discountCodes}) {
+function CartDiscounts({ discountCodes }) {
   const codes =
     discountCodes
       ?.filter((discount) => discount.applicable)
-      ?.map(({code}) => code) || [];
+      ?.map(({ code }) => code) || []
 
   return (
     <div>
@@ -422,7 +423,7 @@ function CartDiscounts({discountCodes}) {
         </div>
       </UpdateDiscountForm>
     </div>
-  );
+  )
 }
 
 /**
@@ -431,7 +432,7 @@ function CartDiscounts({discountCodes}) {
  *   children: React.ReactNode;
  * }}
  */
-function UpdateDiscountForm({discountCodes, children}) {
+function UpdateDiscountForm({ discountCodes, children }) {
   return (
     <CartForm
       route="/products/custom-bundle"
@@ -442,7 +443,7 @@ function UpdateDiscountForm({discountCodes, children}) {
     >
       {children}
     </CartForm>
-  );
+  )
 }
 
 /**
@@ -451,16 +452,16 @@ function UpdateDiscountForm({discountCodes, children}) {
  *   lines: CartLineUpdateInput[];
  * }}
  */
-function CartLineUpdateButton({children, lines}) {
+function CartLineUpdateButton({ children, lines }) {
   return (
     <CartForm
       route="/products/custom-bundle"
       action={CartForm.ACTIONS.LinesUpdate}
-      inputs={{lines}}
+      inputs={{ lines }}
     >
       {children}
     </CartForm>
-  );
+  )
 }
 
 /** @typedef {CartApiQueryFragment['lines']['nodes'][0]} CartLine */
