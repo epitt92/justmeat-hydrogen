@@ -1,17 +1,14 @@
 import React from 'react'
 
-const ProductQuantity = ({
-  line,
-  onRemove,
-  selectedProducts,
-  setSelectedProducts,
-}) => {
+const ProductQuantity = ({ line, selectedProducts, setSelectedProducts }) => {
   const { id, quantity, priceRange } = line
   const price = priceRange?.maxVariantPrice?.amount
 
   const updateQuantity = (value) => {
     if (value === 0) {
-      onRemove(id)
+      setSelectedProducts((prevSelectedProducts) =>
+        prevSelectedProducts.filter((product) => product.id !== id),
+      )
     } else {
       const updatedProducts = selectedProducts.map((product) => {
         if (product.id === id) {
