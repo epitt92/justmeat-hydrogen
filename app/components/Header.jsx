@@ -12,7 +12,7 @@ import { number } from 'prop-types'
  */
 export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
   
-  //const { switchHeader } = useContext(HeaderContext);
+  // const { switchHeader } = useContext(HeaderContext);
 
   const Mainheader = () => {
     return (
@@ -139,7 +139,7 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
   return (
     <header className="container max-w-[100%] bg-[#eeeeee]  ">
       <Mainheader />
-      {/*{ switchHeader === true ? <Landingheader /> : <Mainheader />}*/}
+      {/* { switchHeader === true ? <Landingheader /> : <Mainheader />} */}
     </header>
   )
 }
