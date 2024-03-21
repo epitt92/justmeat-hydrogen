@@ -1,7 +1,4 @@
 import { CartForm, Image, Money } from '@shopify/hydrogen'
-import { Link } from '@remix-run/react'
-import { useVariantUrl } from '~/lib/variants'
-import { useRootLoaderData } from '~/root'
 import { useEffect, useState } from 'react'
 import CustomProgressBar from './ui/CustomProgressBar'
 import ProductQuantity from './OrderComponents/ProductQuantity'
@@ -14,6 +11,7 @@ export function CartMain({
 }) {
   const [subTotal, setSubTotal] = useState(0)
   const linesCount = Boolean(selectedProducts.length || 0)
+
   useEffect(() => {
     // Calculate the total cost of all products in selectedProducts
     const totalCost = selectedProducts.reduce(
@@ -29,12 +27,6 @@ export function CartMain({
     Boolean(cart?.discountCodes?.filter((code) => code.applicable)?.length)
   const className = `cart-main ${withDiscount ? 'with-discount' : ''}`
 
-  const handleRemove = (productId) => {
-    setSelectedProducts((prevSelectedProducts) =>
-      prevSelectedProducts.filter((product) => product.id !== productId),
-    )
-  }
-
   return (
     <div className={className}>
       <ProgessBar cost={subTotal} />
@@ -43,7 +35,6 @@ export function CartMain({
         layout={layout}
         selectedProducts={selectedProducts}
         setSelectedProducts={setSelectedProducts}
-        onRemove={handleRemove}
         subTotal={subTotal}
       />
       <CartEmpty hidden={linesCount} layout={layout} />
@@ -189,7 +180,6 @@ function CartLineItem({
         {line && (
           <ProductQuantity
             line={line}
-            layout={'aside'}
             onRemove={onRemove}
             selectedProducts={selectedProducts}
             setSelectedProducts={setSelectedProducts}

@@ -1,20 +1,10 @@
-import {
-  CartForm,
-  Image,
-  Pagination,
-  VariantSelector,
-  getPaginationVariables,
-  getSelectedProductOptions,
-} from '@shopify/hydrogen'
+import { CartForm, VariantSelector } from '@shopify/hydrogen'
 import React, { Suspense, useState } from 'react'
-import { CartProvider, useCart, ProductProvider } from '@shopify/hydrogen-react'
-import { defer, json, redirect } from '@remix-run/server-runtime'
 import { Await, Link, useLoaderData } from '@remix-run/react'
 import { CartMain } from '~/components/AsideCart'
 import { useRootLoaderData } from '~/root'
 import ProductModal from '../ui/ProductModal'
-import CustomProgressBar from '../ui/CustomProgressBar'
-import { Aside } from '../Aside'
+import ProductQuantity from './ProductQuantity'
 
 const AsideCart = ({ selectedProducts, setSelectedProducts }) => {
   const rootData = useRootLoaderData()
@@ -52,39 +42,22 @@ function ProductCard({
   const image = product.featuredImage.url
   const productHandle = product.handle
   const productPrice = product?.priceRange?.maxVariantPrice?.amount
-  const selectedVariant = product.variants.nodes[0]
 
   function addToSelectedProducts() {
     setSelectedProducts((prevSelectedProducts) => {
-      // Check if the product is already in the array
-      if (
-        !prevSelectedProducts.some(
-          (selectedProduct) => selectedProduct.id === product.id,
-        )
-      ) {
-        return [
-          ...prevSelectedProducts,
-          {
-            ...product,
-            quantity: 1,
-            amount: productPrice,
-            totalAmount: productPrice,
-          },
-        ]
-      }
-      return prevSelectedProducts
+      return [
+        ...prevSelectedProducts,
+        {
+          ...product,
+          quantity: 1,
+          amount: productPrice,
+          totalAmount: productPrice,
+        },
+      ]
     })
   }
 
-  function removeFromSelectedProducts() {
-    setSelectedProducts((prevSelectedProducts) =>
-      prevSelectedProducts.filter(
-        (selectedProduct) => selectedProduct.id !== product.id,
-      ),
-    )
-  }
-
-  const isSelected = selectedProducts.some(
+  const line = selectedProducts.find(
     (selectedProduct) => selectedProduct.id === product.id,
   )
 
@@ -135,15 +108,23 @@ function ProductCard({
         </span>
       </div>
       <div className="mx-auto my-5 text-center">
-        <button
-          onClick={addToSelectedProducts}
-          className="bg-[#862e1b] mx-auto flex justify-center items-center py-[10px] gap-[5px] px-[20px] leading-none font-bold text-white"
-        >
-          <span className=" p-[3px] text-[25px] leading-[13px] bg-white text-[#862e1b]  ">
-            +
-          </span>
-          ADD
-        </button>
+        {line ? (
+          <ProductQuantity
+            line={line}
+            selectedProducts={selectedProducts}
+            setSelectedProducts={setSelectedProducts}
+          />
+        ) : (
+          <button
+            onClick={addToSelectedProducts}
+            className="bg-[#862e1b] mx-auto flex justify-center items-center py-[10px] gap-[5px] px-[20px] leading-none font-bold text-white"
+          >
+            <span className=" p-[3px] text-[25px] leading-[13px] bg-white text-[#862e1b]  ">
+              +
+            </span>
+            ADD
+          </button>
+        )}
       </div>
     </div>
   )
