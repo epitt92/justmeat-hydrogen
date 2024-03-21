@@ -1,7 +1,7 @@
+import HeaderContext from './HeaderContext'
 import { NavLink } from '@remix-run/react'
 import { useContext } from 'react'
 import { useRootLoaderData } from '~/root'
-import HeaderContext from './HeaderContext'
 
 /**
  * @param {FooterQuery & {shop: HeaderQuery['shop']}}
