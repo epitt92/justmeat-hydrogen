@@ -73,7 +73,7 @@ function CartDetails({
               />
             </CartSummary>
           </div>
-          <div className="flex justify-end gap-3 pt-4 ">
+          <div className="flex justify-end gap-3 pt-0 ">
             <div className="flex flex-col items-end justify-end flex-1 gap-1">
               <p className="text-[14px] font-semibold text-black">
                 Free Bonus Meat (unlocked at $125)
@@ -162,7 +162,7 @@ function CartLineItem({
   const price = priceRange?.maxVariantPrice?.amount
 
   return (
-    <li key={id} className="cart-line pl-[10px] mb-5 flex gap-4">
+    <li key={id} className="cart-line pl-[10px] mb-2 flex gap-4">
       {featuredImage && (
         <img src={image} alt="" height={100} loading="lazy" width={72} />
       )}
@@ -231,7 +231,7 @@ export function CartSummary({ cost, layout, children = null }) {
       <dl className="flex text-base font-semibold cart-subtotal">
         <dt>Total: </dt>
         {cost ? (
-          <span className="text-[20px] pr-1 line-through decoration-[#000] decoration-[3px] text-[#919191] ">
+          <span className="text-[16px] pr-1 line-through decoration-[#000] decoration-[3px] text-[#919191] ">
             {`$${(cost + 11.45).toFixed(2)}`}
           </span>
         ) : (
@@ -240,7 +240,7 @@ export function CartSummary({ cost, layout, children = null }) {
         <dd>
           {cost ? (
             // <Money data={cost} />
-            <span className="text-base font-semibold text-center">
+            <span className="text-[16px] font-semibold text-center">
               ${cost.toFixed(2)}
             </span>
           ) : (
