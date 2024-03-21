@@ -1,10 +1,14 @@
 import React, { useEffect, useState, Fragment } from 'react'
 import { CarouselProvider, Slider, Slide } from 'pure-react-carousel'
-import { Button } from '../ui/button'
 import { Dialog, Transition } from '@headlessui/react'
+import ProductQuantity from '../OrderComponents/ProductQuantity'
 
-const ProductModal = ({ product, onClose }) => {
-  console.log('Product in Modal:', product)
+const ProductModal = ({
+  product,
+  onClose,
+  selectedProducts,
+  setSelectedProducts,
+}) => {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -42,7 +46,13 @@ const ProductModal = ({ product, onClose }) => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full max-w-[1120px] text-left align-middle transition-all transform bg-[#edeaea] text-[#1d1d1d] shadow-xl">
-                {product && <DialogContent product={product} />}
+                {product && (
+                  <DialogContent
+                    product={product}
+                    selectedProducts={selectedProducts}
+                    setSelectedProducts={setSelectedProducts}
+                  />
+                )}
               </Dialog.Panel>
             </Transition.Child>
           </div>
@@ -52,9 +62,28 @@ const ProductModal = ({ product, onClose }) => {
   )
 }
 
-const DialogContent = ({ product }) => {
+const DialogContent = ({ product, selectedProducts, setSelectedProducts }) => {
   const images = product.images
   const media = images.nodes
+  const productPrice = product?.priceRange?.maxVariantPrice?.amount
+
+  const line = selectedProducts.find(
+    (selectedProduct) => selectedProduct.id === product.id,
+  )
+
+  function addToSelectedProducts() {
+    setSelectedProducts((prevSelectedProducts) => {
+      return [
+        ...prevSelectedProducts,
+        {
+          ...product,
+          quantity: 1,
+          amount: productPrice,
+          totalAmount: productPrice,
+        },
+      ]
+    })
+  }
 
   return (
     <>
@@ -148,7 +177,10 @@ const DialogContent = ({ product }) => {
           </div>
         </div>
       </div>
-      <div className="flex justify-around py-2 " style={{borderTop: "3px solid #70707099"}}>
+      <div
+        className="flex justify-around py-2 "
+        style={{ borderTop: '3px solid #70707099' }}
+      >
         <div className="flex items-center gap-6 money-back ">
           <img
             src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/1279px-Font_Awesome_5_solid_money-bill-wave_svg.png"
@@ -164,7 +196,23 @@ const DialogContent = ({ product }) => {
             ${product.priceRange.minVariantPrice.amount}
           </div>
           <div className="cta-btn">
-            <Button>+ADD</Button>
+            {line ? (
+              <ProductQuantity
+                line={line}
+                selectedProducts={selectedProducts}
+                setSelectedProducts={setSelectedProducts}
+              />
+            ) : (
+              <button
+                onClick={addToSelectedProducts}
+                className="bg-[#862e1b] mx-auto flex justify-center items-center py-[10px] gap-[5px] px-[20px] leading-none font-bold text-white"
+              >
+                <span className=" p-[3px] text-[25px] leading-[13px] bg-white text-[#862e1b]  ">
+                  +
+                </span>
+                ADD
+              </button>
+            )}
           </div>
         </div>
       </div>
