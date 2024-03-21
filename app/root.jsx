@@ -119,11 +119,10 @@ export default function App() {
   const data = useLoaderData()
 
   const [switchHeader, setSwitchHeader] = useState(false)
-  const [cartTotal, setCartTotal] = useState(0)
 
   return (
     <HeaderContext.Provider
-      value={{ switchHeader, setSwitchHeader, cartTotal, setCartTotal }}
+      value={{ switchHeader, setSwitchHeader }}
     >
       <html lang="en">
         <head>
