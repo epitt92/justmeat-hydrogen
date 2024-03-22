@@ -31,39 +31,13 @@ export async function loader({ request, params, context }) {
 }
 
 export async function action({ request, context }) {
-  const storefront = context.storefront
   const _cart = context.cart
-
-  // TODO: We have to fetch selling plan here
-  // const { sellingPlanGroups } = await storefront.query(COLLECTION_QUERY)
-  // console.log('🚀 ~ action ~ sellingPlanGroups:', sellingPlanGroups)
 
   const form = await request.formData()
   const data = JSON.parse(form.get('body'))
   const products = data.products
 
-  // const bundle = {
-  //   externalProductId: '7134322196677', // Bundle's Shopify Product ID
-  //   externalVariantId: '41291293425861', // Bundle's Shopify Variant ID
-  //   selections: [
-  //     {
-  //       collectionId: '288157827269', // Shopify Collection 1
-  //       externalProductId: '7200061391045', // Shopify Product ID 1
-  //       externalVariantId: '41510929465541', // Shopify Variant ID 1
-  //       quantity: 2,
-  //       sellingPlan: 2761818364, // Product Selling Plan ID
-  //     },
-  //     {
-  //       collectionId: '285790863557', // Shopify Collection 2
-  //       externalProductId: '7200062308549', // Shopify Product ID 2
-  //       externalVariantId: '41504991412421', // Shopify Variant ID 2
-  //       quantity: 1,
-  //       sellingPlan: 2761818364, // Product Selling Plan ID
-  //     },
-  //   ],
-  // }
-
-  // const bundleItems = getDynamicBundleItems(bundle, 'shopifyProductHandle')
+  // TODO: Bundling operation with Recharge here
 
   const cartData = products.map((product) => ({
     merchandiseId: product.variants.nodes[0].id,
