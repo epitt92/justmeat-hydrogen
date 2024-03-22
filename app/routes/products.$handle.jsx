@@ -41,8 +41,39 @@ export async function action({ request, context }) {
   const cartData = products.map((product) => ({
     quantity: product.quantity,
     merchandiseId: product.variants.nodes[0].id,
+    sellingPlanId: sellingPlanName
+      ? product.sellingPlanGroups.edges.find(
+          (edge) => edge.node.name === sellingPlanName,
+        ).node.sellingPlans.edges[0].node.id
+      : null,
   }))
 
+  //
+
+  // const bundle = {
+  //   externalProductId: '7134322196677', // Bundle's Shopify Product ID
+  //   externalVariantId: '41291293425861', // Bundle's Shopify Variant ID
+  //   selections: [
+  //     {
+  //       collectionId: '288157827269', // Shopify Collection 1
+  //       externalProductId: '7200061391045', // Shopify Product ID 1
+  //       externalVariantId: '41510929465541', // Shopify Variant ID 1
+  //       quantity: 2,
+  //       sellingPlan: 2761818364, // Product Selling Plan ID
+  //     },
+  //     {
+  //       collectionId: '285790863557', // Shopify Collection 2
+  //       externalProductId: '7200062308549', // Shopify Product ID 2
+  //       externalVariantId: '41504991412421', // Shopify Variant ID 2
+  //       quantity: 1,
+  //       sellingPlan: 2761818364, // Product Selling Plan ID
+  //     },
+  //   ],
+  // }
+
+  // const bundleItems = getDynamicBundleItems(bundle, 'shopifyProductHandle')
+
+  //
   const { cart } = await _cart.addLines(cartData)
 
   return json(cart)
@@ -53,6 +84,10 @@ export default function Product() {
 
   const data = useLoaderData()
   const customCollectionProducts = data.collection.products
+  console.log(
+    '🚀 ~ Product ~ customCollectionProducts:',
+    customCollectionProducts,
+  )
 
   return (
     <>
@@ -126,6 +161,14 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
           options {
             name
             values
+          }
+          sellingPlans(first: 1) {
+            edges {
+              node {
+                id
+                name
+              }
+            }
           }
         }
       }
