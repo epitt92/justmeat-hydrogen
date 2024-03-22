@@ -8,6 +8,7 @@ export function CartMain({
   cart,
   selectedProducts,
   setSelectedProducts,
+  setShowCart
 }) {
   const [subTotal, setSubTotal] = useState(0)
   const linesCount = Boolean(selectedProducts.length || 0)
