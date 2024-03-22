@@ -316,7 +316,7 @@ const CustomCollection = ({ col }) => {
                 />
               ))}
             </div>
-            <div className={`mobile-cart-toggle fixed left-0 bottom-0  h-fit  xl:hidden block w-full   transition-all duration-500  ${showCart ? '' : ''}`}>
+            <div className={`mobile-cart-toggle fixed left-0 bottom-0  h-fit  xl:hidden block w-full mb-[10px]  transition-all duration-500  ${showCart ? '' : ''}`}>
               <div className='flex justify-start items-center rounded-[20px] px-10'>
               <div className='sm:block hidden'>
                 {total >= 75 ?  
