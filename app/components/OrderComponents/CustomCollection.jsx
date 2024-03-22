@@ -32,9 +32,10 @@ const CustomCollection = ({ col }) => {
       },
       { method: 'post', action: '/products/custom-bundle' },
     )
-    const url = res.checkoutUrl
 
-    location.href = url
+    console.log('🚀 ~ precessCheckout ~ res:', res)
+
+    location.href = res.checkoutUrl
   }
 
   return (
