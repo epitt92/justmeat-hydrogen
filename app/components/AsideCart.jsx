@@ -36,8 +36,9 @@ export function CartMain({
         selectedProducts={selectedProducts}
         setSelectedProducts={setSelectedProducts}
         subTotal={subTotal}
+        setShowCart={setShowCart}
       />
-      <CartEmpty hidden={linesCount} layout={layout} />
+      <CartEmpty hidden={linesCount} layout={layout} setShowCart={setShowCart} />
     </div>
   )
 }
@@ -52,6 +53,7 @@ function CartDetails({
   onRemove,
   setSelectedProducts,
   subTotal,
+  setShowCart
 }) {
   const cartHasItems = selectedProducts.length > 0
   // const cartHasItems = !!cart && cart.totalQuantity < 0;
@@ -64,8 +66,11 @@ function CartDetails({
       />
       {cartHasItems && (
         <div className="p-5 pb-3 bg-white">
-          <div className="border-b-4 pb-[10px] border-black">
-            <CartSummary cost={subTotal} layout={layout}>
+          <div className='w-full flex justify-center block xl:hidden'>
+          <span onClick={()=>setShowCart(false)} className='w-fit text-[14px] p-[10px] font-semibold text-white bg-[#862e1b]'>Return to Shop</span>
+        </div>
+          <div className="border-b-4 pb-[10px] pt-[10px] border-black">
+            <CartSummary cost={subTotal} layout={layout} >
               {/* <CartDiscounts discountCodes={cart.discountCodes} /> */}
               <CartCheckoutActions
                 // checkoutUrl={cart.checkoutUrl}
@@ -219,7 +224,7 @@ function CartCheckoutActions({ cost }) {
   )
 }
 
-export function CartSummary({ cost, layout, children = null }) {
+export function CartSummary({ cost, layout, children = null, }) {
   const className =
     layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside'
   return (
@@ -332,12 +337,15 @@ function CartLinePrice({ line, priceType = 'regular', ...passthroughProps }) {
  *   layout?: CartMainProps['layout'];
  * }}
  */
-export function CartEmpty({ hidden = false, layout = 'aside' }) {
+export function CartEmpty({ hidden = false, layout = 'aside' , setShowCart }) {
   return (
     <div hidden={hidden} className="h-[260px]">
       <br />
-      <div className="absolute bottom-0 w-full p-5 pb-3 ">
-        <div className="border-b-4 flex justify-between items-end pb-[10px] border-black w-full ">
+      <div className="absolute bottom-0 w-full p-5 pb-3">
+        <div className='w-full flex justify-center block xl:hidden'>
+          <span onClick={()=>setShowCart(false)} className='w-fit text-[14px] p-[10px] font-semibold text-white bg-[#862e1b]'>Return to Shop</span>
+        </div>
+        <div className="border-b-4 flex justify-between items-end pb-[10px] border-black w-full">
           <div className="flex w-4/12">
             <p className="pr-1 text-base font-semibold">Total:</p>
             <p className="text-base font-semibold">$0.00</p>
