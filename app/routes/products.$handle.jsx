@@ -99,7 +99,7 @@ export default function Product() {
             <CustomCollection col={customCollectionProducts} />
           </div>
           <div className='fixed bottom-[12px] left-[50%] transform translate-x-[-50%] w-[90%] rounded-[12px] bg-[#AAAAAA] min-h-[50px] flex justify-center items-center'>
-            <p className='text-white text-[20px]'>Add $63.55 to Unlock Cart ($8.59)</p>
+            <p className='text-white text-[19px] font-semibold'>Add $63.55 to Unlock Cart ($8.59)</p>
           </div>
         </div>
       </div>
