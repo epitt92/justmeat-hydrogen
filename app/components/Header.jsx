@@ -137,7 +137,7 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
   const { shop, menu } = header
 
   return (
-    <header className="container max-w-[100%] bg-[#eeeeee]  ">
+    <header className="container max-w-[100%] bg-[#fff]  ">
       { switchHeader == true ? <Landingheader /> : <Mainheader />}
     </header>
   )

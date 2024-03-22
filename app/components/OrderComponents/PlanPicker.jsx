@@ -132,7 +132,7 @@ const PlanPicker = () => {
         </p>
         <div className="flex pt-2 min-h-[30px] sm:min-h-[auto] font-semibold">{review}</div>
 
-        <div className="flex justify-start flex-col lg:flex-row lg:gap-0 gap-[12px] sm:gap-[62px] lg:items-center pt-5 w-[100%]">
+        <div className="flex justify-start flex-col gap-[12px] sm:gap-[62px]  pt-5 w-[100%]">
           <div className="flex items-center w-full gap-2 lg:w-4/12 xl:w-3/12">
             <div className="w-[35px] h-[35px] lg:w-[60px] lg:h-[60px] rounded-[100%] border-2 border-[#425C35] sm:border-none sm:bg-black flex justify-center items-center  ">
               <span className=" text-[22px] lg:text-[40px] font-bold text-black sm:text-white ">
@@ -146,8 +146,8 @@ const PlanPicker = () => {
             </div>
           </div>
 
-          <div className="flex gap-2 flex-col sm:flex-row w-[100%] lg:w-9/12 ">
-            <div className="w-full sm:w-7/12 md:w-6/12 xl:w-4/12">
+          <div className="flex gap-2 flex-col sm:flex-row w-[100%]">
+            <div className="flex-1 w-full sm:w-7/12 md:w-6/12 xl:w-4/12">
               <p
                 className={`${
                   sellingPlan !== ''
@@ -230,7 +230,7 @@ const PlanPicker = () => {
               </div>
             </div>
 
-            <div className="w-full sm:w-7/12 md:w-5/12 xl:w-4/12">
+            <div className="flex-1 w-full sm:w-7/12 md:w-5/12 xl:w-4/12">
               <p className="px-[15px] hidden sm:block pt-[6px] text-[12px] font-bold bg-transparent text-transparent ">
                 &quot; &quot;
               </p>
