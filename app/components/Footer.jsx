@@ -94,7 +94,7 @@ export function Footer({ menu, shop }) {
   return (
     <>
     {/* <Footer />  */}
-    { switchHeader === false ? <Footer /> : null }
+    { switchHeader == false ? <Footer /> : null }
     </>
     
   )
