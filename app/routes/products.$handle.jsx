@@ -38,42 +38,45 @@ export async function action({ request, context }) {
   const products = data.products
   const sellingPlanName = data.sellingPlanName
 
-  const cartData = products.map((product) => ({
-    quantity: product.quantity,
-    merchandiseId: product.variants.nodes[0].id,
-    sellingPlanId: sellingPlanName
-      ? product.sellingPlanGroups.edges.find(
-          (edge) => edge.node.name === sellingPlanName,
-        ).node.sellingPlans.edges[0].node.id
-      : null,
-  }))
+  let cartData
 
-  //
+  if (sellingPlanName) {
+    const bundle = {
+      externalProductId: '8249959153890', // Custom Meat Bundle's Shopify Product ID - Hard coded
+      externalVariantId: '44625977999586', // Custom Meat Bundle's Shopify Variant ID - Hard coded
 
-  // const bundle = {
-  //   externalProductId: '7134322196677', // Bundle's Shopify Product ID
-  //   externalVariantId: '41291293425861', // Bundle's Shopify Variant ID
-  //   selections: [
-  //     {
-  //       collectionId: '288157827269', // Shopify Collection 1
-  //       externalProductId: '7200061391045', // Shopify Product ID 1
-  //       externalVariantId: '41510929465541', // Shopify Variant ID 1
-  //       quantity: 2,
-  //       sellingPlan: 2761818364, // Product Selling Plan ID
-  //     },
-  //     {
-  //       collectionId: '285790863557', // Shopify Collection 2
-  //       externalProductId: '7200062308549', // Shopify Product ID 2
-  //       externalVariantId: '41504991412421', // Shopify Variant ID 2
-  //       quantity: 1,
-  //       sellingPlan: 2761818364, // Product Selling Plan ID
-  //     },
-  //   ],
-  // }
+      selections: products.map((product) => ({
+        collectionId: product.collections.edges[0].node.id.split(
+          'gid://shopify/Collection/',
+        )[1],
+        externalProductId: product.id.split('gid://shopify/Product/')[1],
+        externalVariantId: product.variants.nodes[0].id.split(
+          'gid://shopify/ProductVariant/',
+        )[1],
+        quantity: product.quantity,
+        sellingPlan: Number(
+          product.sellingPlanGroups.edges
+            .find((edge) => edge.node.name === sellingPlanName)
+            .node.sellingPlans.edges[0].node.id.split(
+              'gid://shopify/SellingPlan/',
+            )[1],
+        ),
+      })),
+    }
 
-  // const bundleItems = getDynamicBundleItems(bundle, 'shopifyProductHandle')
+    try {
+      cartData = getDynamicBundleItems(bundle, 'shopifyProductHandle')
+    } catch (err) {
+      console.error('🚀 ~ action ~ err:', err)
+      return json(err)
+    }
+  } else {
+    cartData = products.map((product) => ({
+      quantity: product.quantity,
+      merchandiseId: product.variants.nodes[0].id,
+    }))
+  }
 
-  //
   const { cart } = await _cart.addLines(cartData)
 
   return json(cart)
