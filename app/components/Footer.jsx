@@ -7,7 +7,7 @@ import { useRootLoaderData } from '~/root'
  * @param {FooterQuery & {shop: HeaderQuery['shop']}}
  */
 export function Footer({ menu, shop }) {
-  // const {switchHeader} = useContext(HeaderContext);
+  const {switchHeader} = useContext(HeaderContext);
 
   const Footer = () => {
     return(
@@ -93,8 +93,8 @@ export function Footer({ menu, shop }) {
   }
   return (
     <>
-    <Footer /> 
-    {/* { switchHeader === false ? <Footer /> : null } */}
+    {/* <Footer />  */}
+    { switchHeader === false ? <Footer /> : null }
     </>
     
   )

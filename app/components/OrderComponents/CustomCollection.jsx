@@ -308,12 +308,14 @@ const CustomCollection = ({ col }) => {
           <div className="product-and-cart flex">
             <div className="product-grid grid grid-cols-2 md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12">
               {nodes.map((product, key) => (
-                <ProductCard
+                product.handle !== "free-meat-unlocked-at-125" ? (
+                  <ProductCard
                   key={key}
                   product={product}
                   setSelectedProducts={setSelectedProducts}
                   selectedProducts={selectedProducts}
                 />
+                ) : null
               ))}
             </div>
             <div className={`mobile-cart-toggle fixed left-0 bottom-0  h-fit  xl:hidden block w-full mb-[10px]  transition-all duration-500  ${showCart ? '' : ''}`}>
