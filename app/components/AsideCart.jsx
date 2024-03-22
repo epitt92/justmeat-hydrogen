@@ -198,6 +198,68 @@ function CartLineItem({
 
 function CartCheckoutActions({ cost }) {
   // if (!checkoutUrl) return null;
+
+  const [isBundleCreated, setIsBundleCreated] = useState(false);
+  const [bundleSelections, setBundleSelections] = useState([]);
+
+  console.log("Selected Products", selectedProducts);
+
+
+  useEffect(() => {
+    console.log("Bundle Selections", bundleSelections);
+  }, [bundleSelections])
+
+  const createBundle = async () => {
+    console.log("Selected Products: ", selectedProducts);
+
+    const updatedSelections = selectedProducts.map((product) => {
+      const fullid = product.id;
+      const productId = parseInt(fullid.split('/')[fullid.split('/').length - 1]);
+
+      const fullvariant = product.variants.nodes[0].id;
+      const variantId = parseInt(fullvariant.split('/')[fullvariant.split('/').length - 1]);
+
+      const collection = product.collections.edges[0].node['id'];
+      const collectionId = parseInt(collection.split('/')[collection.split('/').length - 1]);
+
+      return {
+        collectionId: collectionId || null,
+        externalProductId: productId,
+        externalVariantId: variantId,
+        quantity: product.quantity || 1,
+      };
+    });
+
+    setBundleSelections(updatedSelections);
+
+    const bundle = {
+      externalVariantId: '7425871052997', // Update the variant ID
+      externalProductId: '8264905490658', // I think this is the product bundle we are using, it's the "Custom Bundle" product
+      selections: bundleSelections,
+    };
+
+    try {
+      const cartItems = await recharge.bundle.getDynamicBundleItems(bundle, 'custom-bundle'); // Replace with appropriate bundle, don't know the actual bundle handle
+      const cartData = { items: cartItems };
+
+      const response = await fetch(window.Shopify.routes.root + 'cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(cartData),
+      });
+
+      if (response.ok) {
+        setIsBundleCreated(true);
+        console.log("Bundle created successfully", isBundleCreated);
+        window.location.href = '/cart';
+      } else {
+        console.error('Error adding bundle to cart:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error creating bundle:', error);
+    }
+  };
+
   return (
     <>
       {cost >= 75 ? (
@@ -206,6 +268,7 @@ function CartCheckoutActions({ cost }) {
             // href={checkoutUrl}
             className="bg-[#425b34] text-[15px] py-[15px] font-semibold text-white"
             target="_self"
+            onClick={createBundle}
           >
             <p>Continue to Checkout </p>
           </a>
