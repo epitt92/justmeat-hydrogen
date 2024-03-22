@@ -107,11 +107,11 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
 
   const Landingheader = () => {
     return (
-      <div className="content flex justify-center items-center py-4 px-5 sm:px-10 max-w-[1440px] mx-auto relative landingheader">
+      <div className="bg-white content flex justify-center items-center py-[3px] px-5 sm:px-10 max-w-[1440px] mx-auto relative landingheader">
         <img
           src="/logo.svg"
-          className="object-cover h-16 w-30 sm:h-24"
-          alt=""
+          className="object-contain sm:w-[156px] h-[40px] sm:h-[90px]"
+          alt="Logo"
         />
         <NavLink end prefetch="intent" to="/" className="absolute left-0">
           <svg

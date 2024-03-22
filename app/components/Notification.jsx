@@ -1,7 +1,7 @@
 const Notification = () => {
   return (
-    <div className="announcement-bar">
-      <p className="font-roboto_medium font-[500]">
+    <div className="bg-[#1C7084] min-h-[40px] flex justify-center items-center">
+      <p className="py-[5px] font-roboto_medium font-semibold text-[14px] sm:text-[18px] text-center text-white">
         LIMITED TIME: GET FREE RANCH RUB CHICKEN
       </p>
     </div>
