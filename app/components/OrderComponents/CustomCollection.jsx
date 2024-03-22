@@ -115,7 +115,7 @@ function ProductCard({ product, setSelectedProducts, selectedProducts }) {
             </svg>
           </button>
         </div>
-        <ProductModal product={product} key={Math.random()} />
+        {/* <ProductModal product={product} key={Math.random()} onClose={closeModal}   selectedProducts={ selectedProducts} setSelectedProducts={setSelectedProducts}/> */}
       </dialog>
       <div className="img-wrapper">
         <img
@@ -257,7 +257,7 @@ function AddToCartButton({ analytics, children, disabled, lines, onClick }) {
 
 const CustomCollection = ({ col }) => {
   const { nodes } = col
-  const [selectedProducts, setSelectedProducts] = useState([])
+  const [selectedProducts, setSelectedProducts] = useState([]);
   const [clickedProduct, setClickedProduct] = useState(null)
   const [showCart,setShowCart] = useState(false);
   function onProductClick(product) {

@@ -10,7 +10,7 @@ const ProductModal = ({
   setSelectedProducts,
 }) => {
   const [open, setOpen] = useState(false)
-
+  
   useEffect(() => {
     if (product) {
       setOpen(true)
@@ -66,7 +66,7 @@ const DialogContent = ({ product, selectedProducts, setSelectedProducts }) => {
   const images = product.images
   const media = images.nodes
   const productPrice = product?.priceRange?.maxVariantPrice?.amount
-
+  console.log(product);
   const line = selectedProducts.find(
     (selectedProduct) => selectedProduct.id === product.id,
   )
