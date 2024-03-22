@@ -120,6 +120,17 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
         }
       }
     }
+    sellingPlanGroups(first:2) {
+      edges {
+        node {
+          name
+          options {
+            name
+            values
+          }
+        }
+      }
+    }
 
     nutration: metafield(namespace: "custom", key: "nutration") {
       value
