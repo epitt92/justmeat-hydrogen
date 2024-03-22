@@ -36,12 +36,11 @@ export async function action({ request, context }) {
   const form = await request.formData()
   const data = JSON.parse(form.get('body'))
   const products = data.products
-
-  // TODO: Bundling operation with Recharge here
+  const sellingPlanName = data.sellingPlanName
 
   const cartData = products.map((product) => ({
-    merchandiseId: product.variants.nodes[0].id,
     quantity: product.quantity,
+    merchandiseId: product.variants.nodes[0].id,
   }))
 
   const { cart } = await _cart.addLines(cartData)
@@ -208,15 +207,6 @@ const COLLECTION_QUERY = `#graphql
           startCursor
         }
       }
-    }
-  }
-`
-
-// TODO: This query needs to be fixed
-const SELLING_PLAN_GROUPS_QUERY = `#graphql
-  query {
-    sellingPlanGroups {
-      id
     }
   }
 `
