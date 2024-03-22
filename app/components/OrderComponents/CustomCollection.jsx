@@ -319,9 +319,13 @@ const CustomCollection = ({ col }) => {
             <div className={`mobile-cart-toggle fixed left-0 bottom-0  h-fit  xl:hidden block w-full   transition-all duration-500  ${showCart ? '' : ''}`}>
               <div className='flex justify-start items-center rounded-[20px] px-10'>
               <div className=''>
+                {total >= 75 ?  
+                 <img onClick={()=>setShowCart(false)} src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/imgpsh_fullsize_anim_2_1.png?v=1711069998" alt="" />
+                 :
                  <img onClick={()=>setShowCart(false)} src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/imgpsh_fullsize_anim_1_1.png?v=1711048163" alt="" />
+                }
               </div>
-              <span onClick={()=>setShowCart(true)} className="text-[20px] font-semibold flex-1 bg-[#aaa] h-auto py-[15px] rounded-[15px] text-center text-white" >
+              <span onClick={()=>setShowCart(true)} className={`text-[20px] font-semibold flex-1 ${total >= 75 ? 'bg-[#425b34]' :'bg-[#aaa]'} h-auto py-[15px] rounded-[15px] text-center text-white`} >
                  {total >= 75 ? ` View Cart-($${(roundNumber(total))})` : `Add $${roundNumber((75 - total))} to Unlock Cart ($${(roundNumber(total))})`}
               </span>
               </div>
