@@ -87,37 +87,37 @@ const DialogContent = ({ product, selectedProducts, setSelectedProducts }) => {
 
   return (
     <>
-      <div className="grid grid-cols-3 pt-[50px] pb-[20px] ">
-        <div className="overflow-hidden product-gallary">
+      <div className="md:grid grid-cols-2 lg:grid-cols-3 pt-[50px] pb-[20px] ">
+        <div className="px-[24px] overflow-hidden w-full product-gallary">
           <ProductGallary media={media} />
         </div>
-        <div className="col-span-2 content">
-          <h1 className="title font-roboto_bold font-bold text-[50px]">
+        <div className="mt-[24px] px-[24px] col-span-2 content">
+          <h1 className="title font-roboto_bold font-bold leading-[100%] text-[28px] md:text-[34px] lg:text-[50px]">
             {product.title}
           </h1>
-          <p className="product-details  text-[14px] text-[#1d1d1d] leading-[24px] uppercase font-roboto_bold font-bold">
+          <p className="mt-2 product-details text-[14px] text-[#1d1d1d] leading-[24px] uppercase font-roboto_bold font-bold">
             {product.description}
           </p>
           <p className="custom-serving py-5 text-[28px] text-[#1d1d1d] font-bold">
             ${product.servings.value}
           </p>
-          <div className="healthy grid grid-cols-2 max-w-[70%]">
+          <div className="healthy grid grid-cols-1 gap-y-[12px] md:grid-cols-2 max-w-[100%]">
             <div className="flex items-center gap-2 fresh ">
               <div className="ball-circle"></div>
-              <p className="text text-[18px] text-[#1d1d1d] font-roboto_bold font-semibold">
+              <p className="flex-1 text text-[18px] text-[#1d1d1d] font-roboto_bold font-semibold">
                 Healthy, Fresh
               </p>
             </div>
             <div className="flex items-center gap-2 2-minute">
               <div className="ball-circle"></div>
-              <p className="text text-[18px] text-[#1d1d1d] font-roboto_bold font-semibold">
+              <p className="flex-1 text text-[18px] text-[#1d1d1d] font-roboto_bold font-semibold">
                 Prep Time 2 Minutes
               </p>
             </div>
           </div>
 
           {/* ingredient */}
-          <div className="ingridiant_metafield flex justify-between max-w-[40%] my-5">
+          <div className="ingridiant_metafield flex justify-between max-w-[100%] my-5">
             <div className="ingridiant_width">
               <div className="ingridiant_value text-[22px] font-bold text-[#1d1d1d] font-roboto_bold">
                 {product.protein.value}
@@ -157,7 +157,7 @@ const DialogContent = ({ product, selectedProducts, setSelectedProducts }) => {
             </p>
           </div>
           {/* ingredeints */}
-          <div className="grid grid-cols-5 mt-4">
+          <div className="grid grid-cols-1 gap-y-[12px] md:grid-cols-5 mt-4">
             <div className="col-span-4 ingredeints">
               <h1 className="font-roboto_medium text-[#1d1d1d] text-[16px] font-[600] ">
                 INGREDIENTS:
@@ -178,7 +178,7 @@ const DialogContent = ({ product, selectedProducts, setSelectedProducts }) => {
         </div>
       </div>
       <div
-        className="flex justify-around py-2 "
+        className="flex flex-col px-[20px] md:flex-row justify-around py-2 "
         style={{ borderTop: '3px solid #70707099' }}
       >
         <div className="flex items-center gap-6 money-back ">
