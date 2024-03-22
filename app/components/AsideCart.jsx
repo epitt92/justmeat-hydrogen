@@ -32,11 +32,7 @@ export function CartMain({
         subTotal={subTotal}
         onCheckout={onCheckout}
       />
-      <CartEmpty
-        hidden={linesCount}
-        layout={layout}
-        setShowCart={setShowCart}
-      />
+      <CartEmpty hidden={linesCount} layout={layout} />
     </div>
   )
 }
@@ -327,10 +323,7 @@ export function CartEmpty({ hidden = false, layout = 'aside', setShowCart }) {
       <br />
       <div className="absolute bottom-0 w-full p-5 pb-3">
         <div className="flex justify-center block w-full xl:hidden">
-          <span
-            onClick={() => setShowCart(false)}
-            className="w-fit text-[14px] p-[10px] font-semibold text-white bg-[#862e1b]"
-          >
+          <span className="w-fit text-[14px] p-[10px] font-semibold text-white bg-[#862e1b]">
             Return to Shop
           </span>
         </div>
