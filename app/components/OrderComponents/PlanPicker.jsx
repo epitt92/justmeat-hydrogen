@@ -4,16 +4,20 @@ import HeaderContext from '../HeaderContext'
 const PlanPicker = () => {
   const [activeOption, setActiveOption] = useState('option1')
 
-  // Function to handle click on option
   const handleOptionClick = (option) => {
     setActiveOption(option)
   }
 
-  const { setSwitchHeader } = useContext(HeaderContext);
+  const { setSwitchHeader, sellingPlan, setSellingPlan } = useContext(HeaderContext);
 
   useEffect(() => {
     setSwitchHeader(true)
   }, [])
+
+  const handleSellingPlan = (event) => {
+    setSellingPlan(event.target.value)
+  }
+
 
   const checkBox = (
     <svg
@@ -180,14 +184,11 @@ const PlanPicker = () => {
                       className={`${
                         activeOption === 'option1' ? 'text-[#fff] brightness-0 invert ' : 'text-[#1d1d1d] '
                       } text-[12px] focus:shadow-none shadow-none p-0 w-full outline-none border-none bg-transparent focus:outline-none bg-auto  focus:border-none bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')]`}
-                      
+                      value={sellingPlan}
+                      onChange={handleSellingPlan}
                       >
-                        <option  
-                        className='text-[#000]'
-                        value="">Every 15 days</option>
-                        <option
-                        className='text-[#000]'
-                        value="">Every 30 days</option>
+                        <option className='text-[#000]' value="Delivery every 15 Days">Every 15 days</option>
+                        <option className='text-[#000]' value="Delivery every 30 Days">Every 30 days</option>
                        
                       </select>
                     </div>

@@ -118,11 +118,12 @@ export default function App() {
   /** @type {LoaderReturnData} */
   const data = useLoaderData()
 
-  const [switchHeader, setSwitchHeader] = useState(false)
+  const [switchHeader, setSwitchHeader] = useState(false);
+  const [sellingPlan, setSellingPlan] = useState("Delivery every 15 Days");
 
   return (
     <HeaderContext.Provider
-      value={{ switchHeader, setSwitchHeader }}
+      value={{ switchHeader, setSwitchHeader, sellingPlan, setSellingPlan }}
     >
       <html lang="en">
         <head>
