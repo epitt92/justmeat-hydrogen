@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { CartMain } from '~/components/AsideCart'
 import ProductModal from '../ui/ProductModal'
 import ProductQuantity from './ProductQuantity'
 import { useSubmitPromise } from '~/hooks/useSubmitPromise'
+import HeaderContext from '../HeaderContext'
 
 const AsideCart = ({ selectedProducts, setSelectedProducts, onCheckout }) => {
   return (
@@ -116,6 +117,8 @@ const ProductCard = ({
 
 const CustomCollection = ({ col }) => {
   const { nodes } = col
+  const { sellingPlan } = useContext(HeaderContext)
+
   const [selectedProducts, setSelectedProducts] = useState([])
   const [clickedProduct, setClickedProduct] = useState(null)
 
@@ -131,7 +134,12 @@ const CustomCollection = ({ col }) => {
 
   async function precessCheckout() {
     const res = await submit(
-      { body: JSON.stringify({ products: selectedProducts }) },
+      {
+        body: JSON.stringify({
+          products: selectedProducts,
+          sellingPlanName: sellingPlan,
+        }),
+      },
       { method: 'post', action: '/products/custom-bundle' },
     )
     const url = res.checkoutUrl

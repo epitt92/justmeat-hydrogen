@@ -2,22 +2,16 @@ import React, { useContext, useEffect, useState } from 'react'
 import HeaderContext from '../HeaderContext'
 
 const PlanPicker = () => {
-  const [activeOption, setActiveOption] = useState('option1')
+  const [sellingPlanFrequency, setSellingPlanFrequency] = useState(
+    'Delivery every 15 Days',
+  )
 
-  const handleOptionClick = (option) => {
-    setActiveOption(option)
-  }
-
-  const { setSwitchHeader, sellingPlan, setSellingPlan } = useContext(HeaderContext);
+  const { setSwitchHeader, sellingPlan, setSellingPlan } =
+    useContext(HeaderContext)
 
   useEffect(() => {
     setSwitchHeader(true)
   }, [])
-
-  const handleSellingPlan = (event) => {
-    setSellingPlan(event.target.value)
-  }
-
 
   const checkBox = (
     <svg
@@ -25,9 +19,8 @@ const PlanPicker = () => {
       width="17.627"
       height="17.627"
       viewBox="0 0 17.627 17.627"
-      ariahidden="true"
       role="presentation"
-      className="svgcolor w-3 h-3 mr-1 text-green-400"
+      className="w-3 h-3 mr-1 text-green-400 svgcolor"
     >
       <g transform="translate(-16.457 -24.531)">
         <circle
@@ -127,23 +120,23 @@ const PlanPicker = () => {
         </svg>
       </div>
       <div className="">
-        <span className="font-bold text-base text-black">1,134 Reviews</span>
+        <span className="text-base font-bold text-black">1,134 Reviews</span>
       </div>
     </div>
   )
   return (
     <div className=" w-[100%] border-b-2 border-solid border-[#0003]  mb-[30px] ">
-      <div className="flex justify-center flex-col items-center sm:py-14 py-5 ">
+      <div className="flex flex-col items-center justify-center py-5 sm:py-14 ">
         <h1 className=" text-[#1d1d1d] text-[22px] sm:text-[28px] uppercase font-bold ">
           Get your meats now
         </h1>
         <p className=" italic text-center text-black text-[16px] sm:text-[20px]">
-          We guarantee you'll love it or your money back !
+          We guarantee you&apos;ll love it or your money back !
         </p>
-        <div className="pt-2 flex ">{review}</div>
+        <div className="flex pt-2 ">{review}</div>
 
-        <div className="flex justify-start flex-col lg:flex-row lg:items-start lg:gap-0 gap-8 lg:items-center pt-5 w-[100%]">
-          <div className="flex w-full lg:w-4/12 items-center  xl:w-3/12 gap-2">
+        <div className="flex justify-start flex-col lg:flex-row lg:gap-0 gap-8 lg:items-center pt-5 w-[100%]">
+          <div className="flex items-center w-full gap-2 lg:w-4/12 xl:w-3/12">
             <div className="w-[35px] h-[35px] lg:w-[60px] lg:h-[60px] rounded-[100%] border-2 border-[#425C35] sm:border-none sm:bg-black flex justify-center items-center  ">
               <span className=" text-[22px] lg:text-[40px] font-bold text-black sm:text-white ">
                 1
@@ -151,79 +144,90 @@ const PlanPicker = () => {
             </div>
             <div className="h-fit sm:border-b-4  sm:border-[#425B3499] sm:pb-1">
               <h3 className="font-semibold leading-7 text-[20px] lg:text-[22px] text-[#1d1d1d] sm:uppercase ">
-                Select Your <br className="lg:block hidden" /> Frequency
+                Select Your <br className="hidden lg:block" /> Frequency
               </h3>
             </div>
           </div>
-          
-            <div className=' flex gap-2 flex-col sm:flex-row w-[100%] lg:w-9/12 '>
-              
-                <div className="w-full sm:w-7/12 md:w-6/12 xl:w-4/12">
-                   <p 
-                   className={`${
-                    activeOption === 'option1' ? 'text-[#fff] bg-[#000]' : 'text-[#1d1d1d] bg-[#ebeae9]'
-                  } px-[15px] pt-[6px] text-[12px] font-bold  w-fit`}
-                   >SAVE 25% ON YOUR FIRST ORDER</p>
-                  <div
-                      className={`${
-                        activeOption === 'option1' ? 'bg-[#862E1B]' : ''
-                      } p-[10px] border-[3px] border-solid flex gap-6 border-[#862E1B]`}
-                      onClick={() => handleOptionClick('option1')}
-                  
-                  >
-                    <div 
-                    className={`${
-                      activeOption === 'option1' ? 'text-[#fff]' : 'text-[#1d1d1d]'
-                    } text-[20px]   font-bold`}
-                    
-                    >
-                      Subscribe & Save
-                    </div>
-                    <div className="flex-1">
-                      <select name=""
-                      className={`${
-                        activeOption === 'option1' ? 'text-[#fff] brightness-0 invert ' : 'text-[#1d1d1d] '
-                      } text-[12px] focus:shadow-none shadow-none p-0 w-full outline-none border-none bg-transparent focus:outline-none bg-auto  focus:border-none bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')]`}
-                      value={sellingPlan}
-                      onChange={handleSellingPlan}
-                      >
-                        <option className='text-[#000]' value="Delivery every 15 Days">Every 15 days</option>
-                        <option className='text-[#000]' value="Delivery every 30 Days">Every 30 days</option>
-                       
-                      </select>
-                    </div>
-                  </div>
-                  <div className="bg-[#ebeae9] px-[12px] py-[5px] ">
-                    <ul className='flex flex-col gap-2'>
-                      <li className='flex items-center text-[12px] font-bold m-0 '>
-                        <span>{checkBox}</span> Save 10% on Future Orders
-                      </li>
-                      <li className='flex items-center text-[12px] font-bold m-0'>
-                     
-                        <span>{checkBox}</span> Exclusive Meat Options
-                      </li>
-                      <li className='flex items-center text-[12px] font-bold m-0'>
-                        <span>{checkBox}</span> Customize or Cancel Anytime
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-             
 
-              <div  className=" w-full sm:w-7/12 md:w-5/12 xl:w-4/12">
-              <p className='px-[15px] hidden sm:block pt-[6px] text-[12px] font-bold bg-transparent text-transparent '>" "</p>
-
+          <div className=" flex gap-2 flex-col sm:flex-row w-[100%] lg:w-9/12 ">
+            <div className="w-full sm:w-7/12 md:w-6/12 xl:w-4/12">
+              <p
+                className={`${
+                  sellingPlan !== ''
+                    ? 'text-[#fff] bg-[#000]'
+                    : 'text-[#1d1d1d] bg-[#ebeae9]'
+                } px-[15px] pt-[6px] text-[12px] font-bold  w-fit`}
+              >
+                SAVE 25% ON YOUR FIRST ORDER
+              </p>
               <div
                 className={`${
-                  activeOption === 'option2' ? 'bg-[#862E1B]' : ''
-                } p-[10px] border-[3px] border-solid flex gap-6 border-[#862E1B] subscriptionlabel`}
-                onClick={() => handleOptionClick('option2')}
+                  sellingPlan !== '' ? 'bg-[#862E1B]' : ''
+                } p-[10px] border-[3px] border-solid flex gap-6 border-[#862E1B] cursor-pointer`}
+                onClick={() => setSellingPlan(sellingPlanFrequency)}
               >
                 <div
                   className={`${
-                    activeOption === 'option2'
-                      ? 'text-[#fff]'
-                      : 'text-[#1d1d1d]'
+                    sellingPlan !== '' ? 'text-[#fff]' : 'text-[#1d1d1d]'
+                  } text-[20px]   font-bold`}
+                >
+                  Subscribe & Save
+                </div>
+                <div className="flex-1">
+                  <select
+                    name=""
+                    className={`${
+                      sellingPlan !== ''
+                        ? 'text-[#fff] brightness-0 invert '
+                        : 'text-[#1d1d1d] '
+                    } text-[12px] focus:shadow-none shadow-none p-0 w-full outline-none border-none bg-transparent focus:outline-none bg-auto  focus:border-none bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')]`}
+                    value={sellingPlanFrequency}
+                    onChange={(e) => setSellingPlanFrequency(e.target.value)}
+                  >
+                    <option
+                      className="text-[#000]"
+                      value="Delivery every 15 Days"
+                    >
+                      Every 15 days
+                    </option>
+                    <option
+                      className="text-[#000]"
+                      value="Delivery every 30 Days"
+                    >
+                      Every 30 days
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div className="bg-[#ebeae9] px-[12px] py-[5px] ">
+                <ul className="flex flex-col gap-2">
+                  <li className="flex items-center text-[12px] font-bold m-0 ">
+                    <span>{checkBox}</span> Save 10% on Future Orders
+                  </li>
+                  <li className="flex items-center text-[12px] font-bold m-0">
+                    <span>{checkBox}</span> Exclusive Meat Options
+                  </li>
+                  <li className="flex items-center text-[12px] font-bold m-0">
+                    <span>{checkBox}</span> Customize or Cancel Anytime
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="w-full sm:w-7/12 md:w-5/12 xl:w-4/12">
+              <p className="px-[15px] hidden sm:block pt-[6px] text-[12px] font-bold bg-transparent text-transparent ">
+                &quot; &quot;
+              </p>
+
+              <div
+                className={`${
+                  sellingPlan === '' ? 'bg-[#862E1B]' : ''
+                } p-[10px] border-[3px] border-solid flex gap-6 border-[#862E1B] subscriptionlabel`}
+                onClick={() => setSellingPlan('')}
+              >
+                <div
+                  className={`${
+                    sellingPlan === '' ? 'text-[#fff]' : 'text-[#1d1d1d]'
                   } text-[20px]  font-bold`}
                 >
                   One Time
