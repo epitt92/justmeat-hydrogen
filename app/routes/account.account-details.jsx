@@ -8,20 +8,12 @@ import {
   useOutletContext,} from '@remix-run/react';
 import { json } from '@shopify/remix-oxygen'
 import {CUSTOMER_UPDATE_MUTATION} from '~/graphql/customer-account/CustomerUpdateMutation';
-import { listPaymentMethods,getCustomer   } from '@rechargeapps/storefront-client'
+import { listPaymentMethods   } from '@rechargeapps/storefront-client'
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
 import PaymentDetails from '~/components/Accounts/AccountDetails/PaymentDetails';
 
 export async function loader({ context }) {
   await context.customerAccount.handleAuthStatus();
-  const  getCustomerResponse = await rechargeQueryWrapper(
-      (session) =>
-      getCustomer(session, {
-          include: ['addresses']
-        }),
-      context,
-    )
-  
   const  listPaymentResponse = await rechargeQueryWrapper(
     (session) =>
     listPaymentMethods(session, {
@@ -34,41 +26,40 @@ export async function loader({ context }) {
       'Cache-Control': 'no-cache, no-store, must-revalidate',
       'Set-Cookie': await context.session.commit(),
     },
-    getCustomerResponse,
     listPaymentResponse,
   })
 }
-export async function action({request, context}) {
-  const {customerAccount} = context;
+export async function action({ request, context }) {
+  const { customerAccount } = context;
 
   if (request.method !== 'PUT') {
-    return json({error: 'Method not allowed'}, {status: 405});
+    return json({ error: 'Method not allowed' }, { status: 405 });
   }
 
   const form = await request.formData();
-
+  console.log("form",JSON.stringify(form));
   try {
-    const customer = {};
-    const validInputKeys = ['firstName', 'lastName', 'emailAddress', 'phoneNumber'];
-    for (const [key, value] of form.entries()) {
-      if (!validInputKeys.includes(key)) {
-        continue;
-      }
-      if (typeof value === 'string' && value.length) {
-        customer[key] = value;
-      }
-    }
+    const customer = {
+      firstName: form.get('firstName') || '',
+      lastName: form.get('lastName') || '',
+      emailAddress: {
+        emailAddress: form.get('emailAddress') || '',
+      },
+      phoneNumber: {
+        phoneNumber: form.get('phoneNumber') || '',
+      },
+    };
 
-    // update customer and possibly password
-    const {data, errors} = await customerAccount.mutate(
+    // Update customer and possibly password
+    const { data, errors } = await customerAccount.mutate(
       CUSTOMER_UPDATE_MUTATION,
       {
         variables: {
-          customer,
+          customer: { ...customer }, // Spread customer object
         },
-      },
+      }
     );
-console.log("data",data);
+
     if (errors?.length) {
       throw new Error(errors[0].message);
     }
@@ -80,26 +71,28 @@ console.log("data",data);
     return json(
       {
         error: null,
-        customer: data?.customerUpdate?.customer,
+        customer: data.customerUpdate.customer,
       },
       {
         headers: {
           'Set-Cookie': await context.session.commit(),
         },
-      },
+      }
     );
   } catch (error) {
     return json(
-      {error: error.message, customer: null},
+      { error: error.message, customer: null },
       {
         status: 400,
         headers: {
           'Set-Cookie': await context.session.commit(),
         },
-      },
+      }
     );
   }
 }
+
+
 
 const AccountDetails = () => {
   const [showAccountDetails, setShowAccountDetails] = useState(true);
@@ -178,7 +171,7 @@ const AccountDetails = () => {
                             id="emailAddress" 
                             name="emailAddress" 
                             type="email" 
-                            defaultValue={customer.emailAddress  ?? ''} 
+                            defaultValue={customer.emailAddress.emailAddress  ?? ''} 
                             autoComplete="emailAddress" 
                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
@@ -192,12 +185,21 @@ const AccountDetails = () => {
                              type="tel" 
                              name="phoneNumber" 
                              id="phoneNumber" 
-                             defaultValue={customer.phoneNumber ?? ''} 
+                             defaultValue={customer.phoneNumber.phoneNumber ?? ''} 
                              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                              />
                       </div>
                   </div>
                   <div className="sm:col-span-3">
+                  {action?.error ? (
+          <p>
+            <mark>
+              <small>{action.error}</small>
+            </mark>
+          </p>
+        ) : (
+          <br />
+        )}
                       <button type="submit" disabled={state !== 'idle'} className="rounded-sm px-6 py-1 text-sm font-semibold text-black shadow-sm border-2 border-black">{state !== 'idle' ? 'Saving....' : 'Save'}</button>
                   </div>
     
