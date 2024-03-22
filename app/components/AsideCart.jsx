@@ -5,10 +5,9 @@ import ProductQuantity from './OrderComponents/ProductQuantity'
 
 export function CartMain({
   layout,
-  cart,
   selectedProducts,
   setSelectedProducts,
-  setShowCart
+  onCheckout,
 }) {
   const [subTotal, setSubTotal] = useState(0)
   const linesCount = Boolean(selectedProducts.length || 0)
@@ -23,23 +22,17 @@ export function CartMain({
     setSubTotal(totalCost)
   }, [selectedProducts])
 
-  const withDiscount =
-    cart &&
-    Boolean(cart?.discountCodes?.filter((code) => code.applicable)?.length)
-  const className = `cart-main ${withDiscount ? 'with-discount' : ''}`
-
   return (
-    <div className={className}>
+    <div className="cart-main">
       <ProgessBar cost={subTotal} />
       <CartDetails
-        cart={cart}
         layout={layout}
         selectedProducts={selectedProducts}
         setSelectedProducts={setSelectedProducts}
         subTotal={subTotal}
-        setShowCart={setShowCart}
+        onCheckout={onCheckout}
       />
-      <CartEmpty hidden={linesCount} layout={layout} setShowCart={setShowCart} />
+      <CartEmpty hidden={linesCount} layout={layout} />
     </div>
   )
 }
@@ -49,15 +42,14 @@ export function CartMain({
  */
 function CartDetails({
   layout,
-  cart,
   selectedProducts,
   onRemove,
   setSelectedProducts,
   subTotal,
-  setShowCart
+  onCheckout,
 }) {
   const cartHasItems = selectedProducts.length > 0
-  // const cartHasItems = !!cart && cart.totalQuantity < 0;
+
   return (
     <div className="flex flex-col justify-between cart-details">
       <CartLines
@@ -67,16 +59,9 @@ function CartDetails({
       />
       {cartHasItems && (
         <div className="p-5 pb-3 bg-white">
-          <div className='w-full flex justify-center block xl:hidden'>
-          <span onClick={()=>setShowCart(false)} className='w-fit text-[14px] p-[10px] font-semibold text-white bg-[#862e1b]'>Return to Shop</span>
-        </div>
-          <div className="border-b-4 pb-[10px] pt-[10px] border-black">
-            <CartSummary cost={subTotal} layout={layout} >
-              {/* <CartDiscounts discountCodes={cart.discountCodes} /> */}
-              <CartCheckoutActions
-                // checkoutUrl={cart.checkoutUrl}
-                cost={subTotal}
-              />
+          <div className="border-b-4 pb-[10px] border-black">
+            <CartSummary cost={subTotal} layout={layout}>
+              <CartCheckoutActions cost={subTotal} onCheckout={onCheckout} />
             </CartSummary>
           </div>
           <div className="flex justify-end gap-3 pt-0 ">
@@ -196,36 +181,30 @@ function CartLineItem({
   )
 }
 
-function CartCheckoutActions({ cost }) {
-  // if (!checkoutUrl) return null;
+function CartCheckoutActions({ cost, onCheckout }) {
   return (
     <>
       {cost >= 75 ? (
         <div className="flex justify-center items-center w-1/2 bg-[#425b34]">
-          <a
-            // href={checkoutUrl}
+          <button
             className="bg-[#425b34] text-[15px] py-[15px] font-semibold text-white"
-            target="_self"
+            onClick={onCheckout}
           >
             <p>Continue to Checkout </p>
-          </a>
+          </button>
         </div>
       ) : (
         <div className="flex justify-center items-center w-6/12 pointer-events-none select-none  bg-[#6e6e6e]">
-          <a
-            // href={checkoutUrl}
-            className=" text-[15px] text-center py-[15px] font-semibold text-white"
-            target="_self"
-          >
+          <button className=" text-[15px] text-center py-[15px] font-semibold text-white">
             Spend $75 to Continue
-          </a>
+          </button>
         </div>
       )}
     </>
   )
 }
 
-export function CartSummary({ cost, layout, children = null, }) {
+export function CartSummary({ cost, layout, children = null }) {
   const className =
     layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside'
   return (
@@ -338,13 +317,15 @@ function CartLinePrice({ line, priceType = 'regular', ...passthroughProps }) {
  *   layout?: CartMainProps['layout'];
  * }}
  */
-export function CartEmpty({ hidden = false, layout = 'aside' , setShowCart }) {
+export function CartEmpty({ hidden = false, layout = 'aside', setShowCart }) {
   return (
     <div hidden={hidden} className="h-[260px]">
       <br />
       <div className="absolute bottom-0 w-full p-5 pb-3">
-        <div className='w-full flex justify-center block xl:hidden'>
-          <span onClick={()=>setShowCart(false)} className='w-fit text-[14px] p-[10px] font-semibold text-white bg-[#862e1b]'>Return to Shop</span>
+        <div className="flex justify-center block w-full xl:hidden">
+          <span className="w-fit text-[14px] p-[10px] font-semibold text-white bg-[#862e1b]">
+            Return to Shop
+          </span>
         </div>
         <div className="border-b-4 flex justify-between items-end pb-[10px] border-black w-full">
           <div className="flex w-4/12">
