@@ -72,7 +72,7 @@ export async function action({ request, context }) {
 
   const { cart } = await _cart.addLines(cartData)
 
-  // return json(cart)
+  return json(cart)
 }
 
 export default function Product() {
