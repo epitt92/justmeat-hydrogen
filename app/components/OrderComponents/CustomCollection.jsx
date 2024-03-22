@@ -318,7 +318,7 @@ const CustomCollection = ({ col }) => {
             </div>
             <div className={`mobile-cart-toggle fixed left-0 bottom-0  h-fit  xl:hidden block w-full   transition-all duration-500  ${showCart ? '' : ''}`}>
               <div className='flex justify-start items-center rounded-[20px] px-10'>
-              <div className=''>
+              <div className='sm:block hidden'>
                 {total >= 75 ?  
                  <img onClick={()=>setShowCart(false)} src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/imgpsh_fullsize_anim_2_1.png?v=1711069998" alt="" />
                  :
@@ -330,7 +330,7 @@ const CustomCollection = ({ col }) => {
               </span>
               </div>
             </div>
-            <div className={`cart-wrapper fixed left-0 bottom-0 xl:sticky xl:top-[10px] h-fit xl:mb-[10px] md:block hidden w-full bg-white xl:bg-transparent xl:w-4/12 transition-all duration-300 xl:translate-y-0 ${showCart ? 'translate-y-0' : 'translate-y-[15000px]'}`}>
+            <div className={`cart-wrapper fixed left-0 bottom-0 xl:sticky xl:top-[10px] h-fit xl:mb-[10px] md:block  w-full bg-white xl:bg-transparent xl:w-4/12 transition-all duration-300 xl:translate-y-0 ${showCart ? 'translate-y-0' : 'translate-y-[15000px]'}`}>
               <div className="h-full xl:border shadow-[0 -5px 20px #333] rounded-[10x]">
                  <div className='bg-white p-2 flex justify-start  xl:hidden block'>
                  <div className='w-[30px]' onClick={()=>setShowCart(false)}>
