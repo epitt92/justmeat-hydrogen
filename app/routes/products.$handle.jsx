@@ -428,6 +428,14 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
         }
       }
     }
+    collections(first: 3) {
+      edges {
+        node {
+          id
+          title
+        }
+      }
+    }
 
     nutration: metafield(namespace: "custom", key: "nutration") {
       value
