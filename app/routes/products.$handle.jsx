@@ -2,10 +2,16 @@ import { json, redirect } from '@shopify/remix-oxygen'
 import { useLoaderData } from '@remix-run/react'
 import { getDynamicBundleItems } from '@rechargeapps/storefront-client'
 import { getPaginationVariables } from '@shopify/hydrogen'
+import { Buffer } from "buffer-polyfill";
+
 
 import PlanPicker from '~/components/OrderComponents/PlanPicker'
 import CustomCollection from '~/components/OrderComponents/CustomCollection'
 import Notification from '~/components/Notification'
+
+// globalThis.Buffer = Buffer as unknown as BufferConstructor; fix this becasue we are using jsx
+globalThis.Buffer = Buffer
+
 
 export async function loader({ request, params, context }) {
   const handle = 'all-products'
@@ -65,7 +71,9 @@ export async function action({ request, context }) {
     }
 
     try {
-      cartData = getDynamicBundleItems(bundle, 'shopifyProductHandle')
+      // log the bundle data. 
+      cartData =
+       getDynamicBundleItems(bundle, 'shopifyProductHandle')
     } catch (err) {
       console.error('🚀 ~ action ~ err:', err)
       return json(err)
