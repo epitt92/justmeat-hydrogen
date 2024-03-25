@@ -29,35 +29,35 @@ export async function loader({ context }) {
     listPaymentResponse,
   })
 }
-export async function action({ request, context }) {
-  const { customerAccount } = context;
+export async function action({request, context}) {
+  const {customerAccount} = context;
 
   if (request.method !== 'PUT') {
-    return json({ error: 'Method not allowed' }, { status: 405 });
+    return json({error: 'Method not allowed'}, {status: 405});
   }
 
   const form = await request.formData();
-  console.log("form",JSON.stringify(form));
-  try {
-    const customer = {
-      firstName: form.get('firstName') || '',
-      lastName: form.get('lastName') || '',
-      emailAddress: {
-        emailAddress: form.get('emailAddress') || '',
-      },
-      phoneNumber: {
-        phoneNumber: form.get('phoneNumber') || '',
-      },
-    };
 
-    // Update customer and possibly password
-    const { data, errors } = await customerAccount.mutate(
+  try {
+    const customer = {};
+    const validInputKeys = ['firstName', 'lastName'];
+    for (const [key, value] of form.entries()) {
+      if (!validInputKeys.includes(key)) {
+        continue;
+      }
+      if (typeof value === 'string' && value.length) {
+        customer[key] = value;
+      }
+    }
+
+    // update customer and possibly password
+    const {data, errors} = await customerAccount.mutate(
       CUSTOMER_UPDATE_MUTATION,
       {
         variables: {
-          customer: { ...customer }, // Spread customer object
+          customer,
         },
-      }
+      },
     );
 
     if (errors?.length) {
@@ -71,23 +71,23 @@ export async function action({ request, context }) {
     return json(
       {
         error: null,
-        customer: data.customerUpdate.customer,
+        customer: data?.customerUpdate?.customer,
       },
       {
         headers: {
           'Set-Cookie': await context.session.commit(),
         },
-      }
+      },
     );
   } catch (error) {
     return json(
-      { error: error.message, customer: null },
+      {error: error.message, customer: null},
       {
         status: 400,
         headers: {
           'Set-Cookie': await context.session.commit(),
         },
-      }
+      },
     );
   }
 }
@@ -162,32 +162,6 @@ const AccountDetails = () => {
                             defaultValue={customer.lastName ?? ''}
                             minLength={2}
                         />
-                      </div>
-                  </div>
-                  <div className="sm:col-span-3">
-                      <label htmlFor="emailAddress" className="block text-sm font-medium leading-6 text-gray-900">Email address</label>
-                      <div className="mt-2">
-                          <input 
-                            id="emailAddress" 
-                            name="emailAddress" 
-                            type="email" 
-                            defaultValue={customer.emailAddress.emailAddress  ?? ''} 
-                            autoComplete="emailAddress" 
-                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            />
-                      </div>
-                  </div>
-
-                  <div className="sm:col-span-3">
-                      <label htmlFor="phoneNumber" className="block text-sm font-medium leading-6 text-gray-900">Phone</label>
-                      <div className="mt-2">
-                          <input
-                             type="tel" 
-                             name="phoneNumber" 
-                             id="phoneNumber" 
-                             defaultValue={customer.phoneNumber.phoneNumber ?? ''} 
-                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                             />
                       </div>
                   </div>
                   <div className="sm:col-span-3">

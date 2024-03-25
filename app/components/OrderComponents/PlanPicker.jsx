@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import HeaderContext from '../HeaderContext'
 
 const PlanPicker = () => {
@@ -6,12 +6,8 @@ const PlanPicker = () => {
     'Delivery every 15 Days',
   )
 
-  const { setSwitchHeader, sellingPlan, setSellingPlan } =
+  const { sellingPlan, setSellingPlan } =
     useContext(HeaderContext)
-
-  useEffect(() => {
-    setSwitchHeader(true)
-  }, [])
 
   const checkBox = (
     <svg
@@ -130,7 +126,9 @@ const PlanPicker = () => {
         <p className="font-semibold italic text-center text-black text-[14px] sm:text-[20px]">
           We guarantee you&apos;ll love it or your money back !
         </p>
-        <div className="flex pt-2 min-h-[30px] sm:min-h-[auto] font-semibold">{review}</div>
+        <div className="flex pt-2 min-h-[30px] sm:min-h-[auto] font-semibold">
+          {review}
+        </div>
 
         <div className="flex justify-start flex-col gap-[12px] sm:gap-[62px]  pt-5 w-[100%]">
           <div className="flex items-center w-full gap-2 lg:w-4/12 xl:w-3/12">
@@ -159,17 +157,20 @@ const PlanPicker = () => {
               </p>
               <div
                 className={`${
-                  sellingPlan !== 'Delivery every 15 Days' ? 'bg-white border-[#c6c6c6] sm:border-[#862E1B]' : 'border-[#425B34] sm:border-[#862E1B] sm:bg-[#862E1B]'
+                  sellingPlan !== 'Delivery every 15 Days'
+                    ? 'bg-white border-[#c6c6c6] sm:border-[#862E1B]'
+                    : 'border-[#425B34] sm:border-[#862E1B] sm:bg-[#862E1B]'
                 } p-[7px] sm:p-[10px] border-[3px] border-solid flex gap-6 cursor-pointer rounded-[14px] sm:rounded-[0px]`}
-                onClick={() => setSellingPlan("Delivery every 15 Days")}
+                onClick={() => setSellingPlan('Delivery every 15 Days')}
               >
                 <div
                   className={`${
-                    sellingPlan !== 'Delivery every 15 Days' ? 'text-black sm:text-[#000]' : 'text-[#000] sm:text-white'
+                    sellingPlan !== 'Delivery every 15 Days'
+                      ? 'text-black sm:text-[#000]'
+                      : 'text-[#000] sm:text-white'
                   } leading-[100%] flex-1 text-[18px] sm:text-[20px] text-center sm:text-left font-bold`}
                 >
                   Subscribe & Save
-
                 </div>
 
                 <select
@@ -197,34 +198,53 @@ const PlanPicker = () => {
                 </select>
               </div>
               <div className="bg-[#e7eae5] rounded-[12px] sm:bg-[#ebeae9] sm:rounded-[0px] px-[12px] py-[5px]">
-                <div className='mt-[4px] flex justify-between items-center sm:hidden'>
-                  <p className='text-black font-semibold text-[14px]'>Deliver Every</p>
-                  <div className='flex gap-2'>
-                  {
-                    ["Delivery every 15 Days", "Every 30 Days"].map((item ,index) => {
-                      // Modify item here to remove "Delivery" and capitalize "e" in "every"
-                      const modifiedItem = item.replace("Delivery ", "");
+                <div className="mt-[4px] flex justify-between items-center sm:hidden">
+                  <p className="text-black font-semibold text-[14px]">
+                    Deliver Every
+                  </p>
+                  <div className="flex gap-2">
+                    {['Delivery every 15 Days', 'Every 30 Days'].map(
+                      (item, index) => {
+                        // Modify item here to remove "Delivery" and capitalize "e" in "every"
+                        const modifiedItem = item.replace('Delivery ', '')
 
-                      return (
-                        <div key={index} className={`
-                          rounded-full border border-solid border-[#425B34] ${sellingPlanFrequency === item ? "bg-[#425B34] text-white" : "bg-white"} text-center text-[11px] font-semibold min-h-[24px] flex justify-center items-center px-[12px] leading-[100%]
-                        `} onClick={() => setSellingPlanFrequency(item)}>
-                          {modifiedItem}
-                        </div>
-                      );
-                    })
-                  }
+                        return (
+                          <div
+                            key={index}
+                            className={`
+                          rounded-full border border-solid border-[#425B34] ${
+                            sellingPlanFrequency === item
+                              ? 'bg-[#425B34] text-white'
+                              : 'bg-white'
+                          } text-center text-[11px] font-semibold min-h-[24px] flex justify-center items-center px-[12px] leading-[100%]
+                        `}
+                            onClick={() => setSellingPlanFrequency(item)}
+                          >
+                            {modifiedItem}
+                          </div>
+                        )
+                      },
+                    )}
                   </div>
                 </div>
                 <ul className="mt-[12px] sm:mt-0 grid grid-cols-2 gap-y-2 sm:grid-cols-1">
                   <li className="flex items-center text-[11px] sm:text-[12px] font-normal sm:font-bold m-0 ">
-                    <span className='text-[#425B34] sm:text-black'>{checkBox}</span> Save 10% on Future Orders
+                    <span className="text-[#425B34] sm:text-black">
+                      {checkBox}
+                    </span>{' '}
+                    Save 10% on Future Orders
                   </li>
                   <li className="flex items-center text-[11px] sm:text-[12px] font-normal sm:font-bold m-0">
-                    <span className='text-[#425B34] sm:text-black'>{checkBox}</span> Exclusive Meat Options
+                    <span className="text-[#425B34] sm:text-black">
+                      {checkBox}
+                    </span>{' '}
+                    Exclusive Meat Options
                   </li>
                   <li className="flex items-center text-[11px] sm:text-[12px] font-normal sm:font-bold m-0">
-                    <span className='text-[#425B34] sm:text-black'>{checkBox}</span> Customize or Cancel Anytime
+                    <span className="text-[#425B34] sm:text-black">
+                      {checkBox}
+                    </span>{' '}
+                    Customize or Cancel Anytime
                   </li>
                 </ul>
               </div>
@@ -237,13 +257,17 @@ const PlanPicker = () => {
 
               <div
                 className={`${
-                  sellingPlan === '' ? 'bg-white sm:bg-[#862E1B]' : ''
+                  sellingPlan === ''
+                    ? 'bg-white sm:bg-[#862E1B] border-[#425B34] sm:border-0'
+                    : 'border-[#c6c6c6] sm:border-[#862E1B]'
                 } p-[3px] sm:p-[10px] border-[3px] border-solid flex justify-center sm:justify-start gap-6 cursor-pointer rounded-[14px] sm:rounded-[0px] subscriptionlabel`}
                 onClick={() => setSellingPlan('')}
-              > 
+              >
                 <div
                   className={`${
-                    sellingPlan === '' ? 'text-black sm:text-[#fff]' : 'text-[#1d1d1d]'
+                    sellingPlan === ''
+                      ? 'text-black sm:text-[#fff]'
+                      : 'text-[#1d1d1d]'
                   } text-[18px] sm:text-[20px] w-fit font-bold text-center sm:text-left`}
                 >
                   One Time

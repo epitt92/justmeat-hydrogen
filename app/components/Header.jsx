@@ -1,6 +1,5 @@
-import { Await, NavLink } from '@remix-run/react'
-import HeaderContext from './HeaderContext'
-import { Suspense, useContext } from 'react'
+import { Await, NavLink, useMatches } from '@remix-run/react'
+import { Suspense } from 'react'
 import { useRootLoaderData } from '~/root'
 import OrderButton from './OrderButton'
 import { number } from 'prop-types'
@@ -12,7 +11,9 @@ import { number } from 'prop-types'
  */
 export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
   
-  const { switchHeader } = useContext(HeaderContext);
+  const matches = useMatches();
+
+  const isRoute = matches[1].params.handle === "custom-bundle";  
 
   const Mainheader = () => {
     return (
@@ -138,7 +139,7 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
 
   return (
     <header className="container max-w-[100%] bg-[#fff]  ">
-      { switchHeader == true ? <Landingheader /> : <Mainheader />}
+      { isRoute ? <Landingheader /> : <Mainheader />}
     </header>
   )
 }
