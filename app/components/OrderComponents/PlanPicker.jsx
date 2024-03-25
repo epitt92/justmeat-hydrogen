@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import HeaderContext from '../HeaderContext'
 
 const PlanPicker = () => {
@@ -6,12 +6,8 @@ const PlanPicker = () => {
     'Delivery every 15 Days',
   )
 
-  const { setSwitchHeader, sellingPlan, setSellingPlan } =
+  const { sellingPlan, setSellingPlan } =
     useContext(HeaderContext)
-
-  useEffect(() => {
-    setSwitchHeader(true)
-  }, [])
 
   const checkBox = (
     <svg

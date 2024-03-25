@@ -1,5 +1,4 @@
-import React, { useContext, useEffect } from 'react'
-import HeaderContext from './HeaderContext'
+import React, {} from 'react'
 import {
   Accordion,
   AccordionHeader,
@@ -31,12 +30,6 @@ function Icon({ id, open }) {
 
 function FaqAccordion() {
   const [open, setOpen] = React.useState(0)
-
-  const { setSwitchHeader } = useContext(HeaderContext)
-
-  useEffect(() => {
-    setSwitchHeader(false)
-  }, [])
 
   const handleOpen = (value) => setOpen(open === value ? 0 : value)
 
