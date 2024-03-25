@@ -64,7 +64,16 @@ export async function action({ request, context }) {
       })),
     }
 
-    cartData = getDynamicBundleItems(bundle, 'shopifyProductHandle')
+    const bundleItems = await getDynamicBundleItems(
+      bundle,
+      'shopifyProductHandle',
+    )
+
+    cartData = bundleItems.map((bundleItem) => ({
+      quantity: bundleItem.quantity,
+      merchandiseId: `gid://shopify/ProductVariant/${bundleItem.id}`,
+      sellingPlanId: `gid://shopify/SellingPlan/${bundleItem.selling_plan}`,
+    }))
   } else {
     cartData = products.map((product) => ({
       quantity: product.quantity,
@@ -92,8 +101,10 @@ export default function Product() {
           <div className="custom-collection-wrap">
             <CustomCollection col={customCollectionProducts} />
           </div>
-          <div className='block sm:hidden fixed bottom-[12px] left-[50%] transform translate-x-[-50%] w-[90%] rounded-[12px] bg-[#AAAAAA] min-h-[50px] flex justify-center items-center'>
-            <p className='text-white text-[19px] font-semibold'>Add $63.55 to Unlock Cart ($8.59)</p>
+          <div className="block sm:hidden fixed bottom-[12px] left-[50%] transform translate-x-[-50%] w-[90%] rounded-[12px] bg-[#AAAAAA] min-h-[50px] flex justify-center items-center">
+            <p className="text-white text-[19px] font-semibold">
+              Add $63.55 to Unlock Cart ($8.59)
+            </p>
           </div>
         </div>
       </div>
