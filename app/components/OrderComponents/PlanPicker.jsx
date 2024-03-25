@@ -237,13 +237,13 @@ const PlanPicker = () => {
 
               <div
                 className={`${
-                  sellingPlan === 'one-time' ? 'bg-white sm:bg-[#862E1B] border-[#425B34] sm:border-0' : 'border-[#c6c6c6] sm:border-[#862E1B]'
+                  sellingPlan === '' ? 'bg-white sm:bg-[#862E1B]' : ''
                 } p-[3px] sm:p-[10px] border-[3px] border-solid flex justify-center sm:justify-start gap-6 cursor-pointer rounded-[14px] sm:rounded-[0px] subscriptionlabel`}
-                onClick={() => setSellingPlan('one-time')}
+                onClick={() => setSellingPlan('')}
               >
                 <div
                   className={`${
-                    sellingPlan === 'one-time' ? 'text-black sm:text-[#fff]' : 'text-[#1d1d1d]'
+                    sellingPlan === '' ? 'text-black sm:text-[#fff]' : 'text-[#1d1d1d]'
                   } text-[18px] sm:text-[20px] w-fit font-bold text-center sm:text-left`}
                 >
                   One Time
