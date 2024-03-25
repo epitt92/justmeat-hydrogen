@@ -1,13 +1,13 @@
-import HeaderContext from './HeaderContext'
-import { NavLink } from '@remix-run/react'
-import { useContext } from 'react'
+import { NavLink, useMatches } from '@remix-run/react'
 import { useRootLoaderData } from '~/root'
 
 /**
  * @param {FooterQuery & {shop: HeaderQuery['shop']}}
  */
 export function Footer({ menu, shop }) {
-  //const {switchHeader} = useContext(HeaderContext);
+  const matches = useMatches();
+
+  const isRoute = matches[1].params.handle === "custom-bundle";  
 
   const Footer = () => {
     return(
@@ -93,8 +93,7 @@ export function Footer({ menu, shop }) {
   }
   return (
     <>
-     <Footer />  
-    {/*{ switchHeader == false ? <Footer /> : null }*/}
+    { !isRoute ? <Footer /> : null }
     </>
     
   )
