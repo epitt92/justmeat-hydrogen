@@ -203,7 +203,7 @@ export default function Homepage() {
       </section>
       <section className="heroSection bg-[#c5972d] px-4 py-10 flex justify-center items-center bg-no-repeat min-h-96 bg-contain bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Group_4161.png')]">
         <div className="max-w-[1440px] flex justify-center items-center ">
-          <div className="xl:w-[40%] lg:w-[100%]  bg-[#0001]">
+          <div className="xl:w-[40%] lg:w-[100%] ">
             <h2 className="text-black text-5xl mt-2 ">You Ask. We Answer.</h2>
             <div className="p-5">
               <FaqAccordion />
