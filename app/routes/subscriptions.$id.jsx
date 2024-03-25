@@ -1,7 +1,7 @@
 // import clsx from 'clsx';
 import { json, redirect } from '@shopify/remix-oxygen'
 import { useLoaderData } from '@remix-run/react'
-import { Money } from '@shopify/hydrogen'
+import { Money, getPaginationVariables } from '@shopify/hydrogen'
 import {
   getActiveChurnLandingPageURL,
   getSubscription,
@@ -12,6 +12,7 @@ import Link from '../components/Link'
 import Heading from '../components/Heading'
 import Text from '~/components/Text'
 import Button from '~/components/Button'
+import CustomCollection from '~/components/OrderComponents/CustomCollection'
 
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
 // import { CACHE_NONE } from '~/data/cache';
@@ -28,6 +29,27 @@ export const meta = ({ data }) => {
 }
 
 export async function loader({ request, context, params }) {
+
+  const handle = 'all-products'
+  const { storefront } = context
+  const paginationVariables = getPaginationVariables(request, {
+    pageBy: 15,
+  })
+
+  if (!handle) {
+    return redirect('/collections')
+  }
+
+  const { collection } = await storefront.query(COLLECTION_QUERY, {
+    variables: { handle, ...paginationVariables },
+  })
+
+  if (!collection) {
+    throw new Response(`Collection ${handle} not found`, {
+      status: 404,
+    })
+  }
+
   if (!params.id) {
     return redirect(params?.locale ? `${params.locale}/account` : '/account')
   }
@@ -49,7 +71,7 @@ export async function loader({ request, context, params }) {
     context,
   )
 
-  const { product } = await context.storefront.query(PRODUCT_QUERY, {
+  const { product } = await storefront.query(PRODUCT_QUERYTT, {
     variables: {
       id: `gid://shopify/Product/${subscription.external_variant_id.ecommerce}`,
     },
@@ -57,6 +79,7 @@ export async function loader({ request, context, params }) {
 
   return json(
     {
+      collection,
       subscription,
       product,
       cancelUrl,
@@ -72,13 +95,17 @@ export async function loader({ request, context, params }) {
 }
 
 export default function SubscriptionRoute() {
-  const { subscription, product, cancelUrl, shopCurrency } = useLoaderData()
+  const { data, subscription, product, cancelUrl, shopCurrency } = useLoaderData()
   const address = subscription.include?.address
+  console.log(data);
+  // const customCollectionProducts = data.collection.products
   console.log("-+-+-+-");
   console.log(subscription);
   return (
     <div className='w-full flex flex-col justify-center items-center'>
-
+          <div className="custom-collection-wrap">
+            {/* <CustomCollection col={customCollectionProducts} /> */}
+          </div>
       <div className='hidden'>
         <div heading="Subscription detail">
           <Link to="/account">
@@ -565,11 +592,227 @@ export default function SubscriptionRoute() {
   )
 }
 
-const PRODUCT_QUERY = `#graphql
+const PRODUCT_QUERYTT = `#graphql
   query getProductById($id: ID!) {
     product(id: $id) {
       id
       handle
+    }
+  }
+`
+
+const PRODUCT_VARIANT_FRAGMENT = `#graphql
+  fragment ProductVariant on ProductVariant {
+    availableForSale
+    compareAtPrice {
+      amount
+      currencyCode
+    }
+    id
+    image {
+      __typename
+      id
+      url
+      altText
+      width
+      height
+    }
+    price {
+      amount
+      currencyCode
+    }
+    product {
+      title
+      handle
+    }
+    selectedOptions {
+      name
+      value
+    }
+    sku
+    title
+    unitPrice {
+      amount
+      currencyCode
+    }
+  }
+`
+
+const PRODUCT_FRAGMENT = `#graphql
+  fragment Product on Product {
+    id
+    title
+    vendor
+    handle
+    descriptionHtml
+    description
+    options {
+      name
+      values
+    }
+    selectedVariant: variantBySelectedOptions(selectedOptions: $selectedOptions, ignoreUnknownOptions: true, caseInsensitiveMatch: true) {
+      ...ProductVariant
+    }
+    variants(first: 1) {
+      nodes {
+        ...ProductVariant
+      }
+    }
+    seo {
+      description
+      title
+    }
+  }
+  ${PRODUCT_VARIANT_FRAGMENT}
+`
+
+const PRODUCT_QUERY = `#graphql
+  query Product(
+    $country: CountryCode
+    $handle: String!
+    $language: LanguageCode
+    $selectedOptions: [SelectedOptionInput!]!
+  ) @inContext(country: $country, language: $language) {
+    product(handle: $handle) {
+      ...Product
+    }
+  }
+  ${PRODUCT_FRAGMENT}
+`
+
+const PRODUCT_VARIANTS_FRAGMENT = `#graphql
+  fragment ProductVariants on Product {
+    variants(first: 250) {
+      nodes {
+        ...ProductVariant
+      }
+    }
+  }
+  ${PRODUCT_VARIANT_FRAGMENT}
+`
+
+const VARIANTS_QUERY = `#graphql
+  ${PRODUCT_VARIANTS_FRAGMENT}
+  query ProductVariants(
+    $country: CountryCode
+    $language: LanguageCode
+    $handle: String!
+  ) @inContext(country: $country, language: $language) {
+    product(handle: $handle) {
+      ...ProductVariants
+    }
+  }
+`
+
+/** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
+/** @template T @typedef {import('@remix-run/react').MetaFunction<T>} MetaFunction */
+/** @typedef {import('@remix-run/react').FetcherWithComponents} FetcherWithComponents */
+/** @typedef {import('storefrontapi.generated').ProductFragment} ProductFragment */
+/** @typedef {import('storefrontapi.generated').ProductVariantsQuery} ProductVariantsQuery */
+/** @typedef {import('storefrontapi.generated').ProductVariantFragment} ProductVariantFragment */
+/** @typedef {import('@shopify/hydrogen').VariantOption} VariantOption */
+/** @typedef {import('@shopify/hydrogen/storefront-api-types').CartLineInput} CartLineInput */
+/** @typedef {import('@shopify/hydrogen/storefront-api-types').SelectedOption} SelectedOption */
+/** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */
+
+// custom collection qusery
+
+const PRODUCT_ITEM_FRAGMENT = `#graphql
+  fragment MoneyProductItem on MoneyV2 {
+    amount
+    currencyCode
+  }
+  fragment ProductItem on Product {
+    id
+    handle
+    title
+    description
+    images(first: 100) {
+      nodes {
+        altText
+        height
+        url
+        width
+      }
+    }
+    featuredImage {
+      id
+      altText
+      url
+      width
+      height
+    }
+    priceRange {
+      minVariantPrice {
+        ...MoneyProductItem
+      }
+      maxVariantPrice {
+        ...MoneyProductItem
+      }
+    }
+    variants(first: 1) {
+      nodes {
+        id
+        selectedOptions {
+          name
+          value
+        }
+      }
+    }
+  }
+`
+
+const COLLECTION_QUERY = `#graphql
+  ${PRODUCT_ITEM_FRAGMENT}
+  query Collection(
+    $handle: String!
+    $country: CountryCode
+    $language: LanguageCode
+    $first: Int
+    $last: Int
+    $startCursor: String
+    $endCursor: String
+  ) @inContext(country: $country, language: $language) {
+    collection(handle: $handle) {
+      id
+      handle
+      title
+      description
+      
+      products(
+        first: $first,
+        last: $last,
+        before: $startCursor,
+        after: $endCursor
+      ) {
+        nodes {
+          ...ProductItem
+        }
+        pageInfo {
+          hasPreviousPage
+          hasNextPage
+          endCursor
+          startCursor
+        }
+      }
+    }
+  }
+`
+
+const METAFIELDS_QUERY = `#graphql
+  query Metafields($productId: ID!) {
+    node(id: $productId) {
+      ... on Product {
+        metafields(first: 10) {
+          edges {
+            node {
+              namespace
+              key
+              value
+            }
+          }
+        }
+      }
     }
   }
 `
