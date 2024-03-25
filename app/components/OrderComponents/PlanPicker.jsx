@@ -240,7 +240,7 @@ const PlanPicker = () => {
                   sellingPlan === '' ? 'bg-white sm:bg-[#862E1B]' : ''
                 } p-[3px] sm:p-[10px] border-[3px] border-solid flex justify-center sm:justify-start gap-6 cursor-pointer rounded-[14px] sm:rounded-[0px] subscriptionlabel`}
                 onClick={() => setSellingPlan('')}
-              >
+              > 
                 <div
                   className={`${
                     sellingPlan === '' ? 'text-black sm:text-[#fff]' : 'text-[#1d1d1d]'
