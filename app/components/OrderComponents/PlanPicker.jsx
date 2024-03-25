@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import HeaderContext from '../HeaderContext'
 
 const PlanPicker = () => {
@@ -6,8 +6,7 @@ const PlanPicker = () => {
     'Delivery every 15 Days',
   )
 
-  const { sellingPlan, setSellingPlan } =
-    useContext(HeaderContext)
+  const { sellingPlan, setSellingPlan } = useContext(HeaderContext)
 
   const checkBox = (
     <svg
@@ -148,8 +147,8 @@ const PlanPicker = () => {
             <div className="flex-1 w-full sm:w-7/12 md:w-6/12 xl:w-4/12">
               <p
                 className={`${
-                  sellingPlan !== 'Delivery every 15 Days'
-                    ? 'text-[#000] font-semibold bg-[#ebeae9] '
+                  sellingPlan !== ''
+                    ? 'text-[#fff] bg-[#000]'
                     : 'text-[#fff] bg-[#425B34] sm:bg-black'
                 } min-h-[24px] flex justify-center items-center px-[15px] pt-[3px] text-[11px] font-normal rounded-full mx-auto sm:ml-0 sm:rounded-[0px] sm:font-semibold sm:text-[14px] sm:min-h-[28px] w-fit`}
               >
@@ -157,17 +156,15 @@ const PlanPicker = () => {
               </p>
               <div
                 className={`${
-                  sellingPlan !== 'Delivery every 15 Days'
-                    ? 'bg-white border-[#c6c6c6] sm:border-[#862E1B]'
-                    : 'border-[#425B34] sm:border-[#862E1B] sm:bg-[#862E1B]'
-                } p-[7px] sm:p-[10px] border-[3px] border-solid flex gap-6 cursor-pointer rounded-[14px] sm:rounded-[0px]`}
-                onClick={() => setSellingPlan('Delivery every 15 Days')}
+                  sellingPlan !== '' ? 'bg-white sm:bg-[#862E1B]' : ''
+                } p-[7px] sm:p-[10px] border-[3px] border-solid flex gap-6 border-[#425B34] sm:border-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px]`}
+                onClick={() => setSellingPlan(sellingPlanFrequency)}
               >
                 <div
                   className={`${
-                    sellingPlan !== 'Delivery every 15 Days'
-                      ? 'text-black sm:text-[#000]'
-                      : 'text-[#000] sm:text-white'
+                    sellingPlan !== ''
+                      ? 'text-black sm:text-[#fff]'
+                      : 'text-[#1d1d1d]'
                   } leading-[100%] flex-1 text-[18px] sm:text-[20px] text-center sm:text-left font-bold`}
                 >
                   Subscribe & Save
@@ -257,10 +254,8 @@ const PlanPicker = () => {
 
               <div
                 className={`${
-                  sellingPlan === ''
-                    ? 'bg-white sm:bg-[#862E1B] border-[#425B34] sm:border-0'
-                    : 'border-[#c6c6c6] sm:border-[#862E1B]'
-                } p-[3px] sm:p-[10px] border-[3px] border-solid flex justify-center sm:justify-start gap-6 cursor-pointer rounded-[14px] sm:rounded-[0px] subscriptionlabel`}
+                  sellingPlan === '' ? 'bg-white sm:bg-[#862E1B]' : ''
+                } p-[3px] sm:p-[10px] border-[3px] border-solid flex justify-center sm:justify-start gap-6 border-[#c6c6c6] sm:border-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px] subscriptionlabel`}
                 onClick={() => setSellingPlan('')}
               >
                 <div
