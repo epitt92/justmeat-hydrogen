@@ -289,7 +289,7 @@ function CartLinePrice({ line, priceType = 'regular', ...passthroughProps }) {
  */
 export function CartEmpty({ hidden = false, layout = 'aside' }) {
   return (
-    <div hidden={hidden} className="mb-20 max-w-[1170px] mx-auto">
+    <div hidden={hidden} className="mb-20">
       <br />
       <p className="font-Roboto text-[19px]">Your cart is currently empty.</p>
       <br />
