@@ -6,7 +6,7 @@ const Easydelicious = () => {
       <div className="w-[85%] max-w-[1170px] mx-auto">
         <div className="mx-auto mt-4 grid max-w-lg gap-8 lg:max-w-none lg:grid-cols-3 justify-center items-center">
           <div className="text-center md:text-start">
-            <h3 className="text-[50px] font-Roboto font-extrabold" style={{
+            <h3 className="text-[50px] font-Roboto font-extrabold leading-[110%]" style={{
               fontFamily: "Rockwell Nova, sans-serif"
             }}>
               Welcome to
