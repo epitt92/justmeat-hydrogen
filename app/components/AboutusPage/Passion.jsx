@@ -3,7 +3,7 @@ import React from 'react'
 const Passion = () => {
   return (
     <section className="bg-white text-[#000] pt-10 pb-28">
-      <div className="w-[85%] mx-auto">
+      <div className="w-[85%] max-w-[1170px] mx-auto">
         <div className="flex flex-col md:flex-row justify-center gap-0 md:gap-[30px] w-full">
           <div className=" md:basis-2/6 justify-start ">
             <h1 className="font-Roboto text-[30px] sm:text-8 md:text-[30px] font-bold leading-[36.415px] md:leading-[40px] lg:leading-[60px] -tracking-[0.6px] md:tracking-[-1.12px]  text-[#061C3D] mb-2">

@@ -90,7 +90,7 @@ export default function Cart() {
   const cartPromise = rootData.cart
 
   return (
-    <div className="cart w-[95%] md:w-[80%] mx-auto">
+    <div className="cart w-[95%] md:w-[80%] max-w-[1170px] mx-auto">
       <h1 className="font-Roboto text-[32px] md:text-[48px] text-gray-900 pl-8 md:pl-0 font-medium mb-3 mt-8">
         Shopping Cart
       </h1>

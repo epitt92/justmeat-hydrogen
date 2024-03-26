@@ -1,22 +1,17 @@
-import {CartForm, Image, Money} from '@shopify/hydrogen';
-import {Link} from '@remix-run/react';
-import {useVariantUrl} from '~/lib/variants';
-import {useRootLoaderData} from '~/root';
-import {useEffect, useState} from 'react';
-import CustomProgressBar from './ui/CustomProgressBar';
-import ProductQuantity from './OrderComponents/ProductQuantity';
-
-
-
+import { CartForm, Image, Money } from '@shopify/hydrogen'
+import { useEffect, useState } from 'react'
+import CustomProgressBar from './ui/CustomProgressBar'
+import ProductQuantity from './OrderComponents/ProductQuantity'
 
 export function CartMain({
   layout,
-  cart,
   selectedProducts,
   setSelectedProducts,
+  onCheckout,
 }) {
   const [subTotal, setSubTotal] = useState(0)
   const linesCount = Boolean(selectedProducts.length || 0)
+
   useEffect(() => {
     // Calculate the total cost of all products in selectedProducts
     const totalCost = selectedProducts.reduce(
@@ -27,27 +22,15 @@ export function CartMain({
     setSubTotal(totalCost)
   }, [selectedProducts])
 
-  const withDiscount =
-    cart &&
-    Boolean(cart?.discountCodes?.filter((code) => code.applicable)?.length)
-  const className = `cart-main ${withDiscount ? 'with-discount' : ''}`
-
-  const handleRemove = (productId) => {
-    setSelectedProducts((prevSelectedProducts) =>
-      prevSelectedProducts.filter((product) => product.id !== productId),
-    )
-  }
-
   return (
-    <div className={className}>
+    <div className="cart-main">
       <ProgessBar cost={subTotal} />
       <CartDetails
-        cart={cart}
         layout={layout}
         selectedProducts={selectedProducts}
         setSelectedProducts={setSelectedProducts}
-        onRemove={handleRemove}
         subTotal={subTotal}
+        onCheckout={onCheckout}
       />
       <CartEmpty hidden={linesCount} layout={layout} />
     </div>
@@ -59,16 +42,16 @@ export function CartMain({
  */
 function CartDetails({
   layout,
-  cart,
   selectedProducts,
   onRemove,
   setSelectedProducts,
   subTotal,
+  onCheckout,
 }) {
   const cartHasItems = selectedProducts.length > 0
-  // const cartHasItems = !!cart && cart.totalQuantity < 0;
+
   return (
-    <div className="cart-details flex flex-col justify-between">
+    <div className="flex flex-col justify-between cart-details">
       <CartLines
         selectedProducts={selectedProducts}
         setSelectedProducts={setSelectedProducts}
@@ -78,15 +61,11 @@ function CartDetails({
         <div className="p-5 pb-3 bg-white">
           <div className="border-b-4 pb-[10px] border-black">
             <CartSummary cost={subTotal} layout={layout}>
-              {/* <CartDiscounts discountCodes={cart.discountCodes} /> */}
-              <CartCheckoutActions
-                // checkoutUrl={cart.checkoutUrl}
-                cost={subTotal}
-              />
+              <CartCheckoutActions cost={subTotal} onCheckout={onCheckout} />
             </CartSummary>
           </div>
-          <div className=" pt-4 flex gap-3 justify-end ">
-            <div className="flex flex-1 flex-col items-end gap-1 justify-end">
+          <div className="flex justify-end gap-3 pt-0 ">
+            <div className="flex flex-col items-end justify-end flex-1 gap-1">
               <p className="text-[14px] font-semibold text-black">
                 Free Bonus Meat (unlocked at $125)
               </p>
@@ -160,26 +139,27 @@ function CartLines({ selectedProducts, onRemove, setSelectedProducts }) {
         ))}
       </ul>
     </div>
-  );
+  )
 }
 
-
-
-function CartLineItem({ line ,onRemove,selectedProducts,setSelectedProducts}) {
-  const {id, title,featuredImage,priceRange,quantity } = line;
-  const image = featuredImage.url;
-  const price = priceRange?.maxVariantPrice?.amount;
-  const [updateQty, setUpdatedQty] = useState(1);
-  const [productAmount,setProductAmount] = useState(price);
+function CartLineItem({
+  line,
+  onRemove,
+  selectedProducts,
+  setSelectedProducts,
+}) {
+  const { id, title, featuredImage, priceRange, quantity } = line
+  const image = featuredImage.url
+  const price = priceRange?.maxVariantPrice?.amount
 
   return (
-    <li key={id} className="cart-line pl-[10px] mb-5 flex gap-4">
+    <li key={id} className="cart-line pl-[10px] mb-2 flex gap-4">
       {featuredImage && (
         <img src={image} alt="" height={100} loading="lazy" width={72} />
       )}
 
       <div className="flex  flex-1 pr-[10px] justify-between items-center ">
-        <div className="h-fit flex-1">
+        <div className="flex-1 h-fit">
           <p className="font-semibold text-[14px]  text-center ">
             <strong className="pr-[10px] flex justify-center">{title}</strong>
           </p>
@@ -188,37 +168,36 @@ function CartLineItem({ line ,onRemove,selectedProducts,setSelectedProducts}) {
             ${priceRange.maxVariantPrice.amount}
           </p>
         </div>
-
-           <ProductQuantity line ={line} layout={"aside"} onRemove={onRemove} selectedProducts ={selectedProducts} setSelectedProducts={setSelectedProducts}/>
+        {line && (
+          <ProductQuantity
+            line={line}
+            onRemove={onRemove}
+            selectedProducts={selectedProducts}
+            setSelectedProducts={setSelectedProducts}
+          />
+        )}
       </div>
     </li>
   )
 }
 
-
-function CartCheckoutActions({ cost}) {
-  // if (!checkoutUrl) return null;
+function CartCheckoutActions({ cost, onCheckout }) {
   return (
     <>
       {cost >= 75 ? (
         <div className="flex justify-center items-center w-1/2 bg-[#425b34]">
-          <a
-            // href={checkoutUrl}
-            className="bg-[#425b34] text-[15px] py-[10px] font-semibold text-white"
-            target="_self"
+          <button
+            className="bg-[#425b34] text-[15px] py-[15px] font-semibold text-white"
+            onClick={onCheckout}
           >
             <p>Continue to Checkout </p>
-          </a>
+          </button>
         </div>
       ) : (
         <div className="flex justify-center items-center w-6/12 pointer-events-none select-none  bg-[#6e6e6e]">
-          <a
-            // href={checkoutUrl}
-            className=" text-[15px] text-center py-[10px] font-semibold text-white"
-            target="_self"
-          >
+          <button className=" text-[15px] text-center py-[15px] font-semibold text-white">
             Spend $75 to Continue
-          </a>
+          </button>
         </div>
       )}
     </>
@@ -234,11 +213,10 @@ export function CartSummary({ cost, layout, children = null }) {
       className={`${className} flex justify-between items-end `}
     >
       {/* <h4>Totals</h4> */}
-      <dl className="cart-subtotal flex font-semibold text-base">
+      <dl className="flex text-base font-semibold cart-subtotal">
         <dt>Total: </dt>
         {cost ? (
-          <span className="text-[20px] pr-1 line-through decoration-[#000] decoration-[3px] text-[#919191] ">
-
+          <span className="text-[16px] pr-1 line-through decoration-[#000] decoration-[3px] text-[#919191] ">
             {`$${(cost + 11.45).toFixed(2)}`}
           </span>
         ) : (
@@ -247,7 +225,9 @@ export function CartSummary({ cost, layout, children = null }) {
         <dd>
           {cost ? (
             // <Money data={cost} />
-            <span className='font-semibold text-center text-base'>${cost.toFixed(2)}</span>
+            <span className="text-[16px] font-semibold text-center">
+              ${cost.toFixed(2)}
+            </span>
           ) : (
             '-'
           )}
@@ -257,7 +237,6 @@ export function CartSummary({ cost, layout, children = null }) {
     </div>
   )
 }
-
 
 function addAmount(baseAmount, additionalAmount) {
   // Parse the base amount and additional amount as floats
@@ -283,28 +262,26 @@ function addAmount(baseAmount, additionalAmount) {
   sum = Math.round((sum + Number.EPSILON) * 100) / 100
 
   // Convert the sum to a string
-  let sumStr = sum.toString();
+  let sumStr = sum.toString()
 
   // Check if the sum has decimal part
-  const decimalIndex = sumStr.indexOf('.');
+  const decimalIndex = sumStr.indexOf('.')
   if (decimalIndex === -1) {
     // If no decimal part, add '.00' to the end
-    sumStr += '.00';
+    sumStr += '.00'
   } else {
     // If decimal part exists, ensure there are always two digits after the decimal point
-    const decimalDigits = sumStr.length - decimalIndex - 1;
+    const decimalDigits = sumStr.length - decimalIndex - 1
     if (decimalDigits === 1) {
       // If only one digit after the decimal point, add a zero
-      sumStr += '0';
+      sumStr += '0'
     } else if (decimalDigits > 2) {
       // If more than two digits after the decimal point, round to two digits
-      sumStr = sum.toFixed(2);
+      sumStr = sum.toFixed(2)
     }
   }
-  return sumStr;
+  return sumStr
 }
-
-
 
 /**
  * @param {{
@@ -340,28 +317,33 @@ function CartLinePrice({ line, priceType = 'regular', ...passthroughProps }) {
  *   layout?: CartMainProps['layout'];
  * }}
  */
-export function CartEmpty({ hidden = false, layout = 'aside' }) {
+export function CartEmpty({ hidden = false, layout = 'aside', setShowCart }) {
   return (
     <div hidden={hidden} className="h-[260px]">
       <br />
-      <div className=" p-5 pb-3 absolute bottom-0 w-full ">
-        <div className="border-b-4 flex justify-between items-end pb-[10px] border-black w-full ">
-          <div className="w-4/12 flex">
+      <div className="absolute bottom-0 w-full p-5 pb-3">
+        <div className="flex justify-center block w-full xl:hidden">
+          <span className="w-fit text-[14px] p-[10px] font-semibold text-white bg-[#862e1b]">
+            Return to Shop
+          </span>
+        </div>
+        <div className="border-b-4 flex justify-between items-end pb-[10px] border-black w-full">
+          <div className="flex w-4/12">
             <p className="pr-1 text-base font-semibold">Total:</p>
             <p className="text-base font-semibold">$0.00</p>
           </div>
-          <div className="flex justify-center items-center w-8/12 pointer-events-none select-none  bg-[#6e6e6e]">
+          <div className="flex items-center justify-end w-8/12 pointer-events-none select-none ">
             <a
               // href={checkoutUrl}
-              className=" text-[15px] text-center py-[10px] font-semibold text-white"
+              className=" text-[15px] text-center py-[15px] px-[20px] font-semibold text-white bg-[#6e6e6e]"
               target="_self"
             >
               Spend $75 to Continue
             </a>
           </div>
         </div>
-        <div className=" pt-6 flex gap-3 justify-end ">
-          <div className="flex  flex-col items-end gap-1 justify-end">
+        <div className="flex justify-end gap-3 pt-6 ">
+          <div className="flex flex-col items-end justify-end gap-1">
             <p className="text-[14px] font-semibold text-black">
               Free Bonus Meat (unlocked at $125)
             </p>

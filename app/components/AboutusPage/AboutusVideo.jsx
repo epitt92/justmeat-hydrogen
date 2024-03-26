@@ -3,7 +3,7 @@ import React from 'react'
 const AboutusVideo = () => {
   return (
     <section className="bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Group_4677_2x_b4bf7720-0529-4907-b3d6-8ecc83b37a23.png')] bg-[#111213] text-white py-8">
-      <div className="w-[85%] mx-auto">
+      <div className="w-[85%] max-w-[1170px] mx-auto">
         <div className="mx-auto mt-4 grid max-w-lg gap-8 lg:max-w-none lg:grid-cols-3 justify-center items-center">
           <div className="text-center md:text-start">
             <h3 className="text-[50px] font-Roboto font-extrabold">

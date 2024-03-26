@@ -1,10 +1,18 @@
 import { defer } from '@shopify/remix-oxygen'
-import { Await, useLoaderData, Link, NavLink } from '@remix-run/react'
-import { Suspense } from 'react'
-import { Image, Money } from '@shopify/hydrogen'
+import { useLoaderData, Link, NavLink } from '@remix-run/react'
 import OrderButton from 'app/components/OrderButton'
 import ProductSlider from '~/components/ProductSlider'
 import FaqAccordion from '~/components/FaqAccordion'
+
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react'
+
+// import required modules
+import { Navigation } from 'swiper/modules'
+
+// Import Swiper styles
+import 'swiper/css'
+import 'swiper/css/navigation'
 
 /**
  * @type {MetaFunction}
@@ -102,28 +110,40 @@ export default function Homepage() {
         </div>
       </section>
 
-      <section className="  flex justify-center items-center bg-cover bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/PNSER.png')] ">
+      <section className="flex justify-center items-center bg-cover bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/PNSER.png')] ">
         <div className="w-[100%] py-10 sm:py-20 px-5 sm:px-20 max-w-[1440px] ">
           <ProductSlider />
+          <div className='mt-[64px] flex flex-col lg:flex-row justify-between items-start gap-[24px]'>
+            <div className='flex flex-col'>
+              <h2 className='text-[30px] md:text-[48px] xl:text-[70px] leading-[100%] font-semibold text-white'>Your Protein Routine</h2>
+              <p className='mt-[12px] md:mt-[24px] xl:mt-[40px] text-[16px] xl:text-[18px] leading-[140%] text-white max-w-[440px]'>The hardest part of meal prepping has never been easier! Simply order your meats, prepare for delivery, and reheat with the included directions. Plate up with your favorite sides a delicious and carefree meal.</p>
+              <button className='mt-[12px] md:mt-[24px] xl:mt-[38px] bg-[#862e1b] text-white h-[48px] w-fit px-[40px]'>Order Now</button>
+            </div>
+            <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-[16px] xl:gap-[30px]'>
+              {["/protien-routine-01.webp", "/protien-routine-02.webp", "/protien-routine-03.webp"].map((item, index) => {
+                return <img src={item} width="274px" height="447" alt='Image' key={index} className='w-full sm:w-[274px]' />
+              })}
+            </div>
+          </div>
         </div>
       </section>
 
       <section className="bg-black flex justify-center items-center  py-6">
         <div className=" flex justify-center p-5 sm:px-10 w-max-[1440px] w-[100%]">
           <div className=" w-full lg:w-9/12 flex sm:flex-row flex-col  lg:justify-center justify-between gap-5 sm:gap-0 lg:gap-48 items-center">
-            <div className="flex justify-center items-center flex-col gap-4 sm:border-none border-b-2 sm:pb-0 pb-5 w-full sm:w-fit  border-[#fff] ">
-              <h2 className="text-white font-semibold  text-2xl">
+            <div className="flex justify-center items-center flex-col gap-4 sm:border-none border-b-2 sm:pb-0 pb-5 w-full sm:w-fit border-[#fff] text-center">
+              <h2 className="text-white font-semibold text-2xl">
                 MEATS DELIVERED
               </h2>
               <p className="text-white text-2xl">1,006,928</p>
             </div>
-            <div className="flex justify-center block sm:hidden xl:block items-center flex-col gap-4 sm:border-none border-b-2 sm:pb-0 pb-5 w-full sm:w-fit  border-[#fff] ">
+            <div className="flex justify-center items-center flex-col gap-4 sm:border-none border-b-2 sm:pb-0 pb-5 w-full sm:w-fit border-[#fff] text-center">
               <h2 className="text-white font-semibold text-2xl">
                 POUNDS COOKED
               </h2>
               <p className="text-white text-2xl">345,431 Ib</p>
             </div>
-            <div className="flex justify-center items-center flex-col gap-4">
+            <div className="flex justify-center items-center flex-col gap-4 sm:border-none border-b-2 sm:pb-0 pb-5 w-full sm:w-fit border-[#fff] text-center">
               <h2 className="text-white font-semibold text-2xl">
                 HAPPY CUSTOMERS
               </h2>
@@ -132,11 +152,11 @@ export default function Homepage() {
           </div>
         </div>
       </section>
-      <section className="heroSection border bg-white flex justify-center hidden sm:block items-center p-20  ">
-        <div className="flex flex-col justify-end items-end p-5 gap-6 max-w-[1440px] bg-cover bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Farm_BG_Just_Meats.png')]">
+      <section className="w-full heroSection border bg-white flex justify-center hidden sm:block items-center p-20  ">
+        <div className="max-w-[100%] flex flex-col justify-end items-end p-5 gap-6 bg-cover bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Farm_BG_Just_Meats.png')]">
           <div className="lg:w-[60%] md:w-[90%] xl:w-[38%] md:w-[60%] bg-[#00000040] pl-12 pr-4 py-5 mt-[200px]">
             <h2 className="text-white text-5xl leading-tight font-semibold mb-5 ">
-              REAL MEAT <br></br> REAL RANCHES
+              REAL MEAT<br></br>REAL RANCHES
             </h2>
             <p className="text-white text-lg mb-5">
               We take pride in supplying delicious, healthy, natural grass-fed
@@ -203,7 +223,7 @@ export default function Homepage() {
       </section>
       <section className="heroSection bg-[#c5972d] px-4 py-10 flex justify-center items-center bg-no-repeat min-h-96 bg-contain bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Group_4161.png')]">
         <div className="max-w-[1440px] flex justify-center items-center ">
-          <div className="xl:w-[40%] lg:w-[100%]  bg-[#0001]">
+          <div className="xl:w-[40%] lg:w-[100%] ">
             <h2 className="text-black text-5xl mt-2 ">You Ask. We Answer.</h2>
             <div className="p-5">
               <FaqAccordion />
