@@ -75,7 +75,10 @@ export async function action({ request, context }) {
         merchandiseId: `gid://shopify/ProductVariant/${bundleItem.id}`,
         sellingPlanId: `gid://shopify/SellingPlan/${bundleItem.selling_plan}`,
       })),
-      { merchandiseId: `gid://shopify/ProductVariant/44625977999586` },
+      {
+        quantity: 1,
+        merchandiseId: `gid://shopify/ProductVariant/44625977999586`,
+      },
     ]
   } else {
     cartData = products.map((product) => ({
