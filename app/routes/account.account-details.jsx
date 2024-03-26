@@ -112,7 +112,7 @@ const AccountDetails = () => {
     <div className='bg-sublistbgGray py-6'>
       <div className='w-[95%] md:w-[80%] mx-auto'>
         <div className='flex flex-col md:flex-row gap-2 md:gap-14 items-center border-gray-500 border-b-2 py-4 my-4'>
-          <NavLink to="/account/orders" className="basis-2/12 text-center capitalize border-solid border-2 border-gray-500 px-2 py-1">
+          <NavLink to="/account/subscriptions" className="basis-2/12 bg-[#fff] text-center capitalize border-solid border-2 border-gray-500 px-2 py-1">
             Back to Account
           </NavLink>
 
