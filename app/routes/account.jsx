@@ -79,14 +79,14 @@ export default function AccountLayout() {
     : 'Account Details';
   
   return (
-    <div className="account">
-      <h1>{heading}</h1>
+    <div className="account ">
+      <AccountMenu />
       
-      {subscriptionsResponse.subscriptions && (
+      {/* {subscriptionsResponse.subscriptions && (
         <AccountSubscriptions subscriptions={subscriptionsResponse.subscriptions} currentcustomer={customer}/>
       )}
-      <br />
-      {/*<AccountMenu />*/}
+      <br /> */}
+      
       <br />
       <br />
       <Outlet context={{ customer }} />
@@ -102,28 +102,30 @@ function AccountMenu() {
   }
 
   return (
-    <nav role="navigation">
-      <NavLink to="/account/orders" style={isActiveStyle}>
-        Orders &nbsp;
+    <div className='w-[95%] md:w-[80%] mx-auto'>
+    <nav role="navigation" className='flex justify-center gap-10'>
+      <NavLink to="/account/subscriptions" style={isActiveStyle}>
+      Subscriptions &nbsp;
       </NavLink>
-      &nbsp;|&nbsp;
-      <NavLink to="/account/profile" style={isActiveStyle}>
-        &nbsp; Profile &nbsp;
+      
+      <NavLink to="/account/order_history" style={isActiveStyle}>
+        &nbsp; Order History &nbsp;
       </NavLink>
-      &nbsp;|&nbsp;
-      <NavLink to="/account/addresses" style={isActiveStyle}>
-        &nbsp; Addresses &nbsp;
+      
+      <NavLink to="/account/account-details" style={isActiveStyle}>
+        &nbsp; Account Details &nbsp;
       </NavLink>
-      &nbsp;|&nbsp;
+      
       <Logout />
     </nav>
+    </div>
   );
 }
 
 function Logout() {
   return (
     <Form className="account-logout" method="POST" action="/account/logout">
-      &nbsp;<button type="submit">Sign out</button>
+      &nbsp;<button type="submit">Logout</button>
     </Form>
   );
 }
