@@ -1,9 +1,9 @@
 import React from 'react'
-import RefundPolicy from "../components/RefundPolicy/RefundPolicy";
+import RefundPolicy from '../components/RefundPolicy/RefundPolicy'
 const RefundPolicyPage = () => {
   return (
     <>
-    <RefundPolicy/>
+      <RefundPolicy />
     </>
   )
 }

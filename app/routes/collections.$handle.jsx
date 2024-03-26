@@ -1,56 +1,56 @@
-import {json, redirect} from '@shopify/remix-oxygen';
-import {useLoaderData, Link} from '@remix-run/react';
+import { json, redirect } from '@shopify/remix-oxygen'
+import { useLoaderData, Link } from '@remix-run/react'
 import {
   Pagination,
   getPaginationVariables,
   Image,
   Money,
-} from '@shopify/hydrogen';
-import {useVariantUrl} from '~/lib/variants';
+} from '@shopify/hydrogen'
+import { useVariantUrl } from '~/lib/variants'
 
 /**
  * @type {MetaFunction<typeof loader>}
  */
-export const meta = ({data}) => {
-  return [{title: `Hydrogen | ${data?.collection.title ?? ''} Collection`}];
-};
+export const meta = ({ data }) => {
+  return [{ title: `Hydrogen | ${data?.collection.title ?? ''} Collection` }]
+}
 
 /**
  * @param {LoaderFunctionArgs}
  */
-export async function loader({request, params, context}) {
-  const {handle} = params;
-  const {storefront} = context;
+export async function loader({ request, params, context }) {
+  const { handle } = params
+  const { storefront } = context
   const paginationVariables = getPaginationVariables(request, {
     pageBy: 8,
-  });
+  })
 
   if (!handle) {
-    return redirect('/collections');
+    return redirect('/collections')
   }
 
-  const {collection} = await storefront.query(COLLECTION_QUERY, {
-    variables: {handle, ...paginationVariables},
-  });
+  const { collection } = await storefront.query(COLLECTION_QUERY, {
+    variables: { handle, ...paginationVariables },
+  })
 
   if (!collection) {
     throw new Response(`Collection ${handle} not found`, {
       status: 404,
-    });
+    })
   }
-  return json({collection});
+  return json({ collection })
 }
 
 export default function Collection() {
   /** @type {LoaderReturnData} */
-  const {collection} = useLoaderData();
+  const { collection } = useLoaderData()
 
   return (
     <div className="collection">
       <h1>{collection.title}</h1>
       <p className="collection-description">{collection.description}</p>
       <Pagination connection={collection.products}>
-        {({nodes, isLoading, PreviousLink, NextLink}) => (
+      {({nodes, isLoading, PreviousLink, NextLink}) => (
           <>
             <PreviousLink>
               {isLoading ? 'Loading...' : <span>↑ Load previous</span>}
@@ -64,13 +64,13 @@ export default function Collection() {
         )}
       </Pagination>
     </div>
-  );
+  )
 }
 
 /**
  * @param {{products: ProductItemFragment[]}}
  */
-function ProductsGrid({products}) {
+function ProductsGrid({ products }) {
   return (
     <div className="products-grid">
       {products.map((product, index) => {
@@ -80,10 +80,10 @@ function ProductsGrid({products}) {
             product={product}
             loading={index < 8 ? 'eager' : undefined}
           />
-        );
+        )
       })}
     </div>
-  );
+  )
 }
 
 /**
@@ -92,9 +92,9 @@ function ProductsGrid({products}) {
  *   loading?: 'eager' | 'lazy';
  * }}
  */
-function ProductItem({product, loading}) {
-  const variant = product.variants.nodes[0];
-  const variantUrl = useVariantUrl(product.handle, variant.selectedOptions);
+function ProductItem({ product, loading }) {
+  const variant = product.variants.nodes[0]
+  const variantUrl = useVariantUrl(product.handle, variant.selectedOptions)
   return (
     <Link
       className="product-item"
@@ -116,7 +116,7 @@ function ProductItem({product, loading}) {
         <Money data={product.priceRange.minVariantPrice} />
       </small>
     </Link>
-  );
+  )
 }
 
 const PRODUCT_ITEM_FRAGMENT = `#graphql
@@ -152,7 +152,7 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
       }
     }
   }
-`;
+`
 
 // NOTE: https://shopify.dev/docs/api/storefront/2022-04/objects/collection
 const COLLECTION_QUERY = `#graphql
@@ -189,7 +189,7 @@ const COLLECTION_QUERY = `#graphql
       }
     }
   }
-`;
+`
 
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
 /** @template T @typedef {import('@remix-run/react').MetaFunction<T>} MetaFunction */

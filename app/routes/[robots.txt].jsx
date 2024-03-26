@@ -1,15 +1,15 @@
-import {parseGid} from '@shopify/hydrogen';
+import { parseGid } from '@shopify/hydrogen'
 
 /**
  * @param {LoaderFunctionArgs}
  */
-export async function loader({request, context}) {
-  const url = new URL(request.url);
+export async function loader({ request, context }) {
+  const url = new URL(request.url)
 
-  const {shop} = await context.storefront.query(ROBOTS_QUERY);
+  const { shop } = await context.storefront.query(ROBOTS_QUERY)
 
-  const shopId = parseGid(shop.id).id;
-  const body = robotsTxtData({url: url.origin, shopId});
+  const shopId = parseGid(shop.id).id
+  const body = robotsTxtData({ url: url.origin, shopId })
 
   return new Response(body, {
     status: 200,
@@ -18,18 +18,18 @@ export async function loader({request, context}) {
 
       'Cache-Control': `max-age=${60 * 60 * 24}`,
     },
-  });
+  })
 }
 
 /**
  * @param {{shopId?: string; url?: string}}
  */
-function robotsTxtData({url, shopId}) {
-  const sitemapUrl = url ? `${url}/sitemap.xml` : undefined;
+function robotsTxtData({ url, shopId }) {
+  const sitemapUrl = url ? `${url}/sitemap.xml` : undefined
 
   return `
 User-agent: *
-${generalDisallowRules({sitemapUrl, shopId})}
+${generalDisallowRules({ sitemapUrl, shopId })}
 
 # Google adsbot ignores robots.txt unless specifically named!
 User-agent: adsbot-google
@@ -48,18 +48,18 @@ Disallow: /
 
 User-agent: AhrefsBot
 Crawl-delay: 10
-${generalDisallowRules({sitemapUrl, shopId})}
+${generalDisallowRules({ sitemapUrl, shopId })}
 
 User-agent: AhrefsSiteAudit
 Crawl-delay: 10
-${generalDisallowRules({sitemapUrl, shopId})}
+${generalDisallowRules({ sitemapUrl, shopId })}
 
 User-agent: MJ12bot
 Crawl-Delay: 10
 
 User-agent: Pinterest
 Crawl-delay: 1
-`.trim();
+`.trim()
 }
 
 /**
@@ -70,7 +70,7 @@ Crawl-delay: 1
  *   sitemapUrl?: string;
  * }}
  */
-function generalDisallowRules({shopId, sitemapUrl}) {
+function generalDisallowRules({ shopId, sitemapUrl }) {
   return `Disallow: /admin
 Disallow: /cart
 Disallow: /orders
@@ -107,7 +107,7 @@ Allow: /search/
 Disallow: /search/?*
 Disallow: /apple-app-site-association
 Disallow: /.well-known/shopify/monorail
-${sitemapUrl ? `Sitemap: ${sitemapUrl}` : ''}`;
+${sitemapUrl ? `Sitemap: ${sitemapUrl}` : ''}`
 }
 
 const ROBOTS_QUERY = `#graphql
@@ -117,7 +117,7 @@ const ROBOTS_QUERY = `#graphql
       id
     }
   }
-`;
+`
 
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
 /** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */

@@ -1,16 +1,14 @@
-import React, { useContext, useEffect } from 'react';
+import React, {} from 'react'
 import {
   Accordion,
   AccordionHeader,
   AccordionBody,
-} from '@material-tailwind/react';
-import HeaderContext from './HeaderContext';
+} from '@material-tailwind/react'
 
-function Icon({id, open}) {
+
+function Icon({ id, open }) {
   return (
     <div>
-
-
       <svg
         width="13"
         height="8"
@@ -27,19 +25,13 @@ function Icon({id, open}) {
         />
       </svg>
     </div>
-  );
+  )
 }
 
 function FaqAccordion() {
-  const [open, setOpen] = React.useState(0);
+  const [open, setOpen] = React.useState(0)
 
-  const {setSwitchHeader} = useContext(HeaderContext);
-
-  useEffect(() => {
-    setSwitchHeader(false);
-  }, [])
-
-  const handleOpen = (value) => setOpen(open === value ? 0 : value);
+  const handleOpen = (value) => setOpen(open === value ? 0 : value)
 
   return (
     <>
@@ -51,8 +43,9 @@ function FaqAccordion() {
           What kind of meat can I buy?
         </AccordionHeader>
         <AccordionBody className="p-5 text-center text-base">
-          Each week, you can choose from <span className='bg-[#d9ead3]'>chicken, pork, or beef options</span> cooked
-          in a variety of ways with unique spices and sauces.
+          Each week, you can choose from{' '}
+          <span className="bg-[#d9ead3]">chicken, pork, or beef options</span>{' '}
+          cooked in a variety of ways with unique spices and sauces.
         </AccordionBody>
       </Accordion>
       <Accordion open={open === 2} icon={<Icon id={2} open={open} />}>
@@ -143,7 +136,7 @@ function FaqAccordion() {
         </AccordionBody>
       </Accordion>
     </>
-  );
+  )
 }
 
-export default FaqAccordion;
+export default FaqAccordion

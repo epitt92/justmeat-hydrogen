@@ -1,49 +1,37 @@
-import React, { useContext, useEffect, useState } from 'react'
-// import { Progress } from './progress';
-import * as Progress from '@radix-ui/react-progress';
-import HeaderContext from '../HeaderContext';
+import React, { useEffect, useState } from 'react'
+import Progress from './progress'
 
+const CustomProgressBar = ({ cost }) => {
+  const progressValue = (cost / 150) * 100 // Calculate the progress value based on the total and the target amount
 
-
-const CustomProgressBar = () => {
-    const [progress, setProgress] = useState(13)
-
-    const { cartTotal } = useContext(HeaderContext);
-
-    let total = parseInt(cartTotal);
-
-    console.log(total)
-
-
-    useEffect(() => {
-        const timer = setTimeout(() => setProgress(total), 500)
-        return () => clearTimeout(timer)
-      }, [cartTotal])
-
-      // return ( 
-      //   <div className='py-4'>
-      //       <Progress value={progress} className="w-[90%] min-h-7" />
-      //   </div>
-      // )
-
-      return (
-        <>
-          <Progress.Root className="ProgressRoot w-[70%] h-3 mx-auto my-2 rounded-lg border border-solid  border-black" value={progress} max={100}>
-            <Progress.Indicator
-              className="ProgressIndicator"
-              style={{ transform: `translateX(-${100 - progress}%)` }}
-            />
-          </Progress.Root>
-          <div className='flex flex-column justify-end'>
-            <p style={{textAlign: "center"}}>$75<br/><span style={{fontSize: "14px"}}>Unlock Order</span></p>
-            <p style={{marginRight: "20%", marginLeft: "20px", textAlign: "center"}}>$125<br/><span style={{fontSize: "14px"}}>Free Meat</span></p>
-          </div>
-        </>
-        
-      )
-
-
-
+  return (
+    <>
+      <div className="py-4 px-10 flex justify-center">
+        <Progress
+          value={progressValue >= 100 ? 100 : progressValue}
+          className="w-[100%] min-h-3 border border-[#000]"
+        />
+      </div>
+      <div className="flex flex-column justify-end gap-2  px-7 ">
+        <p className="text-center text-base flex flex-col mr-3 relative">
+          {' '}
+          <span className="w-[10px] h-[10px] bg-black rounded-[100%] absolute top-[-27px] left-[50%] translate-x-[-50%]  "></span>{' '}
+          <span className="text-[16px] uppercase leading-normal">$75 </span>
+          <span className="text-[11px] uppercase leading-normal">
+            Unlock Order{' '}
+          </span>
+        </p>
+        <p className="text-base text-center flex flex-col mr-5 relative">
+          <span className="w-[10px] h-[10px] bg-black rounded-[100%] absolute top-[-27px] left-[50%] translate-x-[-50%]  "></span>
+          <span className="text-[16px] leading-normal">$125 </span>
+          <span className="text-[11px] uppercase leading-normal">
+            Free Meat{' '}
+          </span>
+          <span className="text-[11px] leading-normal">(UNLOCKED AT $125)</span>
+        </p>
+      </div>
+    </>
+  )
 }
 
 export default CustomProgressBar
