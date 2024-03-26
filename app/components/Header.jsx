@@ -1,24 +1,19 @@
-import {Await, NavLink} from '@remix-run/react';
-import {Suspense, useContext, useEffect, useState} from 'react';
-import {useRootLoaderData} from '~/root';
-import OrderButton from './OrderButton';
-import {number} from 'prop-types';
-import HeaderContext from './HeaderContext';
+import { Await, NavLink, useMatches } from '@remix-run/react'
+import { Suspense } from 'react'
+import { useRootLoaderData } from '~/root'
+import OrderButton from './OrderButton'
+import { number } from 'prop-types'
 
 
 // import {useLocation} from "react-router-dom"
 /**
  * @param {HeaderProps}
  */
-export function Header({header, isLoggedIn, cart,setMenuToggle}) {
+export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
+  
+  const matches = useMatches();
 
-  // const { pathname, search, hash, host } = window.Location;
-
-  // console.log("location", pathname)
-
-  // const {switchHeader} = useContext(HeaderContext);
-  const { switchHeader } = useContext(HeaderContext) || {};
-
+  const isRoute = matches[1].params.handle === "custom-bundle";  
 
   const Mainheader = () => {
     return (
@@ -26,12 +21,12 @@ export function Header({header, isLoggedIn, cart,setMenuToggle}) {
         <NavLink end prefetch="intent" to="/">
           <img
             src="/logo.svg"
-            className="object-cover w-30 h-16 sm:h-24"
+            className="object-cover h-16 w-30 sm:h-24"
             alt=""
           />
         </NavLink>
-        <div className="navBar flex justify-between items-center gap-10">
-          <ul className="navLinks lg:flex hidden">
+        <div className="flex items-center justify-between gap-10 navBar">
+          <ul className="hidden navLinks lg:flex">
             <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base ">
               <NavLink
                 end
@@ -64,12 +59,12 @@ export function Header({header, isLoggedIn, cart,setMenuToggle}) {
               </NavLink>
             </li>
           </ul>
-          <div className="lg:block hidden">
+          <div className="hidden lg:block">
             <OrderButton />
           </div>
-          <div className="headerIcons flex justify-between items-center gap-4 sm:gap-10">
+          <div className="flex items-center justify-between gap-4 headerIcons sm:gap-10">
             <NavLink end prefetch="intent" to="/account">
-              <span className="loginIcon lg:flex hidden w-5 flex cursor-pointer">
+              <span className="flex hidden w-5 cursor-pointer loginIcon lg:flex">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   id="Group_4154"
@@ -98,10 +93,13 @@ export function Header({header, isLoggedIn, cart,setMenuToggle}) {
                 </svg>
               </span>
             </NavLink>
-             <NavLink className="lg:hidden block" onClick={()=>setMenuToggle(true)}>
-            <HeaderMenuMobileToggle setMenuToggle={setMenuToggle} />
-             </NavLink>
-            <CartToggle cart={cart}/>
+            <NavLink
+              className="block lg:hidden"
+              onClick={() => setMenuToggle(true)}
+            >
+              <HeaderMenuMobileToggle setMenuToggle={setMenuToggle} />
+            </NavLink>
+            <CartToggle cart={cart} />
           </div>
         </div>
       </div>
@@ -109,116 +107,41 @@ export function Header({header, isLoggedIn, cart,setMenuToggle}) {
   }
 
   const Landingheader = () => {
-    return(
-      <div className='content flex justify-center items-center py-4 px-5 sm:px-10 max-w-[1440px] mx-auto relative landingheader'>
+    return (
+      <div className="bg-white content flex justify-center items-center py-[3px] px-5 sm:px-10 max-w-[1440px] mx-auto relative landingheader">
         <img
           src="/logo.svg"
-          className="object-cover w-30 h-16 sm:h-24"
-          alt=""
+          className="object-contain sm:w-[156px] h-[40px] sm:h-[90px]"
+          alt="Logo"
         />
-        <NavLink end prefetch="intent" to="/" className='absolute left-0'><svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 m-4 " fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" aria-label='Back Home'></path></svg></NavLink>
+        <NavLink end prefetch="intent" to="/" className="absolute left-0">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-8 h-8 m-4 "
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M15 19l-7-7 7-7"
+              aria-label="Back Home"
+            ></path>
+          </svg>
+        </NavLink>
       </div>
     )
   }
-  
-  const {shop, menu} = header;
-  return (
-    <header className="container max-w-[100%] bg-[#eeeeee]  ">
-      {/* <Landingheader/> */}
-      { switchHeader === true ? <Landingheader/> : <Mainheader/>  }
-      {/* <div className="content flex justify-between items-center  py-4 px-5 sm:px-10 max-w-[1440px] mx-auto mainheader">
-        <NavLink end prefetch="intent" to="/">
-          <img
-            src="/logo.svg"
-            className="object-cover w-30 h-16 sm:h-24"
-            alt=""
-          />
-        </NavLink>
-        <div className="navBar flex justify-between items-center gap-10">
-          <ul className="navLinks lg:flex hidden">
-            <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base ">
-              <NavLink
-                end
-                prefetch="intent"
-                style={activeLinkStyle}
-                to="/products/custom-bundle"
-              >
-                Menu
-              </NavLink>
-            </li>
 
-            <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base">
-              <NavLink
-                end
-                prefetch="intent"
-                style={activeLinkStyle}
-                to="/about-us"
-              >
-                About Us
-              </NavLink>
-            </li>
-            <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base">
-              <NavLink
-                end
-                prefetch="intent"
-                style={activeLinkStyle}
-                to="/recipes"
-              >
-                Recipies
-              </NavLink>
-            </li>
-          </ul>
-          <div className="lg:block hidden">
-            <OrderButton />
-          </div>
-          <div className="headerIcons flex justify-between items-center gap-4 sm:gap-10">
-            <NavLink end prefetch="intent" to="/account">
-              <span className="loginIcon lg:flex hidden w-5 flex cursor-pointer">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  id="Group_4154"
-                  data-name="Group 4154"
-                  width="27.473"
-                  height="33.937"
-                  viewBox="0 0 27.473 33.937"
-                  className="icon-account"
-                >
-                  <path
-                    id="Path_1"
-                    data-name="Path 1"
-                    d="M259.545,42.272A7.272,7.272,0,1,1,252.272,35a7.272,7.272,0,0,1,7.272,7.272"
-                    transform="translate(-238.536 -35)"
-                    fill="#030303"
-                    fillRule="evenodd"
-                  ></path>
-                  <path
-                    id="Path_2"
-                    data-name="Path 2"
-                    d="M177.528,286.105a1.616,1.616,0,0,0,1.616-1.616v-2.424a13.736,13.736,0,1,0-27.473,0v2.424a1.616,1.616,0,0,0,1.616,1.616h24.241Z"
-                    transform="translate(-151.672 -252.168)"
-                    fill="#030303"
-                    fillRule="evenodd"
-                  ></path>
-                </svg>
-              </span>
-            </NavLink>
-             <NavLink className="lg:hidden block" onClick={()=>setMenuToggle(true)}>
-            <HeaderMenuMobileToggle setMenuToggle={setMenuToggle} />
-             </NavLink>
-            <CartToggle cart={cart}/>
-          </div>
-        </div>
-      </div>
-      <div className='content flex justify-center items-center py-4 px-5 sm:px-10 max-w-[1440px] mx-auto relative landingheader'>
-        <img
-          src="/logo.svg"
-          className="object-cover w-30 h-16 sm:h-24"
-          alt=""
-        />
-        <NavLink end prefetch="intent" to="/" className='absolute left-0'><svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 m-4 " fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" aria-label='Back Home'></path></svg></NavLink>
-      </div> */}
+  const { shop, menu } = header
+
+  return (
+    <header className="container max-w-[100%] bg-[#fff]  ">
+      { isRoute ? <Landingheader /> : <Mainheader />}
     </header>
-  );
+  )
 }
 
 /**
@@ -228,14 +151,14 @@ export function Header({header, isLoggedIn, cart,setMenuToggle}) {
  *   viewport: Viewport;
  * }}
  */
-export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
-  const {publicStoreDomain} = useRootLoaderData();
-  const className = `header-menu-${viewport}`;
+export function HeaderMenu({ menu, primaryDomainUrl, viewport }) {
+  const { publicStoreDomain } = useRootLoaderData()
+  const className = `header-menu-${viewport}`
 
   function closeAside(event) {
     if (viewport === 'mobile') {
-      event.preventDefault();
-      window.location.href = event.currentTarget.href;
+      event.preventDefault()
+      window.location.href = event.currentTarget.href
     }
   }
 
@@ -253,7 +176,7 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
         </NavLink>
       )}
       {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
-        if (!item.url) return null;
+        if (!item.url) return null
 
         // if the url is internal, we strip the domain
         const url =
@@ -261,7 +184,7 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
           item.url.includes(publicStoreDomain) ||
           item.url.includes(primaryDomainUrl)
             ? new URL(item.url).pathname
-            : item.url;
+            : item.url
         return (
           <NavLink
             className="header-menu-item"
@@ -274,16 +197,16 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
           >
             {item.title}
           </NavLink>
-        );
+        )
       })}
     </nav>
-  );
+  )
 }
 
 /**
  * @param {Pick<HeaderProps, 'isLoggedIn' | 'cart'>}
  */
-function HeaderCtas({isLoggedIn, cart}) {
+function HeaderCtas({ isLoggedIn, cart }) {
   return (
     <nav className="header-ctas" role="navigation">
       <HeaderMenuMobileToggle />
@@ -297,12 +220,12 @@ function HeaderCtas({isLoggedIn, cart}) {
       <SearchToggle />
       <CartToggle cart={cart} />
     </nav>
-  );
+  )
 }
 
 function HeaderMenuMobileToggle() {
   return (
-    <div className="" >
+    <div className="">
       <svg
         fill="none"
         height="16"
@@ -317,73 +240,72 @@ function HeaderMenuMobileToggle() {
         </g>
       </svg>
     </div>
-  );
+  )
 }
 
-
 function SearchToggle() {
-  return <a href="#search-aside">Search</a>;
+  return <a href="#search-aside">Search</a>
 }
 
 /**
  * @param {{count: number}}
  */
-function CartBadge({count}) {
+function CartBadge({ count }) {
   return (
     <NavLink end prefetch="intent" to="/cart">
-    <span className="CartIcon w-10 sm:w-5 relative  flex cursor-pointer">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        id="Group_4155"
-        data-name="Group 4155"
-        width="36.359"
-        height="33.937"
-        viewBox="0 0 36.359 33.937"
-      >
-        <path
-          id="Path_50"
-          data-name="Path 50"
-          d="M134.117,68.222a1.585,1.585,0,0,0-1.293-.768L107.29,66.283l-.889-3.474a1.6,1.6,0,0,0-1.576-1.212H99.614a1.616,1.616,0,1,0,0,3.232h3.959l4.444,17.292-1.091,4.525a1.638,1.638,0,0,0,.283,1.374,1.567,1.567,0,0,0,1.252.606h19.8a1.616,1.616,0,0,0,0-3.232h-17.7l.444-1.859,16.16-.768a1.628,1.628,0,0,0,1.374-.929l5.656-12.12a1.526,1.526,0,0,0-.081-1.495Zm-8.08,11.393-15.07.687L108.26,69.555l22.019,1.01Z"
-          transform="translate(-97.998 -61.596)"
-          fill="#030303"
-        ></path>
-        <path
-          id="Path_51"
-          data-name="Path 51"
-          d="M221.66,451.03a3.03,3.03,0,1,1-3.03-3.03,3.03,3.03,0,0,1,3.03,3.03"
-          transform="translate(-207.116 -420.123)"
-          fill="#030303"
-        ></path>
-        <path
-          id="Path_52"
-          data-name="Path 52"
-          d="M473.66,451.03a3.03,3.03,0,1,1-3.03-3.03,3.03,3.03,0,0,1,3.03,3.03"
-          transform="translate(-440.935 -420.123)"
-          fill="#030303"
-        ></path>
-      </svg>
-      <span className="absolute top-[-5px] right-[-8px] w-[20px] h-[20px] text-[10px] rounded-[100%] items-center bg-black text-white flex justify-center ">
-        ({count})
+      <span className="relative flex w-10 cursor-pointer CartIcon sm:w-5">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          id="Group_4155"
+          data-name="Group 4155"
+          width="36.359"
+          height="33.937"
+          viewBox="0 0 36.359 33.937"
+        >
+          <path
+            id="Path_50"
+            data-name="Path 50"
+            d="M134.117,68.222a1.585,1.585,0,0,0-1.293-.768L107.29,66.283l-.889-3.474a1.6,1.6,0,0,0-1.576-1.212H99.614a1.616,1.616,0,1,0,0,3.232h3.959l4.444,17.292-1.091,4.525a1.638,1.638,0,0,0,.283,1.374,1.567,1.567,0,0,0,1.252.606h19.8a1.616,1.616,0,0,0,0-3.232h-17.7l.444-1.859,16.16-.768a1.628,1.628,0,0,0,1.374-.929l5.656-12.12a1.526,1.526,0,0,0-.081-1.495Zm-8.08,11.393-15.07.687L108.26,69.555l22.019,1.01Z"
+            transform="translate(-97.998 -61.596)"
+            fill="#030303"
+          ></path>
+          <path
+            id="Path_51"
+            data-name="Path 51"
+            d="M221.66,451.03a3.03,3.03,0,1,1-3.03-3.03,3.03,3.03,0,0,1,3.03,3.03"
+            transform="translate(-207.116 -420.123)"
+            fill="#030303"
+          ></path>
+          <path
+            id="Path_52"
+            data-name="Path 52"
+            d="M473.66,451.03a3.03,3.03,0,1,1-3.03-3.03,3.03,3.03,0,0,1,3.03,3.03"
+            transform="translate(-440.935 -420.123)"
+            fill="#030303"
+          ></path>
+        </svg>
+        <span className="absolute top-[-5px] right-[-8px] w-[20px] h-[20px] text-[10px] rounded-[100%] items-center bg-black text-white flex justify-center ">
+          ({count})
+        </span>
       </span>
-    </span>
-  </NavLink>
-    );
+    </NavLink>
+  )
 }
 
 /**
  * @param {Pick<HeaderProps, 'cart'>}
  */
-function CartToggle({cart}) {
+function CartToggle({ cart }) {
   return (
     <Suspense fallback={<CartBadge count={0} />}>
       <Await resolve={cart}>
         {(cart) => {
-          if (!cart) return <CartBadge count={0} />;
-          return <CartBadge count={cart.totalQuantity || 0} />;
+          if (!cart) return <CartBadge count={0} />
+          return <CartBadge count={cart.totalQuantity || 0} />
         }}
       </Await>
     </Suspense>
-  );
+  )
 }
 
 const FALLBACK_HEADER_MENU = {
@@ -426,7 +348,7 @@ const FALLBACK_HEADER_MENU = {
       items: [],
     },
   ],
-};
+}
 
 /**
  * @param {{
@@ -434,11 +356,11 @@ const FALLBACK_HEADER_MENU = {
  *   isPending: boolean;
  * }}
  */
-function activeLinkStyle({isActive, isPending}) {
+function activeLinkStyle({ isActive, isPending }) {
   return {
     fontWeight: isActive ? 'bold' : undefined,
     color: isPending ? 'grey' : 'black',
-  };
+  }
 }
 
 /** @typedef {Pick<LayoutProps, 'header' | 'cart' | 'isLoggedIn'>} HeaderProps */

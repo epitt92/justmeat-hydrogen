@@ -1,60 +1,75 @@
-import {CartForm, Image, Money} from '@shopify/hydrogen';
-import {Link} from '@remix-run/react';
-import {useVariantUrl} from '~/lib/variants';
-import {useRootLoaderData} from '~/root';
-import {useContext, useState} from 'react';
-import HeaderContext from './HeaderContext';
+import { CartForm, Image, Money } from '@shopify/hydrogen'
+import { useEffect, useState } from 'react'
+import CustomProgressBar from './ui/CustomProgressBar'
+import ProductQuantity from './OrderComponents/ProductQuantity'
 
-/**
- * @param {CartMainProps}
- */
-export function CartMain({layout, cart}) {
-  const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
-  const withDiscount =
-    cart &&
-    Boolean(cart?.discountCodes?.filter((code) => code.applicable)?.length);
-  const className = `cart-main ${withDiscount ? 'with-discount' : ''}`;
+export function CartMain({
+  layout,
+  selectedProducts,
+  setSelectedProducts,
+  onCheckout,
+}) {
+  const [subTotal, setSubTotal] = useState(0)
+  const linesCount = Boolean(selectedProducts.length || 0)
+
+  useEffect(() => {
+    // Calculate the total cost of all products in selectedProducts
+    const totalCost = selectedProducts.reduce(
+      (acc, curr) => acc + parseFloat(curr.totalAmount),
+      0,
+    )
+    // Update the mainCart state with the total cost
+    setSubTotal(totalCost)
+  }, [selectedProducts])
 
   return (
-    <div className={className}>
+    <div className="cart-main">
+      <ProgessBar cost={subTotal} />
+      <CartDetails
+        layout={layout}
+        selectedProducts={selectedProducts}
+        setSelectedProducts={setSelectedProducts}
+        subTotal={subTotal}
+        onCheckout={onCheckout}
+      />
       <CartEmpty hidden={linesCount} layout={layout} />
-      <CartDetails cart={cart} layout={layout} />
     </div>
-  );
+  )
 }
 
 /**
  * @param {CartMainProps}
  */
-function CartDetails({layout, cart}) {
-  const cartHasItems = !!cart && cart.totalQuantity > 0;
-
-  const { setCartTotal } = useContext(HeaderContext);
-
-  setCartTotal(cart.cost.subtotalAmount["amount"])
-
-  // console.log("cart cost", typeof(cart.cost.subtotalAmount["amount"]) )
+function CartDetails({
+  layout,
+  selectedProducts,
+  onRemove,
+  setSelectedProducts,
+  subTotal,
+  onCheckout,
+}) {
+  const cartHasItems = selectedProducts.length > 0
 
   return (
-    <div className="cart-details flex flex-col justify-between">
-      <CartLines lines={cart?.lines} layout={layout} />
+    <div className="flex flex-col justify-between cart-details">
+      <CartLines
+        selectedProducts={selectedProducts}
+        setSelectedProducts={setSelectedProducts}
+        onRemove={onRemove}
+      />
       {cartHasItems && (
         <div className="p-5 pb-3 bg-white">
           <div className="border-b-4 pb-[10px] border-black">
-            <CartSummary cost={cart.cost} layout={layout}>
-              {/* <CartDiscounts discountCodes={cart.discountCodes} /> */}
-              <CartCheckoutActions
-                checkoutUrl={cart.checkoutUrl}
-                cost={cart.cost}
-              />
+            <CartSummary cost={subTotal} layout={layout}>
+              <CartCheckoutActions cost={subTotal} onCheckout={onCheckout} />
             </CartSummary>
           </div>
-          <div className=" pt-4 flex gap-3 justify-end ">
-            <div className="flex flex-1 flex-col items-end gap-1 justify-end">
+          <div className="flex justify-end gap-3 pt-0 ">
+            <div className="flex flex-col items-end justify-end flex-1 gap-1">
               <p className="text-[14px] font-semibold text-black">
                 Free Bonus Meat (unlocked at $125)
               </p>
-              <LockedItem cost={cart.cost} />
+              <LockedItem cost={subTotal} />
             </div>
             <img
               className="w-[80px] h-[80px] object-contain "
@@ -65,14 +80,29 @@ function CartDetails({layout, cart}) {
         </div>
       )}
     </div>
-  );
+  )
 }
 
-function LockedItem({cost}) {
-  console.log(addAmount(cost.subtotalAmount, '0'));
+function ProgessBar({ cost }) {
+  return (
+    <div>
+      <div className="progress-bar ">
+        <CustomProgressBar cost={cost} />
+      </div>
+      <div className="free-item pl-[10px] mb-5">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Ranch_Rub_Chicken_Breast_Free.png"
+          alt="cart free"
+        />
+      </div>
+    </div>
+  )
+}
+
+function LockedItem({ cost }) {
   return (
     <>
-      {addAmount(cost.subtotalAmount.amount, '0') >= 125 ? (
+      {cost >= 125 ? (
         <select
           className="text-[12px] py-[8px] w-[70%] rounded-[5px] outline-none focus:outline-none bg-auto  focus:border-none bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')] shadow-none  focus:shadow-none focus:border-[#1d1d1d99] border border-[#1d1d1d49] text-[#131515]  "
           name=""
@@ -89,152 +119,115 @@ function LockedItem({cost}) {
         </span>
       )}
     </>
-  );
+  )
 }
 
-/**
- * @param {{
- *   layout: CartMainProps['layout'];
- *   lines: CartApiQueryFragment['lines'] | undefined;
- * }}
- */
-function CartLines({lines, layout}) {
-  if (!lines) return null;
+function CartLines({ selectedProducts, onRemove, setSelectedProducts }) {
+  if (!selectedProducts) return null
 
   return (
     <div aria-labelledby="cart-lines" className="h-[260px] overflow-auto">
       <ul>
-        {lines.nodes.map((line) => (
-          <CartLineItem key={line.id} line={line} layout={layout} />
+        {selectedProducts.map((product) => (
+          <CartLineItem
+            key={product.id}
+            line={product}
+            onRemove={onRemove}
+            setSelectedProducts={setSelectedProducts}
+            selectedProducts={selectedProducts}
+          />
         ))}
       </ul>
     </div>
-  );
+  )
 }
 
-/**
- * @param {{
- *   layout: CartMainProps['layout'];
- *   line: CartLine;
- * }}
- */
-function CartLineItem({layout, line}) {
-  const {id, merchandise} = line;
-  const {product, title, image, selectedOptions} = merchandise;
-  const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
+function CartLineItem({
+  line,
+  onRemove,
+  selectedProducts,
+  setSelectedProducts,
+}) {
+  const { id, title, featuredImage, priceRange, quantity } = line
+  const image = featuredImage.url
+  const price = priceRange?.maxVariantPrice?.amount
 
   return (
-    <li key={id} className="cart-line pl-[10px] mb-5 flex gap-4">
-      {image && (
-        <Image
-          alt={title}
-          // aspectRatio="1/1"
-          data={image}
-          height={100}
-          loading="lazy"
-          width={72}
-        />
+    <li key={id} className="cart-line pl-[10px] mb-2 flex gap-4">
+      {featuredImage && (
+        <img src={image} alt="" height={100} loading="lazy" width={72} />
       )}
 
       <div className="flex  flex-1 pr-[10px] justify-between items-center ">
-        <div className="h-fit flex-1">
-          <Link
-            prefetch="intent"
-            to={lineItemUrl}
-            className="font-semibold text-[14px]  text-center "
-            onClick={() => {
-              if (layout === 'aside') {
-                // close the drawer
-                window.location.href = lineItemUrl;
-              }
-            }}
-          >
-            <p>
-              <strong className="pr-[10px] flex justify-center">
-                {product.title}
-              </strong>
-            </p>
-          </Link>
-          <CartLinePrice line={line} as="span" />
+        <div className="flex-1 h-fit">
+          <p className="font-semibold text-[14px]  text-center ">
+            <strong className="pr-[10px] flex justify-center">{title}</strong>
+          </p>
+
+          <p className="font-bold text-center text-[25px]">
+            ${priceRange.maxVariantPrice.amount}
+          </p>
         </div>
-        {/* <ul>
-          {selectedOptions.map((option) => (
-            <li key={option.name}>
-              <small>
-                {option.name}: {option.value}
-              </small>
-            </li>
-          ))}
-        </ul> */}
-        <CartLineQuantity line={line} />
+        {line && (
+          <ProductQuantity
+            line={line}
+            onRemove={onRemove}
+            selectedProducts={selectedProducts}
+            setSelectedProducts={setSelectedProducts}
+          />
+        )}
       </div>
     </li>
-  );
+  )
 }
 
-/**
- * @param {{checkoutUrl: string}}
- */
-function CartCheckoutActions({checkoutUrl, cost}) {
-  if (!checkoutUrl) return null;
-
+function CartCheckoutActions({ cost, onCheckout }) {
   return (
     <>
-      {addAmount(cost.subtotalAmount.amount, '0') >= 75 ? (
+      {cost >= 75 ? (
         <div className="flex justify-center items-center w-1/2 bg-[#425b34]">
-          <a
-            href={checkoutUrl}
-            className="bg-[#425b34] text-[15px] py-[10px] font-semibold text-white"
-            target="_self"
+          <button
+            className="bg-[#425b34] text-[15px] py-[15px] font-semibold text-white"
+            onClick={onCheckout}
           >
             <p>Continue to Checkout </p>
-          </a>
+          </button>
         </div>
       ) : (
         <div className="flex justify-center items-center w-6/12 pointer-events-none select-none  bg-[#6e6e6e]">
-          <a
-            // href={checkoutUrl}
-            className=" text-[15px] text-center py-[10px] font-semibold text-white"
-            target="_self"
-          >
+          <button className=" text-[15px] text-center py-[15px] font-semibold text-white">
             Spend $75 to Continue
-          </a>
+          </button>
         </div>
       )}
     </>
-  );
+  )
 }
 
-/**
- * @param {{
- *   children?: React.ReactNode;
- *   cost: CartApiQueryFragment['cost'];
- *   layout: CartMainProps['layout'];
- * }}
- */
-export function CartSummary({cost, layout, children = null}) {
+export function CartSummary({ cost, layout, children = null }) {
   const className =
-    layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
-  console.log(cost);
+    layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside'
   return (
     <div
       aria-labelledby="cart-summary"
       className={`${className} flex justify-between items-end `}
     >
       {/* <h4>Totals</h4> */}
-      <dl className="cart-subtotal flex font-semibold text-base">
+      <dl className="flex text-base font-semibold cart-subtotal">
         <dt>Total: </dt>
-        {cost?.subtotalAmount?.amount ? (
-          <span className="text-[20px] pr-1 line-through decoration-[#000] decoration-[3px] text-[#919191] ">
-            {' '}
-            {addAmount(cost?.subtotalAmount?.amount, '11.45')}{' '}
+        {cost ? (
+          <span className="text-[16px] pr-1 line-through decoration-[#000] decoration-[3px] text-[#919191] ">
+            {`$${(cost + 11.45).toFixed(2)}`}
           </span>
         ) : (
           '-'
         )}
         <dd>
-          {cost?.subtotalAmount?.amount ? (
-            <Money data={cost?.subtotalAmount} />
+          {cost ? (
+            // <Money data={cost} />
+            <span className="text-[16px] font-semibold text-center">
+              ${cost.toFixed(2)}
+            </span>
           ) : (
             '-'
           )}
@@ -242,120 +235,52 @@ export function CartSummary({cost, layout, children = null}) {
       </dl>
       {children}
     </div>
-  );
+  )
 }
 
 function addAmount(baseAmount, additionalAmount) {
   // Parse the base amount and additional amount as floats
-  const base = parseFloat(baseAmount["amount"]);
-  const additional = parseFloat(additionalAmount);
+  const base = parseFloat(baseAmount['amount'])
+  const additional = parseFloat(additionalAmount)
 
   // Check if the base amount is a valid number
   if (isNaN(base)) {
-    console.error('Invalid base amount:', baseAmount);
-    return null;
+    console.error('Invalid base amount:', baseAmount)
+    return null
   }
 
   // Check if the additional amount is a valid number
   if (isNaN(additional)) {
-    console.error('Invalid additional amount:', additionalAmount);
-    return null;
+    console.error('Invalid additional amount:', additionalAmount)
+    return null
   }
 
   // Calculate the sum of base and additional amounts
-  let sum = base + additional;
+  let sum = base + additional
 
   // Round the sum to 2 decimal places
-  sum = Math.round((sum + Number.EPSILON) * 100) / 100;
+  sum = Math.round((sum + Number.EPSILON) * 100) / 100
 
   // Convert the sum to a string
-  let sumStr = sum.toString();
+  let sumStr = sum.toString()
 
   // Check if the sum has decimal part
-  const decimalIndex = sumStr.indexOf('.');
+  const decimalIndex = sumStr.indexOf('.')
   if (decimalIndex === -1) {
     // If no decimal part, add '.00' to the end
-    sumStr += '.00';
+    sumStr += '.00'
   } else {
     // If decimal part exists, ensure there are always two digits after the decimal point
-    const decimalDigits = sumStr.length - decimalIndex - 1;
+    const decimalDigits = sumStr.length - decimalIndex - 1
     if (decimalDigits === 1) {
       // If only one digit after the decimal point, add a zero
-      sumStr += '0';
+      sumStr += '0'
     } else if (decimalDigits > 2) {
       // If more than two digits after the decimal point, round to two digits
-      sumStr = sum.toFixed(2);
+      sumStr = sum.toFixed(2)
     }
   }
-  const finalResult = parseFloat(sumStr);
-  return finalResult;
-}
-
-// // Example usage:
-// const result = addAmount("11.45", "11.45");
-// console.log(result); // Output: "32.85"
-/**
- * @param {{lineIds: string[]}}
- */
-function CartLineRemoveButton({lineIds}) {
-  return (
-    <CartForm
-      route="/cart"
-      action={CartForm.ACTIONS.LinesRemove}
-      inputs={{lineIds}}
-    >
-      <button
-        className="text-[14px] text-center text-[#862e1b] font-bold w-[100%]"
-        type="submit"
-      >
-        Remove
-      </button>
-    </CartForm>
-  );
-}
-
-/**
- * @param {{line: CartLine}}
- */
-function CartLineQuantity({line}) {
-  if (!line || typeof line?.quantity === 'undefined') return null;
-  const {id: lineId, quantity} = line;
-  const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
-  const nextQuantity = Number((quantity + 1).toFixed(0));
-  const [updateQty, setUpdatedQty] = useState(quantity);
-  return (
-    <div className="cart-line-quantity">
-      <div className="flex gap-[5px] items-center bg-[#862e1b] justify-between p-[5px]">
-        <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
-          <button
-            onClick={() => setUpdatedQty(prevQuantity)}
-            aria-label="Decrease quantity"
-            disabled={quantity <= 1}
-            name="decrease-quantity"
-            value={prevQuantity}
-            className="text-[#862e1b] w-[25px] flex justify-center items-center h-[25px] bg-white rounded-[5px] p-[3px] "
-          >
-            <span>&#8722; </span>
-          </button>
-        </CartLineUpdateButton>
-        <small className="text-[#000] font-bold text-[14px] text-center bg-white flex justify-center items-center w-[32px] h-[25px] p-[3px] ">
-          {updateQty}
-        </small>
-        <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
-          <button
-            onClick={() => setUpdatedQty(nextQuantity)}
-            className="text-[#862e1b] bg-white flex justify-center items-center rounded-[5px] p-[3px] w-[25px] h-[25px]"
-            aria-label="Increase quantity"
-            name="increase-quantity"
-            value={nextQuantity}
-          >
-            <span>&#43;</span>
-          </button>
-        </CartLineUpdateButton>
-      </div>
-      <CartLineRemoveButton lineIds={[lineId]} />
-    </div>
-  );
+  return sumStr
 }
 
 /**
@@ -365,25 +290,25 @@ function CartLineQuantity({line}) {
  *   [key: string]: any;
  * }}
  */
-function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
-  if (!line?.cost?.amountPerQuantity || !line?.cost?.totalAmount) return null;
+function CartLinePrice({ line, priceType = 'regular', ...passthroughProps }) {
+  if (!line?.cost?.amountPerQuantity || !line?.cost?.totalAmount) return null
 
   const moneyV2 =
     priceType === 'regular'
       ? line.cost.totalAmount
-      : line.cost.compareAtAmountPerQuantity;
+      : line.cost.compareAtAmountPerQuantity
 
-  const moneyV3 = line.cost.amountPerQuantity;
+  const moneyV3 = line.cost.amountPerQuantity
 
   if (moneyV2 == null) {
-    return null;
+    return null
   }
 
   return (
     <div className="font-bold text-center text-[25px] ">
       <Money withoutTrailingZeros {...passthroughProps} data={moneyV3} />
     </div>
-  );
+  )
 }
 
 /**
@@ -392,28 +317,33 @@ function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
  *   layout?: CartMainProps['layout'];
  * }}
  */
-export function CartEmpty({hidden = false, layout = 'aside'}) {
+export function CartEmpty({ hidden = false, layout = 'aside', setShowCart }) {
   return (
-    <div hidden={hidden} className='h-[260px]'>
+    <div hidden={hidden} className="h-[260px]">
       <br />
-      <div className=" p-5 pb-3 absolute bottom-0 w-full ">
-        <div className="border-b-4 flex justify-between items-end pb-[10px] border-black w-full ">
-          <div className="w-4/12 flex">
+      <div className="absolute bottom-0 w-full p-5 pb-3">
+        <div className="flex justify-center block w-full xl:hidden">
+          <span className="w-fit text-[14px] p-[10px] font-semibold text-white bg-[#862e1b]">
+            Return to Shop
+          </span>
+        </div>
+        <div className="border-b-4 flex justify-between items-end pb-[10px] border-black w-full">
+          <div className="flex w-4/12">
             <p className="pr-1 text-base font-semibold">Total:</p>
             <p className="text-base font-semibold">$0.00</p>
           </div>
-          <div className="flex justify-center items-center w-8/12 pointer-events-none select-none  bg-[#6e6e6e]">
+          <div className="flex items-center justify-end w-8/12 pointer-events-none select-none ">
             <a
               // href={checkoutUrl}
-              className=" text-[15px] text-center py-[10px] font-semibold text-white"
+              className=" text-[15px] text-center py-[15px] px-[20px] font-semibold text-white bg-[#6e6e6e]"
               target="_self"
             >
               Spend $75 to Continue
             </a>
           </div>
         </div>
-        <div className=" pt-6 flex gap-3 justify-end ">
-          <div className="flex  flex-col items-end gap-1 justify-end">
+        <div className="flex justify-end gap-3 pt-6 ">
+          <div className="flex flex-col items-end justify-end gap-1">
             <p className="text-[14px] font-semibold text-black">
               Free Bonus Meat (unlocked at $125)
             </p>
@@ -429,7 +359,7 @@ export function CartEmpty({hidden = false, layout = 'aside'}) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 /**
@@ -437,11 +367,11 @@ export function CartEmpty({hidden = false, layout = 'aside'}) {
  *   discountCodes: CartApiQueryFragment['discountCodes'];
  * }}
  */
-function CartDiscounts({discountCodes}) {
+function CartDiscounts({ discountCodes }) {
   const codes =
     discountCodes
       ?.filter((discount) => discount.applicable)
-      ?.map(({code}) => code) || [];
+      ?.map(({ code }) => code) || []
 
   return (
     <div>
@@ -468,7 +398,7 @@ function CartDiscounts({discountCodes}) {
         </div>
       </UpdateDiscountForm>
     </div>
-  );
+  )
 }
 
 /**
@@ -477,10 +407,10 @@ function CartDiscounts({discountCodes}) {
  *   children: React.ReactNode;
  * }}
  */
-function UpdateDiscountForm({discountCodes, children}) {
+function UpdateDiscountForm({ discountCodes, children }) {
   return (
     <CartForm
-      route="/cart"
+      route="/products/custom-bundle"
       action={CartForm.ACTIONS.DiscountCodesUpdate}
       inputs={{
         discountCodes: discountCodes || [],
@@ -488,7 +418,7 @@ function UpdateDiscountForm({discountCodes, children}) {
     >
       {children}
     </CartForm>
-  );
+  )
 }
 
 /**
@@ -497,16 +427,16 @@ function UpdateDiscountForm({discountCodes, children}) {
  *   lines: CartLineUpdateInput[];
  * }}
  */
-function CartLineUpdateButton({children, lines}) {
+function CartLineUpdateButton({ children, lines }) {
   return (
     <CartForm
-      route="/cart"
+      route="/products/custom-bundle"
       action={CartForm.ACTIONS.LinesUpdate}
-      inputs={{lines}}
+      inputs={{ lines }}
     >
       {children}
     </CartForm>
-  );
+  )
 }
 
 /** @typedef {CartApiQueryFragment['lines']['nodes'][0]} CartLine */

@@ -1,7 +1,7 @@
-import { createCookieSessionStorage } from '@shopify/remix-oxygen';
+import { createCookieSessionStorage } from '@shopify/remix-oxygen'
 
 // Recharge session is good for 60 minutes so set to 55 minutes to avoid race conditions
-const RECHARGE_SESSION_DURATION = 60 * 55;
+const RECHARGE_SESSION_DURATION = 60 * 55
 
 /**
  * This is a custom session implementation for your Hydrogen shop.
@@ -9,16 +9,16 @@ const RECHARGE_SESSION_DURATION = 60 * 55;
  * swap out the cookie-based implementation with something else!
  */
 export class RechargeSession {
-  #sessionStorage;
-  #session;
+  #sessionStorage
+  #session
 
   /**
    * @param {SessionStorage} sessionStorage
    * @param {Session} session
    */
   constructor(sessionStorage, session) {
-    this.#sessionStorage = sessionStorage;
-    this.#session = session;
+    this.#sessionStorage = sessionStorage
+    this.#session = session
   }
 
   /**
@@ -36,39 +36,41 @@ export class RechargeSession {
         secrets,
         maxAge: RECHARGE_SESSION_DURATION,
       },
-    });
+    })
 
-    const session = await storage.getSession(request.headers.get('Cookie')).catch(() => storage.getSession());
+    const session = await storage
+      .getSession(request.headers.get('Cookie'))
+      .catch(() => storage.getSession())
 
-    return new this(storage, session);
+    return new this(storage, session)
   }
 
   get has() {
-    return this.#session.has;
+    return this.#session.has
   }
 
   get get() {
-    return this.#session.get;
+    return this.#session.get
   }
 
   get flash() {
-    return this.#session.flash;
+    return this.#session.flash
   }
 
   get unset() {
-    return this.#session.unset;
+    return this.#session.unset
   }
 
   get set() {
-    return this.#session.set;
+    return this.#session.set
   }
 
   destroy() {
-    return this.#sessionStorage.destroySession(this.#session);
+    return this.#sessionStorage.destroySession(this.#session)
   }
 
   commit() {
-    return this.#sessionStorage.commitSession(this.#session);
+    return this.#sessionStorage.commitSession(this.#session)
   }
 }
 
