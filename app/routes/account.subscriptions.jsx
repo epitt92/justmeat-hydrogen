@@ -56,8 +56,9 @@ export function shouldRevalidate() {
 }
 function AccountSubscription({subscriptions, currentcustomer}) {
     return (
-      <div className="mt-6 bg-sublistbgGray">
-        <div className="grid w-full gap-4 p-4 py-6 md:gap-8 md:p-8 lg:p-12">
+      <div className="bg-sublistbgGray">
+          <div className='w-[95%] md:w-[80%] mx-auto'>
+          <div className="grid w-full gap-4 py-8  md:gap-8">
           <h2 className="font-bold text-lead text-[28px] text-center md:text-left">Your Subscriptions</h2>
           <div className='grid bg-custombgGreen w-auto md:w-[300px] p-6 block text-white text-xl text-center md:text-left'>
             <span>Next Order Processing On</span>
@@ -66,6 +67,8 @@ function AccountSubscription({subscriptions, currentcustomer}) {
           <hr className='border-gray-500 border-t-2'></hr>
           {subscriptions?.length ? <Subscriptions subscriptions={subscriptions}  currentcustomer={currentcustomer}/> : <EmptySubscriptions />}
         </div>
+          </div>
+       
       </div>
     );
   }

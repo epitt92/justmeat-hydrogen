@@ -38,20 +38,23 @@ export async function loader({context}) {
 const AccountOrderHistory = () => {
     const { subscriptionsResponse,listOrdersResponse } = useLoaderData();
   return (
+    <div className='bg-sublistbgGray py-8'>
         <div className='w-[95%] md:w-[80%] mx-auto'>
            <div className='flex flex-col md:flex-row items-center border-gray-500 border-b-2 py-4 my-4'>
-                <NavLink to="/account/orders" className="capitalize border-solid border-2 border-gray-500 px-2 py-1">
+                <NavLink to="/account/subscriptions" className="capitalize bg-[#fff] border-solid border-2 border-gray-500 px-2 py-1">
                     Back to Account
                 </NavLink>
                 <h3 className='text-[28px] ml-0 md:ml-[30%] font-medium'>Your Order History</h3>
            </div>
-           <div className='bg-[#EEEEEE] rounded-md py-8 px-6 mb-8'>
+           <div className='bg-[#fff] rounded-md py-8 px-6 mb-8'>
            {listOrdersResponse.orders && (
         <AccountOrders orders={listOrdersResponse.orders} />
       )}
                 
            </div>
         </div>
+    </div>
+      
   )
 }
 
