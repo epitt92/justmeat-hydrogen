@@ -5,6 +5,7 @@ import { Money, getPaginationVariables } from '@shopify/hydrogen'
 import {
   getActiveChurnLandingPageURL,
   getSubscription,
+  listBundleSelections,
 } from '@rechargeapps/storefront-client'
 
 // import { Link, Heading, PageHeader, Text, Button } from '~/components';
@@ -62,6 +63,12 @@ export async function loader({ request, context, params }) {
     context,
   )
 
+  const subscriptionProducts = await rechargeQueryWrapper(
+    (session) =>
+    listBundleSelections(session, params.id),
+    context,
+  )
+
   if (!subscription) {
     throw new Response('Subscription not found', { status: 404 })
   }
@@ -83,6 +90,7 @@ export async function loader({ request, context, params }) {
       subscription,
       product,
       cancelUrl,
+      subscriptionProducts,
       shopCurrency: 'USD',
     },
     {
@@ -95,16 +103,13 @@ export async function loader({ request, context, params }) {
 }
 
 export default function SubscriptionRoute() {
-  const { data, subscription, product, cancelUrl, shopCurrency } = useLoaderData()
+  const { subscription, product, cancelUrl, shopCurrency, collection, subscriptionProducts } = useLoaderData()
   const address = subscription.include?.address
-  console.log(data);
-  // const customCollectionProducts = data.collection.products
-  console.log("-+-+-+-");
-  console.log(subscription);
+  const customCollectionProducts = collection.products
   return (
     <div className='w-full flex flex-col justify-center items-center'>
           <div className="custom-collection-wrap">
-            {/* <CustomCollection col={customCollectionProducts} /> */}
+            <CustomCollection col={customCollectionProducts} subproduct={subscriptionProducts} />
           </div>
       <div className='hidden'>
         <div heading="Subscription detail">
@@ -257,7 +262,7 @@ export default function SubscriptionRoute() {
         </div>
       </div>
 
-      <div className='w-full flex justify-center items-center bg-[#eeeeee]'>
+      <div className='hidden w-full flex justify-center items-center bg-[#eeeeee]'>
         <div className='w-11/12 mt-[75px] md:w-[80%] flex flex-col justify-center bg-[#eeeeee]'>
           <div className='w-full block md:flex text-center  justify-start pb-[20px] items-start border-b-2 border-slate-600'>
             <button className='text-base border-solid mb-1 border-2 border-lime-900 py-1 px-8 bg-white'>Back To Account</button>
@@ -592,15 +597,6 @@ export default function SubscriptionRoute() {
   )
 }
 
-const PRODUCT_QUERYTT = `#graphql
-  query getProductById($id: ID!) {
-    product(id: $id) {
-      id
-      handle
-    }
-  }
-`
-
 const PRODUCT_VARIANT_FRAGMENT = `#graphql
   fragment ProductVariant on ProductVariant {
     availableForSale
@@ -634,6 +630,15 @@ const PRODUCT_VARIANT_FRAGMENT = `#graphql
     unitPrice {
       amount
       currencyCode
+    }
+  }
+`
+
+const PRODUCT_QUERYTT = `#graphql
+  query getProductById($id: ID!) {
+    product(id: $id) {
+      id
+      handle
     }
   }
 `
