@@ -106,9 +106,11 @@ export default function SubscriptionRoute() {
   const { subscription, product, cancelUrl, shopCurrency, collection, subscriptionProducts } = useLoaderData()
   const address = subscription.include?.address
   const customCollectionProducts = collection.products
+  console.log(customCollectionProducts);
+  console.log("customCollectionProducts");
   return (
     <div className='w-full flex flex-col justify-center items-center'>
-          <div className="custom-collection-wrap">
+          <div className="max-w-[1440px] w-[100%] custom-collection-wrap">
             <CustomCollection col={customCollectionProducts} subproduct={subscriptionProducts} />
           </div>
       <div className='hidden'>
