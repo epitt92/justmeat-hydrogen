@@ -4,12 +4,6 @@ import OrderButton from 'app/components/OrderButton'
 import ProductSlider from '~/components/ProductSlider'
 import FaqAccordion from '~/components/FaqAccordion'
 
-// Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react'
-
-// import required modules
-import { Navigation } from 'swiper/modules'
-
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -113,15 +107,36 @@ export default function Homepage() {
       <section className="flex justify-center items-center bg-cover bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/PNSER.png')] ">
         <div className="w-[100%] py-10 sm:py-20 px-5 sm:px-20 max-w-[1440px] ">
           <ProductSlider />
-          <div className='mt-[64px] flex flex-col lg:flex-row justify-between items-start gap-[24px]'>
-            <div className='flex flex-col'>
-              <h2 className='text-[30px] md:text-[48px] xl:text-[70px] leading-[100%] font-semibold text-white'>Your Protein Routine</h2>
-              <p className='mt-[12px] md:mt-[24px] xl:mt-[40px] text-[16px] xl:text-[18px] leading-[140%] text-white max-w-[440px]'>The hardest part of meal prepping has never been easier! Simply order your meats, prepare for delivery, and reheat with the included directions. Plate up with your favorite sides a delicious and carefree meal.</p>
-              <button className='mt-[12px] md:mt-[24px] xl:mt-[38px] bg-[#862e1b] text-white h-[48px] w-fit px-[40px]'>Order Now</button>
+          <div className="mt-[64px] flex flex-col lg:flex-row justify-between items-start gap-[24px]">
+            <div className="flex flex-col">
+              <h2 className="text-[30px] md:text-[48px] xl:text-[70px] leading-[100%] font-semibold text-white">
+                Your Protein Routine
+              </h2>
+              <p className="mt-[12px] md:mt-[24px] xl:mt-[40px] text-[16px] xl:text-[18px] leading-[140%] text-white max-w-[440px]">
+                The hardest part of meal prepping has never been easier! Simply
+                order your meats, prepare for delivery, and reheat with the
+                included directions. Plate up with your favorite sides a
+                delicious and carefree meal.
+              </p>
+              <button className="mt-[12px] md:mt-[24px] xl:mt-[38px] bg-[#862e1b] text-white h-[48px] w-fit px-[40px]">
+                Order Now
+              </button>
             </div>
-            <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-[16px] xl:gap-[30px]'>
-              {["/protien-routine-01.webp", "/protien-routine-02.webp", "/protien-routine-03.webp"].map((item, index) => {
-                return <img src={item} width="274px" height="447" alt='Image' key={index} className='w-full sm:w-[274px]' />
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-[16px] xl:gap-[30px]">
+              {[
+                'https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Hannah_Zoomed.jpg?v=1702934270',
+                'https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Hannah_Tall2.jpg?v=1701447856',
+                'https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Hannah_Zoomed3.jpg?v=1702934278',
+              ].map((item, index) => {
+                return (
+                  <img
+                    src={item}
+                    width="274px"
+                    height="447"
+                    key={index}
+                    className="w-full sm:w-[274px]"
+                  />
+                )
               })}
             </div>
           </div>
@@ -177,7 +192,7 @@ export default function Homepage() {
 
       <section className="bg-[#eeeeee] flex justify-center items-center ">
         <div className="max-w-[1440px] w-[100%] flex justify-start gap-20 px-5 xl:px-10 sm:py-20 py-10 ">
-          <div className="flex flex-col items-center gap-10 hidden xl:flex  w-4/12 ml-10">
+          <div className="flex-col items-center gap-10 hidden xl:flex  w-4/12 ml-10">
             <img
               className=""
               src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/BodyBulding_Recipie_CarneAsasa.png"
@@ -234,69 +249,6 @@ export default function Homepage() {
     </div>
   )
 }
-
-/**
- * @param {{
- *   collection: FeaturedCollectionFragment;
- * }}
- */
-function FeaturedCollection({ collection }) {
-  if (!collection) return null
-  const image = collection?.image
-  return (
-    <Link
-      className="featured-collection"
-      to={`/collections/${collection.handle}`}
-    >
-      {image && (
-        <div className="featured-collection-image">
-          <Image data={image} sizes="100vw" />
-        </div>
-      )}
-      <h1>{collection.title}</h1>
-    </Link>
-  )
-}
-
-/**
- * @param {{
- *   products: Promise<RecommendedProductsQuery>;
- * }}
- */
-
-// function RecommendedProducts({products}) {
-//   return (
-//     <div className="recommended-products">
-//       <h2>Recommended Products</h2>
-//       <Suspense fallback={<div>Loading...</div>}>
-//         <Await resolve={products}>
-//           {({products}) => (
-//             <div className="recommended-products-grid">
-//               {products.nodes.map((product) => (
-//                 <Link
-//                   key={product.id}
-//                   className="recommended-product"
-//                   to={`/products/${product.handle}`}
-//                 >
-//                   <Image
-//                     data={product.images.nodes[0]}
-//                     aspectRatio="1/1"
-//                     sizes="(min-width: 45em) 20vw, 50vw"
-//                   />
-//                   <h4>{product.title}</h4>
-//                   <small>
-//                     <Money data={product.priceRange.minVariantPrice} />
-//                   </small>
-//                 </Link>
-//               ))}
-//             </div>
-//           )}
-//         </Await>
-//       </Suspense>
-//       <br />
-//     </div>
-//   );
-// }
 
 const FEATURED_COLLECTION_QUERY = `#graphql
   fragment FeaturedCollection on Collection {

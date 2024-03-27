@@ -5,12 +5,12 @@ import { useRootLoaderData } from '~/root'
  * @param {FooterQuery & {shop: HeaderQuery['shop']}}
  */
 export function Footer({ menu, shop }) {
-  const matches = useMatches();
+  const matches = useMatches()
 
-  const isRoute = matches[1].params.handle === "custom-bundle";  
+  const isRoute = matches[1].params.handle === 'custom-bundle'
 
   const Footer = () => {
-    return(
+    return (
       <footer className="footer max-w-[100%] bg-black ">
         <div className="content max-w-[1440px] px-5 sm:px-10 mx-auto ">
           <div className="flex justify-between items-start flex-wrap lg:flex-nowrap gap-10 lg:gap-10 py-10 sm:py-20 ">
@@ -25,7 +25,9 @@ export function Footer({ menu, shop }) {
             </div>
             <div className="navLinks  flex gap-10 justify-between items-start w-full sm:w-5/12 lg:w-1/4">
               <ul className=" ">
-                <li className="text-white font-medium text-xl mb-4 ">About Us</li>
+                <li className="text-white font-medium text-xl mb-4 ">
+                  About Us
+                </li>
                 <li className="text-white font-normal text-base my-2 transition hover:text-[#862E1B] cursor-pointer ">
                   <NavLink end prefetch="intent" to="/products/custom-bundle">
                     Menu
@@ -91,12 +93,7 @@ export function Footer({ menu, shop }) {
       </footer>
     )
   }
-  return (
-    <>
-    { !isRoute ? <Footer /> : null }
-    </>
-    
-  )
+  return <>{!isRoute ? <Footer /> : null}</>
 }
 
 /**
