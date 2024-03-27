@@ -4,7 +4,7 @@ import { CartMain } from '~/components/AsideCart'
 import ProductModal from '../ui/ProductModal'
 import ProductQuantity from './ProductQuantity'
 import { useSubmitPromise } from '~/hooks/useSubmitPromise'
-import { HeaderContext } from '../HeaderContext'
+import { RootContext } from '../RootContext'
 
 const CustomCollection = () => {
   const {
@@ -20,7 +20,7 @@ const CustomCollection = () => {
     selectedProducts,
     setSelectedProducts,
     clickedProduct,
-  } = useContext(HeaderContext)
+  } = useContext(RootContext)
 
   const submit = useSubmitPromise()
 

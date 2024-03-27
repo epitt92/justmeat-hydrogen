@@ -24,7 +24,7 @@ import sliderNavigation from 'swiper/css/navigation'
 
 import { useState, useEffect, useRef } from 'react'
 
-import { HeaderContext } from './components/HeaderContext'
+import { RootContext } from './components/RootContext'
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
  * @type {ShouldRevalidateFunction}
@@ -148,7 +148,7 @@ export default function App() {
   }, [])
 
   return (
-    <HeaderContext.Provider
+    <RootContext.Provider
       value={{
         sellingPlan,
         setSellingPlan,
@@ -179,7 +179,7 @@ export default function App() {
           <LiveReload nonce={nonce} />
         </body>
       </html>
-    </HeaderContext.Provider>
+    </RootContext.Provider>
   )
 }
 
