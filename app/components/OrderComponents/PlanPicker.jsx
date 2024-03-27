@@ -130,7 +130,7 @@ const PlanPicker = () => {
           {review}
         </div>
 
-        <div className="flex justify-start flex-col gap-[12px] sm:gap-[62px]  pt-5 w-[100%]">
+        <div className="flex justify-start flex-col sm:flex-row gap-[12px] sm:gap-[40px] pt-5 w-[100%]">
           <div className="flex items-center w-full gap-2 lg:w-4/12 xl:w-3/12">
             <div className="w-[35px] h-[35px] lg:w-[60px] lg:h-[60px] rounded-[100%] border-2 border-[#425C35] sm:border-none sm:bg-black flex justify-center items-center  ">
               <span className=" text-[22px] lg:text-[40px] font-bold text-black sm:text-white ">
@@ -144,7 +144,7 @@ const PlanPicker = () => {
             </div>
           </div>
 
-          <div className="flex gap-2 flex-col sm:flex-row w-[100%]">
+          <div className="flex gap-2 flex-col sm:flex-row w-[100%] sm:w-[60%]">
             <div className="flex-1 w-full sm:w-7/12 md:w-6/12 xl:w-4/12">
               <p
                 className={`${
@@ -267,14 +267,10 @@ const PlanPicker = () => {
             </div>
 
             <div className="flex-1 w-full sm:w-7/12 md:w-5/12 xl:w-4/12">
-              <p className="px-[15px] hidden sm:block pt-[6px] text-[12px] font-bold bg-transparent text-transparent ">
-                &quot; &quot;
-              </p>
-
               <div
                 className={`${
                   sellingPlan === '' ? 'bg-white sm:bg-[#862E1B]' : ''
-                } p-[3px] sm:p-[10px] border-[3px] border-solid flex justify-center sm:justify-start gap-6 border-[#c6c6c6] sm:border-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px] subscriptionlabel`}
+                } p-[3px] sm:p-[10px] border-[3px] border-solid flex justify-center sm:justify-start gap-6 border-[#c6c6c6] sm:border-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px] subscriptionlabel sm:mt-[28px] mt-0`}
                 onClick={() => {
                   setSellingPlan('')
                   window.localStorage.setItem('_sellingPlan', '')
@@ -285,7 +281,7 @@ const PlanPicker = () => {
                     sellingPlan === ''
                       ? 'text-black sm:text-[#fff]'
                       : 'text-[#1d1d1d]'
-                  } text-[18px] sm:text-[20px] w-fit font-bold text-center sm:text-left`}
+                  } text-[18px] sm:text-[20px] w-fit font-bold text-center sm:text-left sm:leading-[24px]`}
                 >
                   One Time
                 </div>
