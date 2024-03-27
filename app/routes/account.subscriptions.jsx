@@ -1,20 +1,20 @@
 import React from 'react';
 import {json} from '@shopify/remix-oxygen';
-import { useLoaderData} from '@remix-run/react';
-import {CUSTOMER_DETAILS_QUERY} from '~/graphql/customer-account/CustomerDetailsQuery';
-
-import { listSubscriptions } from '@rechargeapps/storefront-client';
-import { SubscriptionCard } from '~/components/SubscriptionCard';
-import { rechargeQueryWrapper } from '~/lib/rechargeUtils';
-import { 
-  Form,
+import {
+  Form, 
   useActionData,
   useNavigation,
-  useOutletContext,
-} from '@remix-run/react';
+  useOutletContext, 
+  useLoaderData} from '@remix-run/react';
+import {CUSTOMER_DETAILS_QUERY} from '~/graphql/customer-account/CustomerDetailsQuery';
 import {
   UPDATE_ADDRESS_MUTATION
 } from '~/graphql/customer-account/CustomerAddressMutations'
+import { listSubscriptions } from '@rechargeapps/storefront-client';
+import { SubscriptionCard } from '~/components/SubscriptionCard';
+import { rechargeQueryWrapper } from '~/lib/rechargeUtils';
+
+
 export function shouldRevalidate() {
     return true;
   }
@@ -23,6 +23,7 @@ export function shouldRevalidate() {
    * @param {LoaderFunctionArgs}
    */
   export async function loader({context}) {
+    await context.customerAccount.handleAuthStatus();
     const {data, errors} = await context.customerAccount.query(
       CUSTOMER_DETAILS_QUERY,
     );
@@ -56,8 +57,8 @@ export function shouldRevalidate() {
     const { customerAccount } = context
   
     try {
-      const form = await request.formData();
-  console.log("form",form);
+      const form = await request.formData()
+  
       const addressId = form.has('addressId')
         ? String(form.get('addressId'))
         : null
@@ -79,9 +80,7 @@ export function shouldRevalidate() {
         )
       }
   
-      const defaultAddress = form.has('defaultAddress')
-        ? String(form.get('defaultAddress')) === 'on'
-        : false
+     
       const address = {}
       const keys = [
         'address1',
@@ -104,17 +103,13 @@ export function shouldRevalidate() {
       }
   
       switch (request.method) {
-        case 'PUT': {
-          // handle address updates
+        case 'POST': {
+          // handle new address creation
           try {
             const { data, errors } = await customerAccount.mutate(
-              UPDATE_ADDRESS_MUTATION,
+              CREATE_ADDRESS_MUTATION,
               {
-                variables: {
-                  address,
-                  addressId: decodeURIComponent(addressId),
-                  defaultAddress,
-                },
+                variables: { address },
               },
             )
   
@@ -122,19 +117,19 @@ export function shouldRevalidate() {
               throw new Error(errors[0].message)
             }
   
-            if (data?.customerAddressUpdate?.userErrors?.length) {
-              throw new Error(data?.customerAddressUpdate?.userErrors[0].message)
+            if (data?.customerAddressCreate?.userErrors?.length) {
+              throw new Error(data?.customerAddressCreate?.userErrors[0].message)
             }
   
-            if (!data?.customerAddressUpdate?.customerAddress) {
-              throw new Error('Customer address update failed.')
+            if (!data?.customerAddressCreate?.customerAddress) {
+              throw new Error('Customer address create failed.')
             }
   
             return json(
               {
                 error: null,
-                updatedAddress: address,
-                defaultAddress,
+                createdAddress: data?.customerAddressCreate?.customerAddress,
+                
               },
               {
                 headers: {
@@ -165,6 +160,123 @@ export function shouldRevalidate() {
             )
           }
         }
+  
+        case 'PUT': {
+          // handle address updates
+          try {
+            const { data, errors } = await customerAccount.mutate(
+              UPDATE_ADDRESS_MUTATION,
+              {
+                variables: {
+                  address,
+                  addressId: decodeURIComponent(addressId),
+                 
+                },
+              },
+            )
+  
+            if (errors?.length) {
+              throw new Error(errors[0].message)
+            }
+  
+            if (data?.customerAddressUpdate?.userErrors?.length) {
+              throw new Error(data?.customerAddressUpdate?.userErrors[0].message)
+            }
+  
+            if (!data?.customerAddressUpdate?.customerAddress) {
+              throw new Error('Customer address update failed.')
+            }
+  
+            return json(
+              {
+                error: null,
+                updatedAddress: address,
+                
+              },
+              {
+                headers: {
+                  'Set-Cookie': await context.session.commit(),
+                },
+              },
+            )
+          } catch (error) {
+            if (error instanceof Error) {
+              return json(
+                { error: { [addressId]: error.message } },
+                {
+                  status: 400,
+                  headers: {
+                    'Set-Cookie': await context.session.commit(),
+                  },
+                },
+              )
+            }
+            return json(
+              { error: { [addressId]: error } },
+              {
+                status: 400,
+                headers: {
+                  'Set-Cookie': await context.session.commit(),
+                },
+              },
+            )
+          }
+        }
+  
+        case 'DELETE': {
+          // handles address deletion
+          try {
+            const { data, errors } = await customerAccount.mutate(
+              DELETE_ADDRESS_MUTATION,
+              {
+                variables: { addressId: decodeURIComponent(addressId) },
+              },
+            )
+  
+            if (errors?.length) {
+              throw new Error(errors[0].message)
+            }
+  
+            if (data?.customerAddressDelete?.userErrors?.length) {
+              throw new Error(data?.customerAddressDelete?.userErrors[0].message)
+            }
+  
+            if (!data?.customerAddressDelete?.deletedAddressId) {
+              throw new Error('Customer address delete failed.')
+            }
+  
+            return json(
+              { error: null, deletedAddress: addressId },
+              {
+                headers: {
+                  'Set-Cookie': await context.session.commit(),
+                },
+              },
+            )
+          } catch (error) {
+            if (error instanceof Error) {
+              return json(
+                { error: { [addressId]: error.message } },
+                {
+                  status: 400,
+                  headers: {
+                    'Set-Cookie': await context.session.commit(),
+                  },
+                },
+              )
+            }
+            return json(
+              { error: { [addressId]: error } },
+              {
+                status: 400,
+                headers: {
+                  'Set-Cookie': await context.session.commit(),
+                },
+              },
+            )
+          }
+        }
+  
         default: {
           return json(
             { error: { [addressId]: 'Method not allowed' } },
@@ -200,6 +312,7 @@ export function shouldRevalidate() {
       )
     }
   }
+
   export default function AccountSubscriptions(){
        const { subscriptionsResponse, customer } = useLoaderData();
   return (
@@ -240,29 +353,47 @@ function AccountSubscription({subscriptions, currentcustomer}) {
   }
   export function ExistingAddresses() {
     const { customer } = useOutletContext();
-    const { defaultAddress,addresses } = customer
+    const { addresses } = customer
+    console.log("addresses",addresses);
     return (
       <div>
         {addresses.nodes.map((address) => (
-          <AddressForm
-            key={address.id}
-            addressId={address.id}
-            address={address}
-            defaultAddress={defaultAddress}
-          />
-           
-        ))}
+        <AddressForm
+          key={address.id}
+          addressId={address.id}
+          address={address}
+          
+        >
+          {({ stateForMethod }) => (
+            <div>
+              <button
+              className="rounded-sm w-full bg-[#252525] px-6 py-1 text-sm font-semibold text-white shadow-sm border-2 border-black"
+                disabled={stateForMethod('PUT') !== 'idle'}
+                formMethod="PUT"
+                type="submit"
+              >
+                {stateForMethod('PUT') !== 'idle' ? 'Saving' : 'Save'}
+              </button>
+            
+            </div>
+          )}
+        </AddressForm>
+      ))}
       </div>
     )
   }
   
-  export function AddressForm({ addressId, address, defaultAddress }) {
+  export function AddressForm({ addressId, address , children}) {
     const { state, formMethod } = useNavigation()
-    const action = useActionData()
+  /** @type {ActionReturnData} */
+  const action = useActionData()
+  const error = action?.error?.[addressId]
+  
     return (
-    <Form id={addressId}>
+    <Form  id={addressId}>
                   <div className=" grid grid-cols-1 gap-x-3 gap-y-2 sm:grid-cols-6">
                     <div className="sm:col-span-3">
+                    <input type="hidden" name="addressId" defaultValue={addressId} />
                       <label htmlFor="firstName" className="block text-sm font-medium leading-6 text-gray-900">First name</label>
                       <div className="mt-2">
                           <input
@@ -413,12 +544,24 @@ function AccountSubscription({subscriptions, currentcustomer}) {
                               autoComplete="phone"
                               placeholder="phone"
                               aria-label="phone"
+                              pattern="^\+?[1-9]\d{3,14}$"
                           />
                         </div>
                     </div>
                     <div className="sm:col-span-6">
-                        <button type="submit" disabled={state !== 'idle'}  className="rounded-sm w-full bg-[#252525] px-6 py-1 text-sm font-semibold text-white shadow-sm border-2 border-black">{state !== 'idle' ? 'Saving....' : 'Save'}</button>
-                    </div>
+                    {error ? (
+          <p>
+            <mark>
+              <small>{error}</small>
+            </mark>
+          </p>
+        ) : (
+          <br />
+        )}
+        {children({
+          stateForMethod: (method) => (formMethod === method ? state : 'idle'),
+        })}
+                   </div>
       
                   </div>
               </Form>
