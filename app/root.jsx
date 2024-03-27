@@ -22,9 +22,9 @@ import { SubscriptionCard } from '~/components/SubscriptionCard'
 import sliderStyles from 'swiper/css'
 import sliderNavigation from 'swiper/css/navigation'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
-import HeaderContext from './components/HeaderContext'
+import { HeaderContext } from './components/HeaderContext'
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
  * @type {ShouldRevalidateFunction}
@@ -115,14 +115,52 @@ export async function loader({ context }) {
 
 export default function App() {
   const nonce = useNonce()
-  /** @type {LoaderReturnData} */
   const data = useLoaderData()
 
-  const [sellingPlan, setSellingPlan] = useState('')
+  const [sellingPlan, setSellingPlan] = useState(null)
+  const [selectedProducts, setSelectedProducts] = useState([])
+  const [bonus, setBonus] = useState(null)
+  const [clickedProduct, setClickedProduct] = useState(null)
+  const [sellingPlanFrequency, setSellingPlanFrequency] = useState(
+    'Delivery every 15 Days',
+  )
+
+  useEffect(() => {
+    const _sellingPlan = window.localStorage.getItem('_sellingPlan')
+    const _selectedProducts = window.localStorage.getItem('_selectedProducts')
+    const _bonus = window.localStorage.getItem('_bonus')
+    const _sellingPlanFrequency = window.localStorage.getItem(
+      '_sellingPlanFrequency',
+    )
+
+    if (_sellingPlan !== null) {
+      setSellingPlan(JSON.parse(_sellingPlan))
+    }
+    if (_sellingPlanFrequency !== null) {
+      setSellingPlanFrequency(JSON.parse(_sellingPlanFrequency))
+    }
+    if (_selectedProducts !== null) {
+      setSelectedProducts(JSON.parse(_selectedProducts))
+    }
+    if (_bonus !== null) {
+      setBonus(JSON.parse(_bonus))
+    }
+  }, [])
 
   return (
     <HeaderContext.Provider
-      value={{ sellingPlan, setSellingPlan }}
+      value={{
+        sellingPlan,
+        setSellingPlan,
+        selectedProducts,
+        setSelectedProducts,
+        sellingPlanFrequency,
+        setSellingPlanFrequency,
+        clickedProduct,
+        setClickedProduct,
+        bonus,
+        setBonus,
+      }}
     >
       <html lang="en">
         <head>
@@ -260,4 +298,4 @@ const FOOTER_QUERY = `#graphql
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
 /** @typedef {import('@remix-run/react').ShouldRevalidateFunction} ShouldRevalidateFunction */
 /** @typedef {import('@shopify/hydrogen/storefront-api-types').CustomerAccessToken} CustomerAccessToken */
-/** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */
+/** @typedef {import('@shopify/remix-oxygen').SerializeFrom<loader>} LoaderReturnData */

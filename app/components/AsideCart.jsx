@@ -1,7 +1,9 @@
 import { CartForm, Image, Money } from '@shopify/hydrogen'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import CustomProgressBar from './ui/CustomProgressBar'
 import ProductQuantity from './OrderComponents/ProductQuantity'
+import { useLoaderData } from '@remix-run/react'
+import { HeaderContext } from './HeaderContext'
 
 export function CartMain({
   layout,
@@ -11,6 +13,8 @@ export function CartMain({
 }) {
   const [subTotal, setSubTotal] = useState(0)
   const linesCount = Boolean(selectedProducts.length || 0)
+
+  const { bonus, setBonus } = useContext(HeaderContext)
 
   useEffect(() => {
     // Calculate the total cost of all products in selectedProducts
@@ -100,18 +104,32 @@ function ProgessBar({ cost }) {
 }
 
 function LockedItem({ cost }) {
+  const {
+    bonuses: { nodes: bonuses },
+  } = useLoaderData()
+
+  const { bonus, setBonus } = useContext(HeaderContext)
+
+  const onBonusChange = (e) => {
+    const id = e.target.value
+    const newBonus = bonuses.find((el) => el.variants.nodes[0].id === id)
+    setBonus(newBonus)
+    window.localStorage.setItem('_bonus', JSON.stringify(newBonus))
+  }
+
   return (
     <>
       {cost >= 125 ? (
         <select
           className="text-[12px] py-[8px] w-[70%] rounded-[5px] outline-none focus:outline-none bg-auto  focus:border-none bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')] shadow-none  focus:shadow-none focus:border-[#1d1d1d99] border border-[#1d1d1d49] text-[#131515]  "
-          name=""
-          id=""
+          onChange={onBonusChange}
+          value={bonus?.variants.nodes[0].id}
         >
-          <option value="">Hawaiian Shredded Pork</option>
-          <option value="">Raspberry BBQ Chicken Breast</option>
-          <option value="">Hawaiian Teriyaki Beef</option>
-          <option value="">Smoked Texas Brisket</option>
+          {bonuses.map((el, index) => (
+            <option key={index} value={el.variants.nodes[0].id}>
+              {el.title}
+            </option>
+          ))}
         </select>
       ) : (
         <span className="text-[12px] font-semibold uppercase mb-1 py-2 w-fit bg-[#E4E4E4] px-5 border border-[#949494]  ">

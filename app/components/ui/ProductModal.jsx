@@ -10,7 +10,7 @@ const ProductModal = ({
   setSelectedProducts,
 }) => {
   const [open, setOpen] = useState(false)
-  
+
   useEffect(() => {
     if (product) {
       setOpen(true)
@@ -66,23 +66,25 @@ const DialogContent = ({ product, selectedProducts, setSelectedProducts }) => {
   const images = product.images
   const media = images.nodes
   const productPrice = product?.priceRange?.maxVariantPrice?.amount
-  console.log(product);
   const line = selectedProducts.find(
     (selectedProduct) => selectedProduct.id === product.id,
   )
 
   function addToSelectedProducts() {
-    setSelectedProducts((prevSelectedProducts) => {
-      return [
-        ...prevSelectedProducts,
-        {
-          ...product,
-          quantity: 1,
-          amount: productPrice,
-          totalAmount: productPrice,
-        },
-      ]
-    })
+    const newSelectedProducts = [
+      ...selectedProducts,
+      {
+        ...product,
+        quantity: 1,
+        amount: productPrice,
+        totalAmount: productPrice,
+      },
+    ]
+    setSelectedProducts(newSelectedProducts)
+    window.localStorage.setItem(
+      '_selectedProducts',
+      JSON.stringify(newSelectedProducts),
+    )
   }
 
   return (
