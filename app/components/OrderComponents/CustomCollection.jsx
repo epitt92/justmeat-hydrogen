@@ -5,7 +5,7 @@ import ProductQuantity from './ProductQuantity'
 import { useSubmitPromise } from '~/hooks/useSubmitPromise'
 import HeaderContext from '../HeaderContext'
 
-const CustomCollection = ({ col }) => {
+const CustomCollection = ({ col, subproduct }) => {
   const { nodes } = col
   const { sellingPlan } = useContext(HeaderContext)
 
@@ -21,6 +21,33 @@ const CustomCollection = ({ col }) => {
   function onProductModalClose() {
     setClickedProduct(null)
   }
+
+  /* START : account management */ 
+  let active_subscription_pro
+  let isCustomerAccountAccess = false;
+  if (typeof subproduct?.bundle_selections !== 'undefined') {
+      active_subscription_pro = subproduct.bundle_selections[0].items;
+      isCustomerAccountAccess = true;
+  }
+  
+  function extractNumericId(productId) {
+    const parts = productId.split('/');
+    const lastPart = parts[parts.length - 1];
+    const numericId = lastPart.match(/\d+/);
+    return numericId ? numericId[0] : null;
+  }
+  
+  function checkExistProduct(productId){
+    const numProId = extractNumericId(productId);
+    let Tamptrue = false;
+    active_subscription_pro.map((aProduct, key) => {
+      if (aProduct.external_product_id == numProId) {
+        Tamptrue = true;
+      }
+    });
+    return Tamptrue;
+  }
+  /* END : account management */
 
   async function precessCheckout() {
     const res = await submit(
@@ -59,15 +86,25 @@ const CustomCollection = ({ col }) => {
           <div className="flex product-and-cart">
             <div className="grid grid-cols-2 product-grid md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12">
               {nodes.map((product, key) =>
-                product.handle !== 'free-meat-unlocked-at-125' ? (
-                  <ProductCard
-                    key={key}
-                    product={product}
-                    onClick={() => onProductClick(product)}
-                    setSelectedProducts={setSelectedProducts}
-                    selectedProducts={selectedProducts}
-                  />
-                ) : null,
+                product.handle !== 'free-meat-unlocked-at-125' ? ((isCustomerAccountAccess) && checkExistProduct(product.id) ? 
+                <div>
+               <h1>{product.id}</h1>
+                <ProductCard
+                  key={key}
+                  product={product}
+                  onClick={() => onProductClick(product)}
+                  setSelectedProducts={setSelectedProducts}
+                  selectedProducts={selectedProducts}
+                />
+                </div>
+               : 
+               <ProductCard
+                 key={key}
+                 product={product}
+                 onClick={() => onProductClick(product)}
+                 setSelectedProducts={setSelectedProducts}
+                 selectedProducts={selectedProducts}
+               />) : null,
               )}
             </div>
             <div className="cart-wrapper sticky top-[10px] h-fit mb-[10px] hidden xl:block w-4/12">
