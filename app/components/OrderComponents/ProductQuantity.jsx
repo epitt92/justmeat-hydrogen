@@ -1,14 +1,19 @@
 import React from 'react'
 
 const ProductQuantity = ({ line, selectedProducts, setSelectedProducts }) => {
-  if (!line) return null;
+  if (!line) return null
   const { id, quantity, priceRange } = line
   const price = priceRange?.maxVariantPrice?.amount
 
   const updateQuantity = (value) => {
     if (value === 0) {
-      setSelectedProducts((prevSelectedProducts) =>
-        prevSelectedProducts.filter((product) => product.id !== id),
+      const newSelectedProducts = selectedProducts.filter(
+        (product) => product.id !== id,
+      )
+      setSelectedProducts(newSelectedProducts)
+      window.localStorage.setItem(
+        '_selectedProducts',
+        JSON.stringify(newSelectedProducts),
       )
     } else {
       const updatedProducts = selectedProducts.map((product) => {
@@ -22,6 +27,10 @@ const ProductQuantity = ({ line, selectedProducts, setSelectedProducts }) => {
         return product
       })
       setSelectedProducts(updatedProducts)
+      window.localStorage.setItem(
+        '_selectedProducts',
+        JSON.stringify(updatedProducts),
+      )
     }
   }
 

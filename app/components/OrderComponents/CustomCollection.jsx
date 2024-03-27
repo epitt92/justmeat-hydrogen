@@ -1,16 +1,26 @@
-import React, { useContext, useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { useLoaderData } from '@remix-run/react'
 import { CartMain } from '~/components/AsideCart'
 import ProductModal from '../ui/ProductModal'
 import ProductQuantity from './ProductQuantity'
 import { useSubmitPromise } from '~/hooks/useSubmitPromise'
-import HeaderContext from '../HeaderContext'
+import { HeaderContext } from '../HeaderContext'
 
-const CustomCollection = ({ col }) => {
-  const { nodes } = col
-  const { sellingPlan } = useContext(HeaderContext)
+const CustomCollection = () => {
+  const {
+    collection: {
+      products: { nodes: products },
+    },
+  } = useLoaderData()
 
-  const [selectedProducts, setSelectedProducts] = useState([])
-  const [clickedProduct, setClickedProduct] = useState(null)
+  const {
+    sellingPlan,
+    bonus,
+    setClickedProduct,
+    selectedProducts,
+    setSelectedProducts,
+    clickedProduct,
+  } = useContext(HeaderContext)
 
   const submit = useSubmitPromise()
 
@@ -23,6 +33,20 @@ const CustomCollection = ({ col }) => {
   }
 
   async function precessCheckout() {
+    const totalCost = selectedProducts.reduce(
+      (acc, curr) => acc + parseFloat(curr.totalAmount),
+      0,
+    )
+
+    const products = [...selectedProducts]
+
+    if (totalCost > 125) {
+      products.push({
+        ...bonus,
+        quantity: 1,
+      })
+    }
+
     const res = await submit(
       {
         body: JSON.stringify({
@@ -58,7 +82,7 @@ const CustomCollection = ({ col }) => {
           </div>
           <div className="flex product-and-cart">
             <div className="grid grid-cols-2 product-grid md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12">
-              {nodes.map((product, key) =>
+              {products.map((product, key) =>
                 product.handle !== 'free-meat-unlocked-at-125' ? (
                   <ProductCard
                     key={key}
@@ -126,17 +150,20 @@ const ProductCard = ({
   const productPrice = product?.priceRange?.maxVariantPrice?.amount
 
   function addToSelectedProducts() {
-    setSelectedProducts((prevSelectedProducts) => {
-      return [
-        ...prevSelectedProducts,
-        {
-          ...product,
-          quantity: 1,
-          amount: productPrice,
-          totalAmount: productPrice,
-        },
-      ]
-    })
+    const newSelectedProducts = [
+      ...selectedProducts,
+      {
+        ...product,
+        quantity: 1,
+        amount: productPrice,
+        totalAmount: productPrice,
+      },
+    ]
+    setSelectedProducts(newSelectedProducts)
+    window.localStorage.setItem(
+      '_selectedProducts',
+      JSON.stringify(newSelectedProducts),
+    )
   }
 
   const line = selectedProducts.find(

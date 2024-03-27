@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
-import HeaderContext from '../HeaderContext'
+import { HeaderContext } from '../HeaderContext'
 
 const PlanPicker = () => {
-  const [sellingPlanFrequency, setSellingPlanFrequency] = useState(
-    'Delivery every 15 Days',
-  )
-
-  const { sellingPlan, setSellingPlan } = useContext(HeaderContext)
+  const {
+    sellingPlan,
+    setSellingPlan,
+    sellingPlanFrequency,
+    setSellingPlanFrequency,
+  } = useContext(HeaderContext)
 
   const checkBox = (
     <svg
@@ -158,7 +159,13 @@ const PlanPicker = () => {
                 className={`${
                   sellingPlan !== '' ? 'bg-white sm:bg-[#862E1B]' : ''
                 } p-[7px] sm:p-[10px] border-[3px] border-solid flex gap-6 border-[#425B34] sm:border-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px]`}
-                onClick={() => setSellingPlan(sellingPlanFrequency)}
+                onClick={() => {
+                  setSellingPlan(sellingPlanFrequency)
+                  window.localStorage.setItem(
+                    '_sellingPlan',
+                    JSON.stringify(sellingPlanFrequency),
+                  )
+                }}
               >
                 <div
                   className={`${
@@ -178,7 +185,13 @@ const PlanPicker = () => {
                       : 'text-[#1d1d1d] '
                   } max-w-[142px] hidden sm:block text-[12px] focus:shadow-none shadow-none p-0 w-full outline-none border-none bg-transparent focus:outline-none bg-auto focus:border-none bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')]`}
                   value={sellingPlanFrequency}
-                  onChange={(e) => setSellingPlanFrequency(e.target.value)}
+                  onChange={(e) => {
+                    setSellingPlanFrequency(e.target.value)
+                    window.localStorage.setItem(
+                      '_sellingPlanFrequency',
+                      JSON.stringify(e.target.value),
+                    )
+                  }}
                 >
                   <option
                     className="text-[#000]"
@@ -215,7 +228,13 @@ const PlanPicker = () => {
                               : 'bg-white'
                           } text-center text-[11px] font-semibold min-h-[24px] flex justify-center items-center px-[12px] leading-[100%]
                         `}
-                            onClick={() => setSellingPlanFrequency(item)}
+                            onClick={() => {
+                              setSellingPlanFrequency(item)
+                              window.localStorage.setItem(
+                                '_sellingPlanFrequency',
+                                JSON.stringify(item),
+                              )
+                            }}
                           >
                             {modifiedItem}
                           </div>
@@ -256,7 +275,10 @@ const PlanPicker = () => {
                 className={`${
                   sellingPlan === '' ? 'bg-white sm:bg-[#862E1B]' : ''
                 } p-[3px] sm:p-[10px] border-[3px] border-solid flex justify-center sm:justify-start gap-6 border-[#c6c6c6] sm:border-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px] subscriptionlabel`}
-                onClick={() => setSellingPlan('')}
+                onClick={() => {
+                  setSellingPlan('')
+                  window.localStorage.setItem('_sellingPlan', '')
+                }}
               >
                 <div
                   className={`${

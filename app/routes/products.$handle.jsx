@@ -1,5 +1,4 @@
 import { json, redirect } from '@shopify/remix-oxygen'
-import { useLoaderData } from '@remix-run/react'
 import { getDynamicBundleItems } from '@rechargeapps/storefront-client'
 import { getPaginationVariables } from '@shopify/hydrogen'
 
@@ -22,12 +21,18 @@ export async function loader({ request, params, context }) {
     variables: { handle, ...paginationVariables },
   })
 
+  const {
+    collection: { products: bonuses },
+  } = await storefront.query(COLLECTION_QUERY, {
+    variables: { handle: 'free-bonus-meat', ...paginationVariables },
+  })
+
   if (!collection) {
     throw new Response(`Collection ${handle} not found`, {
       status: 404,
     })
   }
-  return json({ collection })
+  return json({ collection, bonuses })
 }
 
 export async function action({ request, context }) {
@@ -93,11 +98,6 @@ export async function action({ request, context }) {
 }
 
 export default function Product() {
-  /** @type {LoaderReturnData} */
-
-  const data = useLoaderData()
-  const customCollectionProducts = data.collection.products
-
   return (
     <>
       <Notification />
@@ -105,9 +105,9 @@ export default function Product() {
         <div className="max-w-[1440px] w-[100%] px-5 sm:px-10">
           <PlanPicker />
           <div className="custom-collection-wrap">
-            <CustomCollection col={customCollectionProducts} />
+            <CustomCollection />
           </div>
-          <div className="block sm:hidden fixed bottom-[12px] left-[50%] transform translate-x-[-50%] w-[90%] rounded-[12px] bg-[#AAAAAA] min-h-[50px] flex justify-center items-center">
+          <div className="sm:hidden fixed bottom-[12px] left-[50%] transform translate-x-[-50%] w-[90%] rounded-[12px] bg-[#AAAAAA] min-h-[50px] flex justify-center items-center">
             <p className="text-white text-[19px] font-semibold">
               Add $63.55 to Unlock Cart ($8.59)
             </p>

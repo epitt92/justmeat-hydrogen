@@ -1,5 +1,3 @@
 import { createContext } from 'react'
 
-const HeaderContext = createContext();
-
-export default HeaderContext;
+export const HeaderContext = createContext()
