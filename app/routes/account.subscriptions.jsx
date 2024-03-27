@@ -6,7 +6,15 @@ import {CUSTOMER_DETAILS_QUERY} from '~/graphql/customer-account/CustomerDetails
 import { listSubscriptions } from '@rechargeapps/storefront-client';
 import { SubscriptionCard } from '~/components/SubscriptionCard';
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils';
-
+import { 
+  Form,
+  useActionData,
+  useNavigation,
+  useOutletContext,
+} from '@remix-run/react';
+import {
+  UPDATE_ADDRESS_MUTATION
+} from '~/graphql/customer-account/CustomerAddressMutations'
 export function shouldRevalidate() {
     return true;
   }
@@ -43,6 +51,154 @@ export function shouldRevalidate() {
         customer: data.customer
       },
     );
+  }
+  export async function action({ request, context }) {
+    const { customerAccount } = context
+  
+    try {
+      const form = await request.formData();
+  console.log("form",form);
+      const addressId = form.has('addressId')
+        ? String(form.get('addressId'))
+        : null
+      if (!addressId) {
+        throw new Error('You must provide an address id.')
+      }
+  
+      // this will ensure redirecting to login never happen for mutatation
+      const isLoggedIn = await customerAccount.isLoggedIn()
+      if (!isLoggedIn) {
+        return json(
+          { error: { [addressId]: 'Unauthorized' } },
+          {
+            status: 401,
+            headers: {
+              'Set-Cookie': await context.session.commit(),
+            },
+          },
+        )
+      }
+  
+      const defaultAddress = form.has('defaultAddress')
+        ? String(form.get('defaultAddress')) === 'on'
+        : false
+      const address = {}
+      const keys = [
+        'address1',
+        'address2',
+        'city',
+        'company',
+        'territoryCode',
+        'firstName',
+        'lastName',
+        'phoneNumber',
+        'zoneCode',
+        'zip',
+      ]
+  
+      for (const key of keys) {
+        const value = form.get(key)
+        if (typeof value === 'string') {
+          address[key] = value
+        }
+      }
+  
+      switch (request.method) {
+        case 'PUT': {
+          // handle address updates
+          try {
+            const { data, errors } = await customerAccount.mutate(
+              UPDATE_ADDRESS_MUTATION,
+              {
+                variables: {
+                  address,
+                  addressId: decodeURIComponent(addressId),
+                  defaultAddress,
+                },
+              },
+            )
+  
+            if (errors?.length) {
+              throw new Error(errors[0].message)
+            }
+  
+            if (data?.customerAddressUpdate?.userErrors?.length) {
+              throw new Error(data?.customerAddressUpdate?.userErrors[0].message)
+            }
+  
+            if (!data?.customerAddressUpdate?.customerAddress) {
+              throw new Error('Customer address update failed.')
+            }
+  
+            return json(
+              {
+                error: null,
+                updatedAddress: address,
+                defaultAddress,
+              },
+              {
+                headers: {
+                  'Set-Cookie': await context.session.commit(),
+                },
+              },
+            )
+          } catch (error) {
+            if (error instanceof Error) {
+              return json(
+                { error: { [addressId]: error.message } },
+                {
+                  status: 400,
+                  headers: {
+                    'Set-Cookie': await context.session.commit(),
+                  },
+                },
+              )
+            }
+            return json(
+              { error: { [addressId]: error } },
+              {
+                status: 400,
+                headers: {
+                  'Set-Cookie': await context.session.commit(),
+                },
+              },
+            )
+          }
+        }
+        default: {
+          return json(
+            { error: { [addressId]: 'Method not allowed' } },
+            {
+              status: 405,
+              headers: {
+                'Set-Cookie': await context.session.commit(),
+              },
+            },
+          )
+        }
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        return json(
+          { error: error.message },
+          {
+            status: 400,
+            headers: {
+              'Set-Cookie': await context.session.commit(),
+            },
+          },
+        )
+      }
+      return json(
+        { error },
+        {
+          status: 400,
+          headers: {
+            'Set-Cookie': await context.session.commit(),
+          },
+        },
+      )
+    }
   }
   export default function AccountSubscriptions(){
        const { subscriptionsResponse, customer } = useLoaderData();
@@ -81,4 +237,190 @@ function AccountSubscription({subscriptions, currentcustomer}) {
         ))}
       </ul>
     );
+  }
+  export function ExistingAddresses() {
+    const { customer } = useOutletContext();
+    const { defaultAddress,addresses } = customer
+    return (
+      <div>
+        {addresses.nodes.map((address) => (
+          <AddressForm
+            key={address.id}
+            addressId={address.id}
+            address={address}
+            defaultAddress={defaultAddress}
+          />
+           
+        ))}
+      </div>
+    )
+  }
+  
+  export function AddressForm({ addressId, address, defaultAddress }) {
+    const { state, formMethod } = useNavigation()
+    const action = useActionData()
+    return (
+    <Form id={addressId}>
+                  <div className=" grid grid-cols-1 gap-x-3 gap-y-2 sm:grid-cols-6">
+                    <div className="sm:col-span-3">
+                      <label htmlFor="firstName" className="block text-sm font-medium leading-6 text-gray-900">First name</label>
+                      <div className="mt-2">
+                          <input
+                              id="firstName"
+                              name="firstName"
+                              className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                              type="text"
+                              defaultValue={address?.firstName ?? ''}
+                              autoComplete="given-name"
+                              placeholder="First name"
+                              aria-label="First name"
+                              minLength={2}
+                            />   
+                      </div>
+                    </div>
+  
+                    <div className="sm:col-span-3">
+                        <label htmlFor="lastName" className="block text-sm font-medium leading-6 text-gray-900">Last name</label>
+                        <div className="mt-2">
+                          <input
+                              id="lastName"
+                              name="lastName"
+                              className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                              type="text"
+                              defaultValue={address?.lastName ?? ''}
+                              autoComplete="family-name"
+                              placeholder="Last name"
+                              aria-label="Last name"
+                              minLength={2}
+                          />
+                        </div>
+                    </div>
+                    <div className="sm:col-span-6">
+                        <label htmlFor="address1" className="block text-sm font-medium leading-6 text-gray-900">Address 1</label>
+                        <div className="mt-2">
+                          <input
+                              id="address1"
+                              name="address1"
+                              className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                              type="text"
+                              defaultValue={address?.address1 ?? ''}
+                              autoComplete="address-one"
+                              placeholder="Address1"
+                              aria-label="address1"
+                              minLength={5}
+                          />
+                        </div>
+                    </div>
+                    <div className="sm:col-span-6">
+                        <label htmlFor="address2" className="block text-sm font-medium leading-6 text-gray-900">Address 2</label>
+                        <div className="mt-2">
+                          <input
+                              id="address2"
+                              name="address2"
+                              className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                              type="text"
+                              defaultValue={address?.address2 ?? ''}
+                              autoComplete="address2"
+                              placeholder="Address2"
+                              aria-label="address2"
+                          />
+                        </div>
+                    </div>
+                    <div className="sm:col-span-6">
+                        <label htmlFor="company" className="block text-sm font-medium leading-6 text-gray-900">Company</label>
+                        <div className="mt-2">
+                          <input
+                              id="company"
+                              name="company"
+                              className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                              type="text"
+                              defaultValue={address?.company ?? ''}
+                              autoComplete="company"
+                              placeholder="company"
+                              aria-label="company"
+                          />
+                        </div>
+                    </div>
+                    <div className="sm:col-span-6">
+                        <label htmlFor="territoryCode" className="block text-sm font-medium leading-6 text-gray-900">Country</label>
+                        <div className="mt-2">
+                          <input
+                              id="territoryCode"
+                              name="territoryCode"
+                              className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                              type="text"
+                              defaultValue={address?.territoryCode ?? ''}
+                              autoComplete="country"
+                              placeholder="country"
+                              aria-label="country"
+                          />
+                        </div>
+                    </div>
+                    <div className="sm:col-span-6">
+                        <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">City</label>
+                        <div className="mt-2">
+                          <input
+                              id="city"
+                              name="city"
+                              className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                              type="text"
+                              defaultValue={address?.city ?? ''}
+                              autoComplete="city"
+                              placeholder="city"
+                              aria-label="city"
+                          />
+                        </div>
+                    </div>
+                    <div className="sm:col-span-3">
+                        <label htmlFor="zoneCode" className="block text-sm font-medium leading-6 text-gray-900">Province/State</label>
+                        <div className="mt-2">
+                          <input
+                              id="zoneCode"
+                              name="zoneCode"
+                              className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                              type="text"
+                              defaultValue={address?.zoneCode ?? ''}
+                              autoComplete="state"
+                              placeholder="state"
+                              aria-label="state"
+                          />
+                        </div>
+                    </div>
+                    <div className="sm:col-span-3">
+                        <label htmlFor="zip" className="block text-sm font-medium leading-6 text-gray-900">Postal Code</label>
+                        <div className="mt-2">
+                          <input
+                              id="zip"
+                              name="zip"
+                              className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                              type="text"
+                              defaultValue={address?.zip ?? ''}
+                              autoComplete="postalcode"
+                              placeholder="postalcode"
+                              aria-label="postalcode"
+                          />
+                        </div>
+                    </div>
+                    <div className="sm:col-span-6">
+                        <label htmlFor="phoneNumber" className="block text-sm font-medium leading-6 text-gray-900">Phone</label>
+                        <div className="mt-2">
+                          <input
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                              type="tel"
+                              defaultValue={address?.phoneNumber ?? ''}
+                              autoComplete="phone"
+                              placeholder="phone"
+                              aria-label="phone"
+                          />
+                        </div>
+                    </div>
+                    <div className="sm:col-span-6">
+                        <button type="submit" disabled={state !== 'idle'}  className="rounded-sm w-full bg-[#252525] px-6 py-1 text-sm font-semibold text-white shadow-sm border-2 border-black">{state !== 'idle' ? 'Saving....' : 'Save'}</button>
+                    </div>
+      
+                  </div>
+              </Form>
+    )
   }
