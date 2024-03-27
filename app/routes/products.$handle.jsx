@@ -47,13 +47,11 @@ export async function action({ request, context }) {
 
   if (sellingPlanName) {
     const bundle = {
-      externalProductId: '8249959153890', // Custom Meat Bundle's Shopify Product ID - Hard coded
-      externalVariantId: '44625977999586', // Custom Meat Bundle's Shopify Variant ID - Hard coded
+      externalProductId: '8264905490658', // Custom Meat Bundle's Shopify Product ID - Hard coded
+      externalVariantId: '44680720285922', // Custom Meat Bundle's Shopify Variant ID - Hard coded
 
       selections: products.map((product) => ({
-        collectionId: product.collections.edges[0].node.id.split(
-          'gid://shopify/Collection/',
-        )[1],
+        collectionId: '424769257698',
         externalProductId: product.id.split('gid://shopify/Product/')[1],
         externalVariantId: product.variants.nodes[0].id.split(
           'gid://shopify/ProductVariant/',
@@ -79,12 +77,13 @@ export async function action({ request, context }) {
         quantity: bundleItem.quantity,
         merchandiseId: `gid://shopify/ProductVariant/${bundleItem.id}`,
         sellingPlanId: `gid://shopify/SellingPlan/${bundleItem.selling_plan}`,
+        attributes: Object.keys(bundleItem.properties).map((key) => {
+          return { key, value: String(bundleItem.properties[key]) }
+        }),
       })),
-      {
-        quantity: 1,
-        merchandiseId: `gid://shopify/ProductVariant/44625977999586`,
-      },
     ]
+
+    console.log('🚀 ~ action ~ cartData:', JSON.stringify(cartData))
   } else {
     cartData = products.map((product) => ({
       quantity: product.quantity,
@@ -93,6 +92,7 @@ export async function action({ request, context }) {
   }
 
   const { cart } = await _cart.addLines(cartData)
+  console.log('🚀 ~ action ~ cart:', JSON.stringify(cart))
 
   return json(cart)
 }

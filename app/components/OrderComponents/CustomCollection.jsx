@@ -50,7 +50,7 @@ const CustomCollection = () => {
     const res = await submit(
       {
         body: JSON.stringify({
-          products: selectedProducts,
+          products,
           sellingPlanName: sellingPlan,
         }),
       },
