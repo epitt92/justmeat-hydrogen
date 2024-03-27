@@ -82,8 +82,6 @@ export async function action({ request, context }) {
         }),
       })),
     ]
-
-    console.log('🚀 ~ action ~ cartData:', JSON.stringify(cartData))
   } else {
     cartData = products.map((product) => ({
       quantity: product.quantity,
@@ -92,7 +90,6 @@ export async function action({ request, context }) {
   }
 
   const { cart } = await _cart.addLines(cartData)
-  console.log('🚀 ~ action ~ cart:', JSON.stringify(cart))
 
   return json(cart)
 }
