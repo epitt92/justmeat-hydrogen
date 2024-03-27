@@ -133,16 +133,16 @@ export default function App() {
       '_sellingPlanFrequency',
     )
 
-    if (_sellingPlan !== null) {
+    if (_sellingPlan !== null && _sellingPlan !== '') {
       setSellingPlan(JSON.parse(_sellingPlan))
     }
-    if (_sellingPlanFrequency !== null) {
+    if (_sellingPlanFrequency !== null && _sellingPlan !== '') {
       setSellingPlanFrequency(JSON.parse(_sellingPlanFrequency))
     }
-    if (_selectedProducts !== null) {
+    if (_selectedProducts !== null && _sellingPlan !== '') {
       setSelectedProducts(JSON.parse(_selectedProducts))
     }
-    if (_bonus !== null) {
+    if (_bonus !== null && _sellingPlan !== '') {
       setBonus(JSON.parse(_bonus))
     }
   }, [])
