@@ -3,7 +3,7 @@ import { CartForm, Image, Money } from '@shopify/hydrogen'
 import { useLoaderData } from '@remix-run/react'
 
 import CustomProgressBar from '~/components/CustomProgressBar'
-import { RootContext } from '~/contexts/RootContext'
+import { ProductContext } from '~/contexts'
 import ProductQuantity from './ProductQuantity'
 
 export function CartMain({
@@ -15,7 +15,7 @@ export function CartMain({
   const [subTotal, setSubTotal] = useState(0)
   const linesCount = Boolean(selectedProducts.length || 0)
 
-  const { bonus, setBonus } = useContext(RootContext)
+  const { bonus, setBonus } = useContext(ProductContext)
 
   useEffect(() => {
     // Calculate the total cost of all products in selectedProducts
@@ -109,13 +109,12 @@ function LockedItem({ cost }) {
     bonuses: { nodes: bonuses },
   } = useLoaderData()
 
-  const { bonus, setBonus } = useContext(RootContext)
+  const { bonus, setBonus } = useContext(ProductContext)
 
   const onBonusChange = (e) => {
     const id = e.target.value
     const newBonus = bonuses.find((el) => el.variants.nodes[0].id === id)
     setBonus(newBonus)
-    window.localStorage.setItem('_bonus', JSON.stringify(newBonus))
   }
 
   return (

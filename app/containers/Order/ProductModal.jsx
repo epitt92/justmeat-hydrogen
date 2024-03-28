@@ -82,10 +82,6 @@ const DialogContent = ({ product, selectedProducts, setSelectedProducts }) => {
       },
     ]
     setSelectedProducts(newSelectedProducts)
-    window.localStorage.setItem(
-      '_selectedProducts',
-      JSON.stringify(newSelectedProducts),
-    )
   }
 
   return (

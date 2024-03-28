@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { useLoaderData } from '@remix-run/react'
 
 import { useSubmitPromise } from '~/hooks/useSubmitPromise'
-import { RootContext } from '~/contexts/RootContext'
+import { ProductContext } from '~/contexts'
 
 import ProductModal from './ProductModal'
 import { CartMain } from './AsideCart'
@@ -22,7 +22,7 @@ const CustomCollection = () => {
     selectedProducts,
     setSelectedProducts,
     clickedProduct,
-  } = useContext(RootContext)
+  } = useContext(ProductContext)
 
   const submit = useSubmitPromise()
 
@@ -162,10 +162,6 @@ const ProductCard = ({
       },
     ]
     setSelectedProducts(newSelectedProducts)
-    window.localStorage.setItem(
-      '_selectedProducts',
-      JSON.stringify(newSelectedProducts),
-    )
   }
 
   const line = selectedProducts.find(
