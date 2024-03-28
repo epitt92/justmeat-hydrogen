@@ -248,10 +248,9 @@ function Subscriptions({ subscriptions, currentcustomer }) {
 export function ExistingAddresses() {
   const { customer } = useOutletContext()
   const { addresses } = customer
-  console.log('addresses', addresses)
+  const address = addresses.nodes[0];
   return (
     <div>
-      {addresses.nodes.map((address) => (
         <AddressForm key={address.id} addressId={address.id} address={address}>
           {({ stateForMethod }) => (
             <div>
@@ -266,7 +265,6 @@ export function ExistingAddresses() {
             </div>
           )}
         </AddressForm>
-      ))}
     </div>
   )
 }
