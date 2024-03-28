@@ -97,63 +97,6 @@ export async function action({ request, context }) {
     }
 
     switch (request.method) {
-      case 'POST': {
-        // handle new address creation
-        try {
-          const { data, errors } = await customerAccount.mutate(
-            CREATE_ADDRESS_MUTATION,
-            {
-              variables: { address },
-            },
-          )
-
-          if (errors?.length) {
-            throw new Error(errors[0].message)
-          }
-
-          if (data?.customerAddressCreate?.userErrors?.length) {
-            throw new Error(data?.customerAddressCreate?.userErrors[0].message)
-          }
-
-          if (!data?.customerAddressCreate?.customerAddress) {
-            throw new Error('Customer address create failed.')
-          }
-
-          return json(
-            {
-              error: null,
-              createdAddress: data?.customerAddressCreate?.customerAddress,
-            },
-            {
-              headers: {
-                'Set-Cookie': await context.session.commit(),
-              },
-            },
-          )
-        } catch (error) {
-          if (error instanceof Error) {
-            return json(
-              { error: { [addressId]: error.message } },
-              {
-                status: 400,
-                headers: {
-                  'Set-Cookie': await context.session.commit(),
-                },
-              },
-            )
-          }
-          return json(
-            { error: { [addressId]: error } },
-            {
-              status: 400,
-              headers: {
-                'Set-Cookie': await context.session.commit(),
-              },
-            },
-          )
-        }
-      }
-
       case 'PUT': {
         // handle address updates
         try {
@@ -213,61 +156,6 @@ export async function action({ request, context }) {
           )
         }
       }
-
-      case 'DELETE': {
-        // handles address deletion
-        try {
-          const { data, errors } = await customerAccount.mutate(
-            DELETE_ADDRESS_MUTATION,
-            {
-              variables: { addressId: decodeURIComponent(addressId) },
-            },
-          )
-
-          if (errors?.length) {
-            throw new Error(errors[0].message)
-          }
-
-          if (data?.customerAddressDelete?.userErrors?.length) {
-            throw new Error(data?.customerAddressDelete?.userErrors[0].message)
-          }
-
-          if (!data?.customerAddressDelete?.deletedAddressId) {
-            throw new Error('Customer address delete failed.')
-          }
-
-          return json(
-            { error: null, deletedAddress: addressId },
-            {
-              headers: {
-                'Set-Cookie': await context.session.commit(),
-              },
-            },
-          )
-        } catch (error) {
-          if (error instanceof Error) {
-            return json(
-              { error: { [addressId]: error.message } },
-              {
-                status: 400,
-                headers: {
-                  'Set-Cookie': await context.session.commit(),
-                },
-              },
-            )
-          }
-          return json(
-            { error: { [addressId]: error } },
-            {
-              status: 400,
-              headers: {
-                'Set-Cookie': await context.session.commit(),
-              },
-            },
-          )
-        }
-      }
-
       default: {
         return json(
           { error: { [addressId]: 'Method not allowed' } },
