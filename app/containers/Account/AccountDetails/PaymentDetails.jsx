@@ -24,7 +24,7 @@ const PaymentDetails = ({paymentMethod}) => {
         </button>
     </div>
   </div>
-  <div className={isNavOpen ? "block absolute w-[20%] h-screen top-0 right-0 bg-white z-10 flex flex-col" : "hidden"}>
+  <div className={isNavOpen ? "block absolute w-full  md:w-[20%] border-[#B2B2B2] border-l h-screen top-0 right-0 bg-white z-10 flex flex-col" : "hidden"}>
             <div
               className="w-full border-b border-gray-700 border-b-2 px-4 py-4 "
               
