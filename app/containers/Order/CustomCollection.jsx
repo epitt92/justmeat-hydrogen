@@ -2,11 +2,11 @@ import React, { useState, useContext } from 'react'
 import { useLoaderData } from '@remix-run/react'
 
 import { useSubmitPromise } from '~/hooks/useSubmitPromise'
-import { RootContext } from '~/contexts/RootContext'
+import { ProductContext } from '~/contexts'
 
 import ProductModal from './ProductModal'
 import { CartMain } from './AsideCart'
-import ProductQuantity from './ProductQuantity'
+import { ProductCard } from './ProductCard'
 
 const CustomCollection = () => {
   const {
@@ -15,26 +15,13 @@ const CustomCollection = () => {
     },
   } = useLoaderData()
 
-  const {
-    sellingPlan,
-    bonus,
-    setClickedProduct,
-    selectedProducts,
-    setSelectedProducts,
-    clickedProduct,
-  } = useContext(RootContext)
+  const { sellingPlan, bonus, selectedProducts } = useContext(ProductContext)
+
+  const [clickedProduct, setClickedProduct] = useState(null)
 
   const submit = useSubmitPromise()
 
-  function onProductClick(product) {
-    setClickedProduct(product)
-  }
-
-  function onProductModalClose() {
-    setClickedProduct(null)
-  }
-
-  async function precessCheckout() {
+  async function onCheckout() {
     const totalCost = selectedProducts.reduce(
       (acc, curr) => acc + parseFloat(curr.totalAmount),
       0,
@@ -89,9 +76,7 @@ const CustomCollection = () => {
                   <ProductCard
                     key={key}
                     product={product}
-                    onClick={() => onProductClick(product)}
-                    setSelectedProducts={setSelectedProducts}
-                    selectedProducts={selectedProducts}
+                    onClick={() => setClickedProduct(product)}
                   />
                 ) : null,
               )}
@@ -108,11 +93,9 @@ const CustomCollection = () => {
                     </p>
                   </div>
                 </div>
-                <AsideCart
-                  selectedProducts={selectedProducts}
-                  setSelectedProducts={setSelectedProducts}
-                  onCheckout={precessCheckout}
-                />
+                <div className="cart">
+                  <CartMain layout="aside" onCheckout={onCheckout} />
+                </div>
               </div>
             </div>
           </div>
@@ -120,124 +103,9 @@ const CustomCollection = () => {
       </div>
       <ProductModal
         product={clickedProduct}
-        onClose={onProductModalClose}
-        selectedProducts={selectedProducts}
-        setSelectedProducts={setSelectedProducts}
+        onClose={() => setClickedProduct(null)}
       />
     </section>
-  )
-}
-
-const AsideCart = ({ selectedProducts, setSelectedProducts, onCheckout }) => {
-  return (
-    <div className="cart">
-      <CartMain
-        layout="aside"
-        selectedProducts={selectedProducts}
-        setSelectedProducts={setSelectedProducts}
-        onCheckout={onCheckout}
-      />
-    </div>
-  )
-}
-
-const ProductCard = ({
-  product,
-  setSelectedProducts,
-  selectedProducts,
-  onClick,
-}) => {
-  const image = product.featuredImage.url
-  const productHandle = product.handle
-  const productPrice = product?.priceRange?.maxVariantPrice?.amount
-
-  function addToSelectedProducts() {
-    const newSelectedProducts = [
-      ...selectedProducts,
-      {
-        ...product,
-        quantity: 1,
-        amount: productPrice,
-        totalAmount: productPrice,
-      },
-    ]
-    setSelectedProducts(newSelectedProducts)
-    window.localStorage.setItem(
-      '_selectedProducts',
-      JSON.stringify(newSelectedProducts),
-    )
-  }
-
-  const line = selectedProducts.find(
-    (selectedProduct) => selectedProduct.id === product.id,
-  )
-
-  return (
-    <div className="product-grid mb-[40px] ">
-      <dialog className="bg-[#edeaea] custom-dialog" id={productHandle}>
-        <div className="dialog-content">
-          <div className="p-5 close-panel">
-            <button>
-              <svg
-                width={18}
-                height={18}
-                viewBox="0 0 18 18"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M17 1L1 17"
-                  stroke="black"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M1 1L17 17"
-                  stroke="black"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </dialog>
-      <div className="img-wrapper">
-        <img
-          onClick={onClick}
-          className="object-contain w-full"
-          width="100%"
-          alt={product.title}
-          src={image}
-          loading="lazy"
-        />
-      </div>
-      <div className="pt-6 text-center price">
-        <span className="p-6 text-2xl font-bold font-roboto_bold">
-          $ {product.priceRange.minVariantPrice.amount}
-        </span>
-      </div>
-      <div className="mx-auto my-5 text-center">
-        {line ? (
-          <ProductQuantity
-            line={line}
-            selectedProducts={selectedProducts}
-            setSelectedProducts={setSelectedProducts}
-          />
-        ) : (
-          <button
-            onClick={addToSelectedProducts}
-            className="bg-[#862e1b] mx-auto flex justify-center items-center py-[10px] gap-[5px] px-[20px] leading-none font-bold text-white"
-          >
-            <span className=" p-[3px] text-[25px] leading-[13px] bg-white text-[#862e1b]  ">
-              +
-            </span>
-            ADD
-          </button>
-        )}
-      </div>
-    </div>
   )
 }
 

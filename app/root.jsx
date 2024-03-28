@@ -12,19 +12,17 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
 } from '@remix-run/react'
-import favicon from '../public/favicon.svg'
-import appStyles from './styles/app.css'
-// import sliderStyles from './styles/slider.css';
-import tailwindStyles from './styles/tailwind.css'
-import { Layout } from '~/components/Layout'
-import { SubscriptionCard } from '~/components/SubscriptionCard'
 
 import sliderStyles from 'swiper/css'
 import sliderNavigation from 'swiper/css/navigation'
 
-import { useState, useEffect, useRef } from 'react'
+import favicon from '../public/favicon.svg'
+import appStyles from '~/styles/app.css'
+import tailwindStyles from '~/styles/tailwind.css'
+import { Layout } from '~/components/Layout'
+import { SubscriptionCard } from '~/components/SubscriptionCard'
 
-import { RootContext } from '~/contexts/RootContext'
+import { RootContext } from '~/contexts'
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
  * @type {ShouldRevalidateFunction}
@@ -117,51 +115,8 @@ export default function App() {
   const nonce = useNonce()
   const data = useLoaderData()
 
-  const [sellingPlan, setSellingPlan] = useState(null)
-  const [selectedProducts, setSelectedProducts] = useState([])
-  const [bonus, setBonus] = useState(null)
-  const [clickedProduct, setClickedProduct] = useState(null)
-  const [sellingPlanFrequency, setSellingPlanFrequency] = useState(
-    'Delivery every 15 Days',
-  )
-
-  useEffect(() => {
-    const _sellingPlan = window.localStorage.getItem('_sellingPlan')
-    const _selectedProducts = window.localStorage.getItem('_selectedProducts')
-    const _bonus = window.localStorage.getItem('_bonus')
-    const _sellingPlanFrequency = window.localStorage.getItem(
-      '_sellingPlanFrequency',
-    )
-
-    if (_sellingPlan !== null && _sellingPlan !== '') {
-      setSellingPlan(JSON.parse(_sellingPlan))
-    }
-    if (_sellingPlanFrequency !== null && _sellingPlan !== '') {
-      setSellingPlanFrequency(JSON.parse(_sellingPlanFrequency))
-    }
-    if (_selectedProducts !== null && _sellingPlan !== '') {
-      setSelectedProducts(JSON.parse(_selectedProducts))
-    }
-    if (_bonus !== null && _sellingPlan !== '') {
-      setBonus(JSON.parse(_bonus))
-    }
-  }, [])
-
   return (
-    <RootContext.Provider
-      value={{
-        sellingPlan,
-        setSellingPlan,
-        selectedProducts,
-        setSelectedProducts,
-        sellingPlanFrequency,
-        setSellingPlanFrequency,
-        clickedProduct,
-        setClickedProduct,
-        bonus,
-        setBonus,
-      }}
-    >
+    <RootContext.Provider value={{}}>
       <html lang="en">
         <head>
           <meta charSet="utf-8" />
