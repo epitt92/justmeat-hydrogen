@@ -3,7 +3,7 @@ import { CartForm, Image, Money } from '@shopify/hydrogen'
 import { useLoaderData } from '@remix-run/react'
 
 import CustomProgressBar from '~/components/ui/CustomProgressBar'
-import { RootContext } from '~/components/RootContext'
+import { RootContext } from '~/contexts/RootContext'
 import ProductQuantity from './ProductQuantity'
 
 export function CartMain({

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { RootContext } from '~/components/RootContext'
+import { RootContext } from '~/contexts/RootContext'
 
 const PlanPicker = () => {
   const {

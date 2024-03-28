@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { useLoaderData } from '@remix-run/react'
 
 import { useSubmitPromise } from '~/hooks/useSubmitPromise'
-import { RootContext } from '~/components/RootContext'
+import { RootContext } from '~/contexts/RootContext'
 
 import ProductModal from './ProductModal'
 import { CartMain } from './AsideCart'

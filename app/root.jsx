@@ -24,7 +24,7 @@ import sliderNavigation from 'swiper/css/navigation'
 
 import { useState, useEffect, useRef } from 'react'
 
-import { RootContext } from './components/RootContext'
+import { RootContext } from '~/contexts/RootContext'
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
  * @type {ShouldRevalidateFunction}
