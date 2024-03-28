@@ -1,5 +1,6 @@
 import React from 'react'
 import { Image } from '@shopify/hydrogen'
+
 const OrderHistory = ({ order }) => {
   const {
     shipping_address,
@@ -12,11 +13,11 @@ const OrderHistory = ({ order }) => {
     external_order_id,
   } = order
   let meatsCount = line_items.length
-  console.log('order', order)
+
   return (
-    <div className="Card border-gray-500 border-b-2 pb-3 mb-8">
+    <div className="pb-3 mb-8 border-b-2 border-gray-500 Card">
       <div className="flex flex-col md:flex-row justify-center gap-8 md:gap-[30px] text-center md:text-start">
-        <div className="basis-2/12 flex items-center justify-start md:justify-center ">
+        <div className="flex items-center justify-start basis-2/12 md:justify-center ">
           <Image
             src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/logo.svg?v=1709994462"
             width={200}
@@ -73,7 +74,7 @@ const OrderHistory = ({ order }) => {
           </p>
         </div>
       </div>
-      <div className="flex flex-col md:items-end justify-center md:justify-end">
+      <div className="flex flex-col justify-center md:items-end md:justify-end">
         <p className="capitalize font-medium leading-8 text-[16px]">
           Subtotal:
           <span className="ml-1">{subtotal_price}</span>

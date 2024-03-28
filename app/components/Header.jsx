@@ -2,7 +2,7 @@ import { Await, NavLink, useMatches } from '@remix-run/react'
 import { Suspense } from 'react'
 import { useRootLoaderData } from '~/root'
 import OrderButton from './OrderButton'
-import { number } from 'prop-types'
+import logo from '~/assets/logo.svg'
 
 // import {useLocation} from "react-router-dom"
 /**
@@ -17,11 +17,7 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
     return (
       <div className="content flex justify-between items-center  py-4 px-5 sm:px-10 max-w-[1440px] mx-auto mainheader">
         <NavLink end prefetch="intent" to="/">
-          <img
-            src="/logo.svg"
-            className="object-cover h-16 w-30 sm:h-24"
-            alt=""
-          />
+          <img src={logo} className="object-cover h-16 w-30 sm:h-24" alt="" />
         </NavLink>
         <div className="flex items-center justify-between gap-10 navBar">
           <ul className="hidden navLinks lg:flex">
@@ -108,7 +104,7 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
     return (
       <div className="bg-white content flex justify-center items-center py-[3px] px-5 sm:px-10 max-w-[1440px] mx-auto relative landingheader">
         <img
-          src="/logo.svg"
+          src={logo}
           className="object-contain sm:w-[156px] h-[40px] sm:h-[90px]"
           alt="Logo"
         />

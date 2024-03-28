@@ -1,16 +1,16 @@
-import { Link } from '@remix-run/react'
-import { Image } from '@shopify/hydrogen'
 import React from 'react'
+import { Link } from '@remix-run/react'
+import logo from '~/assets/logo.svg'
 
 const OrderHeader = () => {
   return (
-    <header className="OrderHeader flex flex-col items-center justify-center">
+    <header className="flex flex-col items-center justify-center OrderHeader">
       <div className="max-w-[1440px] flex w-[100%] py-3 items-center ">
         <div>
           <Link to="/">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8 m-4"
+              className="w-8 h-8 m-4"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -27,8 +27,8 @@ const OrderHeader = () => {
         <div className="w-[100%] flex justify-center">
           <Link to="/">
             <img
-              className="object-cover w-30 h-20"
-              src="/logo.svg"
+              className="object-cover h-20 w-30"
+              src={logo}
               alt=""
               loading="lazy"
             />
@@ -36,7 +36,7 @@ const OrderHeader = () => {
         </div>
       </div>
       <div className="flex w-[100%] items-center justify-center bg-[#1c7084] py-1 ">
-        <p className="text-white text-lg font-semibold ">
+        <p className="text-lg font-semibold text-white ">
           LIMITED TIME: GET FREE RANCH RUB CHICKEN
         </p>
       </div>
