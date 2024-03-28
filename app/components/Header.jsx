@@ -14,7 +14,7 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
   const isRoute = matches[1].params.handle === 'custom-bundle'
 
   const HoverUnderNavLink = (to, text) => {
-    const spanRef = useRef(null);
+    const spanRef = useRef(null)
   
     const handleMouseEnter = () => {
       if (spanRef.current) {
@@ -43,18 +43,17 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
           onMouseLeave={handleMouseLeave}
         >
           {text}
-
-      <span
-        ref={spanRef} 
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          height: '2px',
-          width: '0%',
-          backgroundColor: '#862E1B',
-          transition: 'width 0.5s ease'
-        }}></span>
+        <span
+          ref={spanRef} 
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            height: '2px',
+            width: '0%',
+            backgroundColor: '#862E1B',
+            transition: 'width 0.5s ease'
+          }}></span>
         </NavLink>
       </li>
     )

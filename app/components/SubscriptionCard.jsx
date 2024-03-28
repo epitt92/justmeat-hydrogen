@@ -74,7 +74,7 @@ export function SubscriptionCard({
         </div>
       </div>
     </li>
-    <div className={isNavOpen ? "block absolute w-[20%] border-[#B2B2B2] border-l h-screen top-0 right-0 bg-white z-10 flex flex-col" : "hidden"}>
+    <div className={isNavOpen ? "block absolute w-full  md:w-[20%] border-[#B2B2B2] border-l h-screen top-0 right-0 bg-white z-10 flex flex-col" : "hidden"}>
             <div
               className="w-full border-[#B2B2B2] border-b px-4 pt-4 pb-2 "
             >

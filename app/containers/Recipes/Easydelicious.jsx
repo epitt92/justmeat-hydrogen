@@ -1,5 +1,6 @@
 import React from 'react'
 import Video from './Video'
+import { NavLink } from '@remix-run/react'
 
 const Easydelicious = () => {
   return (
@@ -23,9 +24,7 @@ const Easydelicious = () => {
               Leave the protein to the chef’s & choose from our lineup of 12
               different meats with new flavors releasing regularly.
             </p>
-            <a href="" className="py-[12px] px-[20px] bg-[#862e1b]">
-              ORDER NOW
-            </a>
+            <NavLink end prefetch="intent" className="py-[12px] px-[20px] bg-[#862e1b]" to="/products/custom-bundle">ORDER NOW</NavLink>
           </div>
           <div className="flex items-center justify-center">
             <img
@@ -61,7 +60,7 @@ const Easydelicious = () => {
                 skillet add 1/4 of a
               </p>
               <p className="font-Roboto text-base font-normal leading-6 text-[#111213] mb-4">
-                5)container of protein, add a portion of the teriyaki marinade
+                5) Container of protein, add a portion of the teriyaki marinade
                 and heat for 2 minutes. Plate and serve!{' '}
               </p>
             </div>
