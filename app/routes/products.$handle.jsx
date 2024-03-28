@@ -104,8 +104,6 @@ export default function Product() {
     'Delivery every 15 Days',
   )
 
-  const [clickedProduct, setClickedProduct] = useState(null)
-
   useEffect(() => {
     const _sellingPlan = window.localStorage.getItem('_sellingPlan')
     const _selectedProducts = window.localStorage.getItem('_selectedProducts')
@@ -157,8 +155,6 @@ export default function Product() {
         setSelectedProducts,
         sellingPlanFrequency,
         setSellingPlanFrequency,
-        clickedProduct,
-        setClickedProduct,
         bonus,
         setBonus,
       }}

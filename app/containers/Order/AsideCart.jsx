@@ -6,16 +6,11 @@ import CustomProgressBar from '~/components/CustomProgressBar'
 import { ProductContext } from '~/contexts'
 import ProductQuantity from './ProductQuantity'
 
-export function CartMain({
-  layout,
-  selectedProducts,
-  setSelectedProducts,
-  onCheckout,
-}) {
+export function CartMain({ layout, onCheckout }) {
+  const { selectedProducts, setSelectedProducts } = useContext(ProductContext)
+
   const [subTotal, setSubTotal] = useState(0)
   const linesCount = Boolean(selectedProducts.length || 0)
-
-  const { bonus, setBonus } = useContext(ProductContext)
 
   useEffect(() => {
     // Calculate the total cost of all products in selectedProducts
