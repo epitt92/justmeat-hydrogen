@@ -1,6 +1,6 @@
 import React from 'react'
-import Easydelicious from '~/components/Recipes/Easydelicious'
-import QuickSimpleRecipes from '~/components/Recipes/QuickSimpleRecipes'
+import Easydelicious from '~/containers/Recipes/Easydelicious'
+import QuickSimpleRecipes from '~/containers/Recipes/QuickSimpleRecipes'
 
 const Recipes = () => {
   return (

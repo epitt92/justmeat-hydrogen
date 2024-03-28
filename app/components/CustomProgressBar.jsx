@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import Progress from './progress'
+import Progress from './Progress'
 
 const CustomProgressBar = ({ cost }) => {
   const progressValue = (cost / 150) * 100 // Calculate the progress value based on the total and the target amount
 
   return (
     <>
-      <div className="py-4 px-10 flex justify-center">
+      <div className="flex justify-center px-10 py-4">
         <Progress
           value={progressValue >= 100 ? 100 : progressValue}
           className="w-[100%] min-h-3 border border-[#000]"
         />
       </div>
-      <div className="flex flex-column justify-end gap-2  px-7 ">
-        <p className="text-center text-base flex flex-col mr-3 relative">
+      <div className="flex justify-end gap-2 flex-column px-7 ">
+        <p className="relative flex flex-col mr-3 text-base text-center">
           {' '}
           <span className="w-[10px] h-[10px] bg-black rounded-[100%] absolute top-[-27px] left-[50%] translate-x-[-50%]  "></span>{' '}
           <span className="text-[16px] uppercase leading-normal">$75 </span>
@@ -21,7 +21,7 @@ const CustomProgressBar = ({ cost }) => {
             Unlock Order{' '}
           </span>
         </p>
-        <p className="text-base text-center flex flex-col mr-5 relative">
+        <p className="relative flex flex-col mr-5 text-base text-center">
           <span className="w-[10px] h-[10px] bg-black rounded-[100%] absolute top-[-27px] left-[50%] translate-x-[-50%]  "></span>
           <span className="text-[16px] leading-normal">$125 </span>
           <span className="text-[11px] uppercase leading-normal">

@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import { CartForm, Image, Money } from '@shopify/hydrogen'
 import { useLoaderData } from '@remix-run/react'
 
-import CustomProgressBar from '~/components/ui/CustomProgressBar'
+import CustomProgressBar from '~/components/CustomProgressBar'
 import { RootContext } from '~/contexts/RootContext'
 import ProductQuantity from './ProductQuantity'
 
