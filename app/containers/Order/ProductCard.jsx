@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { ProductContext } from '~/contexts'
-import ProductQuantity from './ProductQuantity'
+import { ProductQuantity } from './ProductQuantity'
 
 export const ProductCard = ({ product, onClick }) => {
   const { selectedProducts, setSelectedProducts } = useContext(ProductContext)

@@ -1,11 +1,8 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { useLoaderData } from '@remix-run/react'
 
-import { useSubmitPromise } from '~/hooks/useSubmitPromise'
-import { ProductContext } from '~/contexts'
-
 import ProductModal from './ProductModal'
-import { CartMain } from './AsideCart'
+import { Cart } from './Cart'
 import { ProductCard } from './ProductCard'
 
 const CustomCollection = () => {
@@ -15,39 +12,7 @@ const CustomCollection = () => {
     },
   } = useLoaderData()
 
-  const { sellingPlan, bonus, selectedProducts } = useContext(ProductContext)
-
   const [clickedProduct, setClickedProduct] = useState(null)
-
-  const submit = useSubmitPromise()
-
-  async function onCheckout() {
-    const totalCost = selectedProducts.reduce(
-      (acc, curr) => acc + parseFloat(curr.totalAmount),
-      0,
-    )
-
-    const products = [...selectedProducts]
-
-    if (totalCost > 125) {
-      products.push({
-        ...bonus,
-        quantity: 1,
-      })
-    }
-
-    const res = await submit(
-      {
-        body: JSON.stringify({
-          products,
-          sellingPlanName: sellingPlan,
-        }),
-      },
-      { method: 'post', action: '/products/custom-bundle' },
-    )
-
-    location.href = res.checkoutUrl
-  }
 
   return (
     <section className="max-w-ful ">
@@ -94,7 +59,7 @@ const CustomCollection = () => {
                   </div>
                 </div>
                 <div className="cart">
-                  <CartMain layout="aside" onCheckout={onCheckout} />
+                  <Cart layout="aside" />
                 </div>
               </div>
             </div>
