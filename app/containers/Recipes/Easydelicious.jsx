@@ -60,7 +60,7 @@ const Easydelicious = () => {
                 skillet add 1/4 of a
               </p>
               <p className="font-Roboto text-base font-normal leading-6 text-[#111213] mb-4">
-                5)container of protein, add a portion of the teriyaki marinade
+                5) Container of protein, add a portion of the teriyaki marinade
                 and heat for 2 minutes. Plate and serve!{' '}
               </p>
             </div>
