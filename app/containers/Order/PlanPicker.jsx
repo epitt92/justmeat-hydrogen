@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { RootContext } from '~/contexts/RootContext'
+import { ProductContext } from '~/contexts'
 
 const PlanPicker = () => {
   const {
@@ -7,7 +7,7 @@ const PlanPicker = () => {
     setSellingPlan,
     sellingPlanFrequency,
     setSellingPlanFrequency,
-  } = useContext(RootContext)
+  } = useContext(ProductContext)
 
   const checkBox = (
     <svg
@@ -161,10 +161,6 @@ const PlanPicker = () => {
                 } p-[7px] sm:p-[10px] border-[3px] border-solid flex gap-6 border-[#425B34] sm:border-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px]`}
                 onClick={() => {
                   setSellingPlan(sellingPlanFrequency)
-                  window.localStorage.setItem(
-                    '_sellingPlan',
-                    JSON.stringify(sellingPlanFrequency),
-                  )
                 }}
               >
                 <div
@@ -183,14 +179,10 @@ const PlanPicker = () => {
                     sellingPlan !== ''
                       ? 'text-[#fff] brightness-0 invert '
                       : 'text-[#1d1d1d] '
-                  } max-w-[142px] hidden sm:block text-[12px] focus:shadow-none shadow-none p-0 w-full outline-none border-none bg-transparent focus:outline-none bg-auto focus:border-none bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')]`}
+                  } max-w-[142px] hidden sm:block text-[12px] focus:shadow-none shadow-none pl-[10px] py-0 pr-0 w-full outline-none border-none bg-transparent focus:outline-none bg-auto focus:border-none bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')]`}
                   value={sellingPlanFrequency}
                   onChange={(e) => {
                     setSellingPlanFrequency(e.target.value)
-                    window.localStorage.setItem(
-                      '_sellingPlanFrequency',
-                      JSON.stringify(e.target.value),
-                    )
                   }}
                 >
                   <option
@@ -230,10 +222,6 @@ const PlanPicker = () => {
                         `}
                             onClick={() => {
                               setSellingPlanFrequency(item)
-                              window.localStorage.setItem(
-                                '_sellingPlanFrequency',
-                                JSON.stringify(item),
-                              )
                             }}
                           >
                             {modifiedItem}
@@ -273,7 +261,6 @@ const PlanPicker = () => {
                 } p-[3px] sm:p-[10px] border-[3px] border-solid flex justify-center sm:justify-start gap-6 border-[#c6c6c6] sm:border-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px] subscriptionlabel sm:mt-[28px] mt-0`}
                 onClick={() => {
                   setSellingPlan('')
-                  window.localStorage.setItem('_sellingPlan', '')
                 }}
               >
                 <div

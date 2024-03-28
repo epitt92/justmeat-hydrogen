@@ -1,15 +1,13 @@
-import React, { useEffect, useState, Fragment } from 'react'
+import React, { useEffect, useState, useContext, Fragment } from 'react'
 import { CarouselProvider, Slider, Slide } from 'pure-react-carousel'
 import { Dialog, Transition } from '@headlessui/react'
 
-import ProductQuantity from './ProductQuantity'
+import { ProductContext } from '~/contexts'
+import { ProductQuantity } from './ProductQuantity'
 
-const ProductModal = ({
-  product,
-  onClose,
-  selectedProducts,
-  setSelectedProducts,
-}) => {
+const ProductModal = ({ product, onClose }) => {
+  const { selectedProducts, setSelectedProducts } = useContext(ProductContext)
+
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -82,10 +80,6 @@ const DialogContent = ({ product, selectedProducts, setSelectedProducts }) => {
       },
     ]
     setSelectedProducts(newSelectedProducts)
-    window.localStorage.setItem(
-      '_selectedProducts',
-      JSON.stringify(newSelectedProducts),
-    )
   }
 
   return (

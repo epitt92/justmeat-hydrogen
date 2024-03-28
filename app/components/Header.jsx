@@ -1,5 +1,5 @@
 import { Await, NavLink, useMatches } from '@remix-run/react'
-import { Suspense } from 'react'
+import { Suspense, useRef } from 'react'
 import { useRootLoaderData } from '~/root'
 import OrderButton from './OrderButton'
 import logo from '~/assets/logo.svg'
@@ -13,6 +13,53 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
 
   const isRoute = matches[1].params.handle === 'custom-bundle'
 
+  const HoverUnderNavLink = (to, text) => {
+    const spanRef = useRef(null);
+  
+    const handleMouseEnter = () => {
+      if (spanRef.current) {
+        spanRef.current.style.width = "100%"
+      } else {
+        spanRef.current.style.width = "100%"
+      }
+    }
+
+    const handleMouseLeave = () => {
+      if (spanRef.current) {
+        spanRef.current.style.width = "0%"
+      } else {
+        spanRef.current.style.width = "0%"
+      }
+    }
+
+    return (
+      <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base ">
+        <NavLink
+          end
+          prefetch="intent"
+          style={activeLinkStyle, {position: 'relative'}}
+          to={to}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          {text}
+
+      <span
+        ref={spanRef} 
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          height: '2px',
+          width: '0%',
+          backgroundColor: '#862E1B',
+          transition: 'width 0.5s ease'
+        }}></span>
+        </NavLink>
+      </li>
+    )
+    }
+
   const Mainheader = () => {
     return (
       <div className="content flex justify-between items-center  py-4 px-5 sm:px-10 max-w-[1440px] mx-auto mainheader">
@@ -21,37 +68,9 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
         </NavLink>
         <div className="flex items-center justify-between gap-10 navBar">
           <ul className="hidden navLinks lg:flex">
-            <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base ">
-              <NavLink
-                end
-                prefetch="intent"
-                style={activeLinkStyle}
-                to="/products/custom-bundle"
-              >
-                Menu
-              </NavLink>
-            </li>
-
-            <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base">
-              <NavLink
-                end
-                prefetch="intent"
-                style={activeLinkStyle}
-                to="/about"
-              >
-                About Us
-              </NavLink>
-            </li>
-            <li className="navLink py-4 px-5 hover:text-[#862E1B] uppercase cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base">
-              <NavLink
-                end
-                prefetch="intent"
-                style={activeLinkStyle}
-                to="/recipes"
-              >
-                Recipies
-              </NavLink>
-            </li>
+            {HoverUnderNavLink ("/products/custom-bundle", "Menu")}
+            {HoverUnderNavLink ("/about", "About Us")}
+            {HoverUnderNavLink ("/recipes", "Recipes")}
           </ul>
           <div className="hidden lg:block">
             <OrderButton />
@@ -102,7 +121,7 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
 
   const Landingheader = () => {
     return (
-      <div className="bg-white content flex justify-center items-center py-[3px] px-5 sm:px-10 max-w-[1440px] mx-auto relative landingheader">
+      <div className="content flex justify-center items-center py-[3px] px-5 sm:px-10 max-w-[1440px] mx-auto relative landingheader">
         <img
           src={logo}
           className="object-contain sm:w-[156px] h-[40px] sm:h-[90px]"
@@ -132,7 +151,7 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
   const { shop, menu } = header
 
   return (
-    <header className="container max-w-[100%] bg-[#fff]  ">
+    <header className="container max-w-[100%] bg-[#eeeeee]  ">
       {isRoute ? <Landingheader /> : <Mainheader />}
     </header>
   )

@@ -1,6 +1,10 @@
 import React from 'react'
 
-const ProductQuantity = ({ line, selectedProducts, setSelectedProducts }) => {
+export const ProductQuantity = ({
+  line,
+  selectedProducts,
+  setSelectedProducts,
+}) => {
   if (!line) return null
   const { id, quantity, priceRange } = line
   const price = priceRange?.maxVariantPrice?.amount
@@ -11,10 +15,6 @@ const ProductQuantity = ({ line, selectedProducts, setSelectedProducts }) => {
         (product) => product.id !== id,
       )
       setSelectedProducts(newSelectedProducts)
-      window.localStorage.setItem(
-        '_selectedProducts',
-        JSON.stringify(newSelectedProducts),
-      )
     } else {
       const updatedProducts = selectedProducts.map((product) => {
         if (product.id === id) {
@@ -27,10 +27,6 @@ const ProductQuantity = ({ line, selectedProducts, setSelectedProducts }) => {
         return product
       })
       setSelectedProducts(updatedProducts)
-      window.localStorage.setItem(
-        '_selectedProducts',
-        JSON.stringify(updatedProducts),
-      )
     }
   }
 
@@ -60,5 +56,3 @@ const ProductQuantity = ({ line, selectedProducts, setSelectedProducts }) => {
     </div>
   )
 }
-
-export default ProductQuantity
