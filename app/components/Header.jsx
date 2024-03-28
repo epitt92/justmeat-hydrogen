@@ -4,16 +4,14 @@ import { useRootLoaderData } from '~/root'
 import OrderButton from './OrderButton'
 import { number } from 'prop-types'
 
-
 // import {useLocation} from "react-router-dom"
 /**
  * @param {HeaderProps}
  */
 export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
-  
-  const matches = useMatches();
+  const matches = useMatches()
 
-  const isRoute = matches[1].params.handle === "custom-bundle";  
+  const isRoute = matches[1].params.handle === 'custom-bundle'
 
   const Mainheader = () => {
     return (
@@ -43,7 +41,7 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
                 end
                 prefetch="intent"
                 style={activeLinkStyle}
-                to="/about-us"
+                to="/about"
               >
                 About Us
               </NavLink>
@@ -139,7 +137,7 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
 
   return (
     <header className="container max-w-[100%] bg-[#fff]  ">
-      { isRoute ? <Landingheader /> : <Mainheader />}
+      {isRoute ? <Landingheader /> : <Mainheader />}
     </header>
   )
 }

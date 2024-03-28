@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AboutusVideo = () => {
+export const Video = () => {
   return (
     <section className="bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Group_4677_2x_b4bf7720-0529-4907-b3d6-8ecc83b37a23.png')] bg-[#111213] text-white py-8">
       <div className="w-[85%] max-w-[1170px] mx-auto">
@@ -44,5 +44,3 @@ const AboutusVideo = () => {
     </section>
   )
 }
-
-export default AboutusVideo

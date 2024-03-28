@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Passion = () => {
+export const Passion = () => {
   return (
     <section className="bg-white text-[#000] pt-10 pb-28">
       <div className="w-[85%] max-w-[1170px] mx-auto">
@@ -24,7 +24,7 @@ const Passion = () => {
             />
           </div>
         </div>
-        <div className="flex flex-col md:flex-row md:flex-row-reverse justify-center gap-0 md:gap-[30px] w-full mt-[35px] md:mt-[65px]">
+        <div className="flex flex-col md:flex-row-reverse justify-center gap-0 md:gap-[30px] w-full mt-[35px] md:mt-[65px]">
           <div className="flex flex-col md:basis-2/6 justify-start ">
             <h1 className="font-Roboto text-[30px] sm:text-8 md:text-[30px] font-bold leading-[36.415px] md:leading-[40px] lg:leading-[60px] -tracking-[0.6px] md:tracking-[-1.12px]  text-[#061C3D] mb-2">
               Real MeatReal Ranches
@@ -71,5 +71,3 @@ const Passion = () => {
     </section>
   )
 }
-
-export default Passion
