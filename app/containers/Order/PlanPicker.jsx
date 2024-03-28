@@ -144,7 +144,7 @@ const PlanPicker = () => {
             </div>
           </div>
 
-          <div className="flex gap-2 flex-col sm:flex-row w-[100%] sm:w-[60%]">
+          <div className="flex gap-2 flex-col sm:flex-row w-[100%] sm:max-w-[760px]">
             <div className="flex-1 w-full sm:w-7/12 md:w-6/12 xl:w-4/12">
               <p
                 className={`${
