@@ -1,14 +1,7 @@
 import { Await, NavLink } from '@remix-run/react'
 import { Suspense, useState } from 'react'
-import { Aside } from '~/components/Aside'
 import { Footer } from '~/components/Footer'
-import { Header, HeaderMenu } from '~/components/Header'
-
-import { CartMain } from '~/components/Cart'
-import {
-  PredictiveSearchForm,
-  PredictiveSearchResults,
-} from '~/components/Search'
+import { Header } from '~/components/Header'
 import OrderHeader from './OrderHeader'
 
 /**

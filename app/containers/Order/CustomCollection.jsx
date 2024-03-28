@@ -1,10 +1,12 @@
 import React, { useState, useContext } from 'react'
 import { useLoaderData } from '@remix-run/react'
-import { CartMain } from '~/components/AsideCart'
-import ProductModal from '../ui/ProductModal'
-import ProductQuantity from './ProductQuantity'
+
 import { useSubmitPromise } from '~/hooks/useSubmitPromise'
-import { RootContext } from '../RootContext'
+import { RootContext } from '~/components/RootContext'
+
+import ProductModal from './ProductModal'
+import { CartMain } from './AsideCart'
+import ProductQuantity from './ProductQuantity'
 
 const CustomCollection = () => {
   const {

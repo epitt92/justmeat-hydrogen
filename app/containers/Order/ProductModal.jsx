@@ -1,7 +1,8 @@
 import React, { useEffect, useState, Fragment } from 'react'
 import { CarouselProvider, Slider, Slide } from 'pure-react-carousel'
 import { Dialog, Transition } from '@headlessui/react'
-import ProductQuantity from '../OrderComponents/ProductQuantity'
+
+import ProductQuantity from './ProductQuantity'
 
 const ProductModal = ({
   product,

@@ -2,8 +2,8 @@ import { json, redirect } from '@shopify/remix-oxygen'
 import { getDynamicBundleItems } from '@rechargeapps/storefront-client'
 import { getPaginationVariables } from '@shopify/hydrogen'
 
-import PlanPicker from '~/components/OrderComponents/PlanPicker'
-import CustomCollection from '~/components/OrderComponents/CustomCollection'
+import PlanPicker from '~/containers/Order/PlanPicker'
+import CustomCollection from '~/containers/Order/CustomCollection'
 import Notification from '~/components/Notification'
 
 export async function loader({ request, params, context }) {
