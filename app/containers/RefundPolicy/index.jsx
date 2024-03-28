@@ -57,12 +57,12 @@ const RefundPolicy = () => {
           </p>
           <p className="my-3">
             Please confirm your address is correct before checking out and
-            processing your order. If you've entered the wrong shipping address,
-            please contact us as soon as possible. We'll make every effort to
-            correct the address before the order is in movement and shipped. If
-            the order has already been fulfilled/ shipped to the incorrect
-            address, we will not be able to issue a refund or replacement. We
-            cannot ship to P.O. Boxes.
+            processing your order. If you&apos;ve entered the wrong shipping
+            address, please contact us as soon as possible. We&apos;ll make
+            every effort to correct the address before the order is in movement
+            and shipped. If the order has already been fulfilled/ shipped to the
+            incorrect address, we will not be able to issue a refund or
+            replacement. We cannot ship to P.O. Boxes.
           </p>
           <p className="my-3">
             <strong>3. Delayed Shipping:</strong>
