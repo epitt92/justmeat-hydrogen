@@ -1,6 +1,10 @@
 import React from 'react'
 
-const ProductQuantity = ({ line, selectedProducts, setSelectedProducts }) => {
+export const ProductQuantity = ({
+  line,
+  selectedProducts,
+  setSelectedProducts,
+}) => {
   if (!line) return null
   const { id, quantity, priceRange } = line
   const price = priceRange?.maxVariantPrice?.amount
@@ -52,5 +56,3 @@ const ProductQuantity = ({ line, selectedProducts, setSelectedProducts }) => {
     </div>
   )
 }
-
-export default ProductQuantity

@@ -26,17 +26,18 @@
     "@shopify/cli-hydrogen": "^7.1.0",
     "@shopify/hydrogen": "~2024.1.2",
     "@shopify/remix-oxygen": "^2.0.3",
+    "buffer-polyfill": "npm:buffer@^6.0.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
     "isbot": "^3.6.6",
+    "lucide-react": "^0.363.0",
     "pure-react-carousel": "^1.30.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "swiper": "^11.0.7",
-    "buffer-polyfill": "npm:buffer@^6.0.3"
-
+    "tailwind-merge": "^2.2.2"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.6.0",

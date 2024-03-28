@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useContext, Fragment } from 'react'
 import { CarouselProvider, Slider, Slide } from 'pure-react-carousel'
 import { Dialog, Transition } from '@headlessui/react'
-import { ProductContext } from '~/contexts'
 
-import ProductQuantity from './ProductQuantity'
+import { ProductContext } from '~/contexts'
+import { ProductQuantity } from './ProductQuantity'
 
 const ProductModal = ({ product, onClose }) => {
   const { selectedProducts, setSelectedProducts } = useContext(ProductContext)
