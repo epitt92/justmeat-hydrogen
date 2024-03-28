@@ -1,5 +1,6 @@
 import React from 'react'
 import Video from './Video'
+import { NavLink } from '@remix-run/react'
 
 const Easydelicious = () => {
   return (
@@ -23,9 +24,7 @@ const Easydelicious = () => {
               Leave the protein to the chef’s & choose from our lineup of 12
               different meats with new flavors releasing regularly.
             </p>
-            <a href="" className="py-[12px] px-[20px] bg-[#862e1b]">
-              ORDER NOW
-            </a>
+            <NavLink end prefetch="intent" className="py-[12px] px-[20px] bg-[#862e1b]" to="/products/custom-bundle">ORDER NOW</NavLink>
           </div>
           <div className="flex items-center justify-center">
             <img
