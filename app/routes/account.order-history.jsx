@@ -5,7 +5,7 @@ import { NavLink, useLoaderData } from '@remix-run/react'
 import { listSubscriptions, listOrders } from '@rechargeapps/storefront-client'
 import { SubscriptionCard } from '~/components/SubscriptionCard'
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
-import OrderHistory from '~/components/Accounts/Order/OrderHistory'
+import OrderHistory from '~/containers/Account/Order/OrderHistory'
 
 export async function loader({ context }) {
   const subscriptionsResponse = await rechargeQueryWrapper(
