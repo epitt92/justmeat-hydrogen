@@ -1,5 +1,5 @@
 import React from 'react'
-import TermServices from '../components/TermServices/TermServices'
+import TermServices from '~/components/TermServices/TermServices'
 const TermServicesPage = () => {
   return (
     <>

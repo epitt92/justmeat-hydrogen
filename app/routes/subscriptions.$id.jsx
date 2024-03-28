@@ -8,8 +8,8 @@ import {
 } from '@rechargeapps/storefront-client'
 
 // import { Link, Heading, PageHeader, Text, Button } from '~/components';
-import Link from '../components/Link'
-import Heading from '../components/Heading'
+import Link from '~/components/Link'
+import Heading from '~/components/Heading'
 import Text from '~/components/Text'
 import Button from '~/components/Button'
 
