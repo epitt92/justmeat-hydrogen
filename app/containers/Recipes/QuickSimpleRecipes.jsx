@@ -51,7 +51,7 @@ const QuickSimpleRecipes = () => {
         </h1>
         <div className="">
           <div className="">
-            <div className="grid items-center justify-center max-w-lg gap-12 mx-auto mt-4 lg:max-w-none lg:grid-cols-3">
+            <div className="grid items-start justify-center max-w-lg gap-12 mx-auto mt-4 lg:max-w-none lg:grid-cols-3">
               <div className="">
                 <div className="">
                   <div className="flex items-center justify-center mt-4">
@@ -118,11 +118,11 @@ const QuickSimpleRecipes = () => {
                 </div>
                 <div className="px-3 mt-5">
                   <Accordion
-                    open={open === 1}
-                    icon={<Icon id={1} open={open} />}
+                    open={open === 2}
+                    icon={<Icon id={2} open={open} />}
                   >
                     <AccordionHeader
-                      onClick={() => handleOpen(1)}
+                      onClick={() => handleOpen(2)}
                       className="flex justify-between mb-6 leading-5 border-b border-black"
                     >
                       Instructions
@@ -165,11 +165,11 @@ const QuickSimpleRecipes = () => {
                 </div>
                 <div className="px-3 mt-5">
                   <Accordion
-                    open={open === 1}
-                    icon={<Icon id={1} open={open} />}
+                    open={open === 3}
+                    icon={<Icon id={3} open={open} />}
                   >
                     <AccordionHeader
-                      onClick={() => handleOpen(1)}
+                      onClick={() => handleOpen(3)}
                       className="flex justify-between mb-6 leading-5 border-b border-black"
                     >
                       Instructions
