@@ -121,7 +121,7 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
 
   const Landingheader = () => {
     return (
-      <div className="bg-white content flex justify-center items-center py-[3px] px-5 sm:px-10 max-w-[1440px] mx-auto relative landingheader">
+      <div className="content flex justify-center items-center py-[3px] px-5 sm:px-10 max-w-[1440px] mx-auto relative landingheader">
         <img
           src={logo}
           className="object-contain sm:w-[156px] h-[40px] sm:h-[90px]"
