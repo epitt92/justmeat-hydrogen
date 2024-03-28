@@ -145,8 +145,8 @@ const TermServices = () => {
             <p>
               We have made every effort to display as accurately as possible the
               colors and images of our products that appear at the store. We
-              cannot guarantee that your computer monitor's display of any color
-              will be accurate.
+              cannot guarantee that your computer monitor&apos;s display of any
+              color will be accurate.
             </p>
             <p>
               We reserve the right, but are not obligated, to limit the sales of
@@ -242,10 +242,11 @@ const TermServices = () => {
               We are not liable for any harm or damages related to the purchase
               or use of goods, Services, resources, content, or any other
               transactions made in connection with any third-party websites.
-              Please review carefully the third-party's policies and practices
-              and make sure you understand them before you engage in any
-              transaction. Complaints, claims, concerns, or questions regarding
-              third-party products should be directed to the third-party.
+              Please review carefully the third-party&apos;s policies and
+              practices and make sure you understand them before you engage in
+              any transaction. Complaints, claims, concerns, or questions
+              regarding third-party products should be directed to the
+              third-party.
             </p>
           </div>
           <div className="font-Roboto text-[19px] my-6">
@@ -257,12 +258,12 @@ const TermServices = () => {
               example contest entries) or without a request from us, you send
               creative ideas, suggestions, proposals, plans, or other materials,
               whether online, by email, by postal mail, or otherwise
-              (collectively, 'comments'), you agree that we may, at any time,
-              without restriction, edit, copy, publish, distribute, translate
-              and otherwise use in any medium any comments that you forward to
-              us. We are and shall be under no obligation (1) to maintain any
-              comments in confidence; (2) to pay compensation for any comments;
-              or (3) to respond to any comments.
+              (collectively, &apos;comments&apos;), you agree that we may, at
+              any time, without restriction, edit, copy, publish, distribute,
+              translate and otherwise use in any medium any comments that you
+              forward to us. We are and shall be under no obligation (1) to
+              maintain any comments in confidence; (2) to pay compensation for
+              any comments; or (3) to respond to any comments.
             </p>
             <p>
               We may, but have no obligation to, monitor, edit or remove content
@@ -365,12 +366,12 @@ const TermServices = () => {
               You expressly agree that your use of, or inability to use, the
               Service is at your sole risk. The Service and all products and
               Services delivered to you through the Service are (except as
-              expressly stated by us) provided 'as is' and 'as available' for
-              your use, without any representation, warranties or conditions of
-              any kind, either express or implied, including all implied
-              warranties or conditions of merchantability, merchantable quality,
-              fitness for a particular purpose, durability, title, and
-              non-infringement.
+              expressly stated by us) provided &apos;as is&apos; and &apos;as
+              available&apos; for your use, without any representation,
+              warranties or conditions of any kind, either express or implied,
+              including all implied warranties or conditions of merchantability,
+              merchantable quality, fitness for a particular purpose,
+              durability, title, and non-infringement.
             </p>
             <p>
               In no case shall Just Meats, our directors, officers, employees,
