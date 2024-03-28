@@ -13,7 +13,7 @@ import Link from '../components/Link'
 import Heading from '../components/Heading'
 import Text from '~/components/Text'
 import Button from '~/components/Button'
-import CustomCollection from '~/components/OrderComponents/CustomCollection'
+import CustomCollection from '~/containers/Order/CustomCollection'
 
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
 // import { CACHE_NONE } from '~/data/cache';

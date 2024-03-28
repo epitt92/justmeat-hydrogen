@@ -1,10 +1,9 @@
 import { json, redirect } from '@shopify/remix-oxygen'
-import { useLoaderData } from '@remix-run/react'
 import { getDynamicBundleItems } from '@rechargeapps/storefront-client'
 import { getPaginationVariables } from '@shopify/hydrogen'
 
-import PlanPicker from '~/components/OrderComponents/PlanPicker'
-import CustomCollection from '~/components/OrderComponents/CustomCollection'
+import PlanPicker from '~/containers/Order/PlanPicker'
+import CustomCollection from '~/containers/Order/CustomCollection'
 import Notification from '~/components/Notification'
 
 export async function loader({ request, params, context }) {
@@ -22,12 +21,18 @@ export async function loader({ request, params, context }) {
     variables: { handle, ...paginationVariables },
   })
 
+  const {
+    collection: { products: bonuses },
+  } = await storefront.query(COLLECTION_QUERY, {
+    variables: { handle: 'free-bonus-meat', ...paginationVariables },
+  })
+
   if (!collection) {
     throw new Response(`Collection ${handle} not found`, {
       status: 404,
     })
   }
-  return json({ collection })
+  return json({ collection, bonuses })
 }
 
 export async function action({ request, context }) {
@@ -42,13 +47,11 @@ export async function action({ request, context }) {
 
   if (sellingPlanName) {
     const bundle = {
-      externalProductId: '8249959153890', // Custom Meat Bundle's Shopify Product ID - Hard coded
-      externalVariantId: '44625977999586', // Custom Meat Bundle's Shopify Variant ID - Hard coded
+      externalProductId: '8264905490658', // Custom Meat Bundle's Shopify Product ID - Hard coded
+      externalVariantId: '44680720285922', // Custom Meat Bundle's Shopify Variant ID - Hard coded
 
       selections: products.map((product) => ({
-        collectionId: product.collections.edges[0].node.id.split(
-          'gid://shopify/Collection/',
-        )[1],
+        collectionId: '424769257698',
         externalProductId: product.id.split('gid://shopify/Product/')[1],
         externalVariantId: product.variants.nodes[0].id.split(
           'gid://shopify/ProductVariant/',
@@ -74,11 +77,10 @@ export async function action({ request, context }) {
         quantity: bundleItem.quantity,
         merchandiseId: `gid://shopify/ProductVariant/${bundleItem.id}`,
         sellingPlanId: `gid://shopify/SellingPlan/${bundleItem.selling_plan}`,
+        attributes: Object.keys(bundleItem.properties).map((key) => {
+          return { key, value: String(bundleItem.properties[key]) }
+        }),
       })),
-      {
-        quantity: 1,
-        merchandiseId: `gid://shopify/ProductVariant/44625977999586`,
-      },
     ]
   } else {
     cartData = products.map((product) => ({
@@ -93,11 +95,6 @@ export async function action({ request, context }) {
 }
 
 export default function Product() {
-  /** @type {LoaderReturnData} */
-
-  const data = useLoaderData()
-  const customCollectionProducts = data.collection.products
-
   return (
     <>
       <Notification />
@@ -105,9 +102,9 @@ export default function Product() {
         <div className="max-w-[1440px] w-[100%] px-5 sm:px-10">
           <PlanPicker />
           <div className="custom-collection-wrap">
-            <CustomCollection col={customCollectionProducts} />
+            <CustomCollection />
           </div>
-          <div className="block sm:hidden fixed bottom-[12px] left-[50%] transform translate-x-[-50%] w-[90%] rounded-[12px] bg-[#AAAAAA] min-h-[50px] flex justify-center items-center">
+          <div className="sm:hidden fixed bottom-[12px] left-[50%] transform translate-x-[-50%] w-[90%] rounded-[12px] bg-[#AAAAAA] min-h-[50px] flex justify-center items-center">
             <p className="text-white text-[19px] font-semibold">
               Add $63.55 to Unlock Cart ($8.59)
             </p>

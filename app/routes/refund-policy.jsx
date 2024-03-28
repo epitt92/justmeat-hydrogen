@@ -1,5 +1,6 @@
 import React from 'react'
-import RefundPolicy from '../components/RefundPolicy/RefundPolicy'
+import RefundPolicy from '~/containers/RefundPolicy'
+
 const RefundPolicyPage = () => {
   return (
     <>
