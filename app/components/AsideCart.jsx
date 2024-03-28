@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react'
 import CustomProgressBar from './ui/CustomProgressBar'
 import ProductQuantity from './OrderComponents/ProductQuantity'
 import { useLoaderData } from '@remix-run/react'
-import { HeaderContext } from './HeaderContext'
+import { RootContext } from './RootContext'
 
 export function CartMain({
   layout,
@@ -14,7 +14,7 @@ export function CartMain({
   const [subTotal, setSubTotal] = useState(0)
   const linesCount = Boolean(selectedProducts.length || 0)
 
-  const { bonus, setBonus } = useContext(HeaderContext)
+  const { bonus, setBonus } = useContext(RootContext)
 
   useEffect(() => {
     // Calculate the total cost of all products in selectedProducts
@@ -108,7 +108,7 @@ function LockedItem({ cost }) {
     bonuses: { nodes: bonuses },
   } = useLoaderData()
 
-  const { bonus, setBonus } = useContext(HeaderContext)
+  const { bonus, setBonus } = useContext(RootContext)
 
   const onBonusChange = (e) => {
     const id = e.target.value

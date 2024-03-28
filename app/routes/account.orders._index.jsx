@@ -155,12 +155,14 @@ function OrderItem({ order }) {
 }
 const CustomerDetails = () => {
   return (
-    <div class="w-full border border-gray p-0 rounded-[13px]  text-start text-black ">
-      <div class="bg-[#E5E7EB] rounded-t-xl  px-6 py-3">Brandn Barclay</div>
-      <div class="p-6">
-        <h2 class="mb-2 text-xl font-medium leading-tight ">Brandn Barclay</h2>
-        <p class="mb-4 text-base ">address</p>
-        <p class="mb-4 text-base ">address 2</p>
+    <div className="w-full border border-gray p-0 rounded-[13px]  text-start text-black ">
+      <div className="bg-[#E5E7EB] rounded-t-xl  px-6 py-3">Brandn Barclay</div>
+      <div className="p-6">
+        <h2 className="mb-2 text-xl font-medium leading-tight ">
+          Brandn Barclay
+        </h2>
+        <p className="mb-4 text-base ">address</p>
+        <p className="mb-4 text-base ">address 2</p>
       </div>
     </div>
   )

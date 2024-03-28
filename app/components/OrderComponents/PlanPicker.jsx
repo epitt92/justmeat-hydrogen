@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { HeaderContext } from '../HeaderContext'
+import { RootContext } from '../RootContext'
 
 const PlanPicker = () => {
   const {
@@ -7,7 +7,7 @@ const PlanPicker = () => {
     setSellingPlan,
     sellingPlanFrequency,
     setSellingPlanFrequency,
-  } = useContext(HeaderContext)
+  } = useContext(RootContext)
 
   const checkBox = (
     <svg
