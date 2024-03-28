@@ -27,6 +27,9 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
                 prefetch="intent"
                 style={activeLinkStyle}
                 to="/products/custom-bundle"
+                className="hover:underline"
+                onMouseEnter={(e) => e.target.style.color = "#862E1B"}
+                onMouseLeave={(e) => e.target.style.color = '#000000'}
               >
                 Menu
               </NavLink>
@@ -38,6 +41,9 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
                 prefetch="intent"
                 style={activeLinkStyle}
                 to="/about"
+                className="hover:underline"
+                onMouseEnter={(e) => e.target.style.color = "#862E1B"}
+                onMouseLeave={(e) => e.target.style.color = '#000000'}
               >
                 About Us
               </NavLink>
@@ -48,6 +54,9 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
                 prefetch="intent"
                 style={activeLinkStyle}
                 to="/recipes"
+                className="hover:underline"
+                onMouseEnter={(e) => e.target.style.color = "#862E1B"}
+                onMouseLeave={(e) => e.target.style.color = '#000000'}
               >
                 Recipies
               </NavLink>
