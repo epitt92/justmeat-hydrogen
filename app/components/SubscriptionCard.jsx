@@ -43,7 +43,7 @@ export function SubscriptionCard({
           </p>
         </div>
         <div className="text-center md:text-right">
-          <a onClick={() => setIsNavOpen((prev) => !prev)} class="bg-custombgGreen text-white py-2 px-4 rounded cursor-pointer">EDIT</a>
+          <a onClick={() => setIsNavOpen((prev) => !prev)} className="bg-custombgGreen text-white py-3 px-4 rounded cursor-pointer">EDIT</a>
         </div>
       </div>
       <div className="self-end border-t-2 border-custombgGreen">
