@@ -108,7 +108,7 @@ export default function SubscriptionRoute() {
           </div>
       </div>
   )
-} s
+}
 
 const PRODUCT_VARIANT_FRAGMENT = `#graphql
   fragment ProductVariant on ProductVariant {
