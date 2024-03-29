@@ -100,7 +100,7 @@ export default function SubscriptionRoute() {
   const address = subscription.include?.address
   const customCollectionProducts = collection.products
   console.log(customCollectionProducts);
-  console.log("customCollectionProducts");
+  console.log("customCollectionProducts++");
   return (
     <div className='w-full flex flex-col justify-center items-center'>
           <div className="max-w-[1440px] w-[100%] custom-collection-wrap">
