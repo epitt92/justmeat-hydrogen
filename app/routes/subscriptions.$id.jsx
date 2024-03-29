@@ -20,7 +20,7 @@ export const meta = ({ data }) => {
         }`,
     },
   ]
-}
+} 
 
 export async function loader({ request, context, params }) {
 
