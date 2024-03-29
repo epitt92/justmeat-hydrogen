@@ -22,7 +22,6 @@ import tailwindStyles from '~/styles/tailwind.css'
 import { Layout } from '~/components/Layout'
 import { SubscriptionCard } from '~/components/SubscriptionCard'
 
-import { RootContext } from '~/contexts'
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
  * @type {ShouldRevalidateFunction}
@@ -116,25 +115,23 @@ export default function App() {
   const data = useLoaderData()
 
   return (
-    <RootContext.Provider value={{}}>
-      <html lang="en">
-        <head>
-          <meta charSet="utf-8" />
-          <meta name="viewport" content="width=device-width,initial-scale=1" />
-          <Meta />
-          <Links />
-        </head>
-        <body>
-          <SubscriptionCard></SubscriptionCard>
-          <Layout {...data}>
-            <Outlet />
-          </Layout>
-          <ScrollRestoration nonce={nonce} />
-          <Scripts nonce={nonce} />
-          <LiveReload nonce={nonce} />
-        </body>
-      </html>
-    </RootContext.Provider>
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <SubscriptionCard></SubscriptionCard>
+        <Layout {...data}>
+          <Outlet />
+        </Layout>
+        <ScrollRestoration nonce={nonce} />
+        <Scripts nonce={nonce} />
+        <LiveReload nonce={nonce} />
+      </body>
+    </html>
   )
 }
 
