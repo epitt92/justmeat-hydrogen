@@ -1,10 +1,15 @@
+import { useContext } from 'react'
+
+import { ProductContext } from '~/contexts'
 import CustomProgressBar from '~/components/CustomProgressBar'
 
-export function ProgressBar({ cost }) {
+export function ProgressBar() {
+  const { totalCost } = useContext(ProductContext)
+
   return (
     <div>
       <div className="progress-bar ">
-        <CustomProgressBar cost={cost} />
+        <CustomProgressBar cost={totalCost} />
       </div>
       <div className="free-item pl-[10px] mb-5">
         <img

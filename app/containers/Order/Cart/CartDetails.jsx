@@ -1,16 +1,14 @@
+import { useContext } from 'react'
+
+import { ProductContext } from '~/contexts'
 import { CartLines } from './CartLines'
 import { CartSummary } from './CartSummary'
 import { CartCheckoutActions } from './CartCheckoutActions'
 import { LockedItem } from './LockedItem'
 
-export function CartDetails({
-  layout,
-  selectedProducts,
-  onRemove,
-  setSelectedProducts,
-  subTotal,
-  onCheckout,
-}) {
+export function CartDetails({ layout, onRemove, onCheckout }) {
+  const { selectedProducts, setSelectedProducts } = useContext(ProductContext)
+
   const cartHasItems = selectedProducts.length > 0
 
   return (
@@ -23,8 +21,8 @@ export function CartDetails({
       {cartHasItems && (
         <div className="p-5 pb-3 bg-white">
           <div className="border-b-4 pb-[10px] border-black">
-            <CartSummary cost={subTotal} layout={layout}>
-              <CartCheckoutActions cost={subTotal} onCheckout={onCheckout} />
+            <CartSummary layout={layout}>
+              <CartCheckoutActions onCheckout={onCheckout} />
             </CartSummary>
           </div>
           <div className="flex justify-end gap-3 pt-0 ">
@@ -32,7 +30,7 @@ export function CartDetails({
               <p className="text-[14px] font-semibold text-black">
                 Free Bonus Meat (unlocked at $125)
               </p>
-              <LockedItem cost={subTotal} />
+              <LockedItem />
             </div>
             <img
               className="w-[80px] h-[80px] object-contain "

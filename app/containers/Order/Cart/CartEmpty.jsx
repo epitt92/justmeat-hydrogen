@@ -1,6 +1,11 @@
-export function CartEmpty({ hidden = false }) {
+import { useContext } from 'react'
+import { ProductContext } from '~/contexts'
+
+export function CartEmpty() {
+  const { selectedProducts } = useContext(ProductContext)
+
   return (
-    <div hidden={hidden} className="h-[260px]">
+    <div hidden={selectedProducts.length > 0} className="h-[260px]">
       <br />
       <div className="absolute bottom-0 w-full p-5 pb-3">
         <div className="justify-center block w-full xl:hidden">

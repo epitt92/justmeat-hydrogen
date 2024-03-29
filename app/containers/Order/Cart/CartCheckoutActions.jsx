@@ -4,18 +4,14 @@ import { useSubmitPromise } from '~/hooks/useSubmitPromise'
 import { ProductContext } from '~/contexts'
 import { Button } from '~/components/Button'
 
-export function CartCheckoutActions({ cost }) {
+export function CartCheckoutActions() {
   const submit = useSubmitPromise()
 
-  const { sellingPlan, bonus, selectedProducts } = useContext(ProductContext)
+  const { sellingPlan, bonus, selectedProducts, totalCost } =
+    useContext(ProductContext)
   const [checkoutSubmitting, setCheckoutSubmitting] = useState(false)
 
   async function onCheckout() {
-    const totalCost = selectedProducts.reduce(
-      (acc, curr) => acc + parseFloat(curr.totalAmount),
-      0,
-    )
-
     const products = [...selectedProducts]
 
     if (totalCost > 125) {
@@ -43,7 +39,7 @@ export function CartCheckoutActions({ cost }) {
 
   return (
     <>
-      {cost >= 75 ? (
+      {totalCost >= 75 ? (
         <div className="flex justify-center items-center w-1/2 bg-[#425b34]">
           <Button
             loading={checkoutSubmitting}
