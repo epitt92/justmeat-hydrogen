@@ -117,16 +117,16 @@ export default function Product() {
       '_sellingPlanFrequency',
     )
 
-    if (_sellingPlan !== null && _sellingPlan !== '') {
+    if (_sellingPlan) {
       _setSellingPlan(JSON.parse(_sellingPlan))
     }
-    if (_sellingPlanFrequency !== null && _sellingPlan !== '') {
+    if (_sellingPlanFrequency) {
       _setSellingPlanFrequency(JSON.parse(_sellingPlanFrequency))
     }
-    if (_selectedProducts !== null && _sellingPlan !== '') {
+    if (_selectedProducts) {
       _setSelectedProducts(JSON.parse(_selectedProducts))
     }
-    if (_bonus !== null && _sellingPlan !== '') {
+    if (_bonus) {
       setBonus(JSON.parse(_bonus))
     }
   }, [])
