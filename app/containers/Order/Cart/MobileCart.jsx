@@ -12,7 +12,7 @@ export const MobileCart = () => {
     CustomCollectionContext,
   )
 
-  const [cartOpen, setCartOpen] = useState(true)
+  const [cartOpen, setCartOpen] = useState(false)
 
   const isCheckoutable = totalCost >= 75
 
