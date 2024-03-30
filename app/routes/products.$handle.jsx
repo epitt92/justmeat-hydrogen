@@ -3,7 +3,7 @@ import { json, redirect } from '@shopify/remix-oxygen'
 import { getDynamicBundleItems } from '@rechargeapps/storefront-client'
 import { getPaginationVariables } from '@shopify/hydrogen'
 
-import PlanPicker from '~/containers/Order/PlanPicker'
+import { PlanPickerBlock } from '~/containers/Order/PlanPickerBlock'
 import CustomCollection from '~/containers/Order/CustomCollection'
 import Notification from '~/components/Notification'
 import { ProductContext } from '~/contexts'
@@ -168,7 +168,7 @@ export default function Product() {
       <Notification />
       <div className='bg-cover h-[100%] w-[100%] bg-fixed	flex justify-center sm:bg-[url("https://cdn.shopify.com/s/files/1/0672/4776/7778/files/orderpage_bg.png")]'>
         <div className="max-w-[1440px] w-[100%] px-5 sm:px-10">
-          <PlanPicker />
+          <PlanPickerBlock />
           <CustomCollection />
         </div>
       </div>

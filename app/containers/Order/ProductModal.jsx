@@ -4,7 +4,7 @@ import { Dialog, Transition } from '@headlessui/react'
 
 import { ProductActions } from './ProductActions'
 
-const ProductModal = ({ product, onClose }) => {
+export const ProductModal = ({ product, onClose }) => {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -245,5 +245,3 @@ function Thumbs({ media, currentSlide, onClick }) {
     </div>
   )
 }
-
-export default ProductModal
