@@ -1,6 +1,3 @@
-import { useContext } from 'react'
-
-import { ProductContext } from '~/contexts'
 import { CartEmpty } from './CartEmpty'
 import { ProgressBar } from './ProgressBar'
 import { CartDetails } from './CartDetails'

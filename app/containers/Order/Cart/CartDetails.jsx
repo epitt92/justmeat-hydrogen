@@ -13,6 +13,12 @@ export function CartDetails({ layout, onRemove, onCheckout }) {
 
   return (
     <div className="flex flex-col justify-between cart-details">
+      <div className="free-item pl-[10px] mb-5">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Ranch_Rub_Chicken_Breast_Free.png"
+          alt="cart free"
+        />
+      </div>
       <CartLines
         selectedProducts={selectedProducts}
         setSelectedProducts={setSelectedProducts}

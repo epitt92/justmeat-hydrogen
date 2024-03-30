@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { twMerge } from 'tailwind-merge'
+import { cn } from '~/lib/utils'
 import { ProductContext } from '~/contexts'
 import { CheckBox } from '~/icons/CheckBox'
 
@@ -177,7 +177,7 @@ const PlanPicker = () => {
                 </select>
               </div>
               <div
-                className={twMerge(
+                className={cn(
                   'rounded-[12px] sm:bg-[#ebeae9] sm:rounded-[0px] px-[12px] py-[5px]',
                   sellingPlan !== '' ? 'bg-[#e7eae5]' : 'bg-[#f4f4f4]',
                 )}
@@ -188,7 +188,7 @@ const PlanPicker = () => {
                   </p>
                   <div className="flex gap-2">
                     <div
-                      className={twMerge(
+                      className={cn(
                         'rounded-full border border-solid  text-center text-[11px] font-semibold min-h-[24px] flex justify-center items-center px-[12px] leading-[100%]',
                         sellingPlanFrequency === 'Delivery every 15 Days'
                           ? sellingPlan !== ''
@@ -206,7 +206,7 @@ const PlanPicker = () => {
                       Every 15 Days
                     </div>
                     <div
-                      className={twMerge(
+                      className={cn(
                         'rounded-full border border-solid  text-center text-[11px] font-semibold min-h-[24px] flex justify-center items-center px-[12px] leading-[100%]',
                         sellingPlanFrequency === 'Delivery every 30 Days'
                           ? sellingPlan !== ''
