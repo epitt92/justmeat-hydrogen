@@ -1,8 +1,9 @@
 import { useContext, useState } from 'react'
-import { ProgressBar } from './ProgressBar'
 import { cn } from '~/lib/utils'
 import { Button } from '~/components/Button'
 import { ProductContext } from '~/contexts'
+import { ProgressBar } from './ProgressBar'
+import { CartLines } from './CartLines'
 
 export const MobileCart = () => {
   const { totalCost } = useContext(ProductContext)
@@ -46,6 +47,9 @@ export const MobileCart = () => {
           </Button>
         </div>
         <ProgressBar />
+        <div className="mt-8 py-[6px] border-t border-solid border-[#d3d3d3]">
+          <CartLines />
+        </div>
       </div>
     </>
   )

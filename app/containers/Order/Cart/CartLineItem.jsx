@@ -1,40 +1,45 @@
-import { ProductQuantity } from '../ProductQuantity'
+import { Quantity } from '../ProductActions/Quantity'
 
-export function CartLineItem({
-  line,
-  onRemove,
-  selectedProducts,
-  setSelectedProducts,
-}) {
-  const { id, title, featuredImage, priceRange, quantity } = line
+export function CartLineItem({ line, isFree = false }) {
+  const { title, featuredImage, priceRange } = line
   const image = featuredImage.url
-  const price = priceRange?.maxVariantPrice?.amount
 
   return (
-    <li key={id} className="cart-line pl-[10px] mb-2 flex gap-4">
+    <div className="flex flex-col gap-1 sm:gap-4 sm:flex-row">
       {featuredImage && (
-        <img src={image} alt="" height={100} loading="lazy" width={72} />
+        <img
+          src={image}
+          height={100}
+          loading="lazy"
+          className="w-full sm:w-[72px]"
+        />
       )}
 
-      <div className="flex  flex-1 pr-[10px] justify-between items-center ">
+      <div className="flex flex-1 flex-col sm:flex-row pr-[10px] justify-between items-center ">
         <div className="flex-1 h-fit">
-          <p className="font-semibold text-[14px]  text-center ">
+          <p className="font-semibold text-[10px] sm:text-[14px] text-center">
             <strong className="pr-[10px] flex justify-center">{title}</strong>
           </p>
 
-          <p className="font-bold text-center text-[25px]">
-            ${priceRange.maxVariantPrice.amount}
-          </p>
+          <div className="flex justify-center font-bold text-center text-[12px] sm:text-[25px]">
+            {isFree ? (
+              <div className="flex gap-1">
+                <div className="line-through text-[#929292]">
+                  {priceRange.maxVariantPrice.amount}
+                </div>
+                <div>FREE</div>
+              </div>
+            ) : (
+              `$${priceRange.maxVariantPrice.amount}`
+            )}
+          </div>
         </div>
         {line && (
-          <ProductQuantity
-            line={line}
-            onRemove={onRemove}
-            selectedProducts={selectedProducts}
-            setSelectedProducts={setSelectedProducts}
-          />
+          <div className={isFree ? 'invisible' : 'visible'}>
+            <Quantity line={line} />
+          </div>
         )}
       </div>
-    </li>
+    </div>
   )
 }

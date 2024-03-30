@@ -55,7 +55,7 @@ export function ProgressBar() {
 const Milestone = ({ className, children }) => (
   <div
     className={cn(
-      'absolute rounded-full flex justify-center items-center bg-[#1b6f84] w-[28px] h-[28px] sm:w-[20px] sm:h-[20px] translate-x-[-50%] translate-y-[-50%] top-[50%] text-xs text-white border border-solid border-black',
+      'absolute rounded-full flex justify-center items-center bg-[#425b34] sm:bg-[#1b6f84] w-[28px] h-[28px] sm:w-[20px] sm:h-[20px] translate-x-[-50%] translate-y-[-50%] top-[50%] text-xs text-white border border-solid border-black',
       className,
     )}
   >
