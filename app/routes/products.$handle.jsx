@@ -3,7 +3,7 @@ import { json, redirect } from '@shopify/remix-oxygen'
 import { getDynamicBundleItems } from '@rechargeapps/storefront-client'
 import { getPaginationVariables } from '@shopify/hydrogen'
 
-import PlanPicker from '~/containers/Order/PlanPicker'
+import { PlanPickerBlock } from '~/containers/Order/PlanPickerBlock'
 import CustomCollection from '~/containers/Order/CustomCollection'
 import Notification from '~/components/Notification'
 import { ProductContext } from '~/contexts'
@@ -104,6 +104,11 @@ export default function Product() {
     'Delivery every 15 Days',
   )
 
+  const totalCost = selectedProducts.reduce(
+    (acc, curr) => acc + parseFloat(curr.totalAmount),
+    0,
+  )
+
   useEffect(() => {
     const _sellingPlan = window.localStorage.getItem('_sellingPlan')
     const _selectedProducts = window.localStorage.getItem('_selectedProducts')
@@ -157,20 +162,14 @@ export default function Product() {
         setSellingPlanFrequency,
         bonus,
         setBonus,
+        totalCost,
       }}
     >
       <Notification />
       <div className='bg-cover h-[100%] w-[100%] bg-fixed	flex justify-center sm:bg-[url("https://cdn.shopify.com/s/files/1/0672/4776/7778/files/orderpage_bg.png")]'>
         <div className="max-w-[1440px] w-[100%] px-5 sm:px-10">
-          <PlanPicker />
-          <div className="custom-collection-wrap">
-            <CustomCollection />
-          </div>
-          <div className="sm:hidden fixed bottom-[12px] left-[50%] transform translate-x-[-50%] w-[90%] rounded-[12px] bg-[#AAAAAA] min-h-[50px] flex justify-center items-center">
-            <p className="text-white text-[19px] font-semibold">
-              Add $63.55 to Unlock Cart ($8.59)
-            </p>
-          </div>
+          <PlanPickerBlock />
+          <CustomCollection />
         </div>
       </div>
     </ProductContext.Provider>

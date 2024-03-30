@@ -1,13 +1,10 @@
-import React, { useEffect, useState, useContext, Fragment } from 'react'
+import React, { useEffect, useState, Fragment } from 'react'
 import { CarouselProvider, Slider, Slide } from 'pure-react-carousel'
 import { Dialog, Transition } from '@headlessui/react'
 
-import { ProductContext } from '~/contexts'
-import { ProductQuantity } from './ProductQuantity'
+import { ProductActions } from './ProductActions'
 
-const ProductModal = ({ product, onClose }) => {
-  const { selectedProducts, setSelectedProducts } = useContext(ProductContext)
-
+export const ProductModal = ({ product, onClose }) => {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -45,13 +42,7 @@ const ProductModal = ({ product, onClose }) => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full max-w-[1120px] text-left align-middle transition-all transform bg-[#edeaea] text-[#1d1d1d] shadow-xl">
-                {product && (
-                  <DialogContent
-                    product={product}
-                    selectedProducts={selectedProducts}
-                    setSelectedProducts={setSelectedProducts}
-                  />
-                )}
+                {product && <DialogContent product={product} />}
               </Dialog.Panel>
             </Transition.Child>
           </div>
@@ -61,26 +52,9 @@ const ProductModal = ({ product, onClose }) => {
   )
 }
 
-const DialogContent = ({ product, selectedProducts, setSelectedProducts }) => {
+const DialogContent = ({ product }) => {
   const images = product.images
   const media = images.nodes
-  const productPrice = product?.priceRange?.maxVariantPrice?.amount
-  const line = selectedProducts.find(
-    (selectedProduct) => selectedProduct.id === product.id,
-  )
-
-  function addToSelectedProducts() {
-    const newSelectedProducts = [
-      ...selectedProducts,
-      {
-        ...product,
-        quantity: 1,
-        amount: productPrice,
-        totalAmount: productPrice,
-      },
-    ]
-    setSelectedProducts(newSelectedProducts)
-  }
 
   return (
     <>
@@ -193,23 +167,7 @@ const DialogContent = ({ product, selectedProducts, setSelectedProducts }) => {
             ${product.priceRange.minVariantPrice.amount}
           </div>
           <div className="cta-btn">
-            {line ? (
-              <ProductQuantity
-                line={line}
-                selectedProducts={selectedProducts}
-                setSelectedProducts={setSelectedProducts}
-              />
-            ) : (
-              <button
-                onClick={addToSelectedProducts}
-                className="bg-[#862e1b] mx-auto flex justify-center items-center py-[10px] gap-[5px] px-[20px] leading-none font-bold text-white"
-              >
-                <span className=" p-[3px] text-[25px] leading-[13px] bg-white text-[#862e1b]  ">
-                  +
-                </span>
-                ADD
-              </button>
-            )}
+            <ProductActions product={product} />
           </div>
         </div>
       </div>
@@ -287,5 +245,3 @@ function Thumbs({ media, currentSlide, onClick }) {
     </div>
   )
 }
-
-export default ProductModal

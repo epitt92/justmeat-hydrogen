@@ -3,12 +3,12 @@ import { useLoaderData } from '@remix-run/react'
 
 import { ProductContext } from '~/contexts'
 
-export function LockedItem({ cost }) {
+export function LockedItem() {
   const {
     bonuses: { nodes: bonuses },
   } = useLoaderData()
 
-  const { bonus, setBonus } = useContext(ProductContext)
+  const { bonus, setBonus, totalCost } = useContext(ProductContext)
 
   const onBonusChange = (e) => {
     const id = e.target.value
@@ -18,7 +18,7 @@ export function LockedItem({ cost }) {
 
   return (
     <>
-      {cost >= 125 ? (
+      {totalCost >= 125 ? (
         <select
           className="text-[12px] py-[8px] w-[70%] rounded-[5px] outline-none focus:outline-none bg-auto  focus:border-none bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')] shadow-none  focus:shadow-none focus:border-[#1d1d1d99] border border-[#1d1d1d49] text-[#131515]  "
           onChange={onBonusChange}
