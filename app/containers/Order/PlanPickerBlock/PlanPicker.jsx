@@ -42,10 +42,10 @@ export const PlanPicker = () => {
           <select
             name=""
             className={`${
-              sellingPlan
-                ? 'text-[#fff] brightness-0 invert '
-                : 'text-[#1d1d1d] '
-            } max-w-[142px] hidden sm:block text-[12px] focus:shadow-none shadow-none pl-[10px] py-0 pr-0 w-full outline-none border-none bg-transparent focus:outline-none bg-auto focus:border-none bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')]`}
+              sellingPlan ? 'text-[#fff] brightness-0 invert' : 'text-[#1d1d1d]'
+            } max-w-[142px] hidden sm:block text-[12px] pl-[10px] py-0 pr-0 w-full bg-transparent bg-auto bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')]
+            outline-none border-none focus:shadow-none shadow-none focus:outline-none focus:border-none webkit-box-shadow-none 
+            `}
             value={sellingPlanFrequency}
             onChange={(e) => {
               setSellingPlanFrequency(e.target.value)

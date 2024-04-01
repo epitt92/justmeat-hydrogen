@@ -17,7 +17,7 @@ export const MobileCart = () => {
   const isCheckoutable = totalCost >= 75
 
   return (
-    <>
+    <div className="mobile-cart">
       <Button
         onClick={() => setCartOpen(true)}
         className={cn(
@@ -70,6 +70,6 @@ export const MobileCart = () => {
           </Button>
         </div>
       </div>
-    </>
+    </div>
   )
 }

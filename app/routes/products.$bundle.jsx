@@ -6,33 +6,39 @@ import { PlanPickerBlock } from '~/containers/Order/PlanPickerBlock'
 import CustomCollection from '~/containers/Order/CustomCollection'
 import Notification from '~/components/Notification'
 
-export async function loader({ request, params, context }) {
-  const handle = 'all-products'
+export async function loader({ request, context }) {
   const { storefront } = context
-  const paginationVariables = getPaginationVariables(request, {
-    pageBy: 15,
-  })
 
-  if (!handle) {
-    return redirect('/collections')
-  }
+  const allProductsHandler = 'all-products'
+  const freeProductHandler = 'raspberry-bbq-chicken-breast'
+  const bonusProductHandler = 'free-meat-unlocked-at-125'
 
-  const { collection } = await storefront.query(COLLECTION_QUERY, {
-    variables: { handle, ...paginationVariables },
-  })
+  const variables = getPaginationVariables(request, { pageBy: 50 })
 
   const {
-    collection: { products: bonuses },
-  } = await storefront.query(COLLECTION_QUERY, {
-    variables: { handle: 'free-bonus-meat', ...paginationVariables },
+    products: { nodes: allProducts },
+  } = await storefront.query(ALL_PRODUCTS_QUERY, {
+    variables: {
+      ...variables,
+      country: storefront.i18n.country,
+      language: storefront.i18n.language,
+    },
   })
 
-  if (!collection) {
-    throw new Response(`Collection ${handle} not found`, {
-      status: 404,
-    })
-  }
-  return json({ collection, bonuses })
+  const products = allProducts.filter((product) =>
+    product.collections.edges.some(
+      (collection) => collection.node.handle === allProductsHandler,
+    ),
+  )
+
+  const freeProduct = allProducts.find(
+    (product) => product.handle === freeProductHandler,
+  )
+  const bonusProduct = allProducts.find(
+    (product) => product.handle === bonusProductHandler,
+  )
+
+  return json({ products, freeProduct, bonusProduct })
 }
 
 export async function action({ request, context }) {
@@ -141,12 +147,16 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
         ...MoneyProductItem
       }
     }
-    variants(first: 1) {
+    variants(first: 10) {
       nodes {
         id
-        selectedOptions {
-          name
-          value
+        title
+        image {
+          id
+          altText
+          url
+          width
+          height
         }
       }
     }
@@ -155,6 +165,7 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
         node {
           id
           title
+          handle
         }
       }
     }
@@ -215,16 +226,19 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
       type
     }
     cart_drawer_img: metafield(namespace: "custom", key: "cart_drawer_img") {
-      value
-      type
+      reference {
+        ... on MediaImage {
+          image {
+            url
+          }
+        }
+      }
     }
   }
 `
 
-const COLLECTION_QUERY = `#graphql
-  ${PRODUCT_ITEM_FRAGMENT}
-  query Collection(
-    $handle: String!
+const ALL_PRODUCTS_QUERY = `#graphql
+  query AllProducts(
     $country: CountryCode
     $language: LanguageCode
     $first: Int
@@ -232,28 +246,17 @@ const COLLECTION_QUERY = `#graphql
     $startCursor: String
     $endCursor: String
   ) @inContext(country: $country, language: $language) {
-    collection(handle: $handle) {
-      id
-      handle
-      title
-      description
-      
-      products(
-        first: $first,
-        last: $last,
-        before: $startCursor,
-        after: $endCursor
-      ) {
-        nodes {
-          ...ProductItem
-        }
-        pageInfo {
-          hasPreviousPage
-          hasNextPage
-          endCursor
-          startCursor
-        }
+    products(first: $first, last: $last, before: $startCursor, after: $endCursor) {
+      nodes {
+        ...ProductItem
+      }
+      pageInfo {
+        hasPreviousPage
+        hasNextPage
+        startCursor
+        endCursor
       }
     }
   }
+  ${PRODUCT_ITEM_FRAGMENT}
 `
