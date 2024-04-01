@@ -47,7 +47,6 @@ export async function action({ request, context }) {
   const form = await request.formData()
   const data = JSON.parse(form.get('body'))
   const products = data.products
-  console.log('🚀 ~ action ~ products:', JSON.stringify(products))
   const sellingPlanName = data.sellingPlanName
 
   let cartData
@@ -227,8 +226,13 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
       type
     }
     cart_drawer_img: metafield(namespace: "custom", key: "cart_drawer_img") {
-      value
-      type
+      reference {
+        ... on MediaImage {
+          image {
+            url
+          }
+        }
+      }
     }
   }
 `

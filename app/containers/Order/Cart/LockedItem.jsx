@@ -19,7 +19,7 @@ export function LockedItem() {
     <>
       {totalCost >= 125 ? (
         <select
-          className="text-[12px] py-[8px] w-[70%] rounded-[5px] outline-none focus:outline-none bg-auto focus:border-none bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')] shadow-none focus:shadow-none focus:border-[#1d1d1d99] border border-[#1d1d1d49] text-[#131515]  "
+          className="text-[10px] sm:text-[14px] py-[4px] pl-[2px] pr-[22px] sm:pl-[8px] sm:pr-[28px] w-full sm:w-[178px] rounded-[5px] outline-none focus:outline-none bg-auto bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')] shadow-none focus:shadow-none border border-[#1d1d1d49] text-[#131515]"
           onChange={onBonusChange}
           value={bonusVariant?.id}
         >
