@@ -98,10 +98,6 @@
   border-radius: 20px;
 }
 
-.shadow-none {
-  -webkit-box-shadow: none;
-}
-
-.focus\:outline-none:focus {
+.webkit-box-shadow-none {
   -webkit-box-shadow: none !important;
 }
