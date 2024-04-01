@@ -84,15 +84,20 @@ const {
             </div>
             <div className="flex product-and-cart">
               <div className="grid grid-cols-2 product-grid md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12">
-                {products.map((product, key) =>
-                  product.handle !== 'free-meat-unlocked-at-125' ? (
-                    <ProductCard
-                      key={key}
-                      product={product}
-                      onClick={() => setClickedProduct(product)}
-                    />
-                  ) : null,
-                )}
+              {products.map((product, key) =>
+                product.handle !== 'free-meat-unlocked-at-125' ? ((isCustomerAccountAccess) && checkExistProduct(active_subscription_pro,product.id) ? 
+                <ProductCard
+                key={key}
+                product={product}
+                onClick={() => setClickedProduct(product)}
+                />
+               : 
+               <ProductCard
+               key={key}
+               product={product}
+               onClick={() => setClickedProduct(product)}
+               />) : null,
+              )}
               </div>
               <div className="cart-wrapper sticky top-[10px] h-fit mb-[10px] hidden xl:block w-4/12">
                 <div className="h-full border">
