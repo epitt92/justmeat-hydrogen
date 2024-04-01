@@ -13,7 +13,7 @@ export function Footer({ menu, shop }) {
   const Footer = () => {
     return (
       <footer className="footer max-w-[100%] bg-black ">
-        <div className="content max-w-[1440px] px-5 sm:px-10 mx-auto ">
+        <div className="content max-w-[1300px] px-5 sm:px-10 mx-auto ">
           <div className="flex flex-wrap items-start justify-between gap-10 py-10 lg:flex-nowrap lg:gap-10 sm:py-20 ">
             <div className="flex items-center justify-center footerLogo sm:w-5/12 lg:w-1/4 ">
               <NavLink end prefetch="intent" to="/">
@@ -80,8 +80,8 @@ export function Footer({ menu, shop }) {
             </div>
           </div>
         </div>
-        <div className="copyRight border-t-[0.5px] border-white-200 ">
-          <div className="content max-w-[1440px] py-6 px-10 mx-auto">
+        <div className="copyRight">
+          <div className="content max-w-[1300px] py-6 px-10 mx-auto">
             <p className="text-lg font-normal text-white">
               ©2024 JUST MEATS, All Rights Reserved
             </p>
