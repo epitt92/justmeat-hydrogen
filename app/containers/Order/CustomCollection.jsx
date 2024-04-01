@@ -2,33 +2,32 @@ import React, { useState, useContext } from 'react'
 import { useLoaderData } from '@remix-run/react'
 
 import { useSubmitPromise } from '~/hooks/useSubmitPromise'
-import { ProductContext, CustomCollectionContext } from '~/contexts'
+import { RootContext, CustomCollectionContext } from '~/contexts'
 
 import { Cart } from './Cart'
 import { MobileCart } from './Cart/MobileCart'
 import { ProductModal } from './ProductModal'
 import { ProductCard } from './ProductCard'
 
-
-const CustomCollection = ({subproduct}) => {
-const submit = useSubmitPromise()  
-const {
+const CustomCollection = ({ subproduct }) => {
+  const submit = useSubmitPromise()
+  const {
     collection: {
       products: { nodes: products },
     },
   } = useLoaderData()
 
-  const { sellingPlan, bonus, selectedProducts, totalCost } = useContext(ProductContext)
+  const { sellingPlan, bonus, selectedProducts, totalCost } =
+    useContext(RootContext)
 
-
- /* START : account management */ 
+  /* START : account management */
   let active_subscription_pro
-  let isCustomerAccountAccess = false;
+  let isCustomerAccountAccess = false
   if (typeof subproduct?.bundle_selections !== 'undefined') {
-      active_subscription_pro = subproduct.bundle_selections[0].items;
-      isCustomerAccountAccess = true;
+    active_subscription_pro = subproduct.bundle_selections[0].items
+    isCustomerAccountAccess = true
   }
-  
+
   /* END : account management */
   const [clickedProduct, setClickedProduct] = useState(null)
   const [checkoutSubmitting, setCheckoutSubmitting] = useState(false)
@@ -84,20 +83,24 @@ const {
             </div>
             <div className="flex product-and-cart">
               <div className="grid grid-cols-2 product-grid md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12">
-              {products.map((product, key) =>
-                product.handle !== 'free-meat-unlocked-at-125' ? ((isCustomerAccountAccess) && checkExistProduct(active_subscription_pro,product.id) ? 
-                <ProductCard
-                key={key}
-                product={product}
-                onClick={() => setClickedProduct(product)}
-                />
-               : 
-               <ProductCard
-               key={key}
-               product={product}
-               onClick={() => setClickedProduct(product)}
-               />) : null,
-              )}
+                {products.map((product, key) =>
+                  product.handle !== 'free-meat-unlocked-at-125' ? (
+                    isCustomerAccountAccess &&
+                    checkExistProduct(active_subscription_pro, product.id) ? (
+                      <ProductCard
+                        key={key}
+                        product={product}
+                        onClick={() => setClickedProduct(product)}
+                      />
+                    ) : (
+                      <ProductCard
+                        key={key}
+                        product={product}
+                        onClick={() => setClickedProduct(product)}
+                      />
+                    )
+                  ) : null,
+                )}
               </div>
               <div className="cart-wrapper sticky top-[10px] h-fit mb-[10px] hidden xl:block w-4/12">
                 <div className="h-full border">
@@ -131,23 +134,22 @@ const {
   )
 }
 
+function extractNumericId(productId) {
+  const parts = productId.split('/')
+  const lastPart = parts[parts.length - 1]
+  const numericId = lastPart.match(/\d+/)
+  return numericId ? numericId[0] : null
+}
 
-  function extractNumericId(productId) {
-    const parts = productId.split('/');
-    const lastPart = parts[parts.length - 1];
-    const numericId = lastPart.match(/\d+/);
-    return numericId ? numericId[0] : null;
-  }
-  
-  function checkExistProduct(active_subscription_pro,productId){
-    const numProId = extractNumericId(productId);
-    let Tamptrue = false;
-    active_subscription_pro.map((aProduct, key) => {
-      if (aProduct.external_product_id == numProId) {
-        Tamptrue = true;
-      }
-    });
-    return Tamptrue;
-  }
+function checkExistProduct(active_subscription_pro, productId) {
+  const numProId = extractNumericId(productId)
+  let Tamptrue = false
+  active_subscription_pro.map((aProduct, key) => {
+    if (aProduct.external_product_id == numProId) {
+      Tamptrue = true
+    }
+  })
+  return Tamptrue
+}
 
 export default CustomCollection

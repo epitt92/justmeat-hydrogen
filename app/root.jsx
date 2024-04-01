@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { useNonce } from '@shopify/hydrogen'
 import { defer } from '@shopify/remix-oxygen'
 import {
@@ -19,6 +20,7 @@ import sliderNavigation from 'swiper/css/navigation'
 import favicon from '../public/favicon.svg'
 import appStyles from '~/styles/app.css'
 import tailwindStyles from '~/styles/tailwind.css'
+import { RootContext } from '~/contexts'
 import { Layout } from '~/components/Layout'
 import { SubscriptionCard } from '~/components/SubscriptionCard'
 
@@ -113,25 +115,92 @@ export async function loader({ context }) {
 export default function App() {
   const nonce = useNonce()
   const data = useLoaderData()
+  const [sellingPlan, _setSellingPlan] = useState(null)
+  const [selectedProducts, _setSelectedProducts] = useState([])
+  const [bonus, _setBonus] = useState(null)
+  const [sellingPlanFrequency, _setSellingPlanFrequency] = useState(
+    'Delivery every 15 Days',
+  )
+
+  const totalCost = selectedProducts.reduce(
+    (acc, curr) => acc + parseFloat(curr.totalAmount),
+    0,
+  )
+
+  useEffect(() => {
+    const _sellingPlan = window.localStorage.getItem('_sellingPlan')
+    const _selectedProducts = window.localStorage.getItem('_selectedProducts')
+    const _bonus = window.localStorage.getItem('_bonus')
+    const _sellingPlanFrequency = window.localStorage.getItem(
+      '_sellingPlanFrequency',
+    )
+
+    if (_sellingPlan) {
+      _setSellingPlan(JSON.parse(_sellingPlan))
+    }
+    if (_sellingPlanFrequency) {
+      _setSellingPlanFrequency(JSON.parse(_sellingPlanFrequency))
+    }
+    if (_selectedProducts) {
+      _setSelectedProducts(JSON.parse(_selectedProducts))
+    }
+    if (_bonus) {
+      setBonus(JSON.parse(_bonus))
+    }
+  }, [])
+
+  const setSellingPlan = (value) => {
+    _setSellingPlan(value)
+    window.localStorage.setItem('_sellingPlan', JSON.stringify(value))
+  }
+
+  const setSellingPlanFrequency = (value) => {
+    _setSellingPlanFrequency(value)
+    window.localStorage.setItem('_sellingPlanFrequency', JSON.stringify(value))
+  }
+
+  const setSelectedProducts = (value) => {
+    _setSelectedProducts(value)
+    window.localStorage.setItem('_selectedProducts', JSON.stringify(value))
+  }
+
+  const setBonus = (value) => {
+    _setBonus(value)
+    window.localStorage.setItem('_bonus', JSON.stringify(value))
+  }
 
   return (
-    <html lang="en">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        <SubscriptionCard></SubscriptionCard>
-        <Layout {...data}>
-          <Outlet />
-        </Layout>
-        <ScrollRestoration nonce={nonce} />
-        <Scripts nonce={nonce} />
-        <LiveReload nonce={nonce} />
-      </body>
-    </html>
+    <RootContext.Provider
+      value={{
+        sellingPlan,
+        setSellingPlan,
+        selectedProducts,
+        setSelectedProducts,
+        sellingPlanFrequency,
+        setSellingPlanFrequency,
+        bonus,
+        setBonus,
+        totalCost,
+      }}
+    >
+      <html lang="en">
+        <head>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width,initial-scale=1" />
+          <Meta />
+          <Links />
+        </head>
+        <body>
+          <SubscriptionCard></SubscriptionCard>
+          <Layout {...data}>
+            <Outlet />
+          </Layout>
+          <ScrollRestoration nonce={nonce} />
+          <Scripts nonce={nonce} />
+          <LiveReload nonce={nonce} />
+        </body>
+      </html>
+    </RootContext.Provider>
   )
 }
 

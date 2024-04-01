@@ -1,8 +1,8 @@
 import { useContext } from 'react'
-import { ProductContext } from '~/contexts'
+import { RootContext } from '~/contexts'
 
 export function CartSummary({ layout, children = null }) {
-  const { totalCost } = useContext(ProductContext)
+  const { totalCost } = useContext(RootContext)
 
   const className =
     layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside'
