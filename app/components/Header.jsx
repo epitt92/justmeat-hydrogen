@@ -61,9 +61,9 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
 
   const Mainheader = () => {
     return (
-      <div className="content flex justify-between items-center  py-4 px-5 sm:px-10 max-w-[1440px] mx-auto mainheader">
+      <div className="content flex justify-between items-center  py-4 px-5 sm:px-10 max-w-[1300px] mx-auto mainheader">
         <NavLink end prefetch="intent" to="/">
-          <img src={logo} className="object-cover h-16 w-30 sm:h-24" alt="" />
+          <img src={logo} className="object-cover h-16 w-30 sm:h-24" alt="" style={{height: '70px'}} />
         </NavLink>
         <div className="flex items-center justify-between gap-10 navBar">
           <ul className="hidden navLinks lg:flex">
