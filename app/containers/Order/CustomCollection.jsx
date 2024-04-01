@@ -9,17 +9,27 @@ import { MobileCart } from './Cart/MobileCart'
 import { ProductModal } from './ProductModal'
 import { ProductCard } from './ProductCard'
 
-const CustomCollection = () => {
-  const submit = useSubmitPromise()
-  const {
+
+const CustomCollection = ({subproduct}) => {
+const submit = useSubmitPromise()  
+const {
     collection: {
       products: { nodes: products },
     },
   } = useLoaderData()
 
-  const { sellingPlan, bonus, selectedProducts, totalCost } =
-    useContext(ProductContext)
+  const { sellingPlan, bonus, selectedProducts, totalCost } = useContext(ProductContext)
 
+
+ /* START : account management */ 
+  let active_subscription_pro
+  let isCustomerAccountAccess = false;
+  if (typeof subproduct?.bundle_selections !== 'undefined') {
+      active_subscription_pro = subproduct.bundle_selections[0].items;
+      isCustomerAccountAccess = true;
+  }
+  
+  /* END : account management */
   const [clickedProduct, setClickedProduct] = useState(null)
   const [checkoutSubmitting, setCheckoutSubmitting] = useState(false)
 
@@ -115,5 +125,24 @@ const CustomCollection = () => {
     </CustomCollectionContext.Provider>
   )
 }
+
+
+  function extractNumericId(productId) {
+    const parts = productId.split('/');
+    const lastPart = parts[parts.length - 1];
+    const numericId = lastPart.match(/\d+/);
+    return numericId ? numericId[0] : null;
+  }
+  
+  function checkExistProduct(active_subscription_pro,productId){
+    const numProId = extractNumericId(productId);
+    let Tamptrue = false;
+    active_subscription_pro.map((aProduct, key) => {
+      if (aProduct.external_product_id == numProId) {
+        Tamptrue = true;
+      }
+    });
+    return Tamptrue;
+  }
 
 export default CustomCollection

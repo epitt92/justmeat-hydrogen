@@ -1,3 +1,4 @@
+import { InstagramLogoIcon } from '@radix-ui/react-icons'
 import { Link, useLoaderData } from '@remix-run/react'
 import {
   Money,
@@ -140,6 +141,8 @@ function OrderItem({ order }) {
           </Link>
         </td>
         <td className="w-1/5 text-center">
+          
+
           <p>{new Date(order.processedAt).toDateString()}</p>
         </td>
         <td className="w-1/5 text-center">

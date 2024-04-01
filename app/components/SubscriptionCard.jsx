@@ -64,7 +64,7 @@ export function SubscriptionCard({
               {subscription.order_interval_unit}
             </h2>
             <Link
-              to="/subscriptions/463457939"
+              to={`/subscriptions/${subscription.id}`}
               className="border border-2 font-bold text-lead text-[20px] border-custombgGreen px-4 py-2 text-lg block text-center"
               prefetch="intent"
             >
