@@ -14,16 +14,16 @@ import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
 export const meta = ({ data }) => {
   return [
     {
-      title: `Subscription ${data?.subscription?.product_title}${data?.subscription?.variant_title
-        ? ` (${data?.subscription?.variant_title})`
-        : ''
-        }`,
+      title: `Subscription ${data?.subscription?.product_title}${
+        data?.subscription?.variant_title
+          ? ` (${data?.subscription?.variant_title})`
+          : ''
+      }`,
     },
   ]
-} 
+}
 
 export async function loader({ request, context, params }) {
-
   const handle = 'all-products'
   const { storefront } = context
   const paginationVariables = getPaginationVariables(request, {
@@ -36,6 +36,12 @@ export async function loader({ request, context, params }) {
 
   const { collection } = await storefront.query(COLLECTION_QUERY, {
     variables: { handle, ...paginationVariables },
+  })
+
+  const {
+    collection: { products: bonuses },
+  } = await storefront.query(COLLECTION_QUERY, {
+    variables: { handle: 'free-bonus-meat', ...paginationVariables },
   })
 
   if (!collection) {
@@ -57,8 +63,7 @@ export async function loader({ request, context, params }) {
   )
 
   const subscriptionProducts = await rechargeQueryWrapper(
-    (session) =>
-    listBundleSelections(session, params.id),
+    (session) => listBundleSelections(session, params.id),
     context,
   )
 
@@ -82,6 +87,7 @@ export async function loader({ request, context, params }) {
       collection,
       subscription,
       product,
+      bonuses,
       cancelUrl,
       subscriptionProducts,
       shopCurrency: 'USD',
@@ -96,17 +102,28 @@ export async function loader({ request, context, params }) {
 }
 
 export default function SubscriptionRoute() {
-  const { subscription, product, cancelUrl, shopCurrency, collection, subscriptionProducts } = useLoaderData()
+  const {
+    subscription,
+    product,
+    cancelUrl,
+    shopCurrency,
+    bonuses,
+    collection,
+    subscriptionProducts,
+  } = useLoaderData()
   const address = subscription.include?.address
   const customCollectionProducts = collection.products
-  console.log(customCollectionProducts);
-  console.log("customCollectionProducts++");
+  console.log(customCollectionProducts)
+  console.log('customCollectionProducts++')
   return (
-    <div className='w-full flex flex-col justify-center items-center'>
-          <div className="max-w-[1440px] w-[100%] custom-collection-wrap">
-            <CustomCollection col={customCollectionProducts} subproduct={subscriptionProducts} />
-          </div>
+    <div className="flex flex-col items-center justify-center w-full">
+      <div className="max-w-[1440px] w-[100%] custom-collection-wrap">
+        <CustomCollection
+          col={customCollectionProducts}
+          subproduct={subscriptionProducts}
+        />
       </div>
+    </div>
   )
 }
 
