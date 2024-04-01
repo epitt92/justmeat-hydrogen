@@ -263,9 +263,9 @@ const uniquePairs = new Set();
     ))
       }
     </ul>
-    <div className={isNavOpen ? "block absolute w-full  md:w-[20%] border-[#B2B2B2] border-l h-screen top-0 right-0 bg-white z-10 flex flex-col" : "hidden"}>
+    <div className={isNavOpen ? "block  w-full  md:w-[20%] border-[#B2B2B2] border-l fixed overflow-y-auto md:overflow-y-hidden h-screen top-0 right-0 bg-white z-10 flex flex-col" : "hidden"}>
             <div
-              className="w-full border-[#B2B2B2] border-b px-4 pt-4 pb-2 "
+              className="w-full border-[#B2B2B2] border-b px-4 pt-4 pb-2 sticky "
             >
                 <div className='flex items-center justify-between '>
                 <h1 className='text-[20px] font-bold'>Edit Shipping Address</h1>
@@ -328,7 +328,7 @@ export function AddressForm({ addressId, address, children }) {
 
   return (
     <Form id={addressId}>
-      <div className=" grid grid-cols-1 gap-x-3 gap-y-2 sm:grid-cols-6">
+      <div className=" grid grid-cols-1 gap-x-3 gap-y-2 sm:grid-cols-6 overflow-y-auto">
         <div className="sm:col-span-3">
           <input type="hidden" name="addressId" defaultValue={addressId} />
           <label
