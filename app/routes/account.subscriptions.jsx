@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { json } from '@shopify/remix-oxygen'
 import {
   Form,
@@ -233,16 +233,75 @@ function AccountSubscription({ subscriptions, currentcustomer }) {
 }
 
 function Subscriptions({ subscriptions, currentcustomer }) {
+  const [isNavOpen, setIsNavOpen] = useState(false);
+console.log("subscriptions",subscriptions);
+const uniquePairs = new Set();
+  const handleNavToggle = (prevState, id) => {
+    setIsNavOpen(prevState);
+    // Handle id as needed
+    console.log("ID:", id);
+  };
+  
+  const checkIfDuplicate = (subscriptionId, addressId) => {
+    const pair = `${subscriptionId}-${addressId}`;
+    if (uniquePairs.has(pair)) {
+      return true; // Pair already exists, so it's a duplicate
+    } else {
+      uniquePairs.add(pair); // Add the pair to the Set
+      return false; // Pair is unique
+    }
+  };
   return (
+    <>
     <ul className="grid bg-white border border-2 border-custombgGreen">
-      {subscriptions.map((subscription) => (
-        <SubscriptionCard
-          subscription={subscription}
-          currentcustomer={currentcustomer}
-          key={subscription.id}
-        />
+    {subscriptions.map(subscription => (
+        currentcustomer.addresses.nodes.map(addressId => {
+          // Filter out based on unique subscriptionId-addressId pair
+          if (checkIfDuplicate(subscription.id, addressId)) {
+            return (
+              <SubscriptionCard
+                setIsNavOpen={handleNavToggle}
+                addressId={addressId}
+                subscription={subscription}
+                currentcustomer={currentcustomer}
+                key={`${subscription.id}-${addressId}`} // Use a unique key
+              />
+            );
+          }
+          return null;
+        })
       ))}
     </ul>
+    <div className={isNavOpen ? "block absolute w-full  md:w-[20%] border-[#B2B2B2] border-l h-screen top-0 right-0 bg-white z-10 flex flex-col" : "hidden"}>
+            <div
+              className="w-full border-[#B2B2B2] border-b px-4 pt-4 pb-2 "
+            >
+                <div className='flex items-center justify-between '>
+                <h1 className='text-[20px] font-bold'>Edit Shipping Address</h1>
+                <svg
+                className="h-8 w-8 text-gray cursor-pointer"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                onClick={() => setIsNavOpen(false)}
+              >
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+                </div>
+             
+            </div>
+            <div className="px-4 py-4">
+          
+            <ExistingAddresses/>
+
+
+            </div>
+    </div>
+    </>
   )
 }
 export function ExistingAddresses() {
