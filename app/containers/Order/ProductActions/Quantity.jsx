@@ -29,8 +29,8 @@ export const Quantity = ({ line }) => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center cart-line-quantity">
-      <div className="flex gap-[5px] w-fit items-center bg-[#425b34] sm:bg-[#862e1b] justify-between p-[5px]">
+    <div className="flex flex-col items-center justify-center w-full cart-line-quantity">
+      <div className="flex gap-[5px] items-center bg-[#425b34] sm:bg-[#862e1b] justify-between p-[5px]">
         <button
           onClick={() => updateQuantity(quantity - 1)}
           aria-label="Decrease quantity"
@@ -39,7 +39,7 @@ export const Quantity = ({ line }) => {
         >
           <span>&#8722; </span>
         </button>
-        <small className="text-[#000] font-bold text-[14px] text-center bg-white flex justify-center items-center w-[32px] h-[25px] p-[3px] ">
+        <small className="flex-1 text-[#000] font-bold text-[14px] text-center bg-white flex justify-center items-center w-[32px] h-[25px] p-[3px] ">
           {quantity}
         </small>
         <button

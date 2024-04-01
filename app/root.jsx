@@ -117,7 +117,7 @@ export default function App() {
   const data = useLoaderData()
   const [sellingPlan, _setSellingPlan] = useState(null)
   const [selectedProducts, _setSelectedProducts] = useState([])
-  const [bonus, _setBonus] = useState(null)
+  const [bonusVariant, _setBonusVariant] = useState(null)
   const [sellingPlanFrequency, _setSellingPlanFrequency] = useState(
     'Delivery every 15 Days',
   )
@@ -130,7 +130,7 @@ export default function App() {
   useEffect(() => {
     const _sellingPlan = window.localStorage.getItem('_sellingPlan')
     const _selectedProducts = window.localStorage.getItem('_selectedProducts')
-    const _bonus = window.localStorage.getItem('_bonus')
+    const _bonusVariant = window.localStorage.getItem('_bonusVariant')
     const _sellingPlanFrequency = window.localStorage.getItem(
       '_sellingPlanFrequency',
     )
@@ -144,8 +144,8 @@ export default function App() {
     if (_selectedProducts) {
       _setSelectedProducts(JSON.parse(_selectedProducts))
     }
-    if (_bonus) {
-      setBonus(JSON.parse(_bonus))
+    if (_bonusVariant) {
+      setBonusVariant(JSON.parse(_bonusVariant))
     }
   }, [])
 
@@ -164,9 +164,9 @@ export default function App() {
     window.localStorage.setItem('_selectedProducts', JSON.stringify(value))
   }
 
-  const setBonus = (value) => {
-    _setBonus(value)
-    window.localStorage.setItem('_bonus', JSON.stringify(value))
+  const setBonusVariant = (value) => {
+    _setBonusVariant(value)
+    window.localStorage.setItem('_bonusVariant', JSON.stringify(value))
   }
 
   return (
@@ -178,8 +178,8 @@ export default function App() {
         setSelectedProducts,
         sellingPlanFrequency,
         setSellingPlanFrequency,
-        bonus,
-        setBonus,
+        bonusVariant,
+        setBonusVariant,
         totalCost,
       }}
     >

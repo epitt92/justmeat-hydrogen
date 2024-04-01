@@ -98,10 +98,12 @@
   border-radius: 20px;
 }
 
-.shadow-none {
-  -webkit-box-shadow: none;
+.webkit-box-shadow-none {
+  -webkit-box-shadow: none !important;
 }
 
-.focus\:outline-none:focus {
-  -webkit-box-shadow: none !important;
+.mobile-cart .cart-line-quantity {
+}
+.mobile-cart .cart-line-quantity > div {
+  width: 100%;
 }

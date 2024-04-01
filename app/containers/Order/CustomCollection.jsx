@@ -11,13 +11,9 @@ import { ProductCard } from './ProductCard'
 
 const CustomCollection = ({ subproduct }) => {
   const submit = useSubmitPromise()
-  const {
-    collection: {
-      products: { nodes: products },
-    },
-  } = useLoaderData()
+  const { products, bonusProduct, freeProduct } = useLoaderData()
 
-  const { sellingPlan, bonus, selectedProducts, totalCost } =
+  const { sellingPlan, bonusVariant, selectedProducts, totalCost } =
     useContext(RootContext)
 
   /* START : account management */
@@ -33,11 +29,14 @@ const CustomCollection = ({ subproduct }) => {
   const [checkoutSubmitting, setCheckoutSubmitting] = useState(false)
 
   async function handleCheckout() {
-    const products = [...selectedProducts]
+    const products = [...selectedProducts, { ...freeProduct, quantity: 1 }]
 
     if (totalCost > 125) {
       products.push({
-        ...bonus,
+        ...{
+          ...bonusProduct,
+          variants: { nodes: [bonusVariant || bonusProduct.variants.nodes[0]] },
+        },
         quantity: 1,
       })
     }
