@@ -11,11 +11,7 @@ import { ProductCard } from './ProductCard'
 
 const CustomCollection = ({ subproduct }) => {
   const submit = useSubmitPromise()
-  const {
-    collection: {
-      products: { nodes: products },
-    },
-  } = useLoaderData()
+  const { products } = useLoaderData()
 
   const { sellingPlan, bonus, selectedProducts, totalCost } =
     useContext(RootContext)
