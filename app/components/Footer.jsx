@@ -80,8 +80,8 @@ export function Footer({ menu, shop }) {
             </div>
           </div>
         </div>
-        <div className="copyRight border-t-[0.5px] border-white-200 ">
-          <div className="content max-w-[1440px] py-6 px-10 mx-auto">
+        <div className="copyRight">
+          <div className="content max-w-[1300px] py-6 px-10 mx-auto">
             <p className="text-lg font-normal text-white">
               ©2024 JUST MEATS, All Rights Reserved
             </p>
