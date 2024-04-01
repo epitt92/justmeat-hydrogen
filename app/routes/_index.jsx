@@ -118,9 +118,10 @@ export default function Homepage() {
                 included directions. Plate up with your favorite sides a
                 delicious and carefree meal.
               </p>
-              <button className="mt-[12px] md:mt-[24px] xl:mt-[38px] bg-[#862e1b] text-white h-[48px] w-fit px-[40px]">
-                Order Now
-              </button>
+              <br />
+              
+              <OrderButton />
+
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-[16px] xl:gap-[30px]">
               {[
