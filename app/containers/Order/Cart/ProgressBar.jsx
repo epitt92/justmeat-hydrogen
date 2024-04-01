@@ -1,11 +1,11 @@
 import { useContext } from 'react'
 
-import { ProductContext } from '~/contexts'
+import { RootContext } from '~/contexts'
 import { Progress } from '~/components/Progress'
 import { cn } from '~/lib/utils'
 
 export function ProgressBar() {
-  const { totalCost } = useContext(ProductContext)
+  const { totalCost } = useContext(RootContext)
 
   const progressValue = (totalCost / 150) * 100 // Calculate the progress value based on the total and the target amount
 

@@ -1,10 +1,10 @@
 import { useContext } from 'react'
 import { CartLineItem } from './CartLineItem'
-import { ProductContext } from '~/contexts'
+import { RootContext } from '~/contexts'
 import ranchImage from '~/assets/ranch-rub-chicken-breast-260533.webp'
 
 export function CartLines() {
-  const { selectedProducts } = useContext(ProductContext)
+  const { selectedProducts } = useContext(RootContext)
 
   const freeProduct = {
     title: 'Ranch Rub Chicken Breast',

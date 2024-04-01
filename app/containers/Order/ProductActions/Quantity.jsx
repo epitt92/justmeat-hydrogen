@@ -1,8 +1,8 @@
 import { useContext } from 'react'
-import { ProductContext } from '~/contexts'
+import { RootContext } from '~/contexts'
 
 export const Quantity = ({ line }) => {
-  const { selectedProducts, setSelectedProducts } = useContext(ProductContext)
+  const { selectedProducts, setSelectedProducts } = useContext(RootContext)
   const { id, quantity, priceRange } = line
 
   const price = priceRange?.maxVariantPrice?.amount

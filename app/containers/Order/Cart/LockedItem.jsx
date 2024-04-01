@@ -1,14 +1,14 @@
 import { useContext } from 'react'
 import { useLoaderData } from '@remix-run/react'
 
-import { ProductContext } from '~/contexts'
+import { RootContext } from '~/contexts'
 
 export function LockedItem() {
   const {
     bonuses: { nodes: bonuses },
   } = useLoaderData()
 
-  const { bonus, setBonus, totalCost } = useContext(ProductContext)
+  const { bonus, setBonus, totalCost } = useContext(RootContext)
 
   const onBonusChange = (e) => {
     const id = e.target.value
