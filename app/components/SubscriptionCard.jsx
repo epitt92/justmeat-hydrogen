@@ -2,7 +2,6 @@ import React,{useState} from 'react'
 import { Money } from '@shopify/hydrogen'
 import { Link } from 'react-router-dom'
 import { json } from '@shopify/remix-oxygen'
-import {ExistingAddresses} from "../routes/account.subscriptions"
 
 export async function loader({ context }) {
   await context.customerAccount.handleAuthStatus()
@@ -18,15 +17,20 @@ export async function loader({ context }) {
 }
 
 export function SubscriptionCard({
+  addressId,
+  setIsNavOpen,
   subscription,
   currentcustomer,
   shopCurrency = 'USD',
 }) {
   if (!subscription?.id) return null
-  const [isNavOpen, setIsNavOpen] = useState(false);
-
+  const handleClick = (id) => {
+    setIsNavOpen((prev) => !prev, id);
+  };
+  
+  
+  console.log("addressId",addressId);
   return (
-    <>
     <li className="grid text-center border rounded">
       <div className="grid items-center gap-4 p-4 md:gap-6 md:p-6 md:grid-cols-3">
         <div className="flex-col justify-center text-center md:text-left">
@@ -43,7 +47,7 @@ export function SubscriptionCard({
           </p>
         </div>
         <div className="text-center md:text-right">
-          <a onClick={() => setIsNavOpen((prev) => !prev)} className="bg-custombgGreen text-white py-3 px-4 rounded cursor-pointer">EDIT</a>
+          <a onClick={() => handleClick(addressId)} className="bg-custombgGreen text-white py-3 px-4 rounded cursor-pointer">EDIT</a>
         </div>
       </div>
       <div className="self-end border-t-2 border-custombgGreen">
@@ -74,36 +78,6 @@ export function SubscriptionCard({
         </div>
       </div>
     </li>
-    <div className={isNavOpen ? "block absolute w-full  md:w-[20%] border-[#B2B2B2] border-l h-screen top-0 right-0 bg-white z-10 flex flex-col" : "hidden"}>
-            <div
-              className="w-full border-[#B2B2B2] border-b px-4 pt-4 pb-2 "
-            >
-                <div className='flex items-center justify-between '>
-                <h1 className='text-[20px] font-bold'>Edit Shipping Address</h1>
-                <svg
-                className="h-8 w-8 text-gray cursor-pointer"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                onClick={() => setIsNavOpen(false)}
-              >
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-                </div>
-             
-            </div>
-            <div className="px-4 py-4">
-          
-            <ExistingAddresses/>
-
-
-            </div>
-    </div>
-    </>
   )
 }
 
