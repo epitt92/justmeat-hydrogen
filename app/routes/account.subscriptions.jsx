@@ -256,6 +256,7 @@ const uniquePairs = new Set();
     <ul className="grid bg-white border border-2 border-custombgGreen">
     { subscriptions.map((subscription) => (
         <SubscriptionCard
+        setIsNavOpen={handleNavToggle}
           subscription={subscription}
           currentcustomer={currentcustomer}
           key={subscription.id}
