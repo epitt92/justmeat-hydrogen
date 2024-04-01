@@ -254,23 +254,14 @@ const uniquePairs = new Set();
   return (
     <>
     <ul className="grid bg-white border border-2 border-custombgGreen">
-    {subscriptions.map(subscription => (
-        currentcustomer.addresses.nodes.map(addressId => {
-          // Filter out based on unique subscriptionId-addressId pair
-          if (checkIfDuplicate(subscription.id, addressId)) {
-            return (
-              <SubscriptionCard
-                setIsNavOpen={handleNavToggle}
-                addressId={addressId}
-                subscription={subscription}
-                currentcustomer={currentcustomer}
-                key={`${subscription.id}-${addressId}`} // Use a unique key
-              />
-            );
-          }
-          return null;
-        })
-      ))}
+    { subscriptions.map((subscription) => (
+        <SubscriptionCard
+          subscription={subscription}
+          currentcustomer={currentcustomer}
+          key={subscription.id}
+        />
+    ))
+      }
     </ul>
     <div className={isNavOpen ? "block absolute w-full  md:w-[20%] border-[#B2B2B2] border-l h-screen top-0 right-0 bg-white z-10 flex flex-col" : "hidden"}>
             <div
