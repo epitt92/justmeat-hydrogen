@@ -11,6 +11,7 @@ export function Footer({ menu, shop }) {
   const isRoute = matches[1].params.handle === 'custom-bundle'
 
   const Footer = () => {
+    const currentYear = new Date().getFullYear()
     return (
       <footer className="footer max-w-[100%] bg-black ">
         <div className="content max-w-[1300px] px-5 sm:px-10 mx-auto ">
@@ -83,7 +84,7 @@ export function Footer({ menu, shop }) {
         <div className="copyRight">
           <div className="content max-w-[1300px] py-6 px-10 mx-auto">
             <p className="text-lg font-normal text-white">
-              ©2024 JUST MEATS, All Rights Reserved
+              &copy; {currentYear} JUST MEATS, All Rights Reserved
             </p>
           </div>
         </div>
