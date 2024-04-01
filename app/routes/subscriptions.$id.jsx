@@ -6,6 +6,8 @@ import {
   getActiveChurnLandingPageURL,
   getSubscription,
   listBundleSelections,
+  skipCharge,
+  skipSubscriptionCharge,
 } from '@rechargeapps/storefront-client'
 
 import CustomCollection from '~/containers/Order/CustomCollection'
@@ -76,6 +78,11 @@ export async function loader({ request, context, params }) {
     context,
   )
 
+  const skipshipment =  await rechargeQueryWrapper(
+      (session) => skipSubscriptionCharge(session, params.id, '2024-04-29'),
+      context,
+  )
+
   const { product } = await storefront.query(PRODUCT_QUERYTT, {
     variables: {
       id: `gid://shopify/Product/${subscription.external_variant_id.ecommerce}`,
@@ -89,6 +96,7 @@ export async function loader({ request, context, params }) {
       product,
       bonuses,
       cancelUrl,
+      skipshipment,
       subscriptionProducts,
       shopCurrency: 'USD',
     },
@@ -108,12 +116,15 @@ export default function SubscriptionRoute() {
     cancelUrl,
     shopCurrency,
     bonuses,
+    skipshipment,
     collection,
     subscriptionProducts,
   } = useLoaderData()
   const address = subscription.include?.address
   const customCollectionProducts = collection.products
-  console.log(customCollectionProducts)
+  console.log("skipshipment")
+  console.log(skipshipment);
+
   console.log('customCollectionProducts++')
   return (
     <div className="flex flex-col items-center justify-center w-full">
@@ -123,6 +134,17 @@ export default function SubscriptionRoute() {
           subproduct={subscriptionProducts}
         />
       </div>
+      {subscription.status === 'active' && (
+        <div className='mt-10 mb-10'>
+          <a className='text-[12px] text-[#FF0000] font-semibold uppercase py-2 w-fit px-5 border border-[#949494] ' target="_self" href={cancelUrl} rel="noreferrer">
+            Cancel Subscription
+          </a>
+          <a className='text-[12px] text-[#FF0000] font-semibold uppercase py-2 w-fit px-5 border border-[#949494] ' target="_self" href={skipshipment} rel="noreferrer">
+            Skip Subscription
+          </a>
+        </div>
+      )}
+      
     </div>
   )
 }
