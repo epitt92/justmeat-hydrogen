@@ -29,7 +29,7 @@ export function SubscriptionCard({
   };
   
   
-  console.log("addressId",addressId);
+  console.log("currentcustomer",currentcustomer);
   return (
     <li className="grid text-center border rounded">
       <div className="grid items-center gap-4 p-4 md:gap-6 md:p-6 md:grid-cols-3">
@@ -47,7 +47,7 @@ export function SubscriptionCard({
           </p>
         </div>
         <div className="text-center md:text-right">
-          <a onClick={() => handleClick(addressId)} className="bg-custombgGreen text-white py-3 px-4 rounded cursor-pointer">EDIT</a>
+          <a onClick={() => handleClick(currentcustomer.defaultAddress.id)} className="bg-custombgGreen text-white py-3 px-4 rounded cursor-pointer">EDIT</a>
         </div>
       </div>
       <div className="self-end border-t-2 border-custombgGreen">
