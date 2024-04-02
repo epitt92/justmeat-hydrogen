@@ -207,7 +207,7 @@ export default function AccountSubscriptions() {
 function AccountSubscription({ subscriptions, currentcustomer }) {
   return (
     <div className="bg-sublistbgGray">
-      <div className="w-[95%] md:w-[80%] mx-auto">
+      <div className="w-[95%] md:w-[90%] mx-auto">
         <div className="grid w-full gap-4 py-8  md:gap-8">
           <h2 className="font-bold text-lead text-[28px] text-center md:text-left">
             Your Subscriptions
@@ -305,7 +305,7 @@ export function ExistingAddresses() {
           {({ stateForMethod }) => (
             <div>
               <button
-                className="rounded-sm w-full bg-[#252525] px-6 py-1 text-sm font-semibold text-white shadow-sm border-2 border-black"
+                className="rounded-sm w-full bg-[#252525] px-6 py-2 mb-4 text-sm font-semibold text-white shadow-sm border-2 border-black"
                 disabled={stateForMethod('PUT') !== 'idle'}
                 formMethod="PUT"
                 type="submit"

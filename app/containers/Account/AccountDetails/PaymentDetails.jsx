@@ -6,10 +6,10 @@ const PaymentDetails = ({paymentMethod}) => {
       <>
     <div className='border border-black px-5 py-4 my-5'>
     <div className='border-gray-500 border-b py-4 mb-4'>
-        <h3 className='text-[22px] text-start font-normal uppercase'>{payment_details.brand}</h3>
+        <h3 className='text-[24px] text-start font-normal uppercase'>{payment_details.brand}</h3>
     </div>
     <div className='text-start'>
-        <h5 className='capitalize text-[18px] leading-8 font-medium '>Billing Address</h5>
+        <h5 className='capitalize text-[16px] leading-[21px] font-bold py-4'>Billing Address</h5>
             { billing_address ? 
             <>
                 <p className='capitalize font-normal leading-6 text-[16px]'>{billing_address.first_name} {billing_address.last_name}</p>
@@ -19,18 +19,18 @@ const PaymentDetails = ({paymentMethod}) => {
             </> 
             : 
             "Billing Address Not Found."}
-        <button onClick={() => setIsNavOpen((prev) => !prev)}  className="basis-2/12 text-center capitalize border-solid border-2 border-gray-500 px-2 py-1">
+        <button onClick={() => setIsNavOpen((prev) => !prev)}  className="basis-2/12 text-center text-lg capitalize px-5 py-1 border-solid border-[3px] border-gray-700 hover:text-white hover:bg-gray-800">
             Edit Payment Method
         </button>
     </div>
   </div>
-  <div className={isNavOpen ? "block absolute w-full  md:w-[20%] border-[#B2B2B2] border-l h-screen top-0 right-0 bg-white z-10 flex flex-col" : "hidden"}>
+  <div className={isNavOpen ? "block  w-full  md:w-[20%] border-[#B2B2B2] border-l fixed overflow-y-auto md:overflow-y-hidden h-screen top-0 right-0 bg-white z-10 flex flex-col" : "hidden"}>
             <div
               className="w-full border-b border-gray-700 border-b-2 px-4 py-4 "
               
             >
                 <div className='flex items-center justify-between '>
-                <h1 className='text-[20px] font-bold'>Edit Payment Method</h1>
+                <h1 className='text-[20px] font-bold py-1 px-5'>Edit Payment Method</h1>
                 <svg
                 className="h-8 w-8 text-gray cursor-pointer"
                 viewBox="0 0 24 24"
