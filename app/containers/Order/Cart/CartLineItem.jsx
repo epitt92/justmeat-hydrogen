@@ -18,7 +18,7 @@ export function CartLineItem({ line, lineType = 'paid' }) {
         lineType === 'bonus' ? 'sm:hidden block' : 'sm:flex block',
       )}
     >
-      <img src={line.images.nodes[0].url} alt="" height={100} loading='lazy' className="hidden sm:block w-full sm:w-[72px]"/>
+      <img src={line.images.nodes[0].url} alt="" loading='lazy' className="hidden sm:block w-full sm:w-[72px]"/>
 
       <div className="flex flex-1 flex-col sm:flex-row pr-[10px] justify-between items-center">
         <div className="flex-1 hidden sm:block h-fit">
