@@ -125,23 +125,6 @@ const Timeframe = () => {
   )
 }
 
-const CancelSubscription = () => {
-  return (
-    <div className='my-5'>
-      {subscription.status === 'active' && (
-        <div className='mt-10 mb-10'>
-          <a className='text-[12px] text-[#FF0000] font-semibold uppercase py-2 w-fit px-5 border border-[#949494] ' target="_self" href={cancelUrl} rel="noreferrer">
-            Cancel Subscription
-          </a>
-          <a className='text-[12px] text-[#FF0000] font-semibold uppercase py-2 w-fit px-5 border border-[#949494] ' target="_self" href={skipshipment} rel="noreferrer">
-            Skip Subscription
-          </a>
-        </div>
-      )}
-    </div>
-  )
-}
-
 export default function SubscriptionRoute() {
   const { subscription, product, cancelUrl, shopCurrency, collection, subscriptionProducts } = useLoaderData()
   const address = subscription.include?.address
@@ -157,7 +140,18 @@ export default function SubscriptionRoute() {
         <hr className='border border-black border-solid' />
         <Timeframe />
         <SubscriptionCollection />
-        <CancelSubscription />
+        <div className='my-5'>
+          {subscription.status === 'active' && (
+            <div className='mt-10 mb-10'>
+              <a className='text-[12px] text-[#FF0000] font-semibold uppercase py-2 w-fit px-5 border border-[#949494] ' target="_self" href={cancelUrl} rel="noreferrer">
+                Cancel Subscription
+              </a>
+              <a className='text-[12px] text-[#FF0000] font-semibold uppercase py-2 w-fit px-5 border border-[#949494] ' target="_self" href={skipshipment} rel="noreferrer">
+                Skip Subscription
+              </a>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )
