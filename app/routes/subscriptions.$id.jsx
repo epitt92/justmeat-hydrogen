@@ -1,6 +1,6 @@
 // import clsx from 'clsx';
 import { json, redirect } from '@shopify/remix-oxygen'
-import { NavLink, useLoaderData } from '@remix-run/react'
+import { NavLink, useLoaderData, Form } from '@remix-run/react'
 import { Money, getPaginationVariables } from '@shopify/hydrogen'
 import {
   getActiveChurnLandingPageURL,
@@ -107,11 +107,19 @@ export async function loader({ request, context, params }) {
 const Navigation = () => {
   return(
     <div className='w-full flex justify-center py-5 bg-white'>
-      <NavLink end prefetch="intent" className="px-[20px] " to="/account">Subscriptions</NavLink>
-      <NavLink end prefetch="intent" className="px-[20px] " to="/account">Order History</NavLink>
-      <NavLink end prefetch="intent" className="px-[20px] " to="/account">Account Details</NavLink>
-      <NavLink end prefetch="intent" className="px-[20px] " to="/account">Logout</NavLink>
+      <NavLink end prefetch="intent" className="px-[20px] "to="/account/subscriptions">Subscriptions &nbsp;</NavLink>
+      <NavLink end prefetch="intent" className="px-[20px] " to="/account/order-history">Order History</NavLink>
+      <NavLink end prefetch="intent" className="px-[20px] " to="/account/account-details">Account Details</NavLink>
+      <Logout className="px-[20px] "/>
     </div>
+  )
+}
+
+const Logout = () => {
+  return (
+    <Form className="account-logout" method="POST" action="/account/logout">
+      &nbsp;<button type="submit">Logout</button>
+    </Form>
   )
 }
 
