@@ -1,6 +1,6 @@
 // import clsx from 'clsx';
 import { json, redirect } from '@shopify/remix-oxygen'
-import { useLoaderData } from '@remix-run/react'
+import { NavLink, useLoaderData } from '@remix-run/react'
 import { Money, getPaginationVariables } from '@shopify/hydrogen'
 import {
   getActiveChurnLandingPageURL,
@@ -96,10 +96,21 @@ export async function loader({ request, context, params }) {
   )
 }
 
+const Navigation = () => {
+  return(
+    <div className='w-full flex justify-center py-5 bg-white'>
+      <NavLink end prefetch="intent" className="px-[20px] " to="/account">Subscriptions</NavLink>
+      <NavLink end prefetch="intent" className="px-[20px] " to="/account">Order History</NavLink>
+      <NavLink end prefetch="intent" className="px-[20px] " to="/account">Account Details</NavLink>
+      <NavLink end prefetch="intent" className="px-[20px] " to="/account">Logout</NavLink>
+    </div>
+  )
+}
+
 const Heading = () => {
   return (
-    <div>
-      <button>Back to Account</button>
+    <div className='flex items-center my-5'>
+      <NavLink end prefetch="intent" className="py-[12px] px-[20px] border border-black border-solid bg-white" to="/account">Back to Account</NavLink>
       <h3>Customize Your Order</h3>
     </div>
   )
@@ -107,17 +118,17 @@ const Heading = () => {
 
 const Timeframe = () => {
   return(
-    <div>
-      <button>Process Now</button>
-      <button>1 Week Delay</button>
+    <div className='flex my-5'>
+      <NavLink end prefetch="intent" className="py-[12px] px-[20px]  border border-black border-solid bg-white mr-2" to="">Process Now</NavLink>
+      <NavLink end prefetch="intent" className="py-[12px] px-[20px]  border border-black border-solid bg-white mr-2" to="">1 Week Delay</NavLink>
     </div>
   )
 }
 
 const CancelSubscription = () => {
   return (
-    <div>
-      <button>Cancel Subscription</button>
+    <div className='my-5'>
+      <NavLink end prefetch="intent" className="py-[12px] px-[20px]  border border-black border-solid bg-white" to="">Cancel Subscription</NavLink>
     </div>
   )
 }
@@ -130,9 +141,11 @@ export default function SubscriptionRoute() {
   console.log("customCollectionProducts++");
   return (
     <div className='w-full flex flex-col justify-center items-center bg-[#eeeeee]'>
-      <div className="max-w-[1440px] w-[100%] custom-collection-wrap">
+      <Navigation />
+      <div className="max-w-[1200px] w-[100%] custom-collection-wrap mb-10">
         {/* <CustomCollection col={customCollectionProducts} subproduct={subscriptionProducts} /> */}
         <Heading />
+        <hr className='border border-black border-solid' />
         <Timeframe />
         <SubscriptionCollection />
         <CancelSubscription />
