@@ -79,10 +79,10 @@ export async function loader({ request, context, params }) {
     context,
   )
 
-  const skipshipment =  await rechargeQueryWrapper(
-      (session) => skipSubscriptionCharge(session, params.id, '2024-04-29'),
-      context,
-  )
+  //const skipshipment =  await rechargeQueryWrapper(
+  //    (session) => skipSubscriptionCharge(session, params.id, '2024-04-29'),
+  //    context,
+  //)
 
   const { product } = await storefront.query(PRODUCT_QUERYTT, {
     variables: {
@@ -97,7 +97,6 @@ export async function loader({ request, context, params }) {
       product,
       bonuses,
       cancelUrl,
-      skipshipment,
       subscriptionProducts,
       shopCurrency: 'USD',
     },
