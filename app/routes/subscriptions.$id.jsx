@@ -1,6 +1,6 @@
 // import clsx from 'clsx';
 import { json, redirect } from '@shopify/remix-oxygen'
-import { useLoaderData } from '@remix-run/react'
+import { NavLink, useLoaderData } from '@remix-run/react'
 import { Money, getPaginationVariables } from '@shopify/hydrogen'
 import {
   getActiveChurnLandingPageURL,
@@ -12,18 +12,18 @@ import {
 
 import CustomCollection from '~/containers/Order/CustomCollection'
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
+import SubscriptionCollection from '~/containers/Order/SubscriptionCollection'
 
 export const meta = ({ data }) => {
   return [
     {
-      title: `Subscription ${data?.subscription?.product_title}${
-        data?.subscription?.variant_title
-          ? ` (${data?.subscription?.variant_title})`
-          : ''
-      }`,
+      title: `Subscription ${data?.subscription?.product_title}${data?.subscription?.variant_title
+        ? ` (${data?.subscription?.variant_title})`
+        : ''
+        }`,
     },
   ]
-}
+} 
 
 export async function loader({ request, context, params }) {
   const handle = 'all-products'
@@ -78,11 +78,6 @@ export async function loader({ request, context, params }) {
     context,
   )
 
-  const skipshipment =  await rechargeQueryWrapper(
-      (session) => skipSubscriptionCharge(session, params.id, '2024-04-29'),
-      context,
-  )
-
   const { product } = await storefront.query(PRODUCT_QUERYTT, {
     variables: {
       id: `gid://shopify/Product/${subscription.external_variant_id.ecommerce}`,
@@ -96,7 +91,6 @@ export async function loader({ request, context, params }) {
       product,
       bonuses,
       cancelUrl,
-      skipshipment,
       subscriptionProducts,
       shopCurrency: 'USD',
     },
@@ -109,6 +103,36 @@ export async function loader({ request, context, params }) {
   )
 }
 
+
+const Navigation = () => {
+  return(
+    <div className='w-full flex justify-center py-5 bg-white'>
+      <NavLink end prefetch="intent" className="px-[20px] " to="/account">Subscriptions</NavLink>
+      <NavLink end prefetch="intent" className="px-[20px] " to="/account">Order History</NavLink>
+      <NavLink end prefetch="intent" className="px-[20px] " to="/account">Account Details</NavLink>
+      <NavLink end prefetch="intent" className="px-[20px] " to="/account">Logout</NavLink>
+    </div>
+  )
+}
+
+const Heading = () => {
+  return (
+    <div className='flex items-center my-5'>
+      <NavLink end prefetch="intent" className="py-[12px] px-[20px] border border-black border-solid bg-white" to="/account">Back to Account</NavLink>
+      <h3>Customize Your Order</h3>
+    </div>
+  )
+}
+
+const Timeframe = () => {
+  return(
+    <div className='flex my-5'>
+      <NavLink end prefetch="intent" className="py-[12px] px-[20px]  border border-black border-solid bg-white mr-2" to="">Process Now</NavLink>
+      <NavLink end prefetch="intent" className="py-[12px] px-[20px]  border border-black border-solid bg-white mr-2" to="">1 Week Delay</NavLink>
+    </div>
+  )
+}
+
 export default function SubscriptionRoute() {
   const {
     subscription,
@@ -116,35 +140,35 @@ export default function SubscriptionRoute() {
     cancelUrl,
     shopCurrency,
     bonuses,
-    skipshipment,
     collection,
     subscriptionProducts,
   } = useLoaderData()
   const address = subscription.include?.address
   const customCollectionProducts = collection.products
-  console.log("skipshipment")
-  console.log(skipshipment);
 
   console.log('customCollectionProducts++')
   return (
-    <div className="flex flex-col items-center justify-center w-full">
-      <div className="max-w-[1440px] w-[100%] custom-collection-wrap">
-        <CustomCollection
+    <div className='w-full flex flex-col justify-center items-center bg-[#eeeeee]'>
+      <Navigation />
+      <div className="max-w-[1200px] w-[100%] custom-collection-wrap mb-10">
+        {/* <CustomCollection
           col={customCollectionProducts}
           subproduct={subscriptionProducts}
-        />
-      </div>
-      {subscription.status === 'active' && (
-        <div className='mt-10 mb-10'>
-          <a className='text-[12px] text-[#FF0000] font-semibold uppercase py-2 w-fit px-5 border border-[#949494] ' target="_self" href={cancelUrl} rel="noreferrer">
-            Cancel Subscription
-          </a>
-          <a className='text-[12px] text-[#FF0000] font-semibold uppercase py-2 w-fit px-5 border border-[#949494] ' target="_self" href={skipshipment} rel="noreferrer">
-            Skip Subscription
-          </a>
+        /> */}
+        <Heading />
+        <hr className='border border-black border-solid' />
+        <Timeframe />
+        <SubscriptionCollection />
+        <div className='my-5'>
+          {subscription.status === 'active' && (
+            <div className='mt-10 mb-10'>
+              <a className='py-[12px] px-[20px] border border-black border-solid bg-white' target="_self" href={cancelUrl} rel="noreferrer">
+                Cancel Subscription
+              </a>
+            </div>
+          )}
         </div>
-      )}
-      
+      </div>
     </div>
   )
 }
