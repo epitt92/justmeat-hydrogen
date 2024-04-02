@@ -109,17 +109,17 @@ const AccountDetails = () => {
 
   return (
     <div className="bg-sublistbgGray py-6">
-      <div className="w-[95%] md:w-[80%] mx-auto">
+      <div className="w-[95%] md:w-[90%] mx-auto">
         <div className="flex flex-col md:flex-row gap-2 md:gap-14 items-center border-gray-500 border-b-2 py-4 my-4">
           <NavLink
             to="/account/subscriptions"
-            className="basis-2/12 bg-[#fff] text-center capitalize border-solid border-2 border-gray-500 px-2 py-1"
+            className="basis-2/12 bg-[#fff] text-center capitalize border-solid border-2 border-gray-500 px-4 text-[22px] py-1"
           >
             Back to Account
           </NavLink>
 
           <button
-            className={`basis-5/12 text-[28px] font-medium ${
+            className={`basis-5/12 text-[36px] font-bold ${
               showAccountDetails ? 'text-black' : 'text-gray-500'
             }`}
             onClick={() => toggleView()}
@@ -127,7 +127,7 @@ const AccountDetails = () => {
             Account Details
           </button>
           <button
-            className={`basis-5/12 text-[28px] font-medium ${
+            className={`basis-5/12 text-[36px] font-bold ${
               showAccountDetails ? 'text-gray-500' : 'text-black'
             }`}
             onClick={() => toggleView()}
@@ -139,7 +139,7 @@ const AccountDetails = () => {
         {showAccountDetails && (
           <div className="bg-[#FFF] rounded-sm py-8 px-6 mb-8 border border-black ">
             <div className="border-gray-500 border-b py-4 mb-4">
-              <h3 className="text-[22px] text-center font-normal ">
+              <h3 className="text-[26px] text-center font-bold ">
                 Account Details
               </h3>
             </div>
@@ -148,7 +148,7 @@ const AccountDetails = () => {
                 <div className="sm:col-span-3">
                   <label
                     htmlFor="firstName"
-                    className="block text-sm font-medium leading-6 text-gray-900"
+                    className="block text-lg font-medium leading-6 text-gray-900"
                   >
                     First name
                   </label>
@@ -156,7 +156,7 @@ const AccountDetails = () => {
                     <input
                       id="firstName"
                       name="firstName"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      className="block w-full text-lg rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-500 "
                       type="text"
                       autoComplete="given-name"
                       placeholder="First name"
@@ -170,7 +170,7 @@ const AccountDetails = () => {
                 <div className="sm:col-span-3">
                   <label
                     htmlFor="lastName"
-                    className="block text-sm font-medium leading-6 text-gray-900"
+                    className="block text-lg font-medium leading-6 text-gray-900"
                   >
                     Last name
                   </label>
@@ -178,7 +178,7 @@ const AccountDetails = () => {
                     <input
                       id="lastName"
                       name="lastName"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      className="block w-full text-lg rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-500 "
                       type="text"
                       autoComplete="family-name"
                       placeholder="Last name"
@@ -201,7 +201,7 @@ const AccountDetails = () => {
                   <button
                     type="submit"
                     disabled={state !== 'idle'}
-                    className="rounded-sm px-6 py-1 text-sm font-semibold text-black shadow-sm border-2 border-black"
+                    className="rounded-sm px-8 py-1 text-lg font-bold text-black shadow-sm border-2 border-black"
                   >
                     {state !== 'idle' ? 'Saving....' : 'Save'}
                   </button>

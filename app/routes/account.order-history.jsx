@@ -38,15 +38,15 @@ const AccountOrderHistory = () => {
   const { subscriptionsResponse, listOrdersResponse } = useLoaderData()
   return (
     <div className="bg-sublistbgGray py-8">
-      <div className="w-[95%] md:w-[80%] mx-auto">
+      <div className="w-[95%] md:w-[90%] mx-auto">
         <div className="flex flex-col md:flex-row items-center border-gray-500 border-b-2 py-4 my-4">
           <NavLink
             to="/account/subscriptions"
-            className="capitalize bg-[#fff] border-solid border-2 border-gray-500 px-2 py-1"
+            className="capitalize bg-[#fff] border-solid border-2 border-gray-500 px-8 text-[22px] py-1"
           >
             Back to Account
           </NavLink>
-          <h3 className="text-[28px] ml-0 md:ml-[30%] font-medium">
+          <h3 className="text-[28px] md:text-[36px] font-bold ml-0 md:ml-[30%]">
             Your Order History
           </h3>
         </div>
