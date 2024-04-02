@@ -13,8 +13,7 @@ const CustomCollection = ({ subproduct }) => {
   const submit = useSubmitPromise()
   const { products, bonusProduct, freeProduct } = useLoaderData()
 
-  const { sellingPlan, bonusVariant, selectedProducts, totalCost } =
-    useContext(RootContext)
+  const { sellingPlan, bonusVariant, selectedProducts, totalCost } = useContext(RootContext)
 
   /* START : account management */
   let active_subscription_pro
