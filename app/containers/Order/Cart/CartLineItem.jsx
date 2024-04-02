@@ -11,15 +11,6 @@ export function CartLineItem({ line, lineType = 'paid' }) {
     cart_drawer_img,
   } = line
 
-  console.log("line", line)
-
-  // const desktopImage =
-  //   lineType === 'bonus' ? nodes[0]?.image.url : featuredImage.url
-  // const mobileImage =
-  //   lineType === 'bonus'
-  //     ? nodes[0]?.image.url
-  //     : cart_drawer_img?.reference.image.url
-
   return (
     <div
       className={cn(
@@ -27,18 +18,7 @@ export function CartLineItem({ line, lineType = 'paid' }) {
         lineType === 'bonus' ? 'sm:hidden block' : 'sm:flex block',
       )}
     >
-      {/* <img
-        src={desktopImage}
-        height={100}
-        loading="lazy"
-        className="hidden sm:block w-full sm:w-[72px]"
-      /> */}
-      {/* <img
-        src={mobileImage}
-        height={100}
-        loading="lazy"
-        className="block sm:hidden w-full sm:w-[72px]"
-      /> */}
+      <img src={line.images.nodes[0].url} alt="" height={100} loading='lazy' className="hidden sm:block w-full sm:w-[72px]"/>
 
       <div className="flex flex-1 flex-col sm:flex-row pr-[10px] justify-between items-center">
         <div className="flex-1 hidden sm:block h-fit">
