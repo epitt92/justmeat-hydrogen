@@ -6,6 +6,8 @@ import {
   getActiveChurnLandingPageURL,
   getSubscription,
   listBundleSelections,
+  skipCharge,
+  skipSubscriptionCharge,
 } from '@rechargeapps/storefront-client'
 
 import CustomCollection from '~/containers/Order/CustomCollection'
@@ -24,7 +26,6 @@ export const meta = ({ data }) => {
 } 
 
 export async function loader({ request, context, params }) {
-
   const handle = 'all-products'
   const { storefront } = context
   const paginationVariables = getPaginationVariables(request, {
@@ -37,6 +38,12 @@ export async function loader({ request, context, params }) {
 
   const { collection } = await storefront.query(COLLECTION_QUERY, {
     variables: { handle, ...paginationVariables },
+  })
+
+  const {
+    collection: { products: bonuses },
+  } = await storefront.query(COLLECTION_QUERY, {
+    variables: { handle: 'free-bonus-meat', ...paginationVariables },
   })
 
   if (!collection) {
@@ -58,8 +65,7 @@ export async function loader({ request, context, params }) {
   )
 
   const subscriptionProducts = await rechargeQueryWrapper(
-    (session) =>
-    listBundleSelections(session, params.id),
+    (session) => listBundleSelections(session, params.id),
     context,
   )
 
@@ -70,6 +76,11 @@ export async function loader({ request, context, params }) {
   const cancelUrl = await rechargeQueryWrapper(
     (session) => getActiveChurnLandingPageURL(session, params.id, request.url),
     context,
+  )
+
+  const skipshipment =  await rechargeQueryWrapper(
+      (session) => skipSubscriptionCharge(session, params.id, '2024-04-29'),
+      context,
   )
 
   const { product } = await storefront.query(PRODUCT_QUERYTT, {
@@ -83,7 +94,9 @@ export async function loader({ request, context, params }) {
       collection,
       subscription,
       product,
+      bonuses,
       cancelUrl,
+      skipshipment,
       subscriptionProducts,
       shopCurrency: 'USD',
     },
@@ -95,6 +108,7 @@ export async function loader({ request, context, params }) {
     },
   )
 }
+
 
 const Navigation = () => {
   return(
@@ -126,16 +140,30 @@ const Timeframe = () => {
 }
 
 export default function SubscriptionRoute() {
-  const { subscription, product, cancelUrl, shopCurrency, collection, subscriptionProducts } = useLoaderData()
+  const {
+    subscription,
+    product,
+    cancelUrl,
+    shopCurrency,
+    bonuses,
+    skipshipment,
+    collection,
+    subscriptionProducts,
+  } = useLoaderData()
   const address = subscription.include?.address
   const customCollectionProducts = collection.products
-  console.log(customCollectionProducts);
-  console.log("customCollectionProducts++");
+  console.log("skipshipment")
+  console.log(skipshipment);
+
+  console.log('customCollectionProducts++')
   return (
     <div className='w-full flex flex-col justify-center items-center bg-[#eeeeee]'>
       <Navigation />
       <div className="max-w-[1200px] w-[100%] custom-collection-wrap mb-10">
-        {/* <CustomCollection col={customCollectionProducts} subproduct={subscriptionProducts} /> */}
+        {/* <CustomCollection
+          col={customCollectionProducts}
+          subproduct={subscriptionProducts}
+        /> */}
         <Heading />
         <hr className='border border-black border-solid' />
         <Timeframe />
@@ -156,20 +184,6 @@ export default function SubscriptionRoute() {
     </div>
   )
 }
-
-const GET_SUBSCRIPTION_DETAILS = `#graphql
-  subscription(id: $subscriptionId) {
-    id
-    status
-    startDate
-    endDate
-    products {
-      id
-      name
-      quantity
-    }
-  }
-`
 
 const PRODUCT_VARIANT_FRAGMENT = `#graphql
   fragment ProductVariant on ProductVariant {
