@@ -11,6 +11,8 @@ export function CartLineItem({ line, lineType = 'paid' }) {
     cart_drawer_img,
   } = line
 
+  console.log("line", line)
+
   // const desktopImage =
   //   lineType === 'bonus' ? nodes[0]?.image.url : featuredImage.url
   // const mobileImage =

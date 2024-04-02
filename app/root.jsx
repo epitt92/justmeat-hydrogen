@@ -115,7 +115,7 @@ export async function loader({ context }) {
 export default function App() {
   const nonce = useNonce()
   const data = useLoaderData()
-  const [sellingPlan, _setSellingPlan] = useState(null)
+  const [sellingPlan, _setSellingPlan] = useState("Delivery every 15 Days")
   const [selectedProducts, _setSelectedProducts] = useState([])
   const [bonusVariant, _setBonusVariant] = useState(null)
   const [sellingPlanFrequency, _setSellingPlanFrequency] = useState(
