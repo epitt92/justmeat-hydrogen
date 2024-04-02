@@ -96,6 +96,32 @@ export async function loader({ request, context, params }) {
   )
 }
 
+const Heading = () => {
+  return (
+    <div>
+      <button>Back to Account</button>
+      <h3>Customize Your Order</h3>
+    </div>
+  )
+}
+
+const Timeframe = () => {
+  return(
+    <div>
+      <button>Process Now</button>
+      <button>1 Week Delay</button>
+    </div>
+  )
+}
+
+const CancelSubscription = () => {
+  return (
+    <div>
+      <button>Cancel Subscription</button>
+    </div>
+  )
+}
+
 export default function SubscriptionRoute() {
   const { subscription, product, cancelUrl, shopCurrency, collection, subscriptionProducts } = useLoaderData()
   const address = subscription.include?.address
@@ -103,14 +129,31 @@ export default function SubscriptionRoute() {
   console.log(customCollectionProducts);
   console.log("customCollectionProducts++");
   return (
-    <div className='w-full flex flex-col justify-center items-center'>
-          <div className="max-w-[1440px] w-[100%] custom-collection-wrap">
-            {/* <CustomCollection col={customCollectionProducts} subproduct={subscriptionProducts} /> */}
-            <SubscriptionCollection />
-          </div>
+    <div className='w-full flex flex-col justify-center items-center bg-[#eeeeee]'>
+      <div className="max-w-[1440px] w-[100%] custom-collection-wrap">
+        {/* <CustomCollection col={customCollectionProducts} subproduct={subscriptionProducts} /> */}
+        <Heading />
+        <Timeframe />
+        <SubscriptionCollection />
+        <CancelSubscription />
       </div>
+    </div>
   )
 }
+
+const GET_SUBSCRIPTION_DETAILS = `#graphql
+  subscription(id: $subscriptionId) {
+    id
+    status
+    startDate
+    endDate
+    products {
+      id
+      name
+      quantity
+    }
+  }
+`
 
 const PRODUCT_VARIANT_FRAGMENT = `#graphql
   fragment ProductVariant on ProductVariant {

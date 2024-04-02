@@ -62,11 +62,11 @@ const SubscriptionCollection = ({ subproduct }) => {
     <CustomCollectionContext.Provider
       value={{ checkoutSubmitting, setCheckoutSubmitting, handleCheckout }}
     >
-      <section className="max-w-[1200px] custom-collection-wrap">
+      <section className="max-w-[1200px] custom-collection-wrap mx-auto">
         <div className="flex gap-3 ">
-          <main className="flex flex-col flex-1 gap-2 bg-white border-gray-400 border-solid main-section sm:border">
-            <div className="flex product-and-cart">
-              <div className="grid grid-cols-2 product-grid md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12">
+          <main className="flex flex-col flex-1 gap-2 main-section">
+            <div className="flex product-and-cart " style={{gap: "1em"}}>
+              <div className="grid grid-cols-2 product-grid md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12 border-black border-solid border bg-white">
                 {products.map((product, key) =>
                   product.handle !== 'free-meat-unlocked-at-125' ? (
                     isCustomerAccountAccess &&
@@ -86,7 +86,7 @@ const SubscriptionCollection = ({ subproduct }) => {
                   ) : null,
                 )}
               </div>
-              <div className="cart-wrapper sticky top-[10px] h-fit mb-[10px] hidden xl:block w-4/12">
+              <div className="cart-wrapper sticky top-[10px] h-fit mb-[10px] hidden bg-white border-black border-solid border xl:block w-4/12">
                 <div className="h-full border">
                   <div className="py-5 text-center text-white bg-black top-section">
                     <div className="py-5 text-wrapper">
