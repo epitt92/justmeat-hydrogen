@@ -59,9 +59,9 @@ const SubscriptionCollection = ({ subproduct }) => {
   }
 
   return (
-    <CustomCollectionContext.Provider
-      value={{ checkoutSubmitting, setCheckoutSubmitting, handleCheckout }}
-    >
+    // <CustomCollectionContext.Provider
+    //   value={{ checkoutSubmitting, setCheckoutSubmitting, handleCheckout }}
+    // >
       <section className="max-w-[1200px] custom-collection-wrap mx-auto">
         <div className="flex gap-3 ">
           <main className="flex flex-col flex-1 gap-2 main-section">
@@ -99,7 +99,7 @@ const SubscriptionCollection = ({ subproduct }) => {
                     </div>
                   </div>
                   <div className="cart">
-                    <Cart layout="aside" />
+                    {/* <Cart layout="aside" /> */}
                   </div>
                 </div>
               </div>
@@ -107,14 +107,14 @@ const SubscriptionCollection = ({ subproduct }) => {
           </main>
         </div>
 
-        <MobileCart />
+        {/* <MobileCart /> */}
 
         <ProductModal
           product={clickedProduct}
           onClose={() => setClickedProduct(null)}
         />
       </section>
-    </CustomCollectionContext.Provider>
+    // </CustomCollectionContext.Provider>
   )
 }
 
