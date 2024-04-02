@@ -10,6 +10,7 @@ import {
 
 import CustomCollection from '~/containers/Order/CustomCollection'
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
+import SubscriptionCollection from '~/containers/Order/SubscriptionCollection'
 
 export const meta = ({ data }) => {
   return [
@@ -104,7 +105,8 @@ export default function SubscriptionRoute() {
   return (
     <div className='w-full flex flex-col justify-center items-center'>
           <div className="max-w-[1440px] w-[100%] custom-collection-wrap">
-            <CustomCollection col={customCollectionProducts} subproduct={subscriptionProducts} />
+            {/* <CustomCollection col={customCollectionProducts} subproduct={subscriptionProducts} /> */}
+            <SubscriptionCollection />
           </div>
       </div>
   )
