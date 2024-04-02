@@ -17,14 +17,13 @@ import SubscriptionCollection from '~/containers/Order/SubscriptionCollection'
 export const meta = ({ data }) => {
   return [
     {
-      title: `Subscription ${data?.subscription?.product_title}${
-        data?.subscription?.variant_title
-          ? ` (${data?.subscription?.variant_title})`
-          : ''
-      }`,
+      title: `Subscription ${data?.subscription?.product_title}${data?.subscription?.variant_title
+        ? ` (${data?.subscription?.variant_title})`
+        : ''
+        }`,
     },
   ]
-}
+} 
 
 export async function loader({ request, context, params }) {
   const handle = 'all-products'
@@ -78,11 +77,6 @@ export async function loader({ request, context, params }) {
     (session) => getActiveChurnLandingPageURL(session, params.id, request.url),
     context,
   )
-
-  //const skipshipment =  await rechargeQueryWrapper(
-  //    (session) => skipSubscriptionCharge(session, params.id, '2024-04-29'),
-  //    context,
-  //)
 
   const { product } = await storefront.query(PRODUCT_QUERYTT, {
     variables: {
@@ -151,6 +145,7 @@ export default function SubscriptionRoute() {
   } = useLoaderData()
   const address = subscription.include?.address
   const customCollectionProducts = collection.products
+
   console.log('customCollectionProducts++')
   return (
     <div className='w-full flex flex-col justify-center items-center bg-[#eeeeee]'>
