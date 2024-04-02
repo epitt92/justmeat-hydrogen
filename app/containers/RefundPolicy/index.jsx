@@ -3,7 +3,7 @@ import React from 'react'
 const RefundPolicy = () => {
   return (
     <section className="bg- bg-white text-[#1D1D1D] py-8">
-      <div className="max-w-[1180px] w-[100%] mx-auto">
+      <div className="max-w-[1150px] w-[100%] mx-auto">
         <div>
           <h1 className="font-Roboto text-[42px] md:text-[58px] font-medium  mb-3">
             Refund policy
