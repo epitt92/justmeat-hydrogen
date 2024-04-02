@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { json } from '@shopify/remix-oxygen'
 import {
   Form,
@@ -38,7 +38,6 @@ export async function loader({ context }) {
       }),
     context,
   )
-
   return json({
     headers: {
       'Cache-Control': 'no-cache, no-store, must-revalidate',
@@ -208,7 +207,7 @@ export default function AccountSubscriptions() {
 function AccountSubscription({ subscriptions, currentcustomer }) {
   return (
     <div className="bg-sublistbgGray">
-      <div className="w-[95%] md:w-[80%] mx-auto">
+      <div className="w-[95%] md:w-[90%] mx-auto">
         <div className="grid w-full gap-4 py-8  md:gap-8">
           <h2 className="font-bold text-lead text-[28px] text-center md:text-left">
             Your Subscriptions
@@ -233,16 +232,67 @@ function AccountSubscription({ subscriptions, currentcustomer }) {
 }
 
 function Subscriptions({ subscriptions, currentcustomer }) {
+  const [isNavOpen, setIsNavOpen] = useState(false);
+console.log("subscriptions",subscriptions);
+const uniquePairs = new Set();
+  const handleNavToggle = (prevState, id) => {
+    setIsNavOpen(prevState);
+    // Handle id as needed
+    console.log("ID:", id);
+  };
+  
+  const checkIfDuplicate = (subscriptionId, addressId) => {
+    const pair = `${subscriptionId}-${addressId}`;
+    if (uniquePairs.has(pair)) {
+      return true; // Pair already exists, so it's a duplicate
+    } else {
+      uniquePairs.add(pair); // Add the pair to the Set
+      return false; // Pair is unique
+    }
+  };
   return (
+    <>
     <ul className="grid bg-white border border-2 border-custombgGreen">
-      {subscriptions.map((subscription) => (
+    { subscriptions.map((subscription) => (
         <SubscriptionCard
+        setIsNavOpen={handleNavToggle}
           subscription={subscription}
           currentcustomer={currentcustomer}
           key={subscription.id}
         />
-      ))}
+    ))
+      }
     </ul>
+    <div className={isNavOpen ? "block  w-full  md:w-[20%] border-[#B2B2B2] border-l fixed overflow-y-auto md:overflow-y-hidden h-screen top-0 right-0 bg-white z-10 flex flex-col" : "hidden"}>
+            <div
+              className="w-full border-[#B2B2B2] border-b px-4 pt-4 pb-2 sticky "
+            >
+                <div className='flex items-center justify-between '>
+                <h1 className='text-[20px] font-bold'>Edit Shipping Address</h1>
+                <svg
+                className="h-8 w-8 text-gray cursor-pointer"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                onClick={() => setIsNavOpen(false)}
+              >
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+                </div>
+             
+            </div>
+            <div className="px-4 py-4">
+          
+            <ExistingAddresses/>
+
+
+            </div>
+    </div>
+    </>
   )
 }
 export function ExistingAddresses() {
@@ -255,7 +305,7 @@ export function ExistingAddresses() {
           {({ stateForMethod }) => (
             <div>
               <button
-                className="rounded-sm w-full bg-[#252525] px-6 py-1 text-sm font-semibold text-white shadow-sm border-2 border-black"
+                className="rounded-sm w-full bg-[#252525] px-6 py-2 mb-4 text-sm font-semibold text-white shadow-sm border-2 border-black"
                 disabled={stateForMethod('PUT') !== 'idle'}
                 formMethod="PUT"
                 type="submit"
@@ -271,13 +321,14 @@ export function ExistingAddresses() {
 
 export function AddressForm({ addressId, address, children }) {
   const { state, formMethod } = useNavigation()
+ 
   /** @type {ActionReturnData} */
   const action = useActionData()
   const error = action?.error?.[addressId]
 
   return (
     <Form id={addressId}>
-      <div className=" grid grid-cols-1 gap-x-3 gap-y-2 sm:grid-cols-6">
+      <div className=" grid grid-cols-1 gap-x-3 gap-y-2 sm:grid-cols-6 overflow-y-auto">
         <div className="sm:col-span-3">
           <input type="hidden" name="addressId" defaultValue={addressId} />
           <label

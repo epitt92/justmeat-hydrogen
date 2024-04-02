@@ -1,17 +1,16 @@
 import { useContext } from 'react'
+import { useLoaderData } from '@remix-run/react'
+
 import { CartLineItem } from './CartLineItem'
 import { RootContext } from '~/contexts'
-import ranchImage from '~/assets/ranch-rub-chicken-breast-260533.webp'
 
 export function CartLines() {
-  const { selectedProducts } = useContext(RootContext)
+  const { bonusProduct, freeProduct } = useLoaderData()
+  const { bonusVariant, selectedProducts, totalCost } = useContext(RootContext)
 
-  const freeProduct = {
-    title: 'Ranch Rub Chicken Breast',
-    featuredImage: {
-      url: ranchImage,
-    },
-    priceRange: { maxVariantPrice: { amount: 11.45 } },
+  const bonusLine = {
+    ...bonusProduct,
+    variants: { nodes: [bonusVariant || bonusProduct.variants.nodes[0]] },
   }
 
   return (
@@ -20,7 +19,8 @@ export function CartLines() {
       className="sm:h-[360px] overflow-auto px-[10px]"
     >
       <div className="grid grid-cols-3 gap-2 sm:grid-cols-1">
-        <CartLineItem line={freeProduct} isFree={true} />
+        {totalCost > 125 && <CartLineItem line={bonusLine} lineType="bonus" />}
+        <CartLineItem line={freeProduct} lineType="free" />
         {selectedProducts.map((product) => (
           <CartLineItem key={product.id} line={product} />
         ))}

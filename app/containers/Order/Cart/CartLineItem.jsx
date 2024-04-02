@@ -1,45 +1,75 @@
 import { Quantity } from '../ProductActions/Quantity'
+import { cn } from '~/lib/utils'
+import { LockedItem } from './LockedItem'
 
-export function CartLineItem({ line, isFree = false }) {
-  const { title, featuredImage, priceRange } = line
-  const image = featuredImage.url
+export function CartLineItem({ line, lineType = 'paid' }) {
+  const {
+    title,
+    featuredImage,
+    priceRange,
+    variants: { nodes },
+    cart_drawer_img,
+  } = line
+
+  const desktopImage =
+    lineType === 'bonus' ? nodes[0]?.image.url : featuredImage.url
+  const mobileImage =
+    lineType === 'bonus'
+      ? nodes[0]?.image.url
+      : cart_drawer_img?.reference.image.url
 
   return (
-    <div className="flex flex-col gap-1 sm:gap-4 sm:flex-row">
-      {featuredImage && (
-        <img
-          src={image}
-          height={100}
-          loading="lazy"
-          className="w-full sm:w-[72px]"
-        />
+    <div
+      className={cn(
+        'rounded-xl border sm:border-none border-solid border-[#425b34] overflow-hidden gap-4',
+        lineType === 'bonus' ? 'sm:hidden block' : 'sm:flex block',
       )}
+    >
+      <img
+        src={desktopImage}
+        height={100}
+        loading="lazy"
+        className="hidden sm:block w-full sm:w-[72px]"
+      />
+      <img
+        src={mobileImage}
+        height={100}
+        loading="lazy"
+        className="block sm:hidden w-full sm:w-[72px]"
+      />
 
-      <div className="flex flex-1 flex-col sm:flex-row pr-[10px] justify-between items-center ">
-        <div className="flex-1 h-fit">
+      <div className="flex flex-1 flex-col sm:flex-row pr-[10px] justify-between items-center">
+        <div className="flex-1 hidden sm:block h-fit">
           <p className="font-semibold text-[10px] sm:text-[14px] text-center">
             <strong className="pr-[10px] flex justify-center">{title}</strong>
           </p>
 
           <div className="flex justify-center font-bold text-center text-[12px] sm:text-[25px]">
-            {isFree ? (
+            {lineType === 'free' && (
               <div className="flex gap-1">
-                <div className="line-through text-[#929292]">
-                  {priceRange.maxVariantPrice.amount}
-                </div>
+                <div className="line-through text-[#929292]">$11.45</div>
                 <div>FREE</div>
               </div>
-            ) : (
-              `$${priceRange.maxVariantPrice.amount}`
+            )}
+            {lineType === 'paid' && (
+              <div className="hidden sm:block">
+                ${priceRange.maxVariantPrice.amount}
+              </div>
             )}
           </div>
         </div>
-        {line && (
-          <div className={isFree ? 'invisible' : 'visible'}>
-            <Quantity line={line} />
-          </div>
-        )}
       </div>
+      {line && (
+        <div
+          className={cn(
+            'flex justify-center items-center sm:mt-0',
+            lineType === 'bonus' ? ' -mt-[5px]' : ' -mt-[13px]',
+          )}
+        >
+          {lineType === 'paid' && <Quantity line={line} />}
+          {lineType === 'bonus' && <LockedItem />}
+        </div>
+      )}
     </div>
   )
 }

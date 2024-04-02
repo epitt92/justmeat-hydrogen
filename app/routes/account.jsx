@@ -44,10 +44,10 @@ function AccountMenu() {
   }
 
   return (
-    <div className="w-[95%] md:w-[80%] mx-auto py-3">
+    <div className="w-[95%] md:w-[90%] mx-auto py-3">
       <nav
         role="navigation"
-        className="flex flex-col sm:flex-row justify-center text-center gap-0 sm:gap-2 lg:gap-10"
+        className="font-Roboto text-lg font-normal flex flex-col sm:flex-row justify-center text-center gap-0 sm:gap-2 lg:gap-[8.5rem]"
       >
         <NavLink to="/account/subscriptions" style={isActiveStyle}>
           Subscriptions &nbsp;
