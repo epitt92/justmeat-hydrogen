@@ -11,7 +11,7 @@ import logo from '~/assets/logo.svg'
 export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
   const matches = useMatches()
 
-  const isRoute = matches[1].params.handle === 'custom-bundle'
+  const isRoute = matches[1].params.bundle === 'custom-bundle'
 
   const HoverUnderNavLink = (to, text) => {
     const spanRef = useRef(null)
