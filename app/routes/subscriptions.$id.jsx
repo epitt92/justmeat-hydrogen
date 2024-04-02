@@ -140,14 +140,11 @@ export default function SubscriptionRoute() {
     cancelUrl,
     shopCurrency,
     bonuses,
-    skipshipment,
     collection,
     subscriptionProducts,
   } = useLoaderData()
   const address = subscription.include?.address
   const customCollectionProducts = collection.products
-  console.log("skipshipment")
-  console.log(skipshipment);
 
   console.log('customCollectionProducts++')
   return (
@@ -165,11 +162,8 @@ export default function SubscriptionRoute() {
         <div className='my-5'>
           {subscription.status === 'active' && (
             <div className='mt-10 mb-10'>
-              <a className='text-[12px] text-[#FF0000] font-semibold uppercase py-2 w-fit px-5 border border-[#949494] ' target="_self" href={cancelUrl} rel="noreferrer">
+              <a className='py-[12px] px-[20px] border border-black border-solid bg-white' target="_self" href={cancelUrl} rel="noreferrer">
                 Cancel Subscription
-              </a>
-              <a className='text-[12px] text-[#FF0000] font-semibold uppercase py-2 w-fit px-5 border border-[#949494] ' target="_self" href={skipshipment} rel="noreferrer">
-                Skip Subscription
               </a>
             </div>
           )}
