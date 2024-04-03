@@ -3,21 +3,19 @@ import { Button } from '~/components/Button'
 import { CustomBundleContext, CustomBundleFormContext } from '~/contexts'
 
 export function CartCheckoutActions() {
-  const { totalCost } = useContext(CustomBundleContext)
-  const { checkoutSubmitting, handleCheckout } = useContext(
-    CustomBundleFormContext,
-  )
+  const { totalCost, fromOrder } = useContext(CustomBundleContext)
+  const { submitting, handleSubmit } = useContext(CustomBundleFormContext)
 
   return (
     <>
       {totalCost >= 75 ? (
         <div className="flex justify-center items-center w-1/2 bg-[#425b34]">
           <Button
-            loading={checkoutSubmitting}
-            onClick={handleCheckout}
+            loading={submitting}
+            onClick={handleSubmit}
             className="bg-[#425b34] text-[15px] py-[15px] font-semibold text-white px-1"
           >
-            Continue to Checkout
+            {fromOrder ? 'Continue to Checkout' : 'Update Changes'}
           </Button>
         </div>
       ) : (

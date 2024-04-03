@@ -7,10 +7,8 @@ import { CartLines } from './CartLines'
 import { PlanPicker } from '../PlanPickerBlock/PlanPicker'
 
 export const MobileCart = () => {
-  const { totalCost } = useContext(CustomBundleContext)
-  const { checkoutSubmitting, handleCheckout } = useContext(
-    CustomBundleFormContext,
-  )
+  const { totalCost, fromOrder } = useContext(CustomBundleContext)
+  const { submitting, handleSubmit } = useContext(CustomBundleFormContext)
 
   const [cartOpen, setCartOpen] = useState(false)
 
@@ -25,11 +23,18 @@ export const MobileCart = () => {
           isCheckoutable ? 'bg-[#425b34]' : 'bg-[#AAAAAA]',
         )}
       >
-        {isCheckoutable
-          ? `View Cart - ($${totalCost.toFixed(2)})`
-          : `Add $${(75 - totalCost).toFixed(
-              2,
-            )} to Unlock Cart ($${totalCost.toFixed(2)})`}
+        {fromOrder && (
+          <>
+            {isCheckoutable
+              ? `View Cart - ($${totalCost.toFixed(2)})`
+              : `Add $${(75 - totalCost).toFixed(
+                  2,
+                )} to Unlock Cart ($${totalCost.toFixed(2)})`}
+          </>
+        )}
+        {!fromOrder && (
+          <>{isCheckoutable ? `Update Changes` : `Spend $75 to Continue`}</>
+        )}
       </Button>
 
       <div
@@ -47,7 +52,7 @@ export const MobileCart = () => {
               onClick={() => setCartOpen(false)}
               className="rounded-full px-[10px] py-[2px] border-solid border-[2px] border-[#425b34]"
             >
-              Hide Cart
+              Hide {fromOrder && 'Cart'}
             </Button>
           </div>
           <ProgressBar />
@@ -56,17 +61,16 @@ export const MobileCart = () => {
           <CartLines />
         </div>
         <div className="p-[5px] flex flex-col gap-[10px]">
-          <PlanPicker />
+          {fromOrder && <PlanPicker />}
           <Button
-            loading={checkoutSubmitting}
-            onClick={handleCheckout}
+            loading={submitting}
+            onClick={handleSubmit}
             className={cn(
               'rounded-xl text-white font-semibold text-center py-[12px]',
               isCheckoutable ? 'bg-[#425b34]' : 'bg-[#AAAAAA]',
             )}
           >
-            Checkout - ${totalCost.toFixed(2)}{' '}
-            {isCheckoutable ? '' : '(Add $75 to Unlock)'}
+            {isCheckoutable ? 'Update Changes' : 'Spend $75 to Continue)'}
           </Button>
         </div>
       </div>

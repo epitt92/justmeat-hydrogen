@@ -9,7 +9,7 @@ import { MobileCart } from './Cart/MobileCart'
 import { ProductModal } from './ProductModal'
 import { ProductCard } from './ProductCard'
 
-export const CustomBundle = ({ subproduct }) => {
+export const CustomBundle = () => {
   const submit = useSubmitPromise()
   const { products, bonusProduct, freeProduct } = useLoaderData()
 
@@ -17,35 +17,39 @@ export const CustomBundle = ({ subproduct }) => {
     useContext(CustomBundleContext)
 
   const [clickedProduct, setClickedProduct] = useState(null)
-  const [checkoutSubmitting, setCheckoutSubmitting] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
-  async function handleCheckout() {
-    const products = [...selectedProducts, { ...freeProduct, quantity: 1 }]
+  async function handleSubmit() {
+    if (fromOrder) {
+      const products = [...selectedProducts, { ...freeProduct, quantity: 1 }]
 
-    if (totalCost > 125) {
-      products.push({
-        ...{
-          ...bonusProduct,
-          variants: { nodes: [bonusVariant || bonusProduct.variants.nodes[0]] },
+      if (totalCost > 125) {
+        products.push({
+          ...{
+            ...bonusProduct,
+            variants: {
+              nodes: [bonusVariant || bonusProduct.variants.nodes[0]],
+            },
+          },
+          quantity: 1,
+        })
+      }
+
+      setSubmitting(true)
+
+      const res = await submit(
+        {
+          body: JSON.stringify({
+            products,
+            sellingPlanName: sellingPlan,
+          }),
         },
-        quantity: 1,
-      })
+        { method: 'post', action: '/products/custom-bundle' },
+      )
+
+      setSubmitting(false)
+      location.href = res.checkoutUrl
     }
-
-    setCheckoutSubmitting(true)
-
-    const res = await submit(
-      {
-        body: JSON.stringify({
-          products,
-          sellingPlanName: sellingPlan,
-        }),
-      },
-      { method: 'post', action: '/products/custom-bundle' },
-    )
-
-    setCheckoutSubmitting(false)
-    location.href = res.checkoutUrl
   }
 
   return (
@@ -88,21 +92,29 @@ export const CustomBundle = ({ subproduct }) => {
             <div className="cart-wrapper sticky top-[10px] h-fit mb-[10px] hidden xl:block w-4/12">
               <div className="h-full border">
                 <div className="py-5 text-center text-white bg-black top-section">
-                  <div className="py-5 text-wrapper">
-                    <h1 className="font-roboto_medium text-[17px] leading-none">
-                      Subscribers Save 25% on Orders
-                    </h1>
-                    <p className="text-[14px] leading-none font-roboto_medium mt-3">
-                      Applied at checkout
-                    </p>
+                  <div className="py-2 text-wrapper">
+                    {fromOrder ? (
+                      <>
+                        <h1 className="font-roboto_medium text-[17px] leading-none">
+                          Subscribers Save 25% on Orders
+                        </h1>
+                        <p className="text-[14px] leading-none font-roboto_medium mt-3">
+                          Applied at checkout
+                        </p>
+                      </>
+                    ) : (
+                      <h1 className="font-roboto_medium text-[17px] leading-none">
+                        YOUR SUBSCRIPTION
+                      </h1>
+                    )}
                   </div>
                 </div>
                 <div className="cart">
                   <CustomBundleFormContext.Provider
                     value={{
-                      checkoutSubmitting,
-                      setCheckoutSubmitting,
-                      handleCheckout,
+                      submitting,
+                      setSubmitting,
+                      handleSubmit,
                     }}
                   >
                     <Cart layout="aside" />
@@ -114,7 +126,7 @@ export const CustomBundle = ({ subproduct }) => {
         </main>
       </div>
       <CustomBundleFormContext.Provider
-        value={{ checkoutSubmitting, setCheckoutSubmitting, handleCheckout }}
+        value={{ submitting, setSubmitting, handleSubmit }}
       >
         <MobileCart />
       </CustomBundleFormContext.Provider>
