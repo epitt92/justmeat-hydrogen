@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import { useNonce } from '@shopify/hydrogen'
 import { defer } from '@shopify/remix-oxygen'
 import {
@@ -116,76 +115,9 @@ export async function loader({ context }) {
 export default function App() {
   const nonce = useNonce()
   const data = useLoaderData()
-  console.log('🚀 ~ App ~ data:', data)
-
-  const [sellingPlan, _setSellingPlan] = useState('Delivery every 15 Days')
-  const [selectedProducts, _setSelectedProducts] = useState([])
-  const [bonusVariant, _setBonusVariant] = useState(null)
-  const [sellingPlanFrequency, _setSellingPlanFrequency] = useState(
-    'Delivery every 15 Days',
-  )
-
-  const totalCost = selectedProducts.reduce(
-    (acc, curr) => acc + parseFloat(curr.totalAmount),
-    0,
-  )
-
-  useEffect(() => {
-    const _sellingPlan = window.localStorage.getItem('_sellingPlan')
-    const _selectedProducts = window.localStorage.getItem('_selectedProducts')
-    const _bonusVariant = window.localStorage.getItem('_bonusVariant')
-    const _sellingPlanFrequency = window.localStorage.getItem(
-      '_sellingPlanFrequency',
-    )
-
-    if (_sellingPlan) {
-      _setSellingPlan(JSON.parse(_sellingPlan))
-    }
-    if (_sellingPlanFrequency) {
-      _setSellingPlanFrequency(JSON.parse(_sellingPlanFrequency))
-    }
-    if (_selectedProducts) {
-      _setSelectedProducts(JSON.parse(_selectedProducts))
-    }
-    if (_bonusVariant) {
-      setBonusVariant(JSON.parse(_bonusVariant))
-    }
-  }, [])
-
-  const setSellingPlan = (value) => {
-    _setSellingPlan(value)
-    window.localStorage.setItem('_sellingPlan', JSON.stringify(value))
-  }
-
-  const setSellingPlanFrequency = (value) => {
-    _setSellingPlanFrequency(value)
-    window.localStorage.setItem('_sellingPlanFrequency', JSON.stringify(value))
-  }
-
-  const setSelectedProducts = (value) => {
-    _setSelectedProducts(value)
-    window.localStorage.setItem('_selectedProducts', JSON.stringify(value))
-  }
-
-  const setBonusVariant = (value) => {
-    _setBonusVariant(value)
-    window.localStorage.setItem('_bonusVariant', JSON.stringify(value))
-  }
 
   return (
-    <RootContext.Provider
-      value={{
-        sellingPlan,
-        setSellingPlan,
-        selectedProducts,
-        setSelectedProducts,
-        sellingPlanFrequency,
-        setSellingPlanFrequency,
-        bonusVariant,
-        setBonusVariant,
-        totalCost,
-      }}
-    >
+    <RootContext.Provider value={{}}>
       <html lang="en">
         <head>
           <meta charSet="utf-8" />

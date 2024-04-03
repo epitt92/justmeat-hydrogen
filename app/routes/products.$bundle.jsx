@@ -1,8 +1,10 @@
-import { json, redirect } from '@shopify/remix-oxygen'
+import { useState, useEffect } from 'react'
+import { json } from '@shopify/remix-oxygen'
 import { getDynamicBundleItems } from '@rechargeapps/storefront-client'
 import { getPaginationVariables } from '@shopify/hydrogen'
 
 import { CustomBundle } from '~/containers/CustomBundle'
+import { CustomBundleContext } from '~/contexts'
 import { PlanPickerBlock } from '~/containers/CustomBundle/PlanPickerBlock'
 import Notification from '~/components/Notification'
 import { ALL_PRODUCTS_QUERY } from '~/graphql/Product'
@@ -102,8 +104,74 @@ export async function action({ request, context }) {
 }
 
 export default function Product() {
+  const [sellingPlan, _setSellingPlan] = useState('Delivery every 15 Days')
+  const [selectedProducts, _setSelectedProducts] = useState([])
+  const [bonusVariant, _setBonusVariant] = useState(null)
+  const [sellingPlanFrequency, _setSellingPlanFrequency] = useState(
+    'Delivery every 15 Days',
+  )
+
+  const totalCost = selectedProducts.reduce(
+    (acc, curr) => acc + parseFloat(curr.totalAmount),
+    0,
+  )
+
+  useEffect(() => {
+    const _sellingPlan = window.localStorage.getItem('_sellingPlan')
+    const _selectedProducts = window.localStorage.getItem('_selectedProducts')
+    const _bonusVariant = window.localStorage.getItem('_bonusVariant')
+    const _sellingPlanFrequency = window.localStorage.getItem(
+      '_sellingPlanFrequency',
+    )
+
+    if (_sellingPlan) {
+      _setSellingPlan(JSON.parse(_sellingPlan))
+    }
+    if (_sellingPlanFrequency) {
+      _setSellingPlanFrequency(JSON.parse(_sellingPlanFrequency))
+    }
+    if (_selectedProducts) {
+      _setSelectedProducts(JSON.parse(_selectedProducts))
+    }
+    if (_bonusVariant) {
+      setBonusVariant(JSON.parse(_bonusVariant))
+    }
+  }, [])
+
+  const setSellingPlan = (value) => {
+    _setSellingPlan(value)
+    window.localStorage.setItem('_sellingPlan', JSON.stringify(value))
+  }
+
+  const setSellingPlanFrequency = (value) => {
+    _setSellingPlanFrequency(value)
+    window.localStorage.setItem('_sellingPlanFrequency', JSON.stringify(value))
+  }
+
+  const setSelectedProducts = (value) => {
+    _setSelectedProducts(value)
+    window.localStorage.setItem('_selectedProducts', JSON.stringify(value))
+  }
+
+  const setBonusVariant = (value) => {
+    _setBonusVariant(value)
+    window.localStorage.setItem('_bonusVariant', JSON.stringify(value))
+  }
+
   return (
-    <>
+    <CustomBundleContext.Provider
+      value={{
+        sellingPlan,
+        setSellingPlan,
+        selectedProducts,
+        setSelectedProducts,
+        sellingPlanFrequency,
+        setSellingPlanFrequency,
+        bonusVariant,
+        setBonusVariant,
+        totalCost,
+      }}
+    >
       <Notification />
       <div className='bg-cover h-[100%] w-[100%] bg-fixed	flex justify-center sm:bg-[url("https://cdn.shopify.com/s/files/1/0672/4776/7778/files/orderpage_bg.png")]'>
         <div className="max-w-[1440px] w-[100%] px-5 sm:px-10">
@@ -111,6 +179,6 @@ export default function Product() {
           <CustomBundle />
         </div>
       </div>
-    </>
+    </CustomBundleContext.Provider>
   )
 }
