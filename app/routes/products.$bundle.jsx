@@ -49,13 +49,6 @@ export async function action({ request, context }) {
   const products = data.products
   const sellingPlanName = data.sellingPlanName
 
-  const discountCode = context.session.get('discountCode')
-  // User inputted discount code
-  const discountCodes = (
-    discountCode ? [discountCode] : []
-  )
-
-  await _cart.updateDiscountCodes(discountCodes)
   let cartData
 
   if (sellingPlanName) {

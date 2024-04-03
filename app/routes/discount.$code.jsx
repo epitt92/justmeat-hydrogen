@@ -5,6 +5,7 @@ import { redirect } from '@shopify/remix-oxygen'
  * @param {LoaderFunctionArgs}
  */
 export async function loader({ request, context, params }) {
+  const { cart } = context
   await context.customerAccount.handleAuthStatus()
 	
 	// Save discountCode into session
@@ -17,8 +18,12 @@ export async function loader({ request, context, params }) {
   const searchParams = new URLSearchParams(url.search);
   const redirectPath = searchParams.get('redirect') || '/account';
   
+  const result = await cart.updateDiscountCodes([code])
+  const headers = cart.setCartId(result.cart.id)
+
   return redirect(redirectPath, {
     headers: {
+      ...headers,
       'Set-Cookie': await context.session.commit(),
     },
   })
