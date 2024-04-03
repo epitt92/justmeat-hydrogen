@@ -28,18 +28,22 @@ export async function loader({ request, context }) {
     },
   })
 
-  const products = allProducts.filter((product) =>
-    product.collections.edges.some(
-      (collection) => collection.node.handle === allProductsHandler,
-    ),
-  )
-
   const freeProduct = allProducts.find(
     (product) => product.handle === freeProductHandler,
   )
   const bonusProduct = allProducts.find(
     (product) => product.handle === bonusProductHandler,
   )
+
+  const products = allProducts
+    .filter((product) =>
+      product.collections.edges.some(
+        (collection) => collection.node.handle === allProductsHandler,
+      ),
+    )
+    .filter(
+      (product) => Number(product.priceRange.minVariantPrice.amount) !== 0,
+    )
 
   return json({
     products,
@@ -60,8 +64,8 @@ export async function action({ request, context }) {
 
   if (sellingPlanName) {
     const bundle = {
-      externalProductId: '8264905490658', // Custom Meat Bundle's Shopify Product ID - Hard coded
-      externalVariantId: '44680720285922', // Custom Meat Bundle's Shopify Variant ID - Hard coded
+      externalProductId: '8374391898338', // Custom Meat Bundle's Shopify Product ID - Hard coded
+      externalVariantId: '45086855332066', // Custom Meat Bundle's Shopify Variant ID - Hard coded
 
       selections: products.map((product) => ({
         collectionId: '424769257698',
@@ -104,7 +108,7 @@ export async function action({ request, context }) {
 
   const { cart } = await _cart.addLines(cartData)
 
-  return json(cart)
+  return json({ cart, msg: 'ok' })
 }
 
 export default function Product() {
