@@ -36,14 +36,10 @@ export function SubscriptionCard({
           <h1 className="text-[22px] font-bold">Personal Information</h1>
         </div>
         <div className="">
-          <p>
-            <h2>
-              {currentcustomer.firstName} {currentcustomer.lastName}
-            </h2>
-          </p>
-          <p>
-            <h2>{currentcustomer.defaultAddress.address1}</h2>
-          </p>
+          <h2>
+            {currentcustomer.firstName} {currentcustomer.lastName}
+          </h2>
+          <h2>{currentcustomer.defaultAddress.address1}</h2>
         </div>
         <div className="text-center md:text-right">
           <a
