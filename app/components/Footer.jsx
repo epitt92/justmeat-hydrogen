@@ -8,7 +8,7 @@ import logo from '~/assets/footer_logo.webp'
 export function Footer({ menu, shop }) {
   const matches = useMatches()
 
-  const isRoute = matches[1].params.handle === 'custom-bundle'
+  const isRoute = matches[1].params.bundle === 'custom-bundle'
 
   const Footer = () => {
     const currentYear = new Date().getFullYear()
