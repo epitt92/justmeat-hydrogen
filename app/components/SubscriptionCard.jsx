@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import { Money } from '@shopify/hydrogen'
 import { Link } from 'react-router-dom'
 import { json } from '@shopify/remix-oxygen'
@@ -25,11 +25,10 @@ export function SubscriptionCard({
 }) {
   if (!subscription?.id) return null
   const handleClick = (id) => {
-    setIsNavOpen((prev) => !prev, id);
-  };
-  
-  
-  console.log("currentcustomer",currentcustomer);
+    setIsNavOpen((prev) => !prev, id)
+  }
+
+  console.log('currentcustomer', currentcustomer)
   return (
     <li className="grid text-center border rounded">
       <div className="grid items-center gap-4 p-4 md:gap-6 md:p-6 md:grid-cols-3">
@@ -47,7 +46,12 @@ export function SubscriptionCard({
           </p>
         </div>
         <div className="text-center md:text-right">
-          <a onClick={() => handleClick(currentcustomer.defaultAddress.id)} className="bg-custombgGreen text-white py-3 px-4 rounded cursor-pointer">EDIT</a>
+          <a
+            onClick={() => handleClick(currentcustomer.defaultAddress.id)}
+            className="px-4 py-3 text-white rounded cursor-pointer bg-custombgGreen"
+          >
+            EDIT
+          </a>
         </div>
       </div>
       <div className="self-end border-t-2 border-custombgGreen">
@@ -68,8 +72,8 @@ export function SubscriptionCard({
               {subscription.order_interval_unit}
             </h2>
             <Link
-              to={`/subscriptions/${subscription.id}`}
-              className="border border-2 font-bold text-lead text-[20px] border-custombgGreen px-4 py-2 text-lg block text-center"
+              to={`/account/subscriptions/${subscription.id}`}
+              className="border-2 font-bold text-lead text-[20px] border-custombgGreen px-4 py-2 text-lg block text-center"
               prefetch="intent"
             >
               Edit Selection
@@ -80,4 +84,3 @@ export function SubscriptionCard({
     </li>
   )
 }
-
