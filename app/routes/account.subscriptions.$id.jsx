@@ -6,8 +6,7 @@ import {
   getActiveChurnLandingPageURL,
   getSubscription,
   listBundleSelections,
-  skipCharge,
-  skipSubscriptionCharge,
+  updateBundleSelection,
 } from '@rechargeapps/storefront-client'
 
 import { CustomBundle } from '~/containers/CustomBundle'
@@ -46,18 +45,22 @@ export async function loader({ request, context, params }) {
     },
   })
 
-  const products = allProducts.filter((product) =>
-    product.collections.edges.some(
-      (collection) => collection.node.handle === allProductsHandler,
-    ),
-  )
-
   const freeProduct = allProducts.find(
     (product) => product.handle === freeProductHandler,
   )
   const bonusProduct = allProducts.find(
     (product) => product.handle === bonusProductHandler,
   )
+
+  const products = allProducts
+    .filter((product) =>
+      product.collections.edges.some(
+        (collection) => collection.node.handle === allProductsHandler,
+      ),
+    )
+    .filter(
+      (product) => Number(product.priceRange.minVariantPrice.amount) !== 0,
+    )
 
   if (!params.id) {
     return redirect(params?.locale ? `${params.locale}/account` : '/account')
@@ -78,14 +81,18 @@ export async function loader({ request, context, params }) {
 
   const bundle = bundle_selections.find(
     (el) => el.purchase_item_id === Number(params.id),
-  )?.items
+  )
+
+  const bundleId = bundle.id
+  const purchase_item_id = bundle.purchase_item_id
+  const bundleItems = bundle.items
 
   const idsSubscriptions = []
   const subscriptionData = {}
 
   let subscriptionProducts = []
 
-  for (const el of bundle) {
+  for (const el of bundleItems) {
     const idsSubscriptionItems = el.external_product_id
     const subscriptionId = `gid://shopify/Product/${idsSubscriptionItems}`
     idsSubscriptions.push(subscriptionId)
@@ -114,14 +121,14 @@ export async function loader({ request, context, params }) {
     }
   }
 
-  const bonusItemInBundle = bundle.find(
+  const bonusItemInBundle = bundleItems.find(
     (el) =>
       `gid://shopify/Product/${el.external_product_id}` === bonusProduct.id,
   )
-  const bonusItemVariantId = `gid://shopify/ProductVariant/${bonusItemInBundle.external_variant_id}`
-  const subscriptionBonusVariant = bonusProduct.variants.nodes.find(
-    (el) => el.id === bonusItemVariantId,
-  )
+  const bonusItemVariantId = `gid://shopify/ProductVariant/${bonusItemInBundle?.external_variant_id}`
+  const subscriptionBonusVariant = bonusItemInBundle
+    ? bonusProduct.variants.nodes.find((el) => el.id === bonusItemVariantId)
+    : null
 
   if (!subscription) {
     throw new Response('Subscription not found', { status: 404 })
@@ -145,6 +152,9 @@ export async function loader({ request, context, params }) {
 
   return json(
     {
+      id: params.id,
+      bundleId,
+      purchase_item_id,
       product,
       products,
       bonusProduct,
@@ -163,6 +173,35 @@ export async function loader({ request, context, params }) {
       },
     },
   )
+}
+
+export async function action({ request, context }) {
+  const form = await request.formData()
+  const data = JSON.parse(form.get('body'))
+  const bundleId = data.bundleId
+  const purchase_item_id = data.purchase_item_id
+  const products = data.products
+
+  const items = products.map((product) => ({
+    collection_id: '424769257698',
+    collection_source: 'shopify',
+    external_product_id: product.id.split('gid://shopify/Product/')[1],
+    external_variant_id: product.variants.nodes[0].id.split(
+      'gid://shopify/ProductVariant/',
+    )[1],
+    quantity: product.quantity,
+  }))
+
+  await rechargeQueryWrapper(
+    (session) =>
+      updateBundleSelection(session, bundleId, {
+        purchase_item_id,
+        items,
+      }),
+    context,
+  )
+
+  return json({ msg: 'ok' })
 }
 
 export default function SubscriptionRoute() {
