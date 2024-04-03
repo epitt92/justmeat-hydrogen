@@ -1,12 +1,10 @@
 import { useContext } from 'react'
 import { Button } from '~/components/Button'
-import { RootContext, CustomCollectionContext } from '~/contexts'
+import { RootContext, CustomBundleContext } from '~/contexts'
 
 export function CartCheckoutActions() {
   const { totalCost } = useContext(RootContext)
-  const { checkoutSubmitting, handleCheckout } = useContext(
-    CustomCollectionContext,
-  )
+  const { checkoutSubmitting, handleCheckout } = useContext(CustomBundleContext)
 
   return (
     <>

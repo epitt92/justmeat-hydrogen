@@ -1,16 +1,14 @@
 import { useContext, useState } from 'react'
 import { cn } from '~/lib/utils'
 import { Button } from '~/components/Button'
-import { RootContext, CustomCollectionContext } from '~/contexts'
+import { RootContext, CustomBundleContext } from '~/contexts'
 import { ProgressBar } from './ProgressBar'
 import { CartLines } from './CartLines'
 import { PlanPicker } from '../PlanPickerBlock/PlanPicker'
 
 export const MobileCart = () => {
   const { totalCost } = useContext(RootContext)
-  const { checkoutSubmitting, handleCheckout } = useContext(
-    CustomCollectionContext,
-  )
+  const { checkoutSubmitting, handleCheckout } = useContext(CustomBundleContext)
 
   const [cartOpen, setCartOpen] = useState(false)
 
