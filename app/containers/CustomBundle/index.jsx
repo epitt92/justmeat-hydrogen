@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { useLoaderData } from '@remix-run/react'
 
 import { useSubmitPromise } from '~/hooks/useSubmitPromise'
-import { RootContext, CustomCollectionContext } from '~/contexts'
+import { RootContext, CustomBundleContext } from '~/contexts'
 
 import { Cart } from './Cart'
 import { MobileCart } from './Cart/MobileCart'
@@ -58,7 +58,7 @@ export const CustomBundle = ({ subproduct }) => {
   }
 
   return (
-    <CustomCollectionContext.Provider
+    <CustomBundleContext.Provider
       value={{ checkoutSubmitting, setCheckoutSubmitting, handleCheckout }}
     >
       <section className="max-w-ful custom-collection-wrap">
@@ -133,7 +133,7 @@ export const CustomBundle = ({ subproduct }) => {
           onClose={() => setClickedProduct(null)}
         />
       </section>
-    </CustomCollectionContext.Provider>
+    </CustomBundleContext.Provider>
   )
 }
 
