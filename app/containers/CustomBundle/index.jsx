@@ -79,9 +79,9 @@ export const CustomBundle = () => {
           <div className="flex product-and-cart">
             <div className="grid grid-cols-2 product-grid md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12">
             {products.map((product, key) => {
-              const shouldSkip = sellingPlan && (product.handle === 'sweet-chili-thai-chicken' || product.handle === 'chimichurri-steak');
+              const shouldShow = !sellingPlan || (product.handle === 'sweet-chili-thai-chicken' || product.handle === 'chimichurri-steak');
               
-              return shouldSkip && product.handle !== 'free-meat-unlocked-at-125' && (
+              return shouldShow && product.handle !== 'free-meat-unlocked-at-125' && (
                 <ProductCard
                   key={key}
                   product={product}
