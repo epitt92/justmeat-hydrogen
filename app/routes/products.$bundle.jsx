@@ -161,6 +161,7 @@ export default function Product() {
   return (
     <CustomBundleContext.Provider
       value={{
+        fromOrder: true,
         sellingPlan,
         setSellingPlan,
         selectedProducts,

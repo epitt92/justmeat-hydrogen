@@ -197,6 +197,7 @@ export default function SubscriptionRoute() {
   return (
     <CustomBundleContext.Provider
       value={{
+        fromOrder: false,
         sellingPlan,
         setSellingPlan,
         selectedProducts,

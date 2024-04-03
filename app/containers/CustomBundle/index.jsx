@@ -13,7 +13,7 @@ export const CustomBundle = ({ subproduct }) => {
   const submit = useSubmitPromise()
   const { products, bonusProduct, freeProduct } = useLoaderData()
 
-  const { sellingPlan, bonusVariant, selectedProducts, totalCost } =
+  const { sellingPlan, bonusVariant, selectedProducts, totalCost, fromOrder } =
     useContext(CustomBundleContext)
 
   /* START : account management */
@@ -59,10 +59,12 @@ export const CustomBundle = ({ subproduct }) => {
 
   return (
     <section className="max-w-ful custom-collection-wrap">
-      <div className="flex gap-3 ">
-        <div className="w-[60px] h-[60px] hidden lg:flex rounded-[100%] bg-black justify-center items-center">
-          <span className="text-[40px] font-bold text-white">2</span>
-        </div>
+      <div className="flex gap-3">
+        {fromOrder && (
+          <div className="w-[60px] h-[60px] hidden lg:flex rounded-[100%] bg-black justify-center items-center">
+            <span className="text-[40px] font-bold text-white">2</span>
+          </div>
+        )}
 
         <main className="flex flex-col flex-1 gap-2 bg-white border-gray-400 border-solid main-section sm:border">
           <div className="flex items-center w-full gap-2 py-3 sm:py-0">
