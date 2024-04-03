@@ -9,6 +9,7 @@ import {
   listCharges,
   processCharge,
   updateSubscriptionChargeDate,
+  cancelSubscription,
 } from '@rechargeapps/storefront-client'
 
 import { CustomBundle } from '~/containers/CustomBundle'
@@ -176,7 +177,7 @@ export async function loader({ request, context, params }) {
   )
 }
 
-export async function action({ request, context }) {
+export async function action({ request, context, params }) {
   const form = await request.formData()
   const data = JSON.parse(form.get('body'))
 
@@ -221,11 +222,22 @@ export async function action({ request, context }) {
 
     case 'delay-subscription':
       const date = data.date
-      const subscriptionId = data.subscriptionId
 
       await rechargeQueryWrapper(
         (session) =>
-          updateSubscriptionChargeDate(session, subscriptionId, date),
+          updateSubscriptionChargeDate(session, Number(params.id), date),
+        context,
+      )
+
+      return json({ msg: 'ok' })
+
+    case 'cancel-subscription':
+      await rechargeQueryWrapper(
+        (session) =>
+          cancelSubscription(session, Number(params.id), {
+            cancellation_reason: 'Do not want it anymore.',
+            send_email: true,
+          }),
         context,
       )
 

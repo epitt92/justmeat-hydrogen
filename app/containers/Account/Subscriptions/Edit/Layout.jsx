@@ -1,16 +1,18 @@
 import { useState } from 'react'
 import { addDays, format } from 'date-fns'
-import { NavLink, useLoaderData } from '@remix-run/react'
+import { NavLink, useLoaderData, useNavigate } from '@remix-run/react'
 import { useSubmitPromise } from '~/hooks/useSubmitPromise'
 import { Button } from '~/components/Button'
 
 export const SubscriptionEditLayout = ({ children }) => {
   const submit = useSubmitPromise()
+  const navigate = useNavigate()
 
   const { id, subscription, upcomingChargeId } = useLoaderData()
 
   const [processing, setProcessing] = useState(false)
   const [delaying, setDelaying] = useState(false)
+  const [canceling, setCanceling] = useState(false)
 
   const handleProcess = async () => {
     setProcessing(true)
@@ -47,7 +49,6 @@ export const SubscriptionEditLayout = ({ children }) => {
         body: JSON.stringify({
           api: 'delay-subscription',
           date,
-          subscriptionId: subscription.id,
         }),
       },
       { method: 'post', action: `/account/subscriptions/${id}` },
@@ -60,6 +61,26 @@ export const SubscriptionEditLayout = ({ children }) => {
     setDelaying(false)
   }
 
+  const handleCancel = async () => {
+    setCanceling(true)
+
+    const res = await submit(
+      {
+        body: JSON.stringify({
+          api: 'cancel-subscription',
+        }),
+      },
+      { method: 'post', action: `/account/subscriptions/${id}` },
+    )
+
+    if (res.msg === 'ok') {
+      alert('Your subscription has been canceled')
+      navigate('..', { replace: true })
+    }
+
+    setCanceling(false)
+  }
+
   return (
     <div className="w-full flex flex-col justify-center items-center bg-[#eeeeee]">
       <div className="container mb-10 custom-collection-wrap">
@@ -68,7 +89,7 @@ export const SubscriptionEditLayout = ({ children }) => {
             end
             prefetch="intent"
             className="sm:absolute sm:left-0 py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
-            to="/account"
+            to="/account/subscriptions"
           >
             Back to Account
           </NavLink>
@@ -98,7 +119,11 @@ export const SubscriptionEditLayout = ({ children }) => {
         <div className="my-5">
           {subscription.status === 'active' && (
             <div className="mt-10 mb-10">
-              <Button className="inline-block py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white">
+              <Button
+                loading={canceling}
+                onClick={handleCancel}
+                className="inline-block py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
+              >
                 Cancel Subscription
               </Button>
             </div>
