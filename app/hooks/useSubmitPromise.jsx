@@ -1,35 +1,30 @@
-import React, { useMemo, useState, useEffect, useCallback } from 'react'
-import {
-  Await,
-  useSubmit,
-  useActionData,
-  useNavigation,
-} from '@remix-run/react'
+import { useEffect, useCallback, useRef } from 'react'
+import { useSubmit, useActionData, useNavigation } from '@remix-run/react'
 
 export function useSubmitPromise() {
   const submit = useSubmit()
   const navigation = useNavigation()
   const actionData = useActionData()
-  const $deferred = useMemo(() => deferred(), [])
+  const deferredRef = useRef(deferred())
 
   useEffect(() => {
     if (navigation.state === 'idle' && actionData) {
-      $deferred.resolve(actionData)
+      deferredRef.current.resolve(actionData)
     }
-  }, [$deferred, navigation.state, actionData])
+  }, [navigation.state, actionData])
 
   const _submit = useCallback(
     (target, options = {}) => {
+      deferredRef.current = deferred()
       submit(target, options)
-      return $deferred.promise
+      return deferredRef.current.promise
     },
-    [$deferred.promise, submit],
+    [submit],
   )
 
   return _submit
 }
 
-// create a *deferred* promise
 function deferred() {
   let resolve
   let reject
