@@ -115,53 +115,13 @@ export async function loader({ request, context, params }) {
   )
 }
 
-const Navigation = () => {
-  return (
-    <div className="flex justify-center w-full py-5 bg-white">
-      <NavLink
-        end
-        prefetch="intent"
-        className="px-[20px] "
-        to="/account/subscriptions"
-      >
-        Subscriptions &nbsp;
-      </NavLink>
-      <NavLink
-        end
-        prefetch="intent"
-        className="px-[20px] "
-        to="/account/order-history"
-      >
-        Order History
-      </NavLink>
-      <NavLink
-        end
-        prefetch="intent"
-        className="px-[20px] "
-        to="/account/account-details"
-      >
-        Account Details
-      </NavLink>
-      <Logout className="px-[20px] " />
-    </div>
-  )
-}
-
-const Logout = () => {
-  return (
-    <Form className="account-logout" method="POST" action="/account/logout">
-      &nbsp;<button type="submit">Logout</button>
-    </Form>
-  )
-}
-
 const Heading = () => {
   return (
-    <div className="flex items-center my-5">
+    <div className="relative flex justify-center items-center mt-[36px] mb-[30px]">
       <NavLink
         end
         prefetch="intent"
-        className="py-[12px] px-[20px] border border-black border-solid bg-white"
+        className="absolute left-0 py-[12px] px-[20px] border border-black border-solid bg-white"
         to="/account"
       >
         Back to Account
