@@ -41,7 +41,11 @@ export async function loader({ request, context }) {
     (product) => product.handle === bonusProductHandler,
   )
 
-  return json({ products, freeProduct, bonusProduct })
+  return json({
+    products,
+    freeProduct,
+    bonusProduct,
+  })
 }
 
 export async function action({ request, context }) {
@@ -161,6 +165,7 @@ export default function Product() {
   return (
     <CustomBundleContext.Provider
       value={{
+        fromOrder: true,
         sellingPlan,
         setSellingPlan,
         selectedProducts,

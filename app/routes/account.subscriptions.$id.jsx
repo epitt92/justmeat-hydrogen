@@ -71,9 +71,56 @@ export async function loader({ request, context, params }) {
     context,
   )
 
-  const subscriptionProducts = await rechargeQueryWrapper(
+  const { bundle_selections } = await rechargeQueryWrapper(
     (session) => listBundleSelections(session, params.id),
     context,
+  )
+
+  const bundle = bundle_selections.find(
+    (el) => el.purchase_item_id === Number(params.id),
+  )?.items
+
+  const idsSubscriptions = []
+  const subscriptionData = {}
+
+  let subscriptionProducts = []
+
+  for (const el of bundle) {
+    const idsSubscriptionItems = el.external_product_id
+    const subscriptionId = `gid://shopify/Product/${idsSubscriptionItems}`
+    idsSubscriptions.push(subscriptionId)
+    subscriptionData[subscriptionId] = el.quantity
+  }
+
+  for (const el of allProducts) {
+    if (idsSubscriptions.includes(el.id)) {
+      if (
+        el.handle !== freeProductHandler &&
+        el.handle !== bonusProductHandler
+      ) {
+        const quantity = subscriptionData[el.id]
+
+        const amount = el.priceRange?.maxVariantPrice?.amount
+        const totalAmount = (amount * quantity).toFixed(2)
+
+        const bindQuantityObject = {
+          ...el,
+          quantity,
+          amount,
+          totalAmount,
+        }
+        subscriptionProducts.push(bindQuantityObject)
+      }
+    }
+  }
+
+  const bonusItemInBundle = bundle.find(
+    (el) =>
+      `gid://shopify/Product/${el.external_product_id}` === bonusProduct.id,
+  )
+  const bonusItemVariantId = `gid://shopify/ProductVariant/${bonusItemInBundle.external_variant_id}`
+  const subscriptionBonusVariant = bonusProduct.variants.nodes.find(
+    (el) => el.id === bonusItemVariantId,
   )
 
   if (!subscription) {
@@ -98,14 +145,15 @@ export async function loader({ request, context, params }) {
 
   return json(
     {
-      subscription,
       product,
       products,
       bonusProduct,
+      subscription,
       freeProduct,
       cancelUrl,
       // skipshipment,
       subscriptionProducts,
+      subscriptionBonusVariant,
       shopCurrency: 'USD',
     },
     {
@@ -114,6 +162,66 @@ export async function loader({ request, context, params }) {
         'Set-Cookie': await context.rechargeSession.commit(),
       },
     },
+  )
+}
+
+export default function SubscriptionRoute() {
+  const {
+    subscription,
+    cancelUrl,
+    shopCurrency,
+    subscriptionProducts,
+    subscriptionBonusVariant,
+  } = useLoaderData()
+
+  const [selectedProducts, setSelectedProducts] = useState(subscriptionProducts)
+  const [bonusVariant, setBonusVariant] = useState(subscriptionBonusVariant)
+  const [sellingPlan, setSellingPlan] = useState('')
+  const [sellingPlanFrequency, setSellingPlanFrequency] = useState('')
+
+  const totalCost = selectedProducts.reduce(
+    (acc, curr) => acc + parseFloat(curr.totalAmount),
+    0,
+  )
+
+  return (
+    <CustomBundleContext.Provider
+      value={{
+        fromOrder: false,
+        sellingPlan,
+        setSellingPlan,
+        selectedProducts,
+        setSelectedProducts,
+        sellingPlanFrequency,
+        setSellingPlanFrequency,
+        bonusVariant,
+        setBonusVariant,
+        totalCost,
+      }}
+    >
+      <div className="w-full flex flex-col justify-center items-center bg-[#eeeeee]">
+        <div className="container mb-10 custom-collection-wrap">
+          <Heading />
+          <hr className="border border-[#707070] border-solid" />
+          <Timeframe />
+          <CustomBundle />
+          <div className="my-5">
+            {subscription.status === 'active' && (
+              <div className="mt-10 mb-10">
+                <a
+                  className="inline-block py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
+                  target="_self"
+                  href={cancelUrl}
+                  rel="noreferrer"
+                >
+                  Cancel Subscription
+                </a>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </CustomBundleContext.Provider>
   )
 }
 
@@ -153,83 +261,5 @@ const Timeframe = () => {
         1 Week Delay
       </NavLink>
     </div>
-  )
-}
-
-export default function SubscriptionRoute() {
-  const {
-    subscription,
-    product,
-    cancelUrl,
-    shopCurrency,
-    bonuses,
-    collection,
-    subscriptionProducts,
-  } = useLoaderData()
-  const [sellingPlan, _setSellingPlan] = useState('Delivery every 15 Days')
-  const [selectedProducts, _setSelectedProducts] = useState([])
-  const [bonusVariant, _setBonusVariant] = useState(null)
-  const [sellingPlanFrequency, _setSellingPlanFrequency] = useState(
-    'Delivery every 15 Days',
-  )
-
-  const totalCost = selectedProducts.reduce(
-    (acc, curr) => acc + parseFloat(curr.totalAmount),
-    0,
-  )
-
-  const setSellingPlan = (value) => {
-    _setSellingPlan(value)
-  }
-
-  const setSellingPlanFrequency = (value) => {
-    _setSellingPlanFrequency(value)
-  }
-
-  const setSelectedProducts = (value) => {
-    _setSelectedProducts(value)
-  }
-
-  const setBonusVariant = (value) => {
-    _setBonusVariant(value)
-  }
-
-  return (
-    <CustomBundleContext.Provider
-      value={{
-        sellingPlan,
-        setSellingPlan,
-        selectedProducts,
-        setSelectedProducts,
-        sellingPlanFrequency,
-        setSellingPlanFrequency,
-        bonusVariant,
-        setBonusVariant,
-        totalCost,
-      }}
-    >
-      <div className="w-full flex flex-col justify-center items-center bg-[#eeeeee]">
-        <div className="container mb-10 custom-collection-wrap">
-          <Heading />
-          <hr className="border border-[#707070] border-solid" />
-          <Timeframe />
-          <CustomBundle />
-          <div className="my-5">
-            {subscription.status === 'active' && (
-              <div className="mt-10 mb-10">
-                <a
-                  className="inline-block py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
-                  target="_self"
-                  href={cancelUrl}
-                  rel="noreferrer"
-                >
-                  Cancel Subscription
-                </a>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </CustomBundleContext.Provider>
   )
 }
