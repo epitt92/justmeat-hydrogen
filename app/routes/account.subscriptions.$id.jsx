@@ -178,30 +178,39 @@ export async function loader({ request, context, params }) {
 export async function action({ request, context }) {
   const form = await request.formData()
   const data = JSON.parse(form.get('body'))
-  const bundleId = data.bundleId
-  const purchase_item_id = data.purchase_item_id
-  const products = data.products
 
-  const items = products.map((product) => ({
-    collection_id: '424769257698',
-    collection_source: 'shopify',
-    external_product_id: product.id.split('gid://shopify/Product/')[1],
-    external_variant_id: product.variants.nodes[0].id.split(
-      'gid://shopify/ProductVariant/',
-    )[1],
-    quantity: product.quantity,
-  }))
+  const api = data.api
 
-  await rechargeQueryWrapper(
-    (session) =>
-      updateBundleSelection(session, bundleId, {
-        purchase_item_id,
-        items,
-      }),
-    context,
-  )
+  switch (api) {
+    case 'update-bundle':
+      const bundleId = data.bundleId
+      const purchase_item_id = data.purchase_item_id
+      const products = data.products
 
-  return json({ msg: 'ok' })
+      const items = products.map((product) => ({
+        collection_id: '424769257698',
+        collection_source: 'shopify',
+        external_product_id: product.id.split('gid://shopify/Product/')[1],
+        external_variant_id: product.variants.nodes[0].id.split(
+          'gid://shopify/ProductVariant/',
+        )[1],
+        quantity: product.quantity,
+      }))
+
+      await rechargeQueryWrapper(
+        (session) =>
+          updateBundleSelection(session, bundleId, {
+            purchase_item_id,
+            items,
+          }),
+        context,
+      )
+
+      return json({ msg: 'ok' })
+
+    default:
+      break
+  }
 }
 
 export default function SubscriptionRoute() {

@@ -11,7 +11,6 @@ import { ProductCard } from './ProductCard'
 
 export const CustomBundle = () => {
   const submit = useSubmitPromise()
-  const navigate = useNavigate()
   const {
     id,
     bundleId,
@@ -65,6 +64,7 @@ export const CustomBundle = () => {
       const res = await submit(
         {
           body: JSON.stringify({
+            api: 'update-bundle',
             bundleId,
             purchase_item_id,
             products,
@@ -75,6 +75,10 @@ export const CustomBundle = () => {
           action: `/account/subscriptions/${id}`,
         },
       )
+
+      if (res.msg === 'ok') {
+        alert('Bundle items in the subscription have been successfully updated')
+      }
     }
 
     setSubmitting(false)
