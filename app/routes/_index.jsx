@@ -190,7 +190,19 @@ export default function Homepage() {
           alt=""
         />
       </section>
-
+      <section className="w-full border bg-white flex justify-center hidden sm:block items-center p-20  ">
+      <div className='w-full'>
+      <iframe 
+        title="Loox Reviews Widget"
+        src="https://loox.io/widget/qZPveP9mjj/reviews?h=1712167200000&limit=20" 
+        width="100%" 
+        height="500px" 
+        frameBorder="0" 
+        scrolling="no" 
+        allowFullScreen
+      ></iframe>
+    </div>
+      </section>
       <section className="bg-[#eeeeee] flex justify-center items-center ">
         <div className="max-w-[1440px] w-[100%] flex justify-start gap-20 px-5 xl:px-10 sm:py-20 py-10 ">
           <div className="flex-col items-center gap-10 hidden xl:flex  w-4/12 ml-10">
