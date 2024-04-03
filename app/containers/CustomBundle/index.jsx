@@ -75,10 +75,6 @@ export const CustomBundle = () => {
           action: `/account/subscriptions/${id}`,
         },
       )
-
-      if (res.msg === 'ok') {
-        navigate('..', { replace: true })
-      }
     }
 
     setSubmitting(false)
