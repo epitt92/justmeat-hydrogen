@@ -81,7 +81,7 @@ export const CustomBundle = () => {
             {products.map((product, key) => {
               const shouldSkip = sellingPlan && (product.handle === 'sweet-chili-thai-chicken' || product.handle === 'chimichurri-steak');
               
-              return !shouldSkip && product.handle !== 'free-meat-unlocked-at-125' && (
+              return shouldSkip && product.handle !== 'free-meat-unlocked-at-125' && (
                 <ProductCard
                   key={key}
                   product={product}
