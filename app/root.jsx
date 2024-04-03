@@ -20,7 +20,7 @@ import sliderNavigation from 'swiper/css/navigation'
 import favicon from '../public/favicon.svg'
 import appStyles from '~/styles/app.css'
 import tailwindStyles from '~/styles/tailwind.css'
-import { RootContext } from '~/contexts'
+import { CustomBundleContext } from '~/contexts'
 import { Layout } from '~/components/Layout'
 import { SubscriptionCard } from '~/components/SubscriptionCard'
 import { FOOTER_QUERY, HEADER_QUERY } from '~/graphql/HeaderMenuFooter'
@@ -116,7 +116,6 @@ export async function loader({ context }) {
 export default function App() {
   const nonce = useNonce()
   const data = useLoaderData()
-  console.log('🚀 ~ App ~ data:', data)
 
   const [sellingPlan, _setSellingPlan] = useState('Delivery every 15 Days')
   const [selectedProducts, _setSelectedProducts] = useState([])
@@ -173,7 +172,7 @@ export default function App() {
   }
 
   return (
-    <RootContext.Provider
+    <CustomBundleContext.Provider
       value={{
         sellingPlan,
         setSellingPlan,
@@ -203,7 +202,7 @@ export default function App() {
           <LiveReload nonce={nonce} />
         </body>
       </html>
-    </RootContext.Provider>
+    </CustomBundleContext.Provider>
   )
 }
 

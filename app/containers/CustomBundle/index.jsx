@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { useLoaderData } from '@remix-run/react'
 
 import { useSubmitPromise } from '~/hooks/useSubmitPromise'
-import { RootContext, CustomBundleFormContext } from '~/contexts'
+import { CustomBundleContext, CustomBundleFormContext } from '~/contexts'
 
 import { Cart } from './Cart'
 import { MobileCart } from './Cart/MobileCart'
@@ -14,7 +14,7 @@ export const CustomBundle = ({ subproduct }) => {
   const { products, bonusProduct, freeProduct } = useLoaderData()
 
   const { sellingPlan, bonusVariant, selectedProducts, totalCost } =
-    useContext(RootContext)
+    useContext(CustomBundleContext)
 
   /* START : account management */
   let active_subscription_pro

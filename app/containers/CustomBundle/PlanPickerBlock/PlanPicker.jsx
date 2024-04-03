@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { cn } from '~/lib/utils'
-import { RootContext } from '~/contexts'
+import { CustomBundleContext } from '~/contexts'
 import { CheckBox } from '~/icons/CheckBox'
 
 export const PlanPicker = () => {
@@ -9,8 +9,7 @@ export const PlanPicker = () => {
     setSellingPlan,
     sellingPlanFrequency,
     setSellingPlanFrequency,
-  } = useContext(RootContext)
-
+  } = useContext(CustomBundleContext)
 
   return (
     <div className="flex gap-2 flex-col sm:flex-row w-[100%] sm:max-w-[760px]">
