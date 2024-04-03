@@ -82,7 +82,8 @@ export async function loader({ request, context, params }) {
 
   const idsSubscriptions = []
   const subscriptionData = {}
-  const subscriptionProducts = []
+
+  let subscriptionProducts = []
 
   for (const el of bundle) {
     const idsSubscriptionItems = el.external_product_id
@@ -91,23 +92,36 @@ export async function loader({ request, context, params }) {
     subscriptionData[subscriptionId] = el.quantity
   }
 
-  for (const el of products) {
-    let idCollectionItem = el.id
-    if (idsSubscriptions.includes(idCollectionItem)) {
-      const quantity = subscriptionData[idCollectionItem]
+  for (const el of allProducts) {
+    if (idsSubscriptions.includes(el.id)) {
+      if (
+        el.handle !== freeProductHandler &&
+        el.handle !== bonusProductHandler
+      ) {
+        const quantity = subscriptionData[el.id]
 
-      const amount = el.priceRange?.maxVariantPrice?.amount
-      const totalAmount = (amount * quantity).toFixed(2)
+        const amount = el.priceRange?.maxVariantPrice?.amount
+        const totalAmount = (amount * quantity).toFixed(2)
 
-      const bindQuantityObject = {
-        ...el,
-        quantity,
-        amount,
-        totalAmount,
+        const bindQuantityObject = {
+          ...el,
+          quantity,
+          amount,
+          totalAmount,
+        }
+        subscriptionProducts.push(bindQuantityObject)
       }
-      subscriptionProducts.push(bindQuantityObject)
     }
   }
+
+  const bonusItemInBundle = bundle.find(
+    (el) =>
+      `gid://shopify/Product/${el.external_product_id}` === bonusProduct.id,
+  )
+  const bonusItemVariantId = `gid://shopify/ProductVariant/${bonusItemInBundle.external_variant_id}`
+  const subscriptionBonusVariant = bonusProduct.variants.nodes.find(
+    (el) => el.id === bonusItemVariantId,
+  )
 
   if (!subscription) {
     throw new Response('Subscription not found', { status: 404 })
@@ -131,14 +145,15 @@ export async function loader({ request, context, params }) {
 
   return json(
     {
-      subscription,
       product,
       products,
       bonusProduct,
+      subscription,
       freeProduct,
       cancelUrl,
       // skipshipment,
       subscriptionProducts,
+      subscriptionBonusVariant,
       shopCurrency: 'USD',
     },
     {
@@ -151,36 +166,23 @@ export async function loader({ request, context, params }) {
 }
 
 export default function SubscriptionRoute() {
-  const { subscription, cancelUrl, shopCurrency, subscriptionProducts } =
-    useLoaderData()
-  const [sellingPlan, _setSellingPlan] = useState('Delivery every 15 Days')
-  const [selectedProducts, _setSelectedProducts] =
-    useState(subscriptionProducts)
-  const [bonusVariant, _setBonusVariant] = useState(null)
-  const [sellingPlanFrequency, _setSellingPlanFrequency] = useState(
-    'Delivery every 15 Days',
-  )
+  const {
+    subscription,
+    cancelUrl,
+    shopCurrency,
+    subscriptionProducts,
+    subscriptionBonusVariant,
+  } = useLoaderData()
+
+  const [selectedProducts, setSelectedProducts] = useState(subscriptionProducts)
+  const [bonusVariant, setBonusVariant] = useState(subscriptionBonusVariant)
+  const [sellingPlan, setSellingPlan] = useState('')
+  const [sellingPlanFrequency, setSellingPlanFrequency] = useState('')
 
   const totalCost = selectedProducts.reduce(
     (acc, curr) => acc + parseFloat(curr.totalAmount),
     0,
   )
-
-  const setSellingPlan = (value) => {
-    _setSellingPlan(value)
-  }
-
-  const setSellingPlanFrequency = (value) => {
-    _setSellingPlanFrequency(value)
-  }
-
-  const setSelectedProducts = (value) => {
-    _setSelectedProducts(value)
-  }
-
-  const setBonusVariant = (value) => {
-    _setBonusVariant(value)
-  }
 
   return (
     <CustomBundleContext.Provider
