@@ -117,23 +117,23 @@ export async function loader({ request, context, params }) {
 
 const Heading = () => {
   return (
-    <div className="relative flex justify-center items-center mt-[36px] mb-[30px]">
+    <div className="relative flex sm:flex-row flex-col sm:gap-0 gap-2 sm:justify-center sm:items-center items-start mt-[36px] mb-[30px]">
       <NavLink
         end
         prefetch="intent"
-        className="absolute left-0 py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
+        className="sm:absolute sm:left-0 py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
         to="/account"
       >
         Back to Account
       </NavLink>
-      <h3 className="text-4xl font-bold">Customize Your Order</h3>
+      <h3 className="text-2xl font-bold sm:text-4xl">Customize Your Order</h3>
     </div>
   )
 }
 
 const Timeframe = () => {
   return (
-    <div className="flex gap-2 my-5">
+    <div className="flex gap-2 mt-6 mb-3 sm:mt-10 sm:mb-5">
       <NavLink
         end
         prefetch="intent"
@@ -169,14 +169,14 @@ export default function SubscriptionRoute() {
     <div className="w-full flex flex-col justify-center items-center bg-[#eeeeee]">
       <div className="container mb-10 custom-collection-wrap">
         <Heading />
-        <hr className="border border-black border-solid" />
+        <hr className="border border-[#707070] border-solid" />
         <Timeframe />
         <CustomBundle />
         <div className="my-5">
           {subscription.status === 'active' && (
             <div className="mt-10 mb-10">
               <a
-                className="py-[12px] px-[20px] border border-black border-solid bg-white"
+                className="py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
                 target="_self"
                 href={cancelUrl}
                 rel="noreferrer"

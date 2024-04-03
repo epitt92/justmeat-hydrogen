@@ -23,6 +23,7 @@ import tailwindStyles from '~/styles/tailwind.css'
 import { RootContext } from '~/contexts'
 import { Layout } from '~/components/Layout'
 import { SubscriptionCard } from '~/components/SubscriptionCard'
+import { FOOTER_QUERY, HEADER_QUERY } from '~/graphql/HeaderMenuFooter'
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -115,7 +116,9 @@ export async function loader({ context }) {
 export default function App() {
   const nonce = useNonce()
   const data = useLoaderData()
-  const [sellingPlan, _setSellingPlan] = useState("Delivery every 15 Days")
+  console.log('🚀 ~ App ~ data:', data)
+
+  const [sellingPlan, _setSellingPlan] = useState('Delivery every 15 Days')
   const [selectedProducts, _setSelectedProducts] = useState([])
   const [bonusVariant, _setBonusVariant] = useState(null)
   const [sellingPlanFrequency, _setSellingPlanFrequency] = useState(
@@ -245,78 +248,3 @@ export function ErrorBoundary() {
     </html>
   )
 }
-
-const MENU_FRAGMENT = `#graphql
-  fragment MenuItem on MenuItem {
-    id
-    resourceId
-    tags
-    title
-    type
-    url
-  }
-  fragment ChildMenuItem on MenuItem {
-    ...MenuItem
-  }
-  fragment ParentMenuItem on MenuItem {
-    ...MenuItem
-    items {
-      ...ChildMenuItem
-    }
-  }
-  fragment Menu on Menu {
-    id
-    items {
-      ...ParentMenuItem
-    }
-  }
-`
-
-const HEADER_QUERY = `#graphql
-  fragment Shop on Shop {
-    id
-    name
-    description
-    primaryDomain {
-      url
-    }
-    brand {
-      logo {
-        image {
-          url
-        }
-      }
-    }
-  }
-  query Header(
-    $country: CountryCode
-    $headerMenuHandle: String!
-    $language: LanguageCode
-  ) @inContext(language: $language, country: $country) {
-    shop {
-      ...Shop
-    }
-    menu(handle: $headerMenuHandle) {
-      ...Menu
-    }
-  }
-  ${MENU_FRAGMENT}
-`
-
-const FOOTER_QUERY = `#graphql
-  query Footer(
-    $country: CountryCode
-    $footerMenuHandle: String!
-    $language: LanguageCode
-  ) @inContext(language: $language, country: $country) {
-    menu(handle: $footerMenuHandle) {
-      ...Menu
-    }
-  }
-  ${MENU_FRAGMENT}
-`
-
-/** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
-/** @typedef {import('@remix-run/react').ShouldRevalidateFunction} ShouldRevalidateFunction */
-/** @typedef {import('@shopify/hydrogen/storefront-api-types').CustomerAccessToken} CustomerAccessToken */
-/** @typedef {import('@shopify/remix-oxygen').SerializeFrom<loader>} LoaderReturnData */
