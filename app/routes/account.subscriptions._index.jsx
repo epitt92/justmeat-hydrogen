@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import { json } from '@shopify/remix-oxygen'
 import {
   Form,
@@ -47,6 +47,7 @@ export async function loader({ context }) {
     customer: data.customer,
   })
 }
+
 export async function action({ request, context }) {
   const { customerAccount } = context
 
@@ -204,26 +205,27 @@ export default function AccountSubscriptions() {
     </div>
   )
 }
+
 function AccountSubscription({ subscriptions, currentcustomer }) {
   return (
     <div className="bg-sublistbgGray">
       <div className="w-[95%] md:w-[90%] mx-auto">
-        <div className="grid w-full gap-4 py-8  md:gap-8">
+        <div className="grid w-full gap-4 py-8 md:gap-8">
           <h2 className="font-bold text-lead text-[28px] text-center md:text-left">
             Your Subscriptions
           </h2>
-          <div className="grid bg-custombgGreen w-auto md:w-[300px] p-6 block text-white text-xl text-center md:text-left">
+          <div className="bg-custombgGreen w-auto md:w-[300px] p-6 block text-white text-xl text-center md:text-left">
             <span>Next Order Processing On</span>
             <span>{subscriptions[0].next_charge_scheduled_at}</span>
           </div>
-          <hr className="border-gray-500 border-t-2"></hr>
+          <hr className="border-t-2 border-gray-500"></hr>
           {subscriptions?.length ? (
             <Subscriptions
               subscriptions={subscriptions}
               currentcustomer={currentcustomer}
             />
           ) : (
-            <EmptySubscriptions />
+            <> </>
           )}
         </div>
       </div>
@@ -232,103 +234,102 @@ function AccountSubscription({ subscriptions, currentcustomer }) {
 }
 
 function Subscriptions({ subscriptions, currentcustomer }) {
-  const [isNavOpen, setIsNavOpen] = useState(false);
-console.log("subscriptions",subscriptions);
-const uniquePairs = new Set();
+  const [isNavOpen, setIsNavOpen] = useState(false)
+  console.log('subscriptions', subscriptions)
+  const uniquePairs = new Set()
   const handleNavToggle = (prevState, id) => {
-    setIsNavOpen(prevState);
+    setIsNavOpen(prevState)
     // Handle id as needed
-    console.log("ID:", id);
-  };
-  
+    console.log('ID:', id)
+  }
+
   const checkIfDuplicate = (subscriptionId, addressId) => {
-    const pair = `${subscriptionId}-${addressId}`;
+    const pair = `${subscriptionId}-${addressId}`
     if (uniquePairs.has(pair)) {
-      return true; // Pair already exists, so it's a duplicate
+      return true // Pair already exists, so it's a duplicate
     } else {
-      uniquePairs.add(pair); // Add the pair to the Set
-      return false; // Pair is unique
+      uniquePairs.add(pair) // Add the pair to the Set
+      return false // Pair is unique
     }
-  };
+  }
   return (
     <>
-    <ul className="grid bg-white border border-2 border-custombgGreen">
-    { subscriptions.map((subscription) => (
-        <SubscriptionCard
-        setIsNavOpen={handleNavToggle}
-          subscription={subscription}
-          currentcustomer={currentcustomer}
-          key={subscription.id}
-        />
-    ))
-      }
-    </ul>
-    <div className={isNavOpen ? "block  w-full  md:w-[20%] border-[#B2B2B2] border-l fixed overflow-y-auto md:overflow-y-hidden h-screen top-0 right-0 bg-white z-10 flex flex-col" : "hidden"}>
-            <div
-              className="w-full border-[#B2B2B2] border-b px-4 pt-4 pb-2 sticky "
+      <ul className="grid bg-white border border-2 border-custombgGreen">
+        {subscriptions.map((subscription) => (
+          <SubscriptionCard
+            setIsNavOpen={handleNavToggle}
+            subscription={subscription}
+            currentcustomer={currentcustomer}
+            key={subscription.id}
+          />
+        ))}
+      </ul>
+      <div
+        className={
+          isNavOpen
+            ? 'block  w-full  md:w-[20%] border-[#B2B2B2] border-l fixed overflow-y-auto md:overflow-y-hidden h-screen top-0 right-0 bg-white z-10 flex flex-col'
+            : 'hidden'
+        }
+      >
+        <div className="w-full border-[#B2B2B2] border-b px-4 pt-4 pb-2 sticky ">
+          <div className="flex items-center justify-between ">
+            <h1 className="text-[20px] font-bold">Edit Shipping Address</h1>
+            <svg
+              className="w-8 h-8 cursor-pointer text-gray"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              onClick={() => setIsNavOpen(false)}
             >
-                <div className='flex items-center justify-between '>
-                <h1 className='text-[20px] font-bold'>Edit Shipping Address</h1>
-                <svg
-                className="h-8 w-8 text-gray cursor-pointer"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                onClick={() => setIsNavOpen(false)}
-              >
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-                </div>
-             
-            </div>
-            <div className="px-4 py-4">
-          
-            <ExistingAddresses/>
-
-
-            </div>
-    </div>
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </div>
+        </div>
+        <div className="px-4 py-4">
+          <ExistingAddresses />
+        </div>
+      </div>
     </>
   )
 }
 export function ExistingAddresses() {
   const { customer } = useOutletContext()
   const { addresses } = customer
-  const address = addresses.nodes[0];
+  const address = addresses.nodes[0]
   return (
     <div>
-        <AddressForm key={address.id} addressId={address.id} address={address}>
-          {({ stateForMethod }) => (
-            <div>
-              <button
-                className="rounded-sm w-full bg-[#252525] px-6 py-2 mb-4 text-sm font-semibold text-white shadow-sm border-2 border-black"
-                disabled={stateForMethod('PUT') !== 'idle'}
-                formMethod="PUT"
-                type="submit"
-              >
-                {stateForMethod('PUT') !== 'idle' ? 'Saving' : 'Save'}
-              </button>
-            </div>
-          )}
-        </AddressForm>
+      <AddressForm key={address.id} addressId={address.id} address={address}>
+        {({ stateForMethod }) => (
+          <div>
+            <button
+              className="rounded-sm w-full bg-[#252525] px-6 py-2 mb-4 text-sm font-semibold text-white shadow-sm border-2 border-black"
+              disabled={stateForMethod('PUT') !== 'idle'}
+              formMethod="PUT"
+              type="submit"
+            >
+              {stateForMethod('PUT') !== 'idle' ? 'Saving' : 'Save'}
+            </button>
+          </div>
+        )}
+      </AddressForm>
     </div>
   )
 }
 
 export function AddressForm({ addressId, address, children }) {
   const { state, formMethod } = useNavigation()
- 
+
   /** @type {ActionReturnData} */
   const action = useActionData()
   const error = action?.error?.[addressId]
 
   return (
     <Form id={addressId}>
-      <div className=" grid grid-cols-1 gap-x-3 gap-y-2 sm:grid-cols-6 overflow-y-auto">
+      <div className="grid grid-cols-1 overflow-y-auto gap-x-3 gap-y-2 sm:grid-cols-6">
         <div className="sm:col-span-3">
           <input type="hidden" name="addressId" defaultValue={addressId} />
           <label
@@ -387,9 +388,7 @@ export function AddressForm({ addressId, address, children }) {
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               type="text"
               defaultValue={address?.address1 ?? ''}
-              autoComplete="address-one"
               placeholder="Address1"
-              aria-label="address1"
               minLength={5}
             />
           </div>
@@ -408,9 +407,7 @@ export function AddressForm({ addressId, address, children }) {
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               type="text"
               defaultValue={address?.address2 ?? ''}
-              autoComplete="address2"
               placeholder="Address2"
-              aria-label="address2"
             />
           </div>
         </div>
@@ -428,9 +425,7 @@ export function AddressForm({ addressId, address, children }) {
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               type="text"
               defaultValue={address?.company ?? ''}
-              autoComplete="company"
               placeholder="company"
-              aria-label="company"
             />
           </div>
         </div>
@@ -468,9 +463,7 @@ export function AddressForm({ addressId, address, children }) {
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               type="text"
               defaultValue={address?.city ?? ''}
-              autoComplete="city"
               placeholder="city"
-              aria-label="city"
             />
           </div>
         </div>
@@ -488,9 +481,7 @@ export function AddressForm({ addressId, address, children }) {
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               type="text"
               defaultValue={address?.zoneCode ?? ''}
-              autoComplete="state"
               placeholder="state"
-              aria-label="state"
             />
           </div>
         </div>
@@ -508,9 +499,7 @@ export function AddressForm({ addressId, address, children }) {
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               type="text"
               defaultValue={address?.zip ?? ''}
-              autoComplete="postalcode"
               placeholder="postalcode"
-              aria-label="postalcode"
             />
           </div>
         </div>
@@ -528,9 +517,7 @@ export function AddressForm({ addressId, address, children }) {
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               type="tel"
               defaultValue={address?.phoneNumber ?? ''}
-              autoComplete="phone"
               placeholder="phone"
-              aria-label="phone"
               pattern="^\+?[1-9]\d{3,14}$"
             />
           </div>

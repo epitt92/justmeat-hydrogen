@@ -107,3 +107,10 @@
 .mobile-cart .cart-line-quantity > div {
   width: 100%;
 }
+.social-icon {
+  fill: white;
+}
+
+.social-icon:hover {
+  fill: #862e1b;
+}
