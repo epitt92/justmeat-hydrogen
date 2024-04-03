@@ -1,4 +1,3 @@
-// import clsx from 'clsx';
 import { json, redirect } from '@shopify/remix-oxygen'
 import { NavLink, useLoaderData, Form } from '@remix-run/react'
 import { Money, getPaginationVariables } from '@shopify/hydrogen'
@@ -10,47 +9,53 @@ import {
   skipSubscriptionCharge,
 } from '@rechargeapps/storefront-client'
 
-import CustomCollection from '~/containers/Order/CustomCollection'
+import { CustomBundle } from '~/containers/CustomBundle'
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
-import SubscriptionCollection from '~/containers/Order/SubscriptionCollection'
+import { ALL_PRODUCTS_QUERY, PRODUCT_QUERYTT } from '~/graphql/Product'
 
 export const meta = ({ data }) => {
   return [
     {
-      title: `Subscription ${data?.subscription?.product_title}${data?.subscription?.variant_title
-        ? ` (${data?.subscription?.variant_title})`
-        : ''
-        }`,
+      title: `Subscription ${data?.subscription?.product_title}${
+        data?.subscription?.variant_title
+          ? ` (${data?.subscription?.variant_title})`
+          : ''
+      }`,
     },
   ]
-} 
+}
 
 export async function loader({ request, context, params }) {
-  const handle = 'all-products'
   const { storefront } = context
-  const paginationVariables = getPaginationVariables(request, {
-    pageBy: 15,
-  })
 
-  if (!handle) {
-    return redirect('/collections')
-  }
+  const allProductsHandler = 'all-products'
+  const freeProductHandler = 'raspberry-bbq-chicken-breast'
+  const bonusProductHandler = 'free-meat-unlocked-at-125'
 
-  const { collection } = await storefront.query(COLLECTION_QUERY, {
-    variables: { handle, ...paginationVariables },
-  })
+  const variables = getPaginationVariables(request, { pageBy: 50 })
 
   const {
-    collection: { products: bonuses },
-  } = await storefront.query(COLLECTION_QUERY, {
-    variables: { handle: 'free-bonus-meat', ...paginationVariables },
+    products: { nodes: allProducts },
+  } = await storefront.query(ALL_PRODUCTS_QUERY, {
+    variables: {
+      ...variables,
+      country: storefront.i18n.country,
+      language: storefront.i18n.language,
+    },
   })
 
-  if (!collection) {
-    throw new Response(`Collection ${handle} not found`, {
-      status: 404,
-    })
-  }
+  const products = allProducts.filter((product) =>
+    product.collections.edges.some(
+      (collection) => collection.node.handle === allProductsHandler,
+    ),
+  )
+
+  const freeProduct = allProducts.find(
+    (product) => product.handle === freeProductHandler,
+  )
+  const bonusProduct = allProducts.find(
+    (product) => product.handle === bonusProductHandler,
+  )
 
   if (!params.id) {
     return redirect(params?.locale ? `${params.locale}/account` : '/account')
@@ -78,6 +83,11 @@ export async function loader({ request, context, params }) {
     context,
   )
 
+  const skipshipment = await rechargeQueryWrapper(
+    (session) => skipSubscriptionCharge(session, params.id, '2024-04-29'),
+    context,
+  )
+
   const { product } = await storefront.query(PRODUCT_QUERYTT, {
     variables: {
       id: `gid://shopify/Product/${subscription.external_variant_id.ecommerce}`,
@@ -86,11 +96,13 @@ export async function loader({ request, context, params }) {
 
   return json(
     {
-      collection,
       subscription,
       product,
-      bonuses,
+      products,
+      bonusProduct,
+      freeProduct,
       cancelUrl,
+      skipshipment,
       subscriptionProducts,
       shopCurrency: 'USD',
     },
@@ -103,14 +115,34 @@ export async function loader({ request, context, params }) {
   )
 }
 
-
 const Navigation = () => {
-  return(
-    <div className='w-full flex justify-center py-5 bg-white'>
-      <NavLink end prefetch="intent" className="px-[20px] "to="/account/subscriptions">Subscriptions &nbsp;</NavLink>
-      <NavLink end prefetch="intent" className="px-[20px] " to="/account/order-history">Order History</NavLink>
-      <NavLink end prefetch="intent" className="px-[20px] " to="/account/account-details">Account Details</NavLink>
-      <Logout className="px-[20px] "/>
+  return (
+    <div className="flex justify-center w-full py-5 bg-white">
+      <NavLink
+        end
+        prefetch="intent"
+        className="px-[20px] "
+        to="/account/subscriptions"
+      >
+        Subscriptions &nbsp;
+      </NavLink>
+      <NavLink
+        end
+        prefetch="intent"
+        className="px-[20px] "
+        to="/account/order-history"
+      >
+        Order History
+      </NavLink>
+      <NavLink
+        end
+        prefetch="intent"
+        className="px-[20px] "
+        to="/account/account-details"
+      >
+        Account Details
+      </NavLink>
+      <Logout className="px-[20px] " />
     </div>
   )
 }
@@ -125,18 +157,39 @@ const Logout = () => {
 
 const Heading = () => {
   return (
-    <div className='flex items-center my-5'>
-      <NavLink end prefetch="intent" className="py-[12px] px-[20px] border border-black border-solid bg-white" to="/account">Back to Account</NavLink>
+    <div className="flex items-center my-5">
+      <NavLink
+        end
+        prefetch="intent"
+        className="py-[12px] px-[20px] border border-black border-solid bg-white"
+        to="/account"
+      >
+        Back to Account
+      </NavLink>
       <h3>Customize Your Order</h3>
     </div>
   )
 }
 
 const Timeframe = () => {
-  return(
-    <div className='flex my-5'>
-      <NavLink end prefetch="intent" className="py-[12px] px-[20px]  border border-black border-solid bg-white mr-2" to="">Process Now</NavLink>
-      <NavLink end prefetch="intent" className="py-[12px] px-[20px]  border border-black border-solid bg-white mr-2" to="">1 Week Delay</NavLink>
+  return (
+    <div className="flex my-5">
+      <NavLink
+        end
+        prefetch="intent"
+        className="py-[12px] px-[20px]  border border-black border-solid bg-white mr-2"
+        to=""
+      >
+        Process Now
+      </NavLink>
+      <NavLink
+        end
+        prefetch="intent"
+        className="py-[12px] px-[20px]  border border-black border-solid bg-white mr-2"
+        to=""
+      >
+        1 Week Delay
+      </NavLink>
     </div>
   )
 }
@@ -156,21 +209,22 @@ export default function SubscriptionRoute() {
 
   console.log('customCollectionProducts++')
   return (
-    <div className='w-full flex flex-col justify-center items-center bg-[#eeeeee]'>
+    <div className="w-full flex flex-col justify-center items-center bg-[#eeeeee]">
       <Navigation />
       <div className="max-w-[1200px] w-[100%] custom-collection-wrap mb-10">
-        {/* <CustomCollection
-          col={customCollectionProducts}
-          subproduct={subscriptionProducts}
-        /> */}
         <Heading />
-        <hr className='border border-black border-solid' />
+        <hr className="border border-black border-solid" />
         <Timeframe />
-        <SubscriptionCollection />
-        <div className='my-5'>
+        <CustomBundle />
+        <div className="my-5">
           {subscription.status === 'active' && (
-            <div className='mt-10 mb-10'>
-              <a className='py-[12px] px-[20px] border border-black border-solid bg-white' target="_self" href={cancelUrl} rel="noreferrer">
+            <div className="mt-10 mb-10">
+              <a
+                className="py-[12px] px-[20px] border border-black border-solid bg-white"
+                target="_self"
+                href={cancelUrl}
+                rel="noreferrer"
+              >
                 Cancel Subscription
               </a>
             </div>
@@ -180,228 +234,3 @@ export default function SubscriptionRoute() {
     </div>
   )
 }
-
-const PRODUCT_VARIANT_FRAGMENT = `#graphql
-  fragment ProductVariant on ProductVariant {
-    availableForSale
-    compareAtPrice {
-      amount
-      currencyCode
-    }
-    id
-    image {
-      __typename
-      id
-      url
-      altText
-      width
-      height
-    }
-    price {
-      amount
-      currencyCode
-    }
-    product {
-      title
-      handle
-    }
-    selectedOptions {
-      name
-      value
-    }
-    sku
-    title
-    unitPrice {
-      amount
-      currencyCode
-    }
-  }
-`
-
-const PRODUCT_QUERYTT = `#graphql
-  query getProductById($id: ID!) {
-    product(id: $id) {
-      id
-      handle
-    }
-  }
-`
-
-const PRODUCT_FRAGMENT = `#graphql
-  fragment Product on Product {
-    id
-    title
-    vendor
-    handle
-    descriptionHtml
-    description
-    options {
-      name
-      values
-    }
-    selectedVariant: variantBySelectedOptions(selectedOptions: $selectedOptions, ignoreUnknownOptions: true, caseInsensitiveMatch: true) {
-      ...ProductVariant
-    }
-    variants(first: 1) {
-      nodes {
-        ...ProductVariant
-      }
-    }
-    seo {
-      description
-      title
-    }
-  }
-  ${PRODUCT_VARIANT_FRAGMENT}
-`
-
-const PRODUCT_QUERY = `#graphql
-  query Product(
-    $country: CountryCode
-    $handle: String!
-    $language: LanguageCode
-    $selectedOptions: [SelectedOptionInput!]!
-  ) @inContext(country: $country, language: $language) {
-    product(handle: $handle) {
-      ...Product
-    }
-  }
-  ${PRODUCT_FRAGMENT}
-`
-
-const PRODUCT_VARIANTS_FRAGMENT = `#graphql
-  fragment ProductVariants on Product {
-    variants(first: 250) {
-      nodes {
-        ...ProductVariant
-      }
-    }
-  }
-  ${PRODUCT_VARIANT_FRAGMENT}
-`
-
-const VARIANTS_QUERY = `#graphql
-  ${PRODUCT_VARIANTS_FRAGMENT}
-  query ProductVariants(
-    $country: CountryCode
-    $language: LanguageCode
-    $handle: String!
-  ) @inContext(country: $country, language: $language) {
-    product(handle: $handle) {
-      ...ProductVariants
-    }
-  }
-`
-
-/** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
-/** @template T @typedef {import('@remix-run/react').MetaFunction<T>} MetaFunction */
-/** @typedef {import('@remix-run/react').FetcherWithComponents} FetcherWithComponents */
-/** @typedef {import('storefrontapi.generated').ProductFragment} ProductFragment */
-/** @typedef {import('storefrontapi.generated').ProductVariantsQuery} ProductVariantsQuery */
-/** @typedef {import('storefrontapi.generated').ProductVariantFragment} ProductVariantFragment */
-/** @typedef {import('@shopify/hydrogen').VariantOption} VariantOption */
-/** @typedef {import('@shopify/hydrogen/storefront-api-types').CartLineInput} CartLineInput */
-/** @typedef {import('@shopify/hydrogen/storefront-api-types').SelectedOption} SelectedOption */
-/** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */
-
-// custom collection qusery
-
-const PRODUCT_ITEM_FRAGMENT = `#graphql
-  fragment MoneyProductItem on MoneyV2 {
-    amount
-    currencyCode
-  }
-  fragment ProductItem on Product {
-    id
-    handle
-    title
-    description
-    images(first: 100) {
-      nodes {
-        altText
-        height
-        url
-        width
-      }
-    }
-    featuredImage {
-      id
-      altText
-      url
-      width
-      height
-    }
-    priceRange {
-      minVariantPrice {
-        ...MoneyProductItem
-      }
-      maxVariantPrice {
-        ...MoneyProductItem
-      }
-    }
-    variants(first: 1) {
-      nodes {
-        id
-        selectedOptions {
-          name
-          value
-        }
-      }
-    }
-  }
-`
-
-const COLLECTION_QUERY = `#graphql
-  ${PRODUCT_ITEM_FRAGMENT}
-  query Collection(
-    $handle: String!
-    $country: CountryCode
-    $language: LanguageCode
-    $first: Int
-    $last: Int
-    $startCursor: String
-    $endCursor: String
-  ) @inContext(country: $country, language: $language) {
-    collection(handle: $handle) {
-      id
-      handle
-      title
-      description
-      
-      products(
-        first: $first,
-        last: $last,
-        before: $startCursor,
-        after: $endCursor
-      ) {
-        nodes {
-          ...ProductItem
-        }
-        pageInfo {
-          hasPreviousPage
-          hasNextPage
-          endCursor
-          startCursor
-        }
-      }
-    }
-  }
-`
-
-const METAFIELDS_QUERY = `#graphql
-  query Metafields($productId: ID!) {
-    node(id: $productId) {
-      ... on Product {
-        metafields(first: 10) {
-          edges {
-            node {
-              namespace
-              key
-              value
-            }
-          }
-        }
-      }
-    }
-  }
-`
