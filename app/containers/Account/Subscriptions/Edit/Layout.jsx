@@ -1,0 +1,78 @@
+import { NavLink, useLoaderData } from '@remix-run/react'
+import { useSubmitPromise } from '~/hooks/useSubmitPromise'
+import { Button } from '~/components/Button'
+import { useState } from 'react'
+
+export const SubscriptionEditLayout = ({ children }) => {
+  const submit = useSubmitPromise()
+
+  const { id, subscription, upcomingChargeId } = useLoaderData()
+  const [processing, setProcessing] = useState(false)
+
+  const handleProcess = async () => {
+    setProcessing(true)
+
+    const res = await submit(
+      {
+        body: JSON.stringify({
+          api: 'process-charge',
+          chargeId: upcomingChargeId,
+        }),
+      },
+      {
+        method: 'post',
+        action: `/account/subscriptions/${id}`,
+      },
+    )
+
+    if (res.msg === 'ok') {
+      alert("We've successfully proceeded your order")
+    }
+
+    setProcessing(false)
+  }
+
+  return (
+    <div className="w-full flex flex-col justify-center items-center bg-[#eeeeee]">
+      <div className="container mb-10 custom-collection-wrap">
+        <div className="relative flex sm:flex-row flex-col sm:gap-0 gap-2 sm:justify-center sm:items-center items-start mt-[36px] mb-[30px]">
+          <NavLink
+            end
+            prefetch="intent"
+            className="sm:absolute sm:left-0 py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
+            to="/account"
+          >
+            Back to Account
+          </NavLink>
+          <h3 className="text-2xl font-bold sm:text-4xl">
+            Customize Your Order
+          </h3>
+        </div>
+        <hr className="border border-[#707070] border-solid" />
+
+        <div className="flex gap-2 mt-6 mb-3 sm:mt-10 sm:mb-5">
+          <Button
+            loading={processing}
+            onClick={handleProcess}
+            className="py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
+          >
+            Process Now
+          </Button>
+          <Button className="py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white">
+            1 Week Delay
+          </Button>
+        </div>
+        {children}
+        <div className="my-5">
+          {subscription.status === 'active' && (
+            <div className="mt-10 mb-10">
+              <Button className="inline-block py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white">
+                Cancel Subscription
+              </Button>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
