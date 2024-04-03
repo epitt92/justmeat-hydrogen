@@ -78,17 +78,16 @@ export const CustomBundle = () => {
           )}
           <div className="flex product-and-cart">
             <div className="grid grid-cols-2 product-grid md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12">
-            {products.map((product, key) => {
-              const shouldShow = !sellingPlan || (product.handle === 'sweet-chili-thai-chicken' || product.handle === 'chimichurri-steak');
-              
-              return shouldShow && product.handle !== 'free-meat-unlocked-at-125' && (
-                <ProductCard
-                  key={key}
-                  product={product}
-                  onClick={() => setClickedProduct(product)}
-                />
-              );
-            })}
+              {products.map(
+                (product, key) =>
+                  product.handle !== 'free-meat-unlocked-at-125' && (
+                    <ProductCard
+                      key={key}
+                      product={product}
+                      onClick={() => setClickedProduct(product)}
+                    />
+                  ),
+              )}
             </div>
             <div className="cart-wrapper sticky top-[10px] h-fit mb-[10px] hidden xl:block w-4/12">
               <div className="h-full border">
