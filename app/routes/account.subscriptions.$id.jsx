@@ -83,10 +83,10 @@ export async function loader({ request, context, params }) {
     context,
   )
 
-  const skipshipment = await rechargeQueryWrapper(
-    (session) => skipSubscriptionCharge(session, params.id, '2024-04-29'),
-    context,
-  )
+  // const skipshipment = await rechargeQueryWrapper(
+  //   (session) => skipSubscriptionCharge(session, params.id, '2024-04-29'),
+  //   context,
+  // )
 
   const { product } = await storefront.query(PRODUCT_QUERYTT, {
     variables: {
@@ -102,7 +102,7 @@ export async function loader({ request, context, params }) {
       bonusProduct,
       freeProduct,
       cancelUrl,
-      skipshipment,
+      // skipshipment,
       subscriptionProducts,
       shopCurrency: 'USD',
     },
@@ -204,13 +204,9 @@ export default function SubscriptionRoute() {
     collection,
     subscriptionProducts,
   } = useLoaderData()
-  const address = subscription.include?.address
-  const customCollectionProducts = collection.products
 
-  console.log('customCollectionProducts++')
   return (
     <div className="w-full flex flex-col justify-center items-center bg-[#eeeeee]">
-      <Navigation />
       <div className="max-w-[1200px] w-[100%] custom-collection-wrap mb-10">
         <Heading />
         <hr className="border border-black border-solid" />
