@@ -58,7 +58,9 @@ const DialogContent = ({ product,onClose }) => {
 
   return (
     <>
-      <button onClick={() => onClose()} className='absolute overflow-hidden right-[25px] top-[40px] w-[26px] h-[26px] cursor-pointer'>
+    <div className='bg-white md:bg-[#EDEAEA] py-4 px-5 flex justify-between md:justify-end items-center mb-3'>
+      <p className='block md:hidden'>Quick View</p>
+      <button onClick={() => onClose()} className=' w-[26px] h-[26px] cursor-pointer'>
         <svg viewBox="0 0 12 12" version="1.1"
               xmlns="http://www.w3.org/2000/svg">
               <line x1="1" y1="11" 
@@ -71,7 +73,9 @@ const DialogContent = ({ product,onClose }) => {
                 strokeWidth="2"/>
             </svg>
           </button>
-      <div className="md:grid grid-cols-2 lg:grid-cols-3 pt-[50px] pb-[20px] ">
+          </div>
+      
+      <div className="md:grid grid-cols-2 lg:grid-cols-3 pb-[20px] ">
         <div className="px-[24px] overflow-hidden w-full product-gallary">
           <ProductGallary media={media} />
         </div>
