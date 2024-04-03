@@ -8,6 +8,7 @@ import {
   updateBundleSelection,
   listCharges,
   processCharge,
+  updateSubscriptionChargeDate,
 } from '@rechargeapps/storefront-client'
 
 import { CustomBundle } from '~/containers/CustomBundle'
@@ -213,6 +214,18 @@ export async function action({ request, context }) {
 
       await rechargeQueryWrapper(
         (session) => processCharge(session, chargeId),
+        context,
+      )
+
+      return json({ msg: 'ok' })
+
+    case 'delay-subscription':
+      const date = data.date
+      const subscriptionId = data.subscriptionId
+
+      await rechargeQueryWrapper(
+        (session) =>
+          updateSubscriptionChargeDate(session, subscriptionId, date),
         context,
       )
 

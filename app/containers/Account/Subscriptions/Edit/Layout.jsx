@@ -1,13 +1,16 @@
+import { useState } from 'react'
+import { addDays, format } from 'date-fns'
 import { NavLink, useLoaderData } from '@remix-run/react'
 import { useSubmitPromise } from '~/hooks/useSubmitPromise'
 import { Button } from '~/components/Button'
-import { useState } from 'react'
 
 export const SubscriptionEditLayout = ({ children }) => {
   const submit = useSubmitPromise()
 
   const { id, subscription, upcomingChargeId } = useLoaderData()
+
   const [processing, setProcessing] = useState(false)
+  const [delaying, setDelaying] = useState(false)
 
   const handleProcess = async () => {
     setProcessing(true)
@@ -30,6 +33,31 @@ export const SubscriptionEditLayout = ({ children }) => {
     }
 
     setProcessing(false)
+  }
+
+  const handleDelay = async () => {
+    setDelaying(true)
+    const date = format(
+      addDays(subscription.next_charge_scheduled_at, 7),
+      'yyyy-MM-dd',
+    )
+
+    const res = await submit(
+      {
+        body: JSON.stringify({
+          api: 'delay-subscription',
+          date,
+          subscriptionId: subscription.id,
+        }),
+      },
+      { method: 'post', action: `/account/subscriptions/${id}` },
+    )
+
+    if (res.msg === 'ok') {
+      alert('Your next order has been delayed one week')
+    }
+
+    setDelaying(false)
   }
 
   return (
@@ -58,7 +86,11 @@ export const SubscriptionEditLayout = ({ children }) => {
           >
             Process Now
           </Button>
-          <Button className="py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white">
+          <Button
+            loading={delaying}
+            onClick={handleDelay}
+            className="py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
+          >
             1 Week Delay
           </Button>
         </div>
