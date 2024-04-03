@@ -58,7 +58,7 @@ const DialogContent = ({ product,onClose }) => {
 
   return (
     <>
-      <button onClick={() => onClose()} className='absolute overflow-hidden right-[25px] top-[40px] w-[26px] h-[26px]'>
+      <button onClick={() => onClose()} className='absolute overflow-hidden right-[25px] top-[40px] w-[26px] h-[26px] cursor-pointer'>
         <svg viewBox="0 0 12 12" version="1.1"
               xmlns="http://www.w3.org/2000/svg">
               <line x1="1" y1="11" 
