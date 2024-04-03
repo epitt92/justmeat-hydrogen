@@ -121,23 +121,23 @@ const Heading = () => {
       <NavLink
         end
         prefetch="intent"
-        className="absolute left-0 py-[12px] px-[20px] border border-black border-solid bg-white"
+        className="absolute left-0 py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
         to="/account"
       >
         Back to Account
       </NavLink>
-      <h3>Customize Your Order</h3>
+      <h3 className="text-4xl font-bold">Customize Your Order</h3>
     </div>
   )
 }
 
 const Timeframe = () => {
   return (
-    <div className="flex my-5">
+    <div className="flex gap-2 my-5">
       <NavLink
         end
         prefetch="intent"
-        className="py-[12px] px-[20px]  border border-black border-solid bg-white mr-2"
+        className="py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
         to=""
       >
         Process Now
@@ -145,7 +145,7 @@ const Timeframe = () => {
       <NavLink
         end
         prefetch="intent"
-        className="py-[12px] px-[20px]  border border-black border-solid bg-white mr-2"
+        className="py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
         to=""
       >
         1 Week Delay
@@ -167,7 +167,7 @@ export default function SubscriptionRoute() {
 
   return (
     <div className="w-full flex flex-col justify-center items-center bg-[#eeeeee]">
-      <div className="max-w-[1200px] w-[100%] custom-collection-wrap mb-10">
+      <div className="container mb-10 custom-collection-wrap">
         <Heading />
         <hr className="border border-black border-solid" />
         <Timeframe />
