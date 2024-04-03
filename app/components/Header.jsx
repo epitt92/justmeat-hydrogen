@@ -2,7 +2,7 @@ import { Await, NavLink, useMatches } from '@remix-run/react'
 import { Suspense, useRef } from 'react'
 import { useRootLoaderData } from '~/root'
 import OrderButton from './OrderButton'
-import logo from '~/assets/logo.svg'
+import logo from '~/assets/logo.png'
 
 // import {useLocation} from "react-router-dom"
 /**
@@ -127,11 +127,11 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
   const Landingheader = () => {
     return (
       <div className="container flex justify-center items-center py-[3px] mx-auto relative landingheader">
-         <NavLink end prefetch="intent" to="/"> <img
+        <img
           src={logo}
           className="object-contain sm:w-[156px] h-[40px] sm:h-[90px]"
           alt="Logo"
-        /></NavLink>
+        />
         <NavLink end prefetch="intent" to="/" className="absolute left-0">
           <svg
             xmlns="http://www.w3.org/2000/svg"
