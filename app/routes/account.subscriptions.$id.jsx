@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { json, redirect } from '@shopify/remix-oxygen'
 import { NavLink, useLoaderData, Form } from '@remix-run/react'
 import { Money, getPaginationVariables } from '@shopify/hydrogen'
@@ -10,6 +11,7 @@ import {
 } from '@rechargeapps/storefront-client'
 
 import { CustomBundle } from '~/containers/CustomBundle'
+import { CustomBundleContext } from '~/contexts'
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
 import { ALL_PRODUCTS_QUERY, PRODUCT_QUERYTT } from '~/graphql/Product'
 
@@ -164,29 +166,70 @@ export default function SubscriptionRoute() {
     collection,
     subscriptionProducts,
   } = useLoaderData()
+  const [sellingPlan, _setSellingPlan] = useState('Delivery every 15 Days')
+  const [selectedProducts, _setSelectedProducts] = useState([])
+  const [bonusVariant, _setBonusVariant] = useState(null)
+  const [sellingPlanFrequency, _setSellingPlanFrequency] = useState(
+    'Delivery every 15 Days',
+  )
+
+  const totalCost = selectedProducts.reduce(
+    (acc, curr) => acc + parseFloat(curr.totalAmount),
+    0,
+  )
+
+  const setSellingPlan = (value) => {
+    _setSellingPlan(value)
+  }
+
+  const setSellingPlanFrequency = (value) => {
+    _setSellingPlanFrequency(value)
+  }
+
+  const setSelectedProducts = (value) => {
+    _setSelectedProducts(value)
+  }
+
+  const setBonusVariant = (value) => {
+    _setBonusVariant(value)
+  }
 
   return (
-    <div className="w-full flex flex-col justify-center items-center bg-[#eeeeee]">
-      <div className="container mb-10 custom-collection-wrap">
-        <Heading />
-        <hr className="border border-[#707070] border-solid" />
-        <Timeframe />
-        <CustomBundle />
-        <div className="my-5">
-          {subscription.status === 'active' && (
-            <div className="mt-10 mb-10">
-              <a
-                className="py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
-                target="_self"
-                href={cancelUrl}
-                rel="noreferrer"
-              >
-                Cancel Subscription
-              </a>
-            </div>
-          )}
+    <CustomBundleContext.Provider
+      value={{
+        sellingPlan,
+        setSellingPlan,
+        selectedProducts,
+        setSelectedProducts,
+        sellingPlanFrequency,
+        setSellingPlanFrequency,
+        bonusVariant,
+        setBonusVariant,
+        totalCost,
+      }}
+    >
+      <div className="w-full flex flex-col justify-center items-center bg-[#eeeeee]">
+        <div className="container mb-10 custom-collection-wrap">
+          <Heading />
+          <hr className="border border-[#707070] border-solid" />
+          <Timeframe />
+          <CustomBundle />
+          <div className="my-5">
+            {subscription.status === 'active' && (
+              <div className="mt-10 mb-10">
+                <a
+                  className="inline-block py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
+                  target="_self"
+                  href={cancelUrl}
+                  rel="noreferrer"
+                >
+                  Cancel Subscription
+                </a>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </CustomBundleContext.Provider>
   )
 }
