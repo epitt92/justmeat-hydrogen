@@ -205,6 +205,7 @@ export default function AccountSubscriptions() {
     </div>
   )
 }
+
 function AccountSubscription({ subscriptions, currentcustomer }) {
   return (
     <div className="bg-sublistbgGray">
