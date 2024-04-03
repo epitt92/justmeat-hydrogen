@@ -71,10 +71,43 @@ export async function loader({ request, context, params }) {
     context,
   )
 
-  const subscriptionProducts = await rechargeQueryWrapper(
+  const { bundle_selections } = await rechargeQueryWrapper(
     (session) => listBundleSelections(session, params.id),
     context,
   )
+
+  const bundle = bundle_selections.find(
+    (el) => el.purchase_item_id === Number(params.id),
+  )?.items
+
+  const idsSubscriptions = []
+  const subscriptionData = {}
+  const subscriptionProducts = []
+
+  for (const el of bundle) {
+    const idsSubscriptionItems = el.external_product_id
+    const subscriptionId = `gid://shopify/Product/${idsSubscriptionItems}`
+    idsSubscriptions.push(subscriptionId)
+    subscriptionData[subscriptionId] = el.quantity
+  }
+
+  for (const el of products) {
+    let idCollectionItem = el.id
+    if (idsSubscriptions.includes(idCollectionItem)) {
+      const quantity = subscriptionData[idCollectionItem]
+
+      const amount = el.priceRange?.maxVariantPrice?.amount
+      const totalAmount = (amount * quantity).toFixed(2)
+
+      const bindQuantityObject = {
+        ...el,
+        quantity,
+        amount,
+        totalAmount,
+      }
+      subscriptionProducts.push(bindQuantityObject)
+    }
+  }
 
   if (!subscription) {
     throw new Response('Subscription not found', { status: 404 })
@@ -117,57 +150,12 @@ export async function loader({ request, context, params }) {
   )
 }
 
-const Heading = () => {
-  return (
-    <div className="relative flex sm:flex-row flex-col sm:gap-0 gap-2 sm:justify-center sm:items-center items-start mt-[36px] mb-[30px]">
-      <NavLink
-        end
-        prefetch="intent"
-        className="sm:absolute sm:left-0 py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
-        to="/account"
-      >
-        Back to Account
-      </NavLink>
-      <h3 className="text-2xl font-bold sm:text-4xl">Customize Your Order</h3>
-    </div>
-  )
-}
-
-const Timeframe = () => {
-  return (
-    <div className="flex gap-2 mt-6 mb-3 sm:mt-10 sm:mb-5">
-      <NavLink
-        end
-        prefetch="intent"
-        className="py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
-        to=""
-      >
-        Process Now
-      </NavLink>
-      <NavLink
-        end
-        prefetch="intent"
-        className="py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
-        to=""
-      >
-        1 Week Delay
-      </NavLink>
-    </div>
-  )
-}
-
 export default function SubscriptionRoute() {
-  const {
-    subscription,
-    product,
-    cancelUrl,
-    shopCurrency,
-    bonuses,
-    collection,
-    subscriptionProducts,
-  } = useLoaderData()
+  const { subscription, cancelUrl, shopCurrency, subscriptionProducts } =
+    useLoaderData()
   const [sellingPlan, _setSellingPlan] = useState('Delivery every 15 Days')
-  const [selectedProducts, _setSelectedProducts] = useState([])
+  const [selectedProducts, _setSelectedProducts] =
+    useState(subscriptionProducts)
   const [bonusVariant, _setBonusVariant] = useState(null)
   const [sellingPlanFrequency, _setSellingPlanFrequency] = useState(
     'Delivery every 15 Days',
@@ -232,5 +220,44 @@ export default function SubscriptionRoute() {
         </div>
       </div>
     </CustomBundleContext.Provider>
+  )
+}
+
+const Heading = () => {
+  return (
+    <div className="relative flex sm:flex-row flex-col sm:gap-0 gap-2 sm:justify-center sm:items-center items-start mt-[36px] mb-[30px]">
+      <NavLink
+        end
+        prefetch="intent"
+        className="sm:absolute sm:left-0 py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
+        to="/account"
+      >
+        Back to Account
+      </NavLink>
+      <h3 className="text-2xl font-bold sm:text-4xl">Customize Your Order</h3>
+    </div>
+  )
+}
+
+const Timeframe = () => {
+  return (
+    <div className="flex gap-2 mt-6 mb-3 sm:mt-10 sm:mb-5">
+      <NavLink
+        end
+        prefetch="intent"
+        className="py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
+        to=""
+      >
+        Process Now
+      </NavLink>
+      <NavLink
+        end
+        prefetch="intent"
+        className="py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
+        to=""
+      >
+        1 Week Delay
+      </NavLink>
+    </div>
   )
 }
