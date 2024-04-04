@@ -1,8 +1,9 @@
 import { useContext } from 'react'
-import { RootContext } from '~/contexts'
+import { CustomBundleContext } from '~/contexts'
 
 export const Add = ({ product }) => {
-  const { selectedProducts, setSelectedProducts } = useContext(RootContext)
+  const { selectedProducts, setSelectedProducts } =
+    useContext(CustomBundleContext)
 
   const productPrice = product?.priceRange?.maxVariantPrice?.amount
 

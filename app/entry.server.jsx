@@ -27,6 +27,7 @@ export default async function handleRequest(
       'https://fonts.googleapis.com',
       'https://fonts.gstatic.com',
       'https://monorail-edge.shopifysvc.com',
+      'https://loox.io',
     ],
   })
 

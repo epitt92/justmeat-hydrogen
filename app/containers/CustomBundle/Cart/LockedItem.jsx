@@ -1,11 +1,12 @@
 import { useContext } from 'react'
 import { useLoaderData } from '@remix-run/react'
 
-import { RootContext } from '~/contexts'
+import { CustomBundleContext } from '~/contexts'
 
 export function LockedItem() {
   const { bonusProduct } = useLoaderData()
-  const { bonusVariant, setBonusVariant, totalCost } = useContext(RootContext)
+  const { bonusVariant, setBonusVariant, totalCost } =
+    useContext(CustomBundleContext)
 
   const bonusVariants = bonusProduct.variants.nodes
 

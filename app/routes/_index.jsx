@@ -53,7 +53,7 @@ export default function Homepage() {
             Your browser does not support the video tag.
           </video>
         </div>
-        <div className="flex flex-col z-10 justify-center items-center p-5 gap-6 w-max-[1440px] ">
+        <div className="flex flex-col z-10 justify-center items-center p-5 gap-6 w-max-[1440px] overlay-css-cs">
           <div className="flex flex-col justify-center items-center gap-4 py-16 sm:py-44 mt-[-30px] w-full sm:w-8/12">
             <p className="sm:text-5xl text-3xl leading-[55px] font-bold text-white">
               No Fuss, All Flavor <br></br>
@@ -73,13 +73,13 @@ export default function Homepage() {
       <section>
         <NavLink end prefetch="intent" to="/products/custom-bundle">
           <img
-            src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/subcription_banner.webp?v=1709994462"
+            src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/Ad_1_-_Desktop_1.jpg?v=1712239695"
             className="sm:block hidden"
             width="100%"
             alt=""
           />
           <img
-            src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/Ranch_Rub_Mobile.webp?v=1710451473"
+            src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/Ad_1_-_Mobile_2.jpg?v=1712239740"
             className="sm:hidden block"
             width="100%"
             alt=""
@@ -193,7 +193,9 @@ export default function Homepage() {
           alt=""
         />
       </section>
-
+      <section className="w-full border bg-white flex justify-center hidden sm:block items-center p-20  ">
+      <div id="looxReviews" data-loox-aggregate></div>
+      </section>
       <section className="bg-[#eeeeee] flex justify-center items-center ">
         <div className="max-w-[1440px] w-[100%] flex justify-start gap-20 px-5 xl:px-10 sm:py-20 py-10 ">
           <div className="flex-col items-center gap-10 hidden xl:flex  w-4/12 ml-10">
