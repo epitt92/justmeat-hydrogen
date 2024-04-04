@@ -2,12 +2,11 @@ import { useContext } from 'react'
 import { useLoaderData } from '@remix-run/react'
 
 import { CartLineItem } from './CartLineItem'
-import { CustomBundleContext } from '~/contexts'
+import { RootContext } from '~/contexts'
 
 export function CartLines() {
   const { bonusProduct, freeProduct } = useLoaderData()
-  const { bonusVariant, selectedProducts, totalCost } =
-    useContext(CustomBundleContext)
+  const { bonusVariant, selectedProducts, totalCost } = useContext(RootContext)
 
   const bonusLine = {
     ...bonusProduct,

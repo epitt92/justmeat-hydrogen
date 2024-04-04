@@ -1,11 +1,11 @@
-import { Await, NavLink, useMatches } from '@remix-run/react'
-import { Suspense, useContext, useRef } from 'react'
+import { NavLink, useMatches } from '@remix-run/react'
+import { useContext, useRef } from 'react'
 import { useRootLoaderData } from '~/root'
 import OrderButton from './OrderButton'
+import { CartButton } from './CartButton'
 import logo from '~/assets/logo.png'
 import { Button } from './Button'
 import { HamburgerOpen } from '~/icons/HamburgerOpen'
-import { Cart as CartIcon } from '~/icons/Cart'
 import { LayoutContext } from '~/contexts'
 
 export function Header() {
@@ -118,7 +118,7 @@ export function Header() {
             >
               <HamburgerOpen />
             </Button>
-            {/* <CartToggle cart={cart} /> */}
+            <CartButton />
           </div>
         </div>
       </div>
@@ -212,35 +212,6 @@ export function HeaderMenu({ menu, primaryDomainUrl, viewport }) {
         )
       })}
     </nav>
-  )
-}
-
-function CartBadge({ count }) {
-  return (
-    <NavLink end prefetch="intent" to="/products/custom-bundle">
-      <span className="relative flex w-10 cursor-pointer CartIcon sm:w-5">
-        <CartIcon />
-        <span className="absolute top-[-5px] right-[-8px] w-[20px] h-[20px] text-[10px] rounded-[100%] items-center bg-black text-white flex justify-center ">
-          ({count})
-        </span>
-      </span>
-    </NavLink>
-  )
-}
-
-/**
- * @param {Pick<HeaderProps, 'cart'>}
- */
-function CartToggle({ cart }) {
-  return (
-    <Suspense fallback={<CartBadge count={0} />}>
-      <Await resolve={cart}>
-        {(cart) => {
-          if (!cart) return <CartBadge count={0} />
-          return <CartBadge count={cart.totalQuantity || 0} />
-        }}
-      </Await>
-    </Suspense>
   )
 }
 

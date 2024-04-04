@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import { json, redirect } from '@shopify/remix-oxygen'
+import { useContext, useEffect } from 'react'
 import { useLoaderData } from '@remix-run/react'
+import { json, redirect } from '@shopify/remix-oxygen'
 import { getPaginationVariables } from '@shopify/hydrogen'
 import {
   getSubscription,
@@ -13,8 +13,8 @@ import {
 } from '@rechargeapps/storefront-client'
 
 import { CustomBundle } from '~/containers/CustomBundle'
-import { CustomBundleContext } from '~/contexts'
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
+import { RootContext } from '~/contexts'
 import { ALL_PRODUCTS_QUERY } from '~/graphql/Product'
 import { SubscriptionEditLayout } from '~/containers/Account/Subscriptions/Edit/Layout'
 
@@ -249,36 +249,17 @@ export async function action({ request, context, params }) {
 }
 
 export default function SubscriptionRoute() {
+  const { setSelectedProducts, setBonusVariant } = useContext(RootContext)
   const { subscriptionProducts, subscriptionBonusVariant } = useLoaderData()
 
-  const [selectedProducts, setSelectedProducts] = useState(subscriptionProducts)
-  const [bonusVariant, setBonusVariant] = useState(subscriptionBonusVariant)
-  const [sellingPlan, setSellingPlan] = useState('')
-  const [sellingPlanFrequency, setSellingPlanFrequency] = useState('')
-
-  const totalCost = selectedProducts.reduce(
-    (acc, curr) => acc + parseFloat(curr.totalAmount),
-    0,
-  )
+  useEffect(() => {
+    setSelectedProducts(subscriptionProducts)
+    setBonusVariant(subscriptionBonusVariant)
+  }, [])
 
   return (
-    <CustomBundleContext.Provider
-      value={{
-        fromOrder: false,
-        sellingPlan,
-        setSellingPlan,
-        selectedProducts,
-        setSelectedProducts,
-        sellingPlanFrequency,
-        setSellingPlanFrequency,
-        bonusVariant,
-        setBonusVariant,
-        totalCost,
-      }}
-    >
-      <SubscriptionEditLayout>
-        <CustomBundle />
-      </SubscriptionEditLayout>
-    </CustomBundleContext.Provider>
+    <SubscriptionEditLayout>
+      <CustomBundle />
+    </SubscriptionEditLayout>
   )
 }

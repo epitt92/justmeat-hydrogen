@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { useNonce } from '@shopify/hydrogen'
 import { defer } from '@shopify/remix-oxygen'
 import {
@@ -113,11 +114,109 @@ export async function loader({ context }) {
 }
 
 export default function App() {
+  const matches = useMatches()
   const nonce = useNonce()
   const data = useLoaderData()
 
+  const isCustomBundlePage =
+    matches.at(-1).pathname === '/products/custom-bundle'
+
+  const [sellingPlan, _setSellingPlan] = useState(
+    isCustomBundlePage ? 'Delivery every 15 Days' : '',
+  )
+  const [selectedProducts, _setSelectedProducts] = useState([])
+  const [bonusVariant, _setBonusVariant] = useState(null)
+  const [sellingPlanFrequency, _setSellingPlanFrequency] = useState(
+    isCustomBundlePage ? 'Delivery every 15 Days' : '',
+  )
+  const [cartProductsCount, setCartProductsCount] = useState(0)
+
+  const totalCost = selectedProducts.reduce(
+    (acc, curr) => acc + parseFloat(curr.totalAmount),
+    0,
+  )
+
+  useEffect(() => {
+    const _sellingPlan = window.localStorage.getItem('_sellingPlan')
+    const _selectedProducts = window.localStorage.getItem('_selectedProducts')
+    const _bonusVariant = window.localStorage.getItem('_bonusVariant')
+    const _sellingPlanFrequency = window.localStorage.getItem(
+      '_sellingPlanFrequency',
+    )
+
+    if (_selectedProducts) {
+      const products = JSON.parse(_selectedProducts)
+      const count = products.reduce((prev, item) => prev + item.quantity, 0)
+      setCartProductsCount(count)
+    }
+
+    if (isCustomBundlePage) {
+      if (_sellingPlan) {
+        _setSellingPlan(JSON.parse(_sellingPlan))
+      }
+      if (_sellingPlanFrequency) {
+        _setSellingPlanFrequency(JSON.parse(_sellingPlanFrequency))
+      }
+      if (_selectedProducts) {
+        _setSelectedProducts(JSON.parse(_selectedProducts))
+      }
+      if (_bonusVariant) {
+        setBonusVariant(JSON.parse(_bonusVariant))
+      }
+    }
+  }, [])
+
+  const setSellingPlan = (value) => {
+    _setSellingPlan(value)
+    if (isCustomBundlePage) {
+      window.localStorage.setItem('_sellingPlan', JSON.stringify(value))
+    }
+  }
+
+  const setSellingPlanFrequency = (value) => {
+    _setSellingPlanFrequency(value)
+    if (isCustomBundlePage) {
+      window.localStorage.setItem(
+        '_sellingPlanFrequency',
+        JSON.stringify(value),
+      )
+    }
+  }
+
+  const setSelectedProducts = (value) => {
+    _setSelectedProducts(value)
+
+    if (isCustomBundlePage) {
+      window.localStorage.setItem('_selectedProducts', JSON.stringify(value))
+
+      const count = value.reduce((prev, item) => prev + item.quantity, 0)
+      setCartProductsCount(count)
+    }
+  }
+
+  const setBonusVariant = (value) => {
+    _setBonusVariant(value)
+    if (isCustomBundlePage) {
+      window.localStorage.setItem('_bonusVariant', JSON.stringify(value))
+    }
+  }
+
   return (
-    <RootContext.Provider value={{}}>
+    <RootContext.Provider
+      value={{
+        fromOrder: isCustomBundlePage,
+        sellingPlan,
+        setSellingPlan,
+        selectedProducts,
+        setSelectedProducts,
+        sellingPlanFrequency,
+        setSellingPlanFrequency,
+        bonusVariant,
+        setBonusVariant,
+        totalCost,
+        cartProductsCount,
+      }}
+    >
       <html lang="en">
         <head>
           <meta charSet="utf-8" />
@@ -133,7 +232,10 @@ export default function App() {
           <ScrollRestoration nonce={nonce} />
           <Scripts nonce={nonce} />
           <LiveReload nonce={nonce} />
-          <script async src="//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com"></script>
+          <script
+            async
+            src="//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com"
+          ></script>
         </body>
       </html>
     </RootContext.Provider>
@@ -178,7 +280,10 @@ export function ErrorBoundary() {
         <Scripts nonce={nonce} />
         <LiveReload nonce={nonce} />
 
-        <script async src="//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com"></script>
+        <script
+          async
+          src="//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com"
+        ></script>
       </body>
     </html>
   )

@@ -241,12 +241,10 @@ function AccountSubscription({ subscriptions, currentcustomer }) {
 
 function Subscriptions({ subscriptions, currentcustomer }) {
   const [isNavOpen, setIsNavOpen] = useState(false)
-  console.log('subscriptions', subscriptions)
   const uniquePairs = new Set()
   const handleNavToggle = (prevState, id) => {
     setIsNavOpen(prevState)
     // Handle id as needed
-    console.log('ID:', id)
   }
 
   const checkIfDuplicate = (subscriptionId, addressId) => {
