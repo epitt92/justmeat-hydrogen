@@ -38,6 +38,7 @@ export async function loader({ context }) {
       }),
     context,
   )
+
   return json({
     headers: {
       'Cache-Control': 'no-cache, no-store, must-revalidate',
@@ -194,13 +195,18 @@ export async function action({ request, context }) {
 
 export default function AccountSubscriptions() {
   const { subscriptionsResponse, customer } = useLoaderData()
+
   return (
     <div className="subscriptions">
-      {subscriptionsResponse.subscriptions && (
+      {subscriptionsResponse.subscriptions.length > 0 ? (
         <AccountSubscription
           subscriptions={subscriptionsResponse.subscriptions}
           currentcustomer={customer}
         />
+      ) : (
+        <div className="flex justify-center py-40 text-lg">
+          You don&apos;t have any active subscriptions
+        </div>
       )}
     </div>
   )
@@ -209,7 +215,7 @@ export default function AccountSubscriptions() {
 function AccountSubscription({ subscriptions, currentcustomer }) {
   return (
     <div className="bg-sublistbgGray">
-      <div className="w-[95%] md:w-[90%] mx-auto">
+      <div className="container">
         <div className="grid w-full gap-4 py-8 md:gap-8">
           <h2 className="font-bold text-lead text-[28px] text-center md:text-left">
             Your Subscriptions

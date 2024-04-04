@@ -1,18 +1,22 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { json, redirect } from '@shopify/remix-oxygen'
-import { NavLink, useLoaderData, Form } from '@remix-run/react'
-import { Money, getPaginationVariables } from '@shopify/hydrogen'
+import { useLoaderData } from '@remix-run/react'
+import { getPaginationVariables } from '@shopify/hydrogen'
 import {
-  getActiveChurnLandingPageURL,
   getSubscription,
   listBundleSelections,
   updateBundleSelection,
+  listCharges,
+  processCharge,
+  updateSubscriptionChargeDate,
+  cancelSubscription,
 } from '@rechargeapps/storefront-client'
 
 import { CustomBundle } from '~/containers/CustomBundle'
 import { CustomBundleContext } from '~/contexts'
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
-import { ALL_PRODUCTS_QUERY, PRODUCT_QUERYTT } from '~/graphql/Product'
+import { ALL_PRODUCTS_QUERY } from '~/graphql/Product'
+import { SubscriptionEditLayout } from '~/containers/Account/Subscriptions/Edit/Layout'
 
 export const meta = ({ data }) => {
   return [
@@ -87,6 +91,21 @@ export async function loader({ request, context, params }) {
   const purchase_item_id = bundle.purchase_item_id
   const bundleItems = bundle.items
 
+  const { charges } = await rechargeQueryWrapper(
+    (session) =>
+      listCharges(session, {
+        limit: 10,
+        purchase_item_id,
+        customer_id: subscription.customer_id,
+        scheduled_at_min: new Date().toISOString(),
+        sort_by: 'scheduled_at-desc',
+        status: ['queued', 'skipped', 'error'],
+      }),
+    context,
+  )
+
+  const upcomingChargeId = charges[0]?.id
+
   const idsSubscriptions = []
   const subscriptionData = {}
 
@@ -134,36 +153,19 @@ export async function loader({ request, context, params }) {
     throw new Response('Subscription not found', { status: 404 })
   }
 
-  const cancelUrl = await rechargeQueryWrapper(
-    (session) => getActiveChurnLandingPageURL(session, params.id, request.url),
-    context,
-  )
-
-  // const skipshipment = await rechargeQueryWrapper(
-  //   (session) => skipSubscriptionCharge(session, params.id, '2024-04-29'),
-  //   context,
-  // )
-
-  const { product } = await storefront.query(PRODUCT_QUERYTT, {
-    variables: {
-      id: `gid://shopify/Product/${subscription.external_variant_id.ecommerce}`,
-    },
-  })
-
   return json(
     {
       id: params.id,
       bundleId,
       purchase_item_id,
-      product,
       products,
       bonusProduct,
       subscription,
+      charges,
       freeProduct,
-      cancelUrl,
-      // skipshipment,
       subscriptionProducts,
       subscriptionBonusVariant,
+      upcomingChargeId,
       shopCurrency: 'USD',
     },
     {
@@ -175,43 +177,79 @@ export async function loader({ request, context, params }) {
   )
 }
 
-export async function action({ request, context }) {
+export async function action({ request, context, params }) {
   const form = await request.formData()
   const data = JSON.parse(form.get('body'))
-  const bundleId = data.bundleId
-  const purchase_item_id = data.purchase_item_id
-  const products = data.products
 
-  const items = products.map((product) => ({
-    collection_id: '424769257698',
-    collection_source: 'shopify',
-    external_product_id: product.id.split('gid://shopify/Product/')[1],
-    external_variant_id: product.variants.nodes[0].id.split(
-      'gid://shopify/ProductVariant/',
-    )[1],
-    quantity: product.quantity,
-  }))
+  const api = data.api
 
-  await rechargeQueryWrapper(
-    (session) =>
-      updateBundleSelection(session, bundleId, {
-        purchase_item_id,
-        items,
-      }),
-    context,
-  )
+  switch (api) {
+    case 'update-bundle':
+      const bundleId = data.bundleId
+      const purchase_item_id = data.purchase_item_id
+      const products = data.products
 
-  return json({ msg: 'ok' })
+      const items = products.map((product) => ({
+        collection_id: '424769257698',
+        collection_source: 'shopify',
+        external_product_id: product.id.split('gid://shopify/Product/')[1],
+        external_variant_id: product.variants.nodes[0].id.split(
+          'gid://shopify/ProductVariant/',
+        )[1],
+        quantity: product.quantity,
+      }))
+
+      await rechargeQueryWrapper(
+        (session) =>
+          updateBundleSelection(session, bundleId, {
+            purchase_item_id,
+            items,
+          }),
+        context,
+      )
+
+      return json({ msg: 'ok' })
+
+    case 'process-charge':
+      const chargeId = data.chargeId
+
+      await rechargeQueryWrapper(
+        (session) => processCharge(session, chargeId),
+        context,
+      )
+
+      return json({ msg: 'ok' })
+
+    case 'delay-subscription':
+      const date = data.date
+
+      await rechargeQueryWrapper(
+        (session) =>
+          updateSubscriptionChargeDate(session, Number(params.id), date),
+        context,
+      )
+
+      return json({ msg: 'ok' })
+
+    case 'cancel-subscription':
+      await rechargeQueryWrapper(
+        (session) =>
+          cancelSubscription(session, Number(params.id), {
+            cancellation_reason: 'Do not want it anymore.',
+            send_email: true,
+          }),
+        context,
+      )
+
+      return json({ msg: 'ok' })
+
+    default:
+      break
+  }
 }
 
 export default function SubscriptionRoute() {
-  const {
-    subscription,
-    cancelUrl,
-    shopCurrency,
-    subscriptionProducts,
-    subscriptionBonusVariant,
-  } = useLoaderData()
+  const { subscriptionProducts, subscriptionBonusVariant } = useLoaderData()
 
   const [selectedProducts, setSelectedProducts] = useState(subscriptionProducts)
   const [bonusVariant, setBonusVariant] = useState(subscriptionBonusVariant)
@@ -238,67 +276,9 @@ export default function SubscriptionRoute() {
         totalCost,
       }}
     >
-      <div className="w-full flex flex-col justify-center items-center bg-[#eeeeee]">
-        <div className="container mb-10 custom-collection-wrap">
-          <Heading />
-          <hr className="border border-[#707070] border-solid" />
-          <Timeframe />
-          <CustomBundle />
-          <div className="my-5">
-            {subscription.status === 'active' && (
-              <div className="mt-10 mb-10">
-                <a
-                  className="inline-block py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
-                  target="_self"
-                  href={cancelUrl}
-                  rel="noreferrer"
-                >
-                  Cancel Subscription
-                </a>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+      <SubscriptionEditLayout>
+        <CustomBundle />
+      </SubscriptionEditLayout>
     </CustomBundleContext.Provider>
-  )
-}
-
-const Heading = () => {
-  return (
-    <div className="relative flex sm:flex-row flex-col sm:gap-0 gap-2 sm:justify-center sm:items-center items-start mt-[36px] mb-[30px]">
-      <NavLink
-        end
-        prefetch="intent"
-        className="sm:absolute sm:left-0 py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
-        to="/account"
-      >
-        Back to Account
-      </NavLink>
-      <h3 className="text-2xl font-bold sm:text-4xl">Customize Your Order</h3>
-    </div>
-  )
-}
-
-const Timeframe = () => {
-  return (
-    <div className="flex gap-2 mt-6 mb-3 sm:mt-10 sm:mb-5">
-      <NavLink
-        end
-        prefetch="intent"
-        className="py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
-        to=""
-      >
-        Process Now
-      </NavLink>
-      <NavLink
-        end
-        prefetch="intent"
-        className="py-[5px] px-[30px] border-2 border-[#425B34] border-solid bg-white"
-        to=""
-      >
-        1 Week Delay
-      </NavLink>
-    </div>
   )
 }
