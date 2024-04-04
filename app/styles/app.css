@@ -107,3 +107,113 @@
 .mobile-cart .cart-line-quantity > div {
   width: 100%;
 }
+.social-icon {
+  fill: white;
+}
+
+.social-icon:hover {
+  fill: #862e1b;
+}
+
+.shadow-none {
+  -webkit-box-shadow: none;
+}
+
+.focus\:outline-none:focus {
+  -webkit-box-shadow: none !important;
+}
+
+@font-face {
+  font-family: 'ROCK';
+  src: url("https://cdn.shopify.com/s/files/1/0672/4776/7778/files/ROCK.woff2?v=1712169498") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rockwell Bold';
+  src: url("https://cdn.shopify.com/s/files/1/0672/4776/7778/files/Rockwell-Bold_1.woff2?v=1712175559") format("woff2");
+  font-display: swap;
+}
+
+.mainheader .flex.orderBton span {
+  font-size: 19.125px;
+}
+
+.overlay-css-cs:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.overlay-css-cs > div {
+  z-index: 2;
+}
+
+.heroSection .flex.orderBton span {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+section.bg-contain.bg-center .flex.orderBton {
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+section.bg-contain.bg-center .flex.orderBton span {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+section.bg-contain.bg-center p.text-black.text-1xl.text-center {
+  font-family: 'ROCK';
+  font-size: 18px;
+}
+
+.sm\:block p.text-white.text-lg.mb-5 {
+  color: #efefef;
+}
+
+section.bg-\[\#eeeeee\].flex.justify-center.items-center h1.xl\:px-4.py-2.lg\:px-2 {
+  font-weight: 400;
+  line-height: normal;
+}
+
+section.bg-\[\#eeeeee\].flex.justify-center.items-center h1.xl\:px-4.py-2.lg\:px-2 {
+  font-weight: 400;
+  line-height: normal;
+}
+
+section.bg-\[\#eeeeee\].flex.justify-center.items-center .flex.orderBton span {
+  font-weight: 700;
+}
+
+section.heroSection.bg-\[\#c5972d\].px-4.py-10.flex.justify-center.items-center.bg-no-repeat.min-h-96.bg-contain h2.text-black.text-5xl.mt-2 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+section.heroSection.bg-\[\#c5972d\].px-4.py-10.flex.justify-center.items-center.bg-no-repeat.min-h-96.bg-contain .xl\:w-\[40\%\].lg\:w-\[100\%\] {
+  background-color: rgba(0,0,0,.02);
+}
+
+section.bg-\[url\(\'https\:\/\/cdn\.shopify\.com\/s\/files\/1\/0555\/1751\/1961\/files\/Group_4677_2x_b4bf7720-0529-4907-b3d6-8ecc83b37a23\.png\'\)\].text-white.pt-2.pb-8 h3.text-\[50px\] {
+  font-family: 'Rockwell Bold' !important;
+}
+
+@media screen and (min-width: 1024px) {  
+  .bg-cover .lg\:flex-row .flex.flex-col {
+    max-width: 35%;
+  }
+
+  section.bg-\[url\(\'https\:\/\/cdn\.shopify\.com\/s\/files\/1\/0555\/1751\/1961\/files\/Group_4677_2x_b4bf7720-0529-4907-b3d6-8ecc83b37a23\.png\'\)\].text-white.pt-2.pb-8 .grid.items-center.justify-center.max-w-lg.gap-8.mx-auto.mt-4.lg\:max-w-none.lg\:grid-cols-3 {
+    grid-template-columns: 2fr 2fr 1fr;
+  }
+
+  section.bg-\[url\(\'https\:\/\/cdn\.shopify\.com\/s\/files\/1\/0555\/1751\/1961\/files\/Group_4677_2x_b4bf7720-0529-4907-b3d6-8ecc83b37a23\.png\'\)\].text-white.pt-2.pb-8 .flex.items-center.justify-center img {
+    max-width: 165px;
+  }
+}

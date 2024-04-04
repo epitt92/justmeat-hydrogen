@@ -3,7 +3,7 @@ import React from 'react'
 const TermServices = () => {
   return (
     <section className="bg- bg-white text-[#1D1D1D] py-8">
-      <div className="w-[65%] mx-auto ">
+      <div className="max-w-[1150px] w-[100%] mx-auto ">
         <div>
           <h1 className="font-Roboto text-[52px] md:text-[68px] font-medium  mb-3">
             Terms of service

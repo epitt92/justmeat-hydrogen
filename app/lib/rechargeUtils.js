@@ -2,14 +2,13 @@ import { loginWithShopifyCustomerAccount } from '@rechargeapps/storefront-client
 import { json } from '@shopify/remix-oxygen'
 
 const RECHARGE_SESSION_KEY = 'rechargeSession'
-console.log('recharge unit')
+
 // loginHelper function
 async function loginRecharge(context) {
   const customerAccessToken = await context.customerAccount.getAccessToken()
-  const rechargeSession =
-    await loginWithShopifyCustomerAccount(customerAccessToken)
-  console.log('hello from recharge')
-  console.log('console.recharge session', rechargeSession)
+  const rechargeSession = await loginWithShopifyCustomerAccount(
+    customerAccessToken,
+  )
   if (rechargeSession) {
     context.rechargeSession.set(RECHARGE_SESSION_KEY, rechargeSession)
   } else {
@@ -37,9 +36,11 @@ export async function rechargeQueryWrapper(rechargeFn, context) {
         return await rechargeFn(rechargeSession)
       }
       // this should match your catch boundary
+      console.log('🚀 1:', e.message)
       throw json(e.message, { status: e?.status })
     } catch (error) {
       // this should match your catch boundary
+      console.log('🚀 2:', e.message)
       throw json(e.message, { status: e?.status })
     }
   }

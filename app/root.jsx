@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import { useNonce } from '@shopify/hydrogen'
 import { defer } from '@shopify/remix-oxygen'
 import {
@@ -23,6 +22,7 @@ import tailwindStyles from '~/styles/tailwind.css'
 import { RootContext } from '~/contexts'
 import { Layout } from '~/components/Layout'
 import { SubscriptionCard } from '~/components/SubscriptionCard'
+import { FOOTER_QUERY, HEADER_QUERY } from '~/graphql/HeaderMenuFooter'
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -115,74 +115,9 @@ export async function loader({ context }) {
 export default function App() {
   const nonce = useNonce()
   const data = useLoaderData()
-  const [sellingPlan, _setSellingPlan] = useState(null)
-  const [selectedProducts, _setSelectedProducts] = useState([])
-  const [bonusVariant, _setBonusVariant] = useState(null)
-  const [sellingPlanFrequency, _setSellingPlanFrequency] = useState(
-    'Delivery every 15 Days',
-  )
-
-  const totalCost = selectedProducts.reduce(
-    (acc, curr) => acc + parseFloat(curr.totalAmount),
-    0,
-  )
-
-  useEffect(() => {
-    const _sellingPlan = window.localStorage.getItem('_sellingPlan')
-    const _selectedProducts = window.localStorage.getItem('_selectedProducts')
-    const _bonusVariant = window.localStorage.getItem('_bonusVariant')
-    const _sellingPlanFrequency = window.localStorage.getItem(
-      '_sellingPlanFrequency',
-    )
-
-    if (_sellingPlan) {
-      _setSellingPlan(JSON.parse(_sellingPlan))
-    }
-    if (_sellingPlanFrequency) {
-      _setSellingPlanFrequency(JSON.parse(_sellingPlanFrequency))
-    }
-    if (_selectedProducts) {
-      _setSelectedProducts(JSON.parse(_selectedProducts))
-    }
-    if (_bonusVariant) {
-      setBonusVariant(JSON.parse(_bonusVariant))
-    }
-  }, [])
-
-  const setSellingPlan = (value) => {
-    _setSellingPlan(value)
-    window.localStorage.setItem('_sellingPlan', JSON.stringify(value))
-  }
-
-  const setSellingPlanFrequency = (value) => {
-    _setSellingPlanFrequency(value)
-    window.localStorage.setItem('_sellingPlanFrequency', JSON.stringify(value))
-  }
-
-  const setSelectedProducts = (value) => {
-    _setSelectedProducts(value)
-    window.localStorage.setItem('_selectedProducts', JSON.stringify(value))
-  }
-
-  const setBonusVariant = (value) => {
-    _setBonusVariant(value)
-    window.localStorage.setItem('_bonusVariant', JSON.stringify(value))
-  }
 
   return (
-    <RootContext.Provider
-      value={{
-        sellingPlan,
-        setSellingPlan,
-        selectedProducts,
-        setSelectedProducts,
-        sellingPlanFrequency,
-        setSellingPlanFrequency,
-        bonusVariant,
-        setBonusVariant,
-        totalCost,
-      }}
-    >
+    <RootContext.Provider value={{}}>
       <html lang="en">
         <head>
           <meta charSet="utf-8" />
@@ -198,6 +133,7 @@ export default function App() {
           <ScrollRestoration nonce={nonce} />
           <Scripts nonce={nonce} />
           <LiveReload nonce={nonce} />
+          
         </body>
       </html>
     </RootContext.Provider>
@@ -241,82 +177,9 @@ export function ErrorBoundary() {
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
         <LiveReload nonce={nonce} />
+        <script async src="https://loox.io/widget/qZPveP9mjj/loox.1703786131573.js?shop=healthius-store.myshopify.com"></script>
+        <script async src="//loox.io/widget/loox.js?shop=healthius-store.myshopify.com"></script>
       </body>
     </html>
   )
 }
-
-const MENU_FRAGMENT = `#graphql
-  fragment MenuItem on MenuItem {
-    id
-    resourceId
-    tags
-    title
-    type
-    url
-  }
-  fragment ChildMenuItem on MenuItem {
-    ...MenuItem
-  }
-  fragment ParentMenuItem on MenuItem {
-    ...MenuItem
-    items {
-      ...ChildMenuItem
-    }
-  }
-  fragment Menu on Menu {
-    id
-    items {
-      ...ParentMenuItem
-    }
-  }
-`
-
-const HEADER_QUERY = `#graphql
-  fragment Shop on Shop {
-    id
-    name
-    description
-    primaryDomain {
-      url
-    }
-    brand {
-      logo {
-        image {
-          url
-        }
-      }
-    }
-  }
-  query Header(
-    $country: CountryCode
-    $headerMenuHandle: String!
-    $language: LanguageCode
-  ) @inContext(language: $language, country: $country) {
-    shop {
-      ...Shop
-    }
-    menu(handle: $headerMenuHandle) {
-      ...Menu
-    }
-  }
-  ${MENU_FRAGMENT}
-`
-
-const FOOTER_QUERY = `#graphql
-  query Footer(
-    $country: CountryCode
-    $footerMenuHandle: String!
-    $language: LanguageCode
-  ) @inContext(language: $language, country: $country) {
-    menu(handle: $footerMenuHandle) {
-      ...Menu
-    }
-  }
-  ${MENU_FRAGMENT}
-`
-
-/** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
-/** @typedef {import('@remix-run/react').ShouldRevalidateFunction} ShouldRevalidateFunction */
-/** @typedef {import('@shopify/hydrogen/storefront-api-types').CustomerAccessToken} CustomerAccessToken */
-/** @typedef {import('@shopify/remix-oxygen').SerializeFrom<loader>} LoaderReturnData */

@@ -1,13 +1,13 @@
 import { useContext } from 'react'
 
-import { RootContext } from '~/contexts'
+import { CustomBundleContext } from '~/contexts'
 import { CartLines } from './CartLines'
 import { CartSummary } from './CartSummary'
 import { CartCheckoutActions } from './CartCheckoutActions'
 import { LockedItem } from './LockedItem'
 
 export function CartDetails({ layout, onCheckout }) {
-  const { selectedProducts } = useContext(RootContext)
+  const { selectedProducts } = useContext(CustomBundleContext)
 
   const cartHasItems = selectedProducts.length > 0
 

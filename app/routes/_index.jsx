@@ -53,7 +53,7 @@ export default function Homepage() {
             Your browser does not support the video tag.
           </video>
         </div>
-        <div className="flex flex-col z-10 justify-center items-center p-5 gap-6 w-max-[1440px] ">
+        <div className="flex flex-col z-10 justify-center items-center p-5 gap-6 w-max-[1440px] overlay-css-cs">
           <div className="flex flex-col justify-center items-center gap-4 py-16 sm:py-44 mt-[-30px] w-full sm:w-8/12">
             <p className="sm:text-5xl text-3xl leading-[55px] font-bold text-white">
               No Fuss, All Flavor <br></br>
@@ -190,7 +190,11 @@ export default function Homepage() {
           alt=""
         />
       </section>
-
+      <section className="w-full border bg-white flex justify-center hidden sm:block items-center p-20  ">
+      <div id="looxReviews" data-loox-aggregate="true" data-mode="" data-limit="20" data-upgraded="true" className="h-96">
+      <iframe id="looxReviewsFrame" title="All product reviews widget" src="https://loox.io/widget/qZPveP9mjj/reviews?h=1712178000000&amp;limit=20" height="3685px" width="100%" frameBorder="0" scrolling="no" margin="0" className="overflow-hidden h-full w-full"></iframe>
+    </div>
+      </section>
       <section className="bg-[#eeeeee] flex justify-center items-center ">
         <div className="max-w-[1440px] w-[100%] flex justify-start gap-20 px-5 xl:px-10 sm:py-20 py-10 ">
           <div className="flex-col items-center gap-10 hidden xl:flex  w-4/12 ml-10">
