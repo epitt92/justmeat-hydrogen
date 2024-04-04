@@ -9,6 +9,8 @@ import { ALL_PRODUCTS_QUERY } from '~/graphql/Product'
 
 export async function loader({ request, context }) {
   const { storefront } = context
+  const discountCode = context.session.get('discountCode')
+  const discountCodes = discountCode ? [discountCode] : []
 
   const allProductsHandler = 'all-products'
   const freeProductHandler = 'raspberry-bbq-chicken-breast'
@@ -47,6 +49,7 @@ export async function loader({ request, context }) {
     products,
     freeProduct,
     bonusProduct,
+    discountCodes,
   })
 }
 
