@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNonce } from '@shopify/hydrogen'
+import { Script, useNonce } from '@shopify/hydrogen'
 import { defer } from '@shopify/remix-oxygen'
 import {
   Links,
@@ -189,6 +189,11 @@ export default function App() {
           <meta name="viewport" content="width=device-width,initial-scale=1" />
           <Meta />
           <Links />
+          <Script
+            async={true}
+            src="https://cdn.reamaze.com/assets/reamaze.js"
+          />
+          <Script src="/chat.js" />
         </head>
         <body>
           <SubscriptionCard></SubscriptionCard>
