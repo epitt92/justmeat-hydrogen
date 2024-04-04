@@ -1,16 +1,16 @@
 import { Await, NavLink, useMatches } from '@remix-run/react'
-import { Suspense, useRef } from 'react'
+import { Suspense, useContext, useRef } from 'react'
 import { useRootLoaderData } from '~/root'
 import OrderButton from './OrderButton'
 import logo from '~/assets/logo.png'
 import { Button } from './Button'
+import { HamburgerOpen } from '~/icons/HamburgerOpen'
+import { Cart as CartIcon } from '~/icons/Cart'
+import { LayoutContext } from '~/contexts'
 
-// import {useLocation} from "react-router-dom"
-/**
- * @param {HeaderProps}
- */
-export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
+export function Header() {
   const matches = useMatches()
+  const { setMenuToggle } = useContext(LayoutContext)
 
   const isRoute = matches[1].params.bundle === 'custom-bundle'
 
@@ -116,7 +116,7 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
               className="block lg:hidden"
               onClick={() => setMenuToggle(true)}
             >
-              <HeaderMenuMobileToggle setMenuToggle={setMenuToggle} />
+              <HamburgerOpen />
             </Button>
             {/* <CartToggle cart={cart} /> */}
           </div>
@@ -156,8 +156,6 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
     )
   }
 
-  const { shop, menu } = header
-
   return (
     <header className="bg-[#eeeeee] border-b border-solid border-[#1D1D1D10]">
       {isRoute ? <Landingheader /> : <Mainheader />}
@@ -165,13 +163,6 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
   )
 }
 
-/**
- * @param {{
- *   menu: HeaderProps['header']['menu'];
- *   primaryDomainUrl: HeaderQuery['shop']['primaryDomain']['url'];
- *   viewport: Viewport;
- * }}
- */
 export function HeaderMenu({ menu, primaryDomainUrl, viewport }) {
   const { publicStoreDomain } = useRootLoaderData()
   const className = `header-menu-${viewport}`
@@ -224,67 +215,11 @@ export function HeaderMenu({ menu, primaryDomainUrl, viewport }) {
   )
 }
 
-function HeaderMenuMobileToggle() {
-  return (
-    <div className="">
-      <svg
-        fill="none"
-        height="16"
-        viewBox="0 0 20 16"
-        width="20"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g fill="#000">
-          <path d="m0 0h20v2h-20z"></path>
-          <path d="m0 7h20v2h-20z"></path>
-          <path d="m0 14h20v2h-20z"></path>
-        </g>
-      </svg>
-    </div>
-  )
-}
-
-function SearchToggle() {
-  return <a href="#search-aside">Search</a>
-}
-
-/**
- * @param {{count: number}}
- */
 function CartBadge({ count }) {
   return (
     <NavLink end prefetch="intent" to="/products/custom-bundle">
       <span className="relative flex w-10 cursor-pointer CartIcon sm:w-5">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          id="Group_4155"
-          data-name="Group 4155"
-          width="36.359"
-          height="33.937"
-          viewBox="0 0 36.359 33.937"
-        >
-          <path
-            id="Path_50"
-            data-name="Path 50"
-            d="M134.117,68.222a1.585,1.585,0,0,0-1.293-.768L107.29,66.283l-.889-3.474a1.6,1.6,0,0,0-1.576-1.212H99.614a1.616,1.616,0,1,0,0,3.232h3.959l4.444,17.292-1.091,4.525a1.638,1.638,0,0,0,.283,1.374,1.567,1.567,0,0,0,1.252.606h19.8a1.616,1.616,0,0,0,0-3.232h-17.7l.444-1.859,16.16-.768a1.628,1.628,0,0,0,1.374-.929l5.656-12.12a1.526,1.526,0,0,0-.081-1.495Zm-8.08,11.393-15.07.687L108.26,69.555l22.019,1.01Z"
-            transform="translate(-97.998 -61.596)"
-            fill="#030303"
-          ></path>
-          <path
-            id="Path_51"
-            data-name="Path 51"
-            d="M221.66,451.03a3.03,3.03,0,1,1-3.03-3.03,3.03,3.03,0,0,1,3.03,3.03"
-            transform="translate(-207.116 -420.123)"
-            fill="#030303"
-          ></path>
-          <path
-            id="Path_52"
-            data-name="Path 52"
-            d="M473.66,451.03a3.03,3.03,0,1,1-3.03-3.03,3.03,3.03,0,0,1,3.03,3.03"
-            transform="translate(-440.935 -420.123)"
-            fill="#030303"
-          ></path>
-        </svg>
+        <CartIcon />
         <span className="absolute top-[-5px] right-[-8px] w-[20px] h-[20px] text-[10px] rounded-[100%] items-center bg-black text-white flex justify-center ">
           ({count})
         </span>
