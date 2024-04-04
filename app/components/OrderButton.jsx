@@ -8,7 +8,7 @@ const OrderButton = ({ className }) => {
       <NavLink end prefetch="intent" to="/products/custom-bundle">
         <span
           className={cn(
-            'bg-[#862E1B] cursor-pointer text-[#fff] hover:bg-[#1d1d1d] transition font-bold	text-lg py-3 px-9',
+            'bg-[#862E1B] cursor-pointer text-[#fff] hover:bg-[#1d1d1d] transition font-bold text-lg py-3 px-9',
             className,
           )}
         >

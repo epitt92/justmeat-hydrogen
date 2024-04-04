@@ -122,7 +122,7 @@ export default function Homepage() {
 
               <OrderButton
                 className={
-                  'text-[28px] font-body font-bold mt-[38px] px-[40px] py-[10px]'
+                  'text-[28px] font-body mt-[38px] px-[40px] py-[10px]'
                 }
               />
             </div>
@@ -194,7 +194,7 @@ export default function Homepage() {
         />
       </section>
       <section className="w-full border bg-white flex justify-center hidden sm:block items-center p-20  ">
-      <div id="looxReviews" data-loox-aggregate></div>
+        <div id="looxReviews" data-loox-aggregate></div>
       </section>
       <section className="bg-[#eeeeee] flex justify-center items-center ">
         <div className="max-w-[1440px] w-[100%] flex justify-start gap-20 px-5 xl:px-10 sm:py-20 py-10 ">
