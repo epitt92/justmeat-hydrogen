@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { useLoaderData } from '@remix-run/react'
 
 import { useSubmitPromise } from '~/hooks/useSubmitPromise'
-import { CustomBundleContext, CustomBundleFormContext } from '~/contexts'
+import { RootContext, CustomBundleFormContext } from '~/contexts'
 
 import { Cart } from './Cart'
 import { MobileCart } from './Cart/MobileCart'
@@ -21,7 +21,7 @@ export const CustomBundle = () => {
   } = useLoaderData()
 
   const { sellingPlan, bonusVariant, selectedProducts, totalCost, fromOrder } =
-    useContext(CustomBundleContext)
+    useContext(RootContext)
 
   const [clickedProduct, setClickedProduct] = useState(null)
   const [submitting, setSubmitting] = useState(false)
@@ -111,16 +111,19 @@ export const CustomBundle = () => {
           <div className="flex product-and-cart">
             <div className="grid grid-cols-2 product-grid md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12">
               {products.map((product, key) => {
-                  const shouldSkip = !sellingPlan && (product.handle === 'sweet-chili-thai-chicken' || product.handle === 'chimichurri-steak');
-                  return shouldSkip ? null : (
-                    product.handle !== 'free-meat-unlocked-at-125' && (
+                const shouldSkip =
+                  !sellingPlan &&
+                  (product.handle === 'sweet-chili-thai-chicken' ||
+                    product.handle === 'chimichurri-steak')
+                return shouldSkip
+                  ? null
+                  : product.handle !== 'free-meat-unlocked-at-125' && (
                       <ProductCard
                         key={key}
                         product={product}
                         onClick={() => setClickedProduct(product)}
                       />
                     )
-                  );
               })}
             </div>
             <div className="cart-wrapper sticky top-[10px] h-fit mb-[10px] hidden xl:block w-4/12">
