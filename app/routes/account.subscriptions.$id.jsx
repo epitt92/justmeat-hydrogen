@@ -32,6 +32,8 @@ export const meta = ({ data }) => {
 
 export async function loader({ request, context, params }) {
   const { storefront } = context
+  const discountCode = context.session.get('discountCode')
+  const discountCodes = discountCode ? [discountCode] : []
 
   const allProductsHandler = 'all-products'
   const freeProductHandler = 'raspberry-bbq-chicken-breast'
@@ -167,6 +169,7 @@ export async function loader({ request, context, params }) {
       subscriptionBonusVariant,
       upcomingChargeId,
       shopCurrency: 'USD',
+      discountCodes,
     },
     {
       headers: {

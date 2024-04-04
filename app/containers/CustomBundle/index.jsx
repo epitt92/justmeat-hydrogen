@@ -8,6 +8,7 @@ import { Cart } from './Cart'
 import { MobileCart } from './Cart/MobileCart'
 import { ProductModal } from './ProductModal'
 import { ProductCard } from './ProductCard'
+import { PROMO_CODES } from '../../promo-codes'
 
 export const CustomBundle = () => {
   const submit = useSubmitPromise()
@@ -18,6 +19,7 @@ export const CustomBundle = () => {
     products,
     bonusProduct,
     freeProduct,
+    discountCodes,
   } = useLoaderData()
 
   const { sellingPlan, bonusVariant, selectedProducts, totalCost, fromOrder } =
@@ -25,6 +27,11 @@ export const CustomBundle = () => {
 
   const [clickedProduct, setClickedProduct] = useState(null)
   const [submitting, setSubmitting] = useState(false)
+
+  // Get influencer discount codes
+  const influencerCode = PROMO_CODES.filter((code) =>
+    discountCodes.includes(code.code),
+  )
 
   async function handleSubmit() {
     const products = [...selectedProducts, { ...freeProduct, quantity: 1 }]
@@ -133,7 +140,11 @@ export const CustomBundle = () => {
                     {fromOrder ? (
                       <>
                         <h1 className="font-roboto_medium text-[17px] leading-none">
-                          Subscribers Save 25% on Orders
+                          Subscribers Save{' '}
+                          {influencerCode.length > 0
+                            ? influencerCode[0].percentage
+                            : 25}
+                          % on Orders
                         </h1>
                         <p className="text-[14px] leading-none font-roboto_medium mt-3">
                           Applied at checkout
