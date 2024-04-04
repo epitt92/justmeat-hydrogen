@@ -35,10 +35,12 @@ export const SubscriptionEditLayout = ({ children }) => {
     }
 
     setProcessing(false)
+    navigate('..')
   }
 
   const handleDelay = async () => {
     setDelaying(true)
+
     const date = format(
       addDays(subscription.next_charge_scheduled_at, 7),
       'yyyy-MM-dd',
@@ -59,6 +61,7 @@ export const SubscriptionEditLayout = ({ children }) => {
     }
 
     setDelaying(false)
+    navigate('..')
   }
 
   const handleCancel = async () => {
@@ -79,6 +82,7 @@ export const SubscriptionEditLayout = ({ children }) => {
     }
 
     setCanceling(false)
+    navigate('..')
   }
 
   return (
