@@ -156,7 +156,7 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
   const { shop, menu } = header
 
   return (
-    <header className="bg-[#eeeeee]">
+    <header className="bg-[#eeeeee] border-b border-solid border-[#1D1D1D10]">
       {isRoute ? <Landingheader /> : <Mainheader />}
     </header>
   )
