@@ -191,9 +191,10 @@ export default function Homepage() {
         />
       </section>
       <section className="w-full border bg-white flex justify-center hidden sm:block items-center p-20  ">
-      <div id="looxReviews" data-loox-aggregate="true" data-mode="" data-limit="20" data-upgraded="true" className="h-96">
-      <div id="loox-default-carousel"><div className="loox-v2-carousel-container" id="LOOX-V2_CAROUSEL-gallery" data-slide-type="gallery" > </div></div>
-    </div>
+        <div id="loox-default-carousel">
+          <div className="loox-v2-carousel-container" id="LOOX-V2_CAROUSEL-gallery" data-slide-type="gallery" > 
+          </div>
+        </div>
       </section>
       <section className="bg-[#eeeeee] flex justify-center items-center ">
         <div className="max-w-[1440px] w-[100%] flex justify-start gap-20 px-5 xl:px-10 sm:py-20 py-10 ">
