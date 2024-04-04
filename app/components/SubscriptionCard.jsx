@@ -28,7 +28,6 @@ export function SubscriptionCard({
     setIsNavOpen((prev) => !prev, id)
   }
 
-  console.log('currentcustomer', currentcustomer)
   return (
     <li className="grid text-center border rounded">
       <div className="grid items-center gap-4 p-4 md:gap-6 md:p-6 md:grid-cols-3">

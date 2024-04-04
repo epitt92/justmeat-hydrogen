@@ -129,6 +129,7 @@ export default function App() {
   const [sellingPlanFrequency, _setSellingPlanFrequency] = useState(
     isCustomBundlePage ? 'Delivery every 15 Days' : '',
   )
+  const [cartProductsCount, setCartProductsCount] = useState(0)
 
   const totalCost = selectedProducts.reduce(
     (acc, curr) => acc + parseFloat(curr.totalAmount),
@@ -142,6 +143,12 @@ export default function App() {
     const _sellingPlanFrequency = window.localStorage.getItem(
       '_sellingPlanFrequency',
     )
+
+    if (_selectedProducts) {
+      const products = JSON.parse(_selectedProducts)
+      const count = products.reduce((prev, item) => prev + item.quantity, 0)
+      setCartProductsCount(count)
+    }
 
     if (isCustomBundlePage) {
       if (_sellingPlan) {
@@ -178,8 +185,12 @@ export default function App() {
 
   const setSelectedProducts = (value) => {
     _setSelectedProducts(value)
+
     if (isCustomBundlePage) {
       window.localStorage.setItem('_selectedProducts', JSON.stringify(value))
+
+      const count = value.reduce((prev, item) => prev + item.quantity, 0)
+      setCartProductsCount(count)
     }
   }
 
@@ -203,6 +214,7 @@ export default function App() {
         bonusVariant,
         setBonusVariant,
         totalCost,
+        cartProductsCount,
       }}
     >
       <html lang="en">
