@@ -1,28 +1,24 @@
 export const Account = () => (
   <svg
+    width={28}
+    height={28}
+    viewBox="0 0 28 28"
+    fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    id="Group_4154"
-    data-name="Group 4154"
-    width="27.473"
-    height="33.937"
-    viewBox="0 0 27.473 33.937"
-    className="icon-account"
   >
     <path
-      id="Path_1"
-      data-name="Path 1"
-      d="M259.545,42.272A7.272,7.272,0,1,1,252.272,35a7.272,7.272,0,0,1,7.272,7.272"
-      transform="translate(-238.536 -35)"
-      fill="#030303"
-      fillRule="evenodd"
-    ></path>
+      d="M23.3333 24.5V22.1667C23.3333 20.929 22.8416 19.742 21.9665 18.8668C21.0913 17.9917 19.9043 17.5 18.6666 17.5H9.33329C8.09562 17.5 6.90863 17.9917 6.03346 18.8668C5.15829 19.742 4.66663 20.929 4.66663 22.1667V24.5"
+      stroke="#231B19"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
     <path
-      id="Path_2"
-      data-name="Path 2"
-      d="M177.528,286.105a1.616,1.616,0,0,0,1.616-1.616v-2.424a13.736,13.736,0,1,0-27.473,0v2.424a1.616,1.616,0,0,0,1.616,1.616h24.241Z"
-      transform="translate(-151.672 -252.168)"
-      fill="#030303"
-      fillRule="evenodd"
-    ></path>
+      d="M14 12.8333C16.5774 12.8333 18.6667 10.744 18.6667 8.16667C18.6667 5.58934 16.5774 3.5 14 3.5C11.4227 3.5 9.33337 5.58934 9.33337 8.16667C9.33337 10.744 11.4227 12.8333 14 12.8333Z"
+      stroke="#231B19"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 )

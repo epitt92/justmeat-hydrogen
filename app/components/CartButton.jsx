@@ -8,10 +8,10 @@ export function CartButton() {
 
   return (
     <NavLink end prefetch="intent" to="/products/custom-bundle">
-      <span className="relative flex w-10 cursor-pointer CartIcon sm:w-5">
+      <span className="relative flex cursor-pointer CartIcon">
         <CartIcon />
-        <span className="absolute top-[-5px] right-[-8px] w-[20px] h-[20px] text-[10px] rounded-[100%] items-center bg-black text-white flex justify-center ">
-          ({cartProductsCount})
+        <span className="absolute top-[-5px] right-[-8px] w-[16px] h-[16px] text-[10px] rounded-[100%] items-center bg-second text-white flex justify-center ">
+          {cartProductsCount}
         </span>
       </span>
     </NavLink>
