@@ -16,7 +16,7 @@ export async function loader({ request, context, params }) {
   // Get redirect path from the URL query string
   const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.search);
-  const redirectPath = searchParams.get('redirect') || '/account';
+  const redirectPath = searchParams.get('redirect') || '/';
   
   const result = await cart.updateDiscountCodes([params.code])
   const headers = cart.setCartId(result.cart.id)

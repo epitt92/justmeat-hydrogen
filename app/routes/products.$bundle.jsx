@@ -43,6 +43,7 @@ export async function loader({ request, context }) {
 
 export async function action({ request, context }) {
   const _cart = context.cart
+  const discountCode = context.session.get('discountCode')
 
   const form = await request.formData()
   const data = JSON.parse(form.get('body'))
@@ -95,9 +96,11 @@ export async function action({ request, context }) {
     }))
   }
 
-  const { cart: resultCart } = await _cart.addLines(cartData)
+  const { cart } = await _cart.addLines(cartData)
+  _cart.setCartId(cart.id)
+  await _cart.updateDiscountCodes([discountCode], {cartId: cart.id})
 
-  return json(resultCart)
+  return json(cart)
 }
 
 export default function Product() {
