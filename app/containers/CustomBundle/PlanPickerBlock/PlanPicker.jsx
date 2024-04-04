@@ -105,7 +105,43 @@ export const PlanPicker = () => {
             </div>
           </div>
           <ul className="mt-[12px] sm:mt-0 grid grid-cols-2 gap-y-2 sm:grid-cols-1">
-            <li className="flex items-center text-[11px] sm:text-[12px] font-normal sm:font-bold m-0 ">
+            <li className="flex items-center text-[11px] sm:text-[12px] font-normal sm:font-bold m-0 sm:flex md:hidden lg:hidden">
+              <span className="text-[#425B34] sm:text-black">
+                <CheckBox
+                  className={
+                    sellingPlan
+                      ? 'fill-[#425b34] sm:fill-black'
+                      : 'fill-[#aaaaaa]'
+                  }
+                />
+              </span>{' '}
+              25% Off First Order
+            </li>
+            <li className="flex items-center text-[11px] sm:text-[12px] font-normal sm:font-bold m-0 sm:flex md:hidden lg:hidden">
+              <span className="text-[#425B34] sm:text-black">
+                <CheckBox
+                  className={
+                    sellingPlan
+                      ? 'fill-[#425b34] sm:fill-black'
+                      : 'fill-[#aaaaaa]'
+                  }
+                />
+              </span>{' '}
+              10% Off Future Orders
+            </li>
+            <li className="flex items-center text-[11px] sm:text-[12px] font-normal sm:font-bold m-0 sm:flex md:hidden lg:hidden">
+              <span className="text-[#425B34] sm:text-black">
+                <CheckBox
+                  className={
+                    sellingPlan
+                      ? 'fill-[#425b34] sm:fill-black'
+                      : 'fill-[#aaaaaa]'
+                  }
+                />
+              </span>{' '}
+              Subscriber-Only Monthly Flavors
+            </li>
+            <li className="flex items-center text-[11px] sm:text-[12px] font-normal sm:font-bold m-0 hidden md:flex lg:flex">
               <span className="text-[#425B34] sm:text-black">
                 <CheckBox
                   className={
@@ -117,7 +153,7 @@ export const PlanPicker = () => {
               </span>{' '}
               Save 10% on Future Orders
             </li>
-            <li className="flex items-center text-[11px] sm:text-[12px] font-normal sm:font-bold m-0">
+            <li className="flex items-center text-[11px] sm:text-[12px] font-normal sm:font-bold m-0 hidden md:flex lg:flex">
               <span className="text-[#425B34] sm:text-black">
                 <CheckBox
                   className={
@@ -141,6 +177,7 @@ export const PlanPicker = () => {
               </span>{' '}
               Customize or Cancel Anytime
             </li>
+            
           </ul>
         </div>
       </div>
