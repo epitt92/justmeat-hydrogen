@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { useLoaderData } from '@remix-run/react'
 
 import { useSubmitPromise } from '~/hooks/useSubmitPromise'
-import { CustomBundleContext, CustomBundleFormContext } from '~/contexts'
+import { RootContext, CustomBundleFormContext } from '~/contexts'
 
 import { Cart } from './Cart'
 import { MobileCart } from './Cart/MobileCart'
@@ -11,32 +11,39 @@ import { ProductCard } from './ProductCard'
 
 export const CustomBundle = () => {
   const submit = useSubmitPromise()
-  const { products, bonusProduct, freeProduct } = useLoaderData()
+  const {
+    id,
+    bundleId,
+    purchase_item_id,
+    products,
+    bonusProduct,
+    freeProduct,
+  } = useLoaderData()
 
   const { sellingPlan, bonusVariant, selectedProducts, totalCost, fromOrder } =
-    useContext(CustomBundleContext)
+    useContext(RootContext)
 
   const [clickedProduct, setClickedProduct] = useState(null)
   const [submitting, setSubmitting] = useState(false)
 
   async function handleSubmit() {
-    if (fromOrder) {
-      const products = [...selectedProducts, { ...freeProduct, quantity: 1 }]
+    const products = [...selectedProducts, { ...freeProduct, quantity: 1 }]
 
-      if (totalCost > 125) {
-        products.push({
-          ...{
-            ...bonusProduct,
-            variants: {
-              nodes: [bonusVariant || bonusProduct.variants.nodes[0]],
-            },
+    if (totalCost > 125) {
+      products.push({
+        ...{
+          ...bonusProduct,
+          variants: {
+            nodes: [bonusVariant || bonusProduct.variants.nodes[0]],
           },
-          quantity: 1,
-        })
-      }
+        },
+        quantity: 1,
+      })
+    }
 
-      setSubmitting(true)
+    setSubmitting(true)
 
+    if (fromOrder) {
       const res = await submit(
         {
           body: JSON.stringify({
@@ -44,12 +51,37 @@ export const CustomBundle = () => {
             sellingPlanName: sellingPlan,
           }),
         },
-        { method: 'post', action: '/products/custom-bundle' },
+        {
+          method: 'post',
+          action: '/products/custom-bundle',
+        },
       )
 
-      setSubmitting(false)
-      location.href = res.checkoutUrl
+      if (res.msg === 'ok') {
+        location.href = res.cart.checkoutUrl
+      }
+    } else {
+      const res = await submit(
+        {
+          body: JSON.stringify({
+            api: 'update-bundle',
+            bundleId,
+            purchase_item_id,
+            products,
+          }),
+        },
+        {
+          method: 'post',
+          action: `/account/subscriptions/${id}`,
+        },
+      )
+
+      if (res.msg === 'ok') {
+        alert('Bundle items in the subscription have been successfully updated')
+      }
     }
+
+    setSubmitting(false)
   }
 
   return (
@@ -79,18 +111,20 @@ export const CustomBundle = () => {
           <div className="flex product-and-cart">
             <div className="grid grid-cols-2 product-grid md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12">
               {products.map((product, key) => {
-                const shouldSkip = !sellingPlan && (product.handle === 'sweet-chili-thai-chicken' || product.handle === 'chimichurri-steak');
-
-                return shouldSkip ? null : (
-                  product.handle !== 'free-meat-unlocked-at-125' && (
-                    <ProductCard
-                      key={key}
-                      product={product}
-                      onClick={() => setClickedProduct(product)}
-                    />
-                  )
-                );
-            })}
+                const shouldSkip =
+                  !sellingPlan &&
+                  (product.handle === 'sweet-chili-thai-chicken' ||
+                    product.handle === 'chimichurri-steak')
+                return shouldSkip
+                  ? null
+                  : product.handle !== 'free-meat-unlocked-at-125' && (
+                      <ProductCard
+                        key={key}
+                        product={product}
+                        onClick={() => setClickedProduct(product)}
+                      />
+                    )
+              })}
             </div>
             <div className="cart-wrapper sticky top-[10px] h-fit mb-[10px] hidden xl:block w-4/12">
               <div className="h-full border">

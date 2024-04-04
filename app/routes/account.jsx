@@ -29,7 +29,7 @@ export default function AccountLayout() {
   /** @type {LoaderReturnData} */
   const { customer } = useLoaderData()
   return (
-    <div className="account ">
+    <div className="account">
       <AccountMenu />
       <Outlet context={{ customer }} />
     </div>
@@ -44,7 +44,7 @@ function AccountMenu() {
   }
 
   return (
-    <div className="w-[95%] md:w-[90%] mx-auto py-3">
+    <div className="py-3">
       <nav
         role="navigation"
         className="font-Roboto text-lg font-normal flex flex-col sm:flex-row justify-center text-center gap-0 sm:gap-2 lg:gap-[8.5rem]"

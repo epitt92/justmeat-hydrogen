@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
-import { CustomBundleContext } from '~/contexts'
+import { RootContext } from '~/contexts'
 import { Quantity } from './Quantity'
 import { Add } from './Add'
 
 export const ProductActions = ({ product }) => {
-  const { selectedProducts } = useContext(CustomBundleContext)
+  const { selectedProducts } = useContext(RootContext)
   const line = selectedProducts.find(
     (selectedProduct) => selectedProduct.id === product.id,
   )

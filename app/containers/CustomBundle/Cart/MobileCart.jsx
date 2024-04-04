@@ -1,13 +1,13 @@
 import { useContext, useState } from 'react'
 import { cn } from '~/lib/utils'
 import { Button } from '~/components/Button'
-import { CustomBundleContext, CustomBundleFormContext } from '~/contexts'
+import { RootContext, CustomBundleFormContext } from '~/contexts'
 import { ProgressBar } from './ProgressBar'
 import { CartLines } from './CartLines'
 import { PlanPicker } from '../PlanPickerBlock/PlanPicker'
 
 export const MobileCart = () => {
-  const { totalCost, fromOrder } = useContext(CustomBundleContext)
+  const { totalCost, fromOrder } = useContext(RootContext)
   const { submitting, handleSubmit } = useContext(CustomBundleFormContext)
 
   const [cartOpen, setCartOpen] = useState(false)
