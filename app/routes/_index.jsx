@@ -192,7 +192,7 @@ export default function Homepage() {
       </section>
       <section className="w-full border bg-white flex justify-center hidden sm:block items-center p-20  ">
       <div id="looxReviews" data-loox-aggregate="true" data-mode="" data-limit="20" data-upgraded="true" className="h-96">
-      <iframe id="looxReviewsFrame" title="All product reviews widget" src="https://loox.io/widget/qZPveP9mjj/reviews?h=1712178000000&amp;limit=20" height="3685px" width="100%" frameBorder="0" scrolling="no" margin="0" className="overflow-hidden h-full w-full"></iframe>
+      <div id="loox-default-carousel"><div className="loox-v2-carousel-container" id="LOOX-V2_CAROUSEL-gallery" data-slide-type="gallery" > </div></div>
     </div>
       </section>
       <section className="bg-[#eeeeee] flex justify-center items-center ">
