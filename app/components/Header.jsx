@@ -3,6 +3,7 @@ import { Suspense, useRef } from 'react'
 import { useRootLoaderData } from '~/root'
 import OrderButton from './OrderButton'
 import logo from '~/assets/logo.png'
+import { Button } from './Button'
 
 // import {useLocation} from "react-router-dom"
 /**
@@ -82,7 +83,7 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
           </div>
           <div className="flex items-center justify-between gap-4 headerIcons sm:gap-10">
             <NavLink end prefetch="intent" to="/account">
-              <span className="flex hidden w-5 cursor-pointer loginIcon lg:flex">
+              <span className="hidden w-5 cursor-pointer loginIcon lg:flex">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   id="Group_4154"
@@ -111,12 +112,12 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
                 </svg>
               </span>
             </NavLink>
-            <NavLink
+            <Button
               className="block lg:hidden"
               onClick={() => setMenuToggle(true)}
             >
               <HeaderMenuMobileToggle setMenuToggle={setMenuToggle} />
-            </NavLink>
+            </Button>
             {/* <CartToggle cart={cart} /> */}
           </div>
         </div>

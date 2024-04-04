@@ -1,8 +1,11 @@
-import { Await, NavLink } from '@remix-run/react'
 import { Suspense, useState } from 'react'
+import { Await, NavLink } from '@remix-run/react'
+
+import { Button } from '~/components/Button'
 import { Footer } from '~/components/Footer'
 import { Header } from '~/components/Header'
 import OrderHeader from './OrderHeader'
+import { HamburgerClose } from '~/icons/HamburgerClose'
 
 /**
  * @param {LayoutProps}
@@ -70,9 +73,9 @@ function MobileMenuAside({ menu, shop, menuToggle, setMenuToggle }) {
       >
         <div className="flex justify-between items-center py-5 px-10 border-b border-[#1d1d1d26] ">
           <p className="text-[20px] text-black">Menu</p>
-          <NavLink onClick={() => setMenuToggle(false)}>
-            <MobileMenuCloseToggle />
-          </NavLink>
+          <Button onClick={() => setMenuToggle(false)}>
+            <HamburgerClose />
+          </Button>
         </div>
         <div className="h-[20px] bg-[#1d1d1d0a]"></div>
         <ul className=" border-t  border-[#1d1d1d26]">
@@ -138,50 +141,3 @@ function MobileMenuAside({ menu, shop, menuToggle, setMenuToggle }) {
     </>
   )
 }
-
-function MobileMenuCloseToggle() {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 18 18"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M17 1L1 17"
-        stroke="black"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-      <path
-        d="M1 1L17 17"
-        stroke="black"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-    </svg>
-  )
-}
-
-// function MobileMenuSocialIcons (){
-//   return(
-
-//   );
-// }
-
-/**
- * @typedef {{
- *   cart: Promise<CartApiQueryFragment | null>;
- *   children?: React.ReactNode;
- *   footer: Promise<FooterQuery>;
- *   header: HeaderQuery;
- *   isLoggedIn: Promise<boolean>;
- * }} LayoutProps
- */
-
-/** @typedef {import('storefrontapi.generated').CartApiQueryFragment} CartApiQueryFragment */
-/** @typedef {import('storefrontapi.generated').FooterQuery} FooterQuery */
-/** @typedef {import('storefrontapi.generated').HeaderQuery} HeaderQuery */
