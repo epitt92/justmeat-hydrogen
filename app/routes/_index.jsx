@@ -194,7 +194,9 @@ export default function Homepage() {
         <div id="loox-default-carousel">
           <div className="loox-v2-carousel-container" id="LOOX-V2_CAROUSEL-gallery" data-slide-type="gallery" > 
           </div>
+          <div className="loox-rating" data-fetch data-id="rrwQg_Aq0O"></div>
         </div>
+        <iframe id="looxReviewsFrame" title="All product reviews widget" src="https://loox.io/widget/rrwQg_Aq0O/reviews?h=1712243246904&amp;limit=20" height="450px" width="100%" frameBorder="0" scrolling="no"></iframe>
       </section>
       <section className="bg-[#eeeeee] flex justify-center items-center ">
         <div className="max-w-[1440px] w-[100%] flex justify-start gap-20 px-5 xl:px-10 sm:py-20 py-10 ">
