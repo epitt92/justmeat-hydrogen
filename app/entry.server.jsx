@@ -19,6 +19,14 @@ export default async function handleRequest(
   remixContext,
 ) {
   const { nonce, header, NonceProvider } = createContentSecurityPolicy({
+    defaultSrc: [
+      "'self'",
+      "'nonce-1af9efdf3d84886f2c7fa778895e153e'",
+      'https://cdn.shopify.com',
+      'https://shopify.com',
+      'http://localhost:*',
+      'https://loox.io', // Add 'https://loox.io' to allow scripts from this domain
+    ],
     styleSrc: [
       "'self'",
       'http://localhost:*',
@@ -28,7 +36,7 @@ export default async function handleRequest(
       'https://fonts.gstatic.com',
       'https://monorail-edge.shopifysvc.com',
       'https://loox.io',
-    ],
+    ]
   })
 
   const body = await renderToReadableStream(
