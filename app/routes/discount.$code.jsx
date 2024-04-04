@@ -7,17 +7,17 @@ import { redirect } from '@shopify/remix-oxygen'
 export async function loader({ request, context, params }) {
   const { cart } = context
   await context.customerAccount.handleAuthStatus()
-	
-	// Save discountCode into session
-	if (params.code) {
-    context.session.set('discountCode', params.code);
-  } 
+
+  // Save discountCode into session
+  if (params.code) {
+    context.session.set('discountCode', params.code.toUpperCase())
+  }
 
   // Get redirect path from the URL query string
-  const url = new URL(request.url);
-  const searchParams = new URLSearchParams(url.search);
-  const redirectPath = searchParams.get('redirect') || '/';
-  
+  const url = new URL(request.url)
+  const searchParams = new URLSearchParams(url.search)
+  const redirectPath = searchParams.get('redirect') || '/'
+
   const result = await cart.updateDiscountCodes([params.code])
   const headers = cart.setCartId(result.cart.id)
 
