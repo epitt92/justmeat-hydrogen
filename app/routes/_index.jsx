@@ -73,13 +73,13 @@ export default function Homepage() {
       <section>
         <NavLink end prefetch="intent" to="/products/custom-bundle">
           <img
-            src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/subcription_banner.webp?v=1709994462"
+            src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/Ad_1_-_Desktop_1.jpg?v=1712239695"
             className="sm:block hidden"
             width="100%"
             alt=""
           />
           <img
-            src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/Ranch_Rub_Mobile.webp?v=1710451473"
+            src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/Ad_1_-_Mobile_2.jpg?v=1712239740"
             className="sm:hidden block"
             width="100%"
             alt=""
