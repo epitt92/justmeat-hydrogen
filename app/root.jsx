@@ -133,7 +133,7 @@ export default function App() {
           <ScrollRestoration nonce={nonce} />
           <Scripts nonce={nonce} />
           <LiveReload nonce={nonce} />
-          
+          <script async src="//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com"></script>
         </body>
       </html>
     </RootContext.Provider>
@@ -177,8 +177,8 @@ export function ErrorBoundary() {
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
         <LiveReload nonce={nonce} />
-        <script async src="https://loox.io/widget/qZPveP9mjj/loox.1703786131573.js?shop=healthius-store.myshopify.com"></script>
-        <script async src="//loox.io/widget/loox.js?shop=healthius-store.myshopify.com"></script>
+
+        <script async src="//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com"></script>
       </body>
     </html>
   )
