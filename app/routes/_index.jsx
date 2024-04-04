@@ -53,7 +53,7 @@ export default function Homepage() {
             Your browser does not support the video tag.
           </video>
         </div>
-        <div className="flex flex-col z-10 justify-center items-center p-5 gap-6 w-max-[1440px] ">
+        <div className="flex flex-col z-10 justify-center items-center p-5 gap-6 w-max-[1440px] overlay-css-cs">
           <div className="flex flex-col justify-center items-center gap-4 py-16 sm:py-44 mt-[-30px] w-full sm:w-8/12">
             <p className="sm:text-5xl text-3xl leading-[55px] font-bold text-white">
               No Fuss, All Flavor <br></br>
