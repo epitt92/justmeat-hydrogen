@@ -119,9 +119,12 @@ export default function Homepage() {
                 delicious and carefree meal.
               </p>
               <br />
-              
-              <OrderButton />
 
+              <OrderButton
+                className={
+                  'text-[28px] font-body font-bold mt-[38px] px-[40px] py-[10px]'
+                }
+              />
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-[16px] xl:gap-[30px]">
               {[
