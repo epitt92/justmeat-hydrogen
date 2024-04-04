@@ -190,7 +190,10 @@ export default function Homepage() {
           alt=""
         />
       </section>
-      <section className="w-full border bg-white flex justify-center hidden sm:block items-center p-20  ">
+      <section className="w-full border bg-white px-2 md:px-20 py-10  ">
+        <div>
+          <h1 className='font-Roboto text-[40px] font-bold text-center mb-3'>Customers Say:</h1>
+        </div>
       <div id="looxReviews" data-loox-aggregate></div>
       </section>
       <section className="bg-[#eeeeee] flex justify-center items-center ">
