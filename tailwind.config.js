@@ -20,8 +20,8 @@ export default {
           DEFAULT: '20px',
           sm: '20px',
           lg: '20px',
-          xl: '0px',
-          '2xl': '0px',
+          xl: '20px',
+          '2xl': '20px',
         },
         screens: {
           sm: '100%',
