@@ -117,7 +117,7 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
             >
               <HeaderMenuMobileToggle setMenuToggle={setMenuToggle} />
             </NavLink>
-            <CartToggle cart={cart} />
+            {/* <CartToggle cart={cart} /> */}
           </div>
         </div>
       </div>
@@ -127,11 +127,12 @@ export function Header({ header, isLoggedIn, cart, setMenuToggle }) {
   const Landingheader = () => {
     return (
       <div className="container flex justify-center items-center py-[3px] mx-auto relative landingheader">
-        <NavLink end prefetch="intent" to="/"><img
-          src={logo}
-          className="object-contain sm:w-[156px] h-[40px] sm:h-[90px]"
-          alt="Logo"
-        />
+        <NavLink end prefetch="intent" to="/">
+          <img
+            src={logo}
+            className="object-contain sm:w-[156px] h-[40px] sm:h-[90px]"
+            alt="Logo"
+          />
         </NavLink>
         <NavLink end prefetch="intent" to="/" className="absolute left-0">
           <svg
@@ -222,26 +223,6 @@ export function HeaderMenu({ menu, primaryDomainUrl, viewport }) {
   )
 }
 
-/**
- * @param {Pick<HeaderProps, 'isLoggedIn' | 'cart'>}
- */
-function HeaderCtas({ isLoggedIn, cart }) {
-  return (
-    <nav className="header-ctas" role="navigation">
-      <HeaderMenuMobileToggle />
-      <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
-        <Suspense fallback="Sign in">
-          <Await resolve={isLoggedIn} errorElement="Sign in">
-            {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
-          </Await>
-        </Suspense>
-      </NavLink>
-      <SearchToggle />
-      <CartToggle cart={cart} />
-    </nav>
-  )
-}
-
 function HeaderMenuMobileToggle() {
   return (
     <div className="">
@@ -271,7 +252,7 @@ function SearchToggle() {
  */
 function CartBadge({ count }) {
   return (
-    <NavLink end prefetch="intent" to="/cart">
+    <NavLink end prefetch="intent" to="/products/custom-bundle">
       <span className="relative flex w-10 cursor-pointer CartIcon sm:w-5">
         <svg
           xmlns="http://www.w3.org/2000/svg"
