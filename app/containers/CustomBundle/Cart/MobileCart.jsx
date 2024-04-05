@@ -9,6 +9,7 @@ import { PlanPicker } from '../PlanPickerBlock/PlanPicker'
 export const MobileCart = () => {
   const { totalCost, submitting, handleSubmit, isCartPage } =
     useContext(CustomBundleContext)
+  console.log('🚀 ~ MobileCart ~ isCartPage:', isCartPage)
 
   const [cartOpen, setCartOpen] = useState(false)
 

@@ -23,7 +23,7 @@ export function CartLineItem({ line, lineType = 'paid' }) {
       className={cn(
         'rounded-t-xl sm:border-none border-solid overflow-hidden border-[#425b34] gap-4',
         lineType === 'bonus' ? 'sm:hidden block' : 'sm:flex block',
-        lineType === 'free' ?"border" : "border-t border-l border-r"
+        lineType !== 'paid' ? 'border' : 'border-t border-l border-r',
       )}
     >
       <img
