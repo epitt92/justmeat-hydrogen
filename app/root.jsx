@@ -25,10 +25,6 @@ import { Layout } from '~/components/Layout'
 import { SubscriptionCard } from '~/components/SubscriptionCard'
 import { FOOTER_QUERY, HEADER_QUERY } from '~/graphql/HeaderMenuFooter'
 
-/**
- * This is important to avoid re-fetching root queries on sub-navigations
- * @type {ShouldRevalidateFunction}
- */
 export const shouldRevalidate = ({ formMethod, currentUrl, nextUrl }) => {
   // revalidate when a mutation is performed e.g add to cart, login...
   if (formMethod && formMethod !== 'GET') {
@@ -62,18 +58,11 @@ export function links() {
   ]
 }
 
-/**
- * Access the result of the root loader from a React component.
- * @return {LoaderReturnData}
- */
 export const useRootLoaderData = () => {
   const [root] = useMatches()
   return root?.data
 }
 
-/**
- * @param {LoaderFunctionArgs}
- */
 export async function loader({ context }) {
   const { storefront, customerAccount, cart } = context
   const publicStoreDomain = context.env.PUBLIC_STORE_DOMAIN
@@ -114,107 +103,104 @@ export async function loader({ context }) {
 }
 
 export default function App() {
-  const matches = useMatches()
   const nonce = useNonce()
   const data = useLoaderData()
 
-  const isCustomBundlePage =
-    matches.at(-1).pathname === '/products/custom-bundle'
-
-  const [sellingPlan, _setSellingPlan] = useState(
-    isCustomBundlePage ? 'Delivery every 15 Days' : '',
+  const [cartSellingPlan, _setCartSellingPlan] = useState(
+    'Delivery every 15 Days',
   )
-  const [selectedProducts, _setSelectedProducts] = useState([])
-  const [bonusVariant, _setBonusVariant] = useState(null)
-  const [sellingPlanFrequency, _setSellingPlanFrequency] = useState(
-    isCustomBundlePage ? 'Delivery every 15 Days' : '',
+  const [cartProducts, _setCartProducts] = useState([])
+  const [cartBonusVariant, _setCartBonusVariant] = useState(null)
+  const [cartSellingPlanFrequency, _setCartSellingPlanFrequency] = useState(
+    'Delivery every 15 Days',
   )
-  const [cartProductsCount, setCartProductsCount] = useState(0)
 
-  const totalCost = selectedProducts.reduce(
+  const [subscriptionSellingPlan, setSubscriptionSellingPlan] = useState('')
+  const [subscriptionProducts, setSubscriptionProducts] = useState([])
+  const [subscriptionBonusVariant, setSubscriptionBonusVariant] = useState(null)
+  const [
+    subscriptionSellingPlanFrequency,
+    setSubscriptionSellingPlanFrequency,
+  ] = useState('')
+
+  const cartCount = cartProducts.reduce((prev, item) => prev + item.quantity, 0)
+  const cartCost = cartProducts.reduce(
+    (acc, curr) => acc + parseFloat(curr.totalAmount),
+    0,
+  )
+  const subscriptionCost = subscriptionProducts.reduce(
     (acc, curr) => acc + parseFloat(curr.totalAmount),
     0,
   )
 
   useEffect(() => {
-    const _sellingPlan = window.localStorage.getItem('_sellingPlan')
-    const _selectedProducts = window.localStorage.getItem('_selectedProducts')
-    const _bonusVariant = window.localStorage.getItem('_bonusVariant')
-    const _sellingPlanFrequency = window.localStorage.getItem(
-      '_sellingPlanFrequency',
+    const _cartSellingPlan = window.localStorage.getItem('_cartSellingPlan')
+    const _cartProducts = window.localStorage.getItem('_cartProducts')
+    const _cartBonusVariant = window.localStorage.getItem('_cartBonusVariant')
+    const _cartSellingPlanFrequency = window.localStorage.getItem(
+      '_cartSellingPlanFrequency',
     )
 
-    if (_selectedProducts) {
-      const products = JSON.parse(_selectedProducts)
-      const count = products.reduce((prev, item) => prev + item.quantity, 0)
-      setCartProductsCount(count)
+    if (_cartSellingPlan) {
+      _setCartSellingPlan(JSON.parse(_cartSellingPlan))
     }
-
-    if (isCustomBundlePage) {
-      if (_sellingPlan) {
-        _setSellingPlan(JSON.parse(_sellingPlan))
-      }
-      if (_sellingPlanFrequency) {
-        _setSellingPlanFrequency(JSON.parse(_sellingPlanFrequency))
-      }
-      if (_selectedProducts) {
-        _setSelectedProducts(JSON.parse(_selectedProducts))
-      }
-      if (_bonusVariant) {
-        setBonusVariant(JSON.parse(_bonusVariant))
-      }
+    if (_cartSellingPlanFrequency) {
+      _setCartSellingPlanFrequency(JSON.parse(_cartSellingPlanFrequency))
+    }
+    if (_cartProducts) {
+      _setCartProducts(JSON.parse(_cartProducts))
+    }
+    if (_cartBonusVariant) {
+      setCartBonusVariant(JSON.parse(_cartBonusVariant))
     }
   }, [])
 
-  const setSellingPlan = (value) => {
-    _setSellingPlan(value)
-    if (isCustomBundlePage) {
-      window.localStorage.setItem('_sellingPlan', JSON.stringify(value))
-    }
+  const setCartSellingPlan = (value) => {
+    _setCartSellingPlan(value)
+    window.localStorage.setItem('_cartSellingPlan', JSON.stringify(value))
   }
 
-  const setSellingPlanFrequency = (value) => {
-    _setSellingPlanFrequency(value)
-    if (isCustomBundlePage) {
-      window.localStorage.setItem(
-        '_sellingPlanFrequency',
-        JSON.stringify(value),
-      )
-    }
+  const setCartSellingPlanFrequency = (value) => {
+    _setCartSellingPlanFrequency(value)
+    window.localStorage.setItem(
+      '_cartSellingPlanFrequency',
+      JSON.stringify(value),
+    )
   }
 
-  const setSelectedProducts = (value) => {
-    _setSelectedProducts(value)
+  const setCartProducts = (value) => {
+    _setCartProducts(value)
 
-    if (isCustomBundlePage) {
-      window.localStorage.setItem('_selectedProducts', JSON.stringify(value))
-
-      const count = value.reduce((prev, item) => prev + item.quantity, 0)
-      setCartProductsCount(count)
-    }
+    window.localStorage.setItem('_cartProducts', JSON.stringify(value))
   }
 
-  const setBonusVariant = (value) => {
-    _setBonusVariant(value)
-    if (isCustomBundlePage) {
-      window.localStorage.setItem('_bonusVariant', JSON.stringify(value))
-    }
+  const setCartBonusVariant = (value) => {
+    _setCartBonusVariant(value)
+    window.localStorage.setItem('_cartBonusVariant', JSON.stringify(value))
   }
 
   return (
     <RootContext.Provider
       value={{
-        fromOrder: isCustomBundlePage,
-        sellingPlan,
-        setSellingPlan,
-        selectedProducts,
-        setSelectedProducts,
-        sellingPlanFrequency,
-        setSellingPlanFrequency,
-        bonusVariant,
-        setBonusVariant,
-        totalCost,
-        cartProductsCount,
+        cartCost,
+        cartCount,
+        cartProducts,
+        cartSellingPlan,
+        cartSellingPlanFrequency,
+        cartBonusVariant,
+        subscriptionCost,
+        subscriptionSellingPlan,
+        subscriptionProducts,
+        subscriptionSellingPlanFrequency,
+        subscriptionBonusVariant,
+        setCartProducts,
+        setCartSellingPlan,
+        setCartSellingPlanFrequency,
+        setCartBonusVariant,
+        setSubscriptionSellingPlan,
+        setSubscriptionProducts,
+        setSubscriptionSellingPlanFrequency,
+        setSubscriptionBonusVariant,
       }}
     >
       <html lang="en">
@@ -223,10 +209,7 @@ export default function App() {
           <meta name="viewport" content="width=device-width,initial-scale=1" />
           <Meta />
           <Links />
-          <Script
-            async={true}
-            src="https://cdn.reamaze.com/assets/reamaze.js"
-          />
+          <Script async src="https://cdn.reamaze.com/assets/reamaze.js" />
           <Script src="/chat.js" />
         </head>
         <body>
@@ -237,10 +220,10 @@ export default function App() {
           <ScrollRestoration nonce={nonce} />
           <Scripts nonce={nonce} />
           <LiveReload nonce={nonce} />
-          <script
+          <Script
             async
             src="//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com"
-          ></script>
+          ></Script>
         </body>
       </html>
     </RootContext.Provider>

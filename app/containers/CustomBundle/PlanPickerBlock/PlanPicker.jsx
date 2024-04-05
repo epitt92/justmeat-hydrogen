@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { cn } from '~/lib/utils'
-import { RootContext } from '~/contexts'
+import { CustomBundleContext } from '~/contexts'
 import { CheckBox } from '~/icons/CheckBox'
 import { useLoaderData } from '@remix-run/react'
 import { PROMO_CODES } from '../../../promo-codes'
@@ -11,7 +11,7 @@ export const PlanPicker = () => {
     setSellingPlan,
     sellingPlanFrequency,
     setSellingPlanFrequency,
-  } = useContext(RootContext)
+  } = useContext(CustomBundleContext)
 
   const { discountCodes } = useLoaderData()
 

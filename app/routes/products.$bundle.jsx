@@ -121,7 +121,6 @@ export default function Product() {
       <Notification />
       <div className='bg-cover h-[100%] w-[100%] bg-fixed	flex justify-center sm:bg-[url("https://cdn.shopify.com/s/files/1/0672/4776/7778/files/orderpage_bg.png")]'>
         <div className="container">
-          <PlanPickerBlock />
           <CustomBundle />
         </div>
       </div>

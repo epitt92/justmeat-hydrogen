@@ -1,10 +1,10 @@
 import { useContext } from 'react'
 import { Button } from '~/components/Button'
-import { RootContext, CustomBundleFormContext } from '~/contexts'
+import { CustomBundleContext } from '~/contexts'
 
 export function CartCheckoutActions() {
-  const { totalCost, fromOrder } = useContext(RootContext)
-  const { submitting, handleSubmit } = useContext(CustomBundleFormContext)
+  const { isCartPage, totalCost, submitting, handleSubmit } =
+    useContext(CustomBundleContext)
 
   return (
     <>
@@ -15,7 +15,7 @@ export function CartCheckoutActions() {
             onClick={handleSubmit}
             className="bg-[#425b34] text-[15px] py-[15px] font-semibold text-white px-1"
           >
-            {fromOrder ? 'Continue to Checkout' : 'Update Changes'}
+            {isCartPage ? 'Continue to Checkout' : 'Update Changes'}
           </Button>
         </div>
       ) : (
