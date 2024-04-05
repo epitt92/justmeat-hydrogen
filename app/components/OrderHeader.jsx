@@ -36,7 +36,7 @@ const OrderHeader = () => {
         </div>
       </div>
       <div className="flex w-[100%] items-center justify-center bg-[#1c7084] py-1 ">
-        <p className="text-lg font-semibold text-white ">
+        <p className="text-lg font-medium text-white ">
           LIMITED TIME: GET FREE RANCH RUB CHICKEN
         </p>
       </div>
