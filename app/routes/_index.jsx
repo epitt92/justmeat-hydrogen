@@ -170,11 +170,11 @@ export default function Homepage() {
       </section>
       <section className="w-full heroSection border bg-white flex justify-center hidden sm:block items-center p-20  ">
         <div className="max-w-[100%] flex flex-col justify-end items-end p-5 gap-6 bg-cover bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Farm_BG_Just_Meats.png')]">
-          <div className="lg:w-[60%] md:w-[90%] xl:w-[38%] md:w-[60%] bg-[#00000040] pl-12 pr-4 py-5 mt-[200px]">
-            <h2 className="text-white text-5xl leading-tight font-semibold mb-5 ">
+          <div className="lg:w-[60%] md:w-[90%] xl:w-[38%] md:w-[60%] bg-[#1112137a] pl-[46px] pr-5 pb-5 mt-[200px]">
+            <h2 className="font-Roboto text-white text-5xl leading-tight tracking-normal font-normal mb-4 ">
               REAL MEAT<br></br>REAL RANCHES
             </h2>
-            <p className="text-white text-lg mb-5">
+            <p className="!font-Roboto text-white text-lg font-normal tracking-normal leading-8 mb-4">
               We take pride in supplying delicious, healthy, natural grass-fed
               meat to our consumers. We source all of our meat from local
               ranches across the Rocky Mountain Region of the USA where all
