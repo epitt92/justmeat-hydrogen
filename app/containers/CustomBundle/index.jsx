@@ -162,7 +162,7 @@ export const CustomBundle = () => {
             </div>
           )}
 
-          <main className="flex flex-col flex-1 gap-2 bg-white border-gray-400 border-solid main-section sm:border">
+          <main className="flex flex-col flex-1 gap-2 bg-white border-gray-400 border-solid main-section sm:border mb-[50px]">
             {isCartPage && (
               <div className="flex items-center w-full gap-2 py-3 sm:py-0">
                 <div className="w-[35px] h-[35px] ml-3 lg:hidden lg:w-[60px] lg:h-[60px] rounded-[100%] sm:border-none border-2 border-[#425C35] sm:bg-black flex justify-center items-center  ">
