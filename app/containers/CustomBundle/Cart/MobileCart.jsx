@@ -20,7 +20,7 @@ export const MobileCart = () => {
       <Button
         onClick={() => setCartOpen(true)}
         className={cn(
-          'sm:hidden fixed bottom-[12px] left-[50%] transform translate-x-[-50%] w-[96%] rounded-xl py-[12px] text-white font-semibold',
+          'lg:hidden fixed bottom-[12px] left-[50%] transform translate-x-[-50%] w-[96%] rounded-xl py-[12px] text-white font-semibold',
           isCheckoutable ? 'bg-[#425b34]' : 'bg-[#AAAAAA]',
         )}
       >
@@ -40,7 +40,7 @@ export const MobileCart = () => {
 
       <div
         className={cn(
-          'fixed flex flex-col justify-between w-full h-screen sm:hidden transition-transform duration-300 left-0 top-0 bg-white',
+          'fixed flex flex-col justify-between w-full h-screen lg:hidden transition-transform duration-300 left-0 top-0 bg-white',
           cartOpen ? 'translate-y-0' : 'translate-y-full',
         )}
       >
