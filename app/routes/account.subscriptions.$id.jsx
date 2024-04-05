@@ -252,12 +252,13 @@ export async function action({ request, context, params }) {
 }
 
 export default function SubscriptionRoute() {
-  const { setSelectedProducts, setBonusVariant } = useContext(RootContext)
+  const { setSubscriptionProducts, setSubscriptionBonusVariant } =
+    useContext(RootContext)
   const { subscriptionProducts, subscriptionBonusVariant } = useLoaderData()
 
   useEffect(() => {
-    setSelectedProducts(subscriptionProducts)
-    setBonusVariant(subscriptionBonusVariant)
+    setSubscriptionProducts(subscriptionProducts)
+    setSubscriptionBonusVariant(subscriptionBonusVariant)
   }, [])
 
   return (
