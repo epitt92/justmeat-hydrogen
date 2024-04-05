@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import { cn } from '~/lib/utils'
+import { cn, formatPrice } from '~/lib/utils'
 import { Button } from '~/components/Button'
 import { RootContext, CustomBundleFormContext } from '~/contexts'
 import { ProgressBar } from './ProgressBar'
@@ -26,10 +26,10 @@ export const MobileCart = () => {
         {fromOrder && (
           <>
             {isCheckoutable
-              ? `View Cart - ($${totalCost.toFixed(2)})`
-              : `Add $${(75 - totalCost).toFixed(
-                  2,
-                )} to Unlock Cart ($${totalCost.toFixed(2)})`}
+              ? `View Cart - ($${formatPrice(totalCost)})`
+              : `Add $${formatPrice(
+                  75 - totalCost,
+                )} to Unlock Cart ($${formatPrice(totalCost)})`}
           </>
         )}
         {!fromOrder && (
