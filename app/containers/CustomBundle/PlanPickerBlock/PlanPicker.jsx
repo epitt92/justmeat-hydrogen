@@ -80,8 +80,11 @@ const firstOrderSavingFormatted = (firstOrderSavingNumber / 100) * total;
           )}
         >
           <div className="mt-[4px] flex justify-between items-center sm:hidden">
-            <p className="text-black font-semibold text-[14px]">
+            <p className="hidden lg:block text-black font-semibold text-[14px]">
               Deliver Every
+            </p>
+            <p className="lg:hidden block text-black font-semibold text-[14px]">
+              Select Frequency
             </p>
             <div className="flex gap-2">
               <div
