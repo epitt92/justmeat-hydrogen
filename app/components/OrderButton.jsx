@@ -4,18 +4,16 @@ import { cn } from '~/lib/utils'
 
 const OrderButton = ({ className }) => {
   return (
-    <div className="flex orderBton">
-      <NavLink end prefetch="intent" to="/products/custom-bundle">
-        <span
-          className={cn(
-            'bg-[#862E1B] cursor-pointer text-[#fff] hover:bg-[#1d1d1d] transition font-bold text-lg py-3 px-9',
-            className,
-          )}
-        >
-          Order Now
-        </span>
-      </NavLink>
-    </div>
+    <NavLink end prefetch="intent" to="/products/custom-bundle">
+      <span
+        className={cn(
+          'bg-primary cursor-pointer font-medium text-[#fff] hover:bg-primary-dark transition py-[10px] px-[20px] rounded-[4px] text-sm',
+          className,
+        )}
+      >
+        ORDER NOW
+      </span>
+    </NavLink>
   )
 }
 

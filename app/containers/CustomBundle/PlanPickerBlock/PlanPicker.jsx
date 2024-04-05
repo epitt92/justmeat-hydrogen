@@ -1,7 +1,9 @@
 import React, { useContext } from 'react'
 import { cn } from '~/lib/utils'
-import { RootContext } from '~/contexts'
+import { CustomBundleContext } from '~/contexts'
 import { CheckBox } from '~/icons/CheckBox'
+import { useLoaderData } from '@remix-run/react'
+import { PROMO_CODES } from '../../../promo-codes'
 
 export const PlanPicker = () => {
   const {
@@ -9,7 +11,14 @@ export const PlanPicker = () => {
     setSellingPlan,
     sellingPlanFrequency,
     setSellingPlanFrequency,
-  } = useContext(RootContext)
+  } = useContext(CustomBundleContext)
+
+  const { discountCodes } = useLoaderData()
+
+  // Get influencer discount codes
+  const influencerCode = PROMO_CODES.filter((code) =>
+    discountCodes.includes(code.code),
+  )
 
   return (
     <div className="flex gap-2 flex-col sm:flex-row w-[100%] sm:max-w-[760px]">
@@ -21,7 +30,8 @@ export const PlanPicker = () => {
               : 'sm:text-black sm:bg-[#ebeae9] bg-[#aaa] text-white'
           } min-h-[24px] flex justify-center items-center px-[15px] pt-[3px] text-[11px] font-normal rounded-full mx-auto sm:ml-0 sm:rounded-[0px] sm:font-semibold sm:text-[14px] sm:min-h-[28px] w-fit`}
         >
-          SAVE 25% ON YOUR FIRST ORDER
+          SAVE {influencerCode.length > 0 ? influencerCode[0].percentage : 25}%
+          ON YOUR FIRST ORDER
         </p>
         <div
           className={`${
@@ -150,8 +160,10 @@ export const PlanPicker = () => {
                       : 'fill-[#aaaaaa]'
                   }
                 />
-              </span>{' '}
-              Save 10% on Future Orders
+              </span>
+              {influencerCode.length > 0
+                ? `${influencerCode[0].percentage}% Off First Order`
+                : 'Save 10% on Future Orders'}
             </li>
             <li className="flex items-center text-[11px] sm:text-[12px] font-normal sm:font-bold m-0 hidden md:flex lg:flex">
               <span className="text-[#425B34] sm:text-black">

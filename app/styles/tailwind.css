@@ -6,10 +6,19 @@
 
 @layer base {
   html {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Dunbar', 'Roboto', sans-serif;
+    letter-spacing: 1px;
   }
 
   * {
     outline: none;
+  }
+
+  a {
+    @apply inline-block;
+  }
+
+  .absolute-center {
+    @apply absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2;
   }
 }

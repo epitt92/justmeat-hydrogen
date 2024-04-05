@@ -9,6 +9,8 @@ import { ALL_PRODUCTS_QUERY } from '~/graphql/Product'
 
 export async function loader({ request, context }) {
   const { storefront } = context
+  const discountCode = context.session.get('discountCode')
+  const discountCodes = discountCode ? [discountCode] : []
 
   const allProductsHandler = 'all-products'
   const freeProductHandler = 'raspberry-bbq-chicken-breast'
@@ -47,6 +49,7 @@ export async function loader({ request, context }) {
     products,
     freeProduct,
     bonusProduct,
+    discountCodes,
   })
 }
 
@@ -118,7 +121,6 @@ export default function Product() {
       <Notification />
       <div className='bg-cover h-[100%] w-[100%] bg-fixed	flex justify-center sm:bg-[url("https://cdn.shopify.com/s/files/1/0672/4776/7778/files/orderpage_bg.png")]'>
         <div className="container">
-          <PlanPickerBlock />
           <CustomBundle />
         </div>
       </div>
