@@ -20,9 +20,9 @@ export default async function handleRequest(
 ) {
   const { nonce, header, NonceProvider } = createContentSecurityPolicy({
     // For DEV phase
-    defaultSrc: ['*'],
-    connectSrc: ['*'],
-    styleSrc: ['*'],
+    defaultSrc: ['*', 'data:'],
+    connectSrc: ['*', 'data:'],
+    styleSrc: ['*', 'data:'],
     fontSrc: ['*', 'data:'],
   })
 
