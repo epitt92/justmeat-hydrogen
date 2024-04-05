@@ -4,7 +4,7 @@ export const ProductCard = ({ product, onClick }) => {
   const image = product.featuredImage.url
 
   return (
-    <div className="product-grid mb-[40px] ">
+    <div className="product-grid">
       <div className="img-wrapper">
         <img
           onClick={onClick}
