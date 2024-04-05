@@ -1,8 +1,8 @@
 import { useContext } from 'react'
-import { RootContext } from '~/contexts'
+import { CustomBundleContext } from '~/contexts'
 
 export function CartSummary({ layout, children = null }) {
-  const { totalCost } = useContext(RootContext)
+  const { totalCost } = useContext(CustomBundleContext)
 
   const className =
     layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside'
