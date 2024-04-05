@@ -65,7 +65,7 @@ export function Header() {
 
   const NavLinkItem = ({ to, text }) => (
     <NavLink end prefetch="intent" to={to}>
-      <div className="text-xs font-semibold uppercase transition cursor-pointer hover:text-primary text-primary-dark">
+      <div className="text-xs font-medium uppercase transition cursor-pointer hover:text-primary text-primary-dark">
         {text}
       </div>
     </NavLink>

@@ -7,7 +7,7 @@ export default {
   plugins: [formsPlugin, typographyPlugin],
   theme: {
     fontFamily: {
-      body: ['Roboto', 'sans-serif'],
+      body: ['Dunbar', 'Roboto', 'sans-serif'],
     },
     extend: {
       colors: {
