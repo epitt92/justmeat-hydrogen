@@ -125,13 +125,55 @@
 
 @font-face {
   font-family: 'ROCK';
-  src: url("https://cdn.shopify.com/s/files/1/0672/4776/7778/files/ROCK.woff2?v=1712169498") format("woff2");
+  src: url('../assets/fonts/ROCK.woff2') format('woff2');
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Rockwell Bold';
-  src: url("https://cdn.shopify.com/s/files/1/0672/4776/7778/files/Rockwell-Bold_1.woff2?v=1712175559") format("woff2");
+  src: url('../assets/fonts/Rockwell-Bold_1.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Dunbar';
+  src: url('../assets/fonts/DunbarLow-Light.woff2') format('woff2');
+  font-weight: 200;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Dunbar';
+  src: url('../assets/fonts/DunbarLow-Book.woff2') format('woff2');
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Dunbar';
+  src: url('../assets/fonts/DunbarLow-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Dunbar';
+  src: url('../assets/fonts/DunbarLow-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Dunbar';
+  src: url('../assets/fonts/DunbarLow-Bold.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Dunbar';
+  src: url('../assets/fonts/DunbarLow-Bold.woff2') format('woff2');
+  font-weight: 700;
   font-display: swap;
 }
 
@@ -140,7 +182,7 @@
 }
 
 .overlay-css-cs:before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -177,12 +219,14 @@ section.bg-contain.bg-center p.text-black.text-1xl.text-center {
   color: #efefef;
 }
 
-section.bg-\[\#eeeeee\].flex.justify-center.items-center h1.xl\:px-4.py-2.lg\:px-2 {
+section.bg-\[\#eeeeee\].flex.justify-center.items-center
+  h1.xl\:px-4.py-2.lg\:px-2 {
   font-weight: 400;
   line-height: normal;
 }
 
-section.bg-\[\#eeeeee\].flex.justify-center.items-center h1.xl\:px-4.py-2.lg\:px-2 {
+section.bg-\[\#eeeeee\].flex.justify-center.items-center
+  h1.xl\:px-4.py-2.lg\:px-2 {
   font-weight: 400;
   line-height: normal;
 }
@@ -191,29 +235,35 @@ section.bg-\[\#eeeeee\].flex.justify-center.items-center .flex.orderBton span {
   font-weight: 700;
 }
 
-section.heroSection.bg-\[\#c5972d\].px-4.py-10.flex.justify-center.items-center.bg-no-repeat.min-h-96.bg-contain h2.text-black.text-5xl.mt-2 {
+section.heroSection.bg-\[\#c5972d\].px-4.py-10.flex.justify-center.items-center.bg-no-repeat.min-h-96.bg-contain
+  h2.text-black.text-5xl.mt-2 {
   padding-left: 1.25rem;
   padding-right: 1.25rem;
 }
 
-section.heroSection.bg-\[\#c5972d\].px-4.py-10.flex.justify-center.items-center.bg-no-repeat.min-h-96.bg-contain .xl\:w-\[40\%\].lg\:w-\[100\%\] {
-  background-color: rgba(0,0,0,.02);
+section.heroSection.bg-\[\#c5972d\].px-4.py-10.flex.justify-center.items-center.bg-no-repeat.min-h-96.bg-contain
+  .xl\:w-\[40\%\].lg\:w-\[100\%\] {
+  background-color: rgba(0, 0, 0, 0.02);
 }
 
-section.bg-\[url\(\'https\:\/\/cdn\.shopify\.com\/s\/files\/1\/0555\/1751\/1961\/files\/Group_4677_2x_b4bf7720-0529-4907-b3d6-8ecc83b37a23\.png\'\)\].text-white.pt-2.pb-8 h3.text-\[50px\] {
+section.bg-\[url\(\'https\:\/\/cdn\.shopify\.com\/s\/files\/1\/0555\/1751\/1961\/files\/Group_4677_2x_b4bf7720-0529-4907-b3d6-8ecc83b37a23\.png\'\)\].text-white.pt-2.pb-8
+  h3.text-\[50px\] {
   font-family: 'Rockwell Bold' !important;
 }
 
-@media screen and (min-width: 1024px) {  
+@media screen and (min-width: 1024px) {
   .bg-cover .lg\:flex-row .flex.flex-col {
     max-width: 35%;
   }
 
-  section.bg-\[url\(\'https\:\/\/cdn\.shopify\.com\/s\/files\/1\/0555\/1751\/1961\/files\/Group_4677_2x_b4bf7720-0529-4907-b3d6-8ecc83b37a23\.png\'\)\].text-white.pt-2.pb-8 .grid.items-center.justify-center.max-w-lg.gap-8.mx-auto.mt-4.lg\:max-w-none.lg\:grid-cols-3 {
+  section.bg-\[url\(\'https\:\/\/cdn\.shopify\.com\/s\/files\/1\/0555\/1751\/1961\/files\/Group_4677_2x_b4bf7720-0529-4907-b3d6-8ecc83b37a23\.png\'\)\].text-white.pt-2.pb-8
+    .grid.items-center.justify-center.max-w-lg.gap-8.mx-auto.mt-4.lg\:max-w-none.lg\:grid-cols-3 {
     grid-template-columns: 2fr 2fr 1fr;
   }
 
-  section.bg-\[url\(\'https\:\/\/cdn\.shopify\.com\/s\/files\/1\/0555\/1751\/1961\/files\/Group_4677_2x_b4bf7720-0529-4907-b3d6-8ecc83b37a23\.png\'\)\].text-white.pt-2.pb-8 .flex.items-center.justify-center img {
+  section.bg-\[url\(\'https\:\/\/cdn\.shopify\.com\/s\/files\/1\/0555\/1751\/1961\/files\/Group_4677_2x_b4bf7720-0529-4907-b3d6-8ecc83b37a23\.png\'\)\].text-white.pt-2.pb-8
+    .flex.items-center.justify-center
+    img {
     max-width: 165px;
   }
 }
