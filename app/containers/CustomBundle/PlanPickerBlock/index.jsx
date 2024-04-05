@@ -99,7 +99,7 @@ export const PlanPickerBlock = () => {
           {review}
         </div>
 
-        <div className="flex justify-start flex-col sm:flex-row gap-[12px] sm:gap-[40px] pt-5 w-[100%]">
+        <div className="flex justify-start flex-col lg:flex-row gap-[12px] lg:gap-[40px] pt-5 w-[100%]">
           <div className="flex items-center w-full gap-2 lg:w-4/12 xl:w-3/12">
             <div className="w-[35px] h-[35px] lg:w-[60px] lg:h-[60px] rounded-[100%] border-2 border-[#425C35] sm:border-none sm:bg-black flex justify-center items-center  ">
               <span className=" text-[22px] lg:text-[40px] font-bold text-black sm:text-white ">

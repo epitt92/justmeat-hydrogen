@@ -21,8 +21,8 @@ export const PlanPicker = () => {
   )
 
   return (
-    <div className="flex gap-2 flex-col sm:flex-row w-[100%] sm:max-w-[760px]">
-      <div className="flex-1 w-full sm:w-7/12 md:w-6/12 xl:w-4/12">
+    <div className="flex gap-2 flex-col lg:flex-row w-[100%] lg:!max-w-[760px]">
+      <div className="flex-1 w-full lg:w-6/12 xl:w-4/12">
         <p
           className={`${
             sellingPlan
@@ -193,13 +193,13 @@ export const PlanPicker = () => {
         </div>
       </div>
 
-      <div className="flex-1 w-full sm:w-7/12 md:w-5/12 xl:w-4/12">
+      <div className="flex-1 w-full lg:w-5/12 xl:w-4/12">
         <div
           className={`${
             !sellingPlan
               ? 'bg-white sm:bg-[#862E1B] border-[#425B34]'
               : 'border-[#eaeaea]'
-          } p-[3px] sm:p-[10px] border-[3px] border-solid flex justify-center sm:justify-start gap-6 sm:border-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px] subscriptionlabel sm:mt-[28px] mt-0`}
+          } p-[7px] sm:p-[10px] border-[3px] border-solid flex justify-center sm:justify-start gap-6 sm:border-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px] subscriptionlabel sm:mt-[28px] mt-0`}
           onClick={() => {
             setSellingPlan('')
           }}
