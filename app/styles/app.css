@@ -267,3 +267,12 @@ section.bg-\[url\(\'https\:\/\/cdn\.shopify\.com\/s\/files\/1\/0555\/1751\/1961\
     max-width: 165px;
   }
 }
+
+.banner {
+  background-image: url('../assets/images/Banner.png');
+}
+
+.bg-brown-pattern {
+  background-image: url('../assets/images/Rectangle-brown-pattern.png');
+  background-size: cover;
+}
