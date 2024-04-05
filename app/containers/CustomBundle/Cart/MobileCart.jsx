@@ -14,7 +14,7 @@ export const MobileCart = () => {
   const [cartOpen, setCartOpen] = useState(false)
 
   const isCheckoutable = totalCost >= 75
-
+const total= (totalCost + 11.45).toFixed(2)
   return (
     <div className="mobile-cart">
       <Button
@@ -60,7 +60,7 @@ export const MobileCart = () => {
           <CartLines />
         </div>
         <div className="p-[5px] flex flex-col gap-[10px]">
-          {isCartPage && <PlanPicker />}
+          {isCartPage && <PlanPicker total={total} totalCostForPlan={totalCost}/>}
           <Button
             loading={submitting}
             onClick={handleSubmit}
