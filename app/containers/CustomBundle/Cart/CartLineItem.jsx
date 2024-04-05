@@ -21,8 +21,9 @@ export function CartLineItem({ line, lineType = 'paid' }) {
   return (
     <div
       className={cn(
-        'rounded-xl border sm:border-none border-solid border-[#425b34] overflow-hidden gap-4',
+        'rounded-t-xl sm:border-none border-solid overflow-hidden border-[#425b34] gap-4',
         lineType === 'bonus' ? 'sm:hidden block' : 'sm:flex block',
+        lineType === 'free' ?"border" : "border-t border-l border-r"
       )}
     >
       <img
@@ -66,7 +67,7 @@ export function CartLineItem({ line, lineType = 'paid' }) {
             lineType === 'bonus' ? ' -mt-[5px]' : ' -mt-[13px]',
           )}
         >
-          {lineType === 'paid' && <Quantity line={line} />}
+          {lineType === 'paid' && <Quantity isViewingCart={true} line={line} />}
           {lineType === 'bonus' && <LockedItem />}
         </div>
       )}
