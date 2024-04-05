@@ -9,6 +9,7 @@ import { PlanPicker } from '../PlanPickerBlock/PlanPicker'
 export const MobileCart = () => {
   const { totalCost, submitting, handleSubmit, isCartPage } =
     useContext(CustomBundleContext)
+  console.log('🚀 ~ MobileCart ~ isCartPage:', isCartPage)
 
   const [cartOpen, setCartOpen] = useState(false)
 
@@ -70,7 +71,11 @@ export const MobileCart = () => {
               isCheckoutable ? 'bg-[#425b34]' : 'bg-[#AAAAAA]',
             )}
           >
-            {isCheckoutable ? 'Update Changes' : 'Spend $75 to Continue)'}
+            {isCheckoutable
+              ? isCartPage
+                ? 'Checkout'
+                : 'Update Changes'
+              : 'Spend $75 to Continue)'}
           </Button>
         </div>
       </div>

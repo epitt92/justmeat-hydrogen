@@ -8,12 +8,14 @@ export default {
   theme: {
     fontFamily: {
       body: ['Dunbar', 'Roboto', 'sans-serif'],
+      nunito: 'Nunito Sans',
     },
     extend: {
       colors: {
         primary: '#7A392D',
         'primary-dark': '#231B19',
         second: '#637160',
+        yellow: '#e47a0f',
         custombgGreen: '#425b34',
         sublistbgGray: '#eee',
       },
