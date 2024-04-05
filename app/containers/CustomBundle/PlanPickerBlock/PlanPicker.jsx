@@ -5,12 +5,12 @@ import { CheckBox } from '~/icons/CheckBox'
 import { useLoaderData } from '@remix-run/react'
 import { PROMO_CODES } from '../../../promo-codes'
 
-export const PlanPicker = () => {
+export const PlanPicker = ({total,totalCostForPlan}) => {
   const {
     sellingPlan,
     setSellingPlan,
     sellingPlanFrequency,
-    setSellingPlanFrequency,
+    setSellingPlanFrequency,totalCost
   } = useContext(CustomBundleContext)
 
   const { discountCodes } = useLoaderData()
@@ -19,6 +19,9 @@ export const PlanPicker = () => {
   const influencerCode = PROMO_CODES.filter((code) =>
     discountCodes.includes(code.code),
   )
+
+const firstOrderSavingNumber = influencerCode.length > 0 ? parseFloat(influencerCode[0]) : 25;
+const firstOrderSavingFormatted = (firstOrderSavingNumber / 100) * total;
 
   return (
     <div className="flex gap-2 flex-col lg:flex-row w-[100%] lg:!max-w-[760px]">
@@ -46,7 +49,8 @@ export const PlanPicker = () => {
               sellingPlan ? 'text-black sm:text-[#fff]' : 'text-[#1d1d1d]'
             } leading-[100%] flex-1 text-[18px] sm:text-[20px] text-center sm:text-left font-bold`}
           >
-            Subscribe & Save
+          <span className="line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">{total && `$${total}`}</span> 
+          {totalCostForPlan && `$${(totalCostForPlan-firstOrderSavingFormatted).toFixed(2)}`}  Subscribe & Save
           </div>
 
           <select
@@ -209,7 +213,10 @@ export const PlanPicker = () => {
               sellingPlan ? 'text-[#1d1d1d]' : 'text-black sm:text-[#fff]'
             } text-[18px] sm:text-[20px] w-fit font-bold text-center sm:text-left sm:leading-[24px]`}
           >
-            One Time
+           <span className="line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
+             {total && `$${total}`}
+            </span> 
+          {totalCostForPlan && `$${(totalCostForPlan)}`} One Time
           </div>
         </div>
       </div>
