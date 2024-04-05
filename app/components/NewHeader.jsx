@@ -6,124 +6,70 @@ import { CartButton } from './CartButton'
 import logo from '~/assets/logo.png'
 import { Button } from './Button'
 import { HamburgerOpen } from '~/icons/HamburgerOpen'
+import { Account as AccountIcon } from '~/icons/Account'
 import { LayoutContext } from '~/contexts'
+import { Logo } from '~/icons/Logo'
 
 export function Header() {
   const matches = useMatches()
   const { setMenuToggle } = useContext(LayoutContext)
 
-  const isCartPage = matches[1].params.bundle === 'custom-bundle'
+  const isRoute = matches[1].params.bundle === 'custom-bundle'
 
-  const HoverUnderNavLink = (to, text) => {
-    const spanRef = useRef(null)
-
-    const handleMouseEnter = () => {
-      if (spanRef.current) {
-        spanRef.current.style.width = '100%'
-      } else {
-        spanRef.current.style.width = '100%'
-      }
-    }
-
-    const handleMouseLeave = () => {
-      if (spanRef.current) {
-        spanRef.current.style.width = '0%'
-      } else {
-        spanRef.current.style.width = '0%'
-      }
-    }
-
-    return (
-      <li className="navLink py-4 px-5 hover:text-[#862E1B] cursor-pointer transition text-[#1d1d1d] uppercase font-medium	text-base ">
-        <NavLink
-          end
-          prefetch="intent"
-          style={(activeLinkStyle, { position: 'relative' })}
-          to={to}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          {text}
-          <span
-            ref={spanRef}
-            style={{
-              position: 'absolute',
-              bottom: 0,
-              left: 0,
-              height: '2px',
-              width: '0%',
-              backgroundColor: '#862E1B',
-              transition: 'width 0.5s ease',
-            }}
-          ></span>
-        </NavLink>
-      </li>
-    )
-  }
+  const navLinks = [
+    ['/products/custom-bundle', 'Menu'],
+    ['/about', 'About Us'],
+    ['/recipes', 'Recipes'],
+    ['/special', 'Special'],
+  ]
 
   const Mainheader = () => {
     return (
-      <div className="container flex items-center justify-between py-4 mainheader">
-        <NavLink end prefetch="intent" to="/">
-          <img
-            src={logo}
-            className="object-cover h-16 w-30 sm:h-24"
-            alt=""
-            style={{ height: '70px' }}
-          />
-        </NavLink>
+      <div className="container relative h-[88px] sm:h-[120px] flex items-center justify-between py-4 mainheader">
         <div className="flex items-center justify-between gap-10 navBar">
-          <ul className="hidden navLinks lg:flex">
-            {HoverUnderNavLink('/products/custom-bundle', 'Menu')}
-            {HoverUnderNavLink('/about', 'About Us')}
-            {HoverUnderNavLink('/recipes', 'Recipes')}
-          </ul>
-          <div className="hidden lg:block">
-            <OrderButton />
+          <div className="hidden navLinks sm:flex sm:gap-[32px]">
+            {navLinks.map(([to, text], index) => (
+              <NavLinkItem to={to} text={text} key={index} />
+            ))}
           </div>
-          <div className="flex items-center justify-between gap-4 headerIcons sm:gap-10">
+          <Button
+            className="block sm:hidden"
+            onClick={() => setMenuToggle(true)}
+          >
+            <HamburgerOpen />
+          </Button>
+        </div>
+        <div className="absolute-center">
+          <NavLink to="/" end prefetch="intent">
+            <div className="w-[148px] sm:w-[214px]">
+              <Logo />
+            </div>
+          </NavLink>
+        </div>
+        <div className="flex items-center gap-[32px]">
+          <div className="flex items-center gap-[10px] sm:gap-[18px]">
             <NavLink end prefetch="intent" to="/account">
-              <span className="hidden w-5 cursor-pointer loginIcon lg:flex">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  id="Group_4154"
-                  data-name="Group 4154"
-                  width="27.473"
-                  height="33.937"
-                  viewBox="0 0 27.473 33.937"
-                  className="icon-account"
-                >
-                  <path
-                    id="Path_1"
-                    data-name="Path 1"
-                    d="M259.545,42.272A7.272,7.272,0,1,1,252.272,35a7.272,7.272,0,0,1,7.272,7.272"
-                    transform="translate(-238.536 -35)"
-                    fill="#030303"
-                    fillRule="evenodd"
-                  ></path>
-                  <path
-                    id="Path_2"
-                    data-name="Path 2"
-                    d="M177.528,286.105a1.616,1.616,0,0,0,1.616-1.616v-2.424a13.736,13.736,0,1,0-27.473,0v2.424a1.616,1.616,0,0,0,1.616,1.616h24.241Z"
-                    transform="translate(-151.672 -252.168)"
-                    fill="#030303"
-                    fillRule="evenodd"
-                  ></path>
-                </svg>
+              <span className="cursor-pointer loginIcon">
+                <AccountIcon />
               </span>
             </NavLink>
-            <Button
-              className="block lg:hidden"
-              onClick={() => setMenuToggle(true)}
-            >
-              <HamburgerOpen />
-            </Button>
             <CartButton />
+          </div>
+          <div className="hidden lg:block">
+            <OrderButton />
           </div>
         </div>
       </div>
     )
   }
+
+  const NavLinkItem = ({ to, text }) => (
+    <NavLink end prefetch="intent" to={to}>
+      <div className="text-xs font-medium uppercase transition cursor-pointer hover:text-primary text-primary-dark">
+        {text}
+      </div>
+    </NavLink>
+  )
 
   const Landingheader = () => {
     return (
@@ -157,9 +103,7 @@ export function Header() {
   }
 
   return (
-    <header className="bg-[#eeeeee] border-b border-solid border-[#1D1D1D10]">
-      {isCartPage ? <Landingheader /> : <Mainheader />}
-    </header>
+    <header className="">{isRoute ? <Landingheader /> : <Mainheader />}</header>
   )
 }
 
