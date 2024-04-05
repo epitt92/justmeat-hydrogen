@@ -285,10 +285,7 @@ export function ErrorBoundary() {
         <Scripts nonce={nonce} />
         <LiveReload nonce={nonce} />
 
-        <script
-          async
-          src="//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com"
-        ></script>
+        <Scripts src="//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com"></Scripts>
       </body>
     </html>
   )
