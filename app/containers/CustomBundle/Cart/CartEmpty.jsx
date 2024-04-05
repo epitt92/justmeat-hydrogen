@@ -1,8 +1,8 @@
 import { useContext } from 'react'
-import { CustomBundleContext } from '~/contexts'
+import { RootContext } from '~/contexts'
 
 export function CartEmpty() {
-  const { selectedProducts } = useContext(CustomBundleContext)
+  const { selectedProducts } = useContext(RootContext)
 
   return (
     <div hidden={selectedProducts.length > 0} className="h-[260px]">

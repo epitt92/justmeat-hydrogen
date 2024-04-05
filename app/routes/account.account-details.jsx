@@ -105,9 +105,9 @@ const AccountDetails = () => {
     setShowAccountDetails(!showAccountDetails)
   }
   return (
-    <div className="bg-sublistbgGray py-6">
-      <div className="w-[95%] md:w-[90%] mx-auto">
-        <div className="flex flex-col md:flex-row gap-2 md:gap-14 items-center border-gray-500 border-b-2 py-4 my-4">
+    <div className="py-6 bg-sublistbgGray">
+      <div className="container">
+        <div className="flex flex-col items-center gap-2 py-4 my-4 border-b-2 border-gray-500 md:flex-row md:gap-14">
           <NavLink
             to="/account/subscriptions"
             className="basis-2/12 bg-[#fff] text-center capitalize border-solid border-2 border-gray-500 px-4 text-[22px] py-1"
@@ -135,13 +135,13 @@ const AccountDetails = () => {
 
         {showAccountDetails && (
           <div className="bg-[#FFF] rounded-sm py-8 px-6 mb-8 border border-black ">
-            <div className="border-gray-500 border-b py-4 mb-4">
+            <div className="py-4 mb-4 border-b border-gray-500">
               <h3 className="text-[26px] text-center font-bold ">
                 Account Details
               </h3>
             </div>
             <Form method="PUT">
-              <div className=" grid grid-cols-1 gap-x-16 gap-y-8 sm:grid-cols-6">
+              <div className="grid grid-cols-1  gap-x-16 gap-y-8 sm:grid-cols-6">
                 <div className="sm:col-span-3">
                   <label
                     htmlFor="firstName"
@@ -198,7 +198,7 @@ const AccountDetails = () => {
                   <button
                     type="submit"
                     disabled={state !== 'idle'}
-                    className="rounded-sm px-8 py-1 text-lg font-bold text-black shadow-sm border-2 border-black"
+                    className="px-8 py-1 text-lg font-bold text-black border-2 border-black rounded-sm shadow-sm"
                   >
                     {state !== 'idle' && formAction  ? 'Saving....' : 'Save'}
                     

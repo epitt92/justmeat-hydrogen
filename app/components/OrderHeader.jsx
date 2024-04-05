@@ -5,7 +5,7 @@ import logo from '~/assets/logo.svg'
 const OrderHeader = () => {
   return (
     <header className="flex flex-col items-center justify-center OrderHeader">
-      <div className="max-w-[1440px] flex w-[100%] py-3 items-center ">
+      <div className="container flex items-center py-3">
         <div>
           <Link to="/">
             <svg
