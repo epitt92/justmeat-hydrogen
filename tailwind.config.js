@@ -8,6 +8,7 @@ export default {
   theme: {
     fontFamily: {
       body: ['Dunbar', 'Roboto', 'sans-serif'],
+      dunbar: 'Dunbar',
       nunito: 'Nunito Sans',
     },
     extend: {
