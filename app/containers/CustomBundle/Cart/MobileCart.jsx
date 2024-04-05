@@ -1,14 +1,14 @@
 import { useContext, useState } from 'react'
 import { cn, formatPrice } from '~/lib/utils'
 import { Button } from '~/components/Button'
-import { RootContext, CustomBundleFormContext } from '~/contexts'
+import { CustomBundleContext } from '~/contexts'
 import { ProgressBar } from './ProgressBar'
 import { CartLines } from './CartLines'
 import { PlanPicker } from '../PlanPickerBlock/PlanPicker'
 
 export const MobileCart = () => {
-  const { totalCost, fromOrder } = useContext(RootContext)
-  const { submitting, handleSubmit } = useContext(CustomBundleFormContext)
+  const { totalCost, submitting, handleSubmit, isCartPage } =
+    useContext(CustomBundleContext)
 
   const [cartOpen, setCartOpen] = useState(false)
 
@@ -23,7 +23,7 @@ export const MobileCart = () => {
           isCheckoutable ? 'bg-[#425b34]' : 'bg-[#AAAAAA]',
         )}
       >
-        {fromOrder && (
+        {isCartPage && (
           <>
             {isCheckoutable
               ? `View Cart - ($${formatPrice(totalCost)})`
@@ -32,7 +32,7 @@ export const MobileCart = () => {
                 )} to Unlock Cart ($${formatPrice(totalCost)})`}
           </>
         )}
-        {!fromOrder && (
+        {!isCartPage && (
           <>{isCheckoutable ? `Update Changes` : `Spend $75 to Continue`}</>
         )}
       </Button>
@@ -52,7 +52,7 @@ export const MobileCart = () => {
               onClick={() => setCartOpen(false)}
               className="rounded-full px-[10px] py-[2px] border-solid border-[2px] border-[#425b34]"
             >
-              Hide {fromOrder && 'Cart'}
+              Hide {isCartPage && 'Cart'}
             </Button>
           </div>
           <ProgressBar />
@@ -61,7 +61,7 @@ export const MobileCart = () => {
           <CartLines />
         </div>
         <div className="p-[5px] flex flex-col gap-[10px]">
-          {fromOrder && <PlanPicker />}
+          {isCartPage && <PlanPicker />}
           <Button
             loading={submitting}
             onClick={handleSubmit}

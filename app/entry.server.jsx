@@ -19,16 +19,11 @@ export default async function handleRequest(
   remixContext,
 ) {
   const { nonce, header, NonceProvider } = createContentSecurityPolicy({
-    styleSrc: [
-      "'self'",
-      'http://localhost:*',
-      'https://shopify.com',
-      'https://cdn.shopify.com',
-      'https://fonts.googleapis.com',
-      'https://fonts.gstatic.com',
-      'https://monorail-edge.shopifysvc.com',
-      'https://loox.io',
-    ],
+    // For DEV phase
+    defaultSrc: ['*'],
+    connectSrc: ['*'],
+    styleSrc: ['*'],
+    fontSrc: ['*', 'data:'],
   })
 
   const body = await renderToReadableStream(

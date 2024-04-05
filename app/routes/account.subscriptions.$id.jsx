@@ -32,6 +32,8 @@ export const meta = ({ data }) => {
 
 export async function loader({ request, context, params }) {
   const { storefront } = context
+  const discountCode = context.session.get('discountCode')
+  const discountCodes = discountCode ? [discountCode] : []
 
   const allProductsHandler = 'all-products'
   const freeProductHandler = 'raspberry-bbq-chicken-breast'
@@ -167,6 +169,7 @@ export async function loader({ request, context, params }) {
       subscriptionBonusVariant,
       upcomingChargeId,
       shopCurrency: 'USD',
+      discountCodes,
     },
     {
       headers: {
@@ -249,12 +252,13 @@ export async function action({ request, context, params }) {
 }
 
 export default function SubscriptionRoute() {
-  const { setSelectedProducts, setBonusVariant } = useContext(RootContext)
+  const { setSubscriptionProducts, setSubscriptionBonusVariant } =
+    useContext(RootContext)
   const { subscriptionProducts, subscriptionBonusVariant } = useLoaderData()
 
   useEffect(() => {
-    setSelectedProducts(subscriptionProducts)
-    setBonusVariant(subscriptionBonusVariant)
+    setSubscriptionProducts(subscriptionProducts)
+    setSubscriptionBonusVariant(subscriptionBonusVariant)
   }, [])
 
   return (

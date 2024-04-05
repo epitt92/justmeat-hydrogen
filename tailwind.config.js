@@ -7,10 +7,13 @@ export default {
   plugins: [formsPlugin, typographyPlugin],
   theme: {
     fontFamily: {
-      body: ['Roboto', 'sans-serif'],
+      body: ['Dunbar', 'Roboto', 'sans-serif'],
     },
     extend: {
       colors: {
+        primary: '#7A392D',
+        'primary-dark': '#231B19',
+        second: '#637160',
         custombgGreen: '#425b34',
         sublistbgGray: '#eee',
       },
