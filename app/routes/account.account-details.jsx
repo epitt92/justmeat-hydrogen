@@ -97,16 +97,13 @@ const AccountDetails = () => {
   const [showAccountDetails, setShowAccountDetails] = useState(true)
   const { listPaymentResponse } = useLoaderData()
   const account = useOutletContext()
-  const { state } = useNavigation()
+  const { state,formAction } = useNavigation()
   /** @type {ActionReturnData} */
   const action = useActionData()
-  console.log('action', action)
   const customer = action?.customer ?? account?.customer
-  console.log('customer', customer)
   const toggleView = () => {
     setShowAccountDetails(!showAccountDetails)
   }
-
   return (
     <div className="bg-sublistbgGray py-6">
       <div className="w-[95%] md:w-[90%] mx-auto">
@@ -203,7 +200,8 @@ const AccountDetails = () => {
                     disabled={state !== 'idle'}
                     className="rounded-sm px-8 py-1 text-lg font-bold text-black shadow-sm border-2 border-black"
                   >
-                    {state !== 'idle' ? 'Saving....' : 'Save'}
+                    {state !== 'idle' && formAction  ? 'Saving....' : 'Save'}
+                    
                   </button>
                 </div>
               </div>
