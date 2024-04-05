@@ -1,10 +1,9 @@
-import React, {} from 'react'
+import React from 'react'
 import {
   Accordion,
   AccordionHeader,
   AccordionBody,
 } from '@material-tailwind/react'
-
 
 function Icon({ id, open }) {
   return (
@@ -16,7 +15,7 @@ function Icon({ id, open }) {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className={`${
-          id === open ? 'rotate-[-90deg]' : ''
+          id !== open ? 'rotate-[-90deg]' : ''
         }  transition-transform`}
       >
         <path
