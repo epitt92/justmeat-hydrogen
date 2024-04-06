@@ -1,6 +1,7 @@
 import { json } from '@shopify/remix-oxygen'
 import { Form, NavLink, Outlet, useLoaderData } from '@remix-run/react'
 import { CUSTOMER_DETAILS_QUERY } from '~/graphql/customer-account/CustomerDetailsQuery'
+import ToggleMenu from '~/containers/Account/AccountMenu/ToggleMenu'
 export function shouldRevalidate() {
   return true
 }
@@ -47,7 +48,7 @@ function AccountMenu() {
     <div className="py-3">
       <nav
         role="navigation"
-        className="font-Roboto text-lg font-normal flex flex-col sm:flex-row justify-center text-center gap-0 sm:gap-2 lg:gap-[8.5rem]"
+        className="hidden font-Roboto text-lg font-normal md:flex flex-col sm:flex-row justify-center text-center gap-0 sm:gap-2 lg:gap-[8.5rem]"
       >
         <NavLink to="/account/subscriptions" style={isActiveStyle}>
           Subscriptions &nbsp;
@@ -63,6 +64,9 @@ function AccountMenu() {
 
         <Logout />
       </nav>
+      <div className='block md:hidden'>
+        <ToggleMenu/>
+      </div>
     </div>
   )
 }
