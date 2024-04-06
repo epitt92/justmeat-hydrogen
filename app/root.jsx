@@ -210,6 +210,7 @@ export default function App() {
           <Meta />
           <Links />
           <Script async src="https://cdn.reamaze.com/assets/reamaze.js" />
+          <Script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UMcvkS"/>
           <Script src="/chat.js" />
         </head>
         <body>
@@ -269,6 +270,7 @@ export function ErrorBoundary() {
         <LiveReload nonce={nonce} />
 
         <Scripts src="//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com"></Scripts>
+        <Script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UMcvkS"/>
       </body>
     </html>
   )
