@@ -1,5 +1,5 @@
 import { NavLink, useMatches } from '@remix-run/react'
-import { useContext, useRef } from 'react'
+import { useContext, useRef, useState, useEffect } from 'react'
 import { useRootLoaderData } from '~/root'
 import OrderButton from './OrderButton'
 import { CartButton } from './CartButton'
@@ -13,6 +13,30 @@ export function Header() {
   const { setMenuToggle } = useContext(LayoutContext)
 
   const isCartPage = matches[1].params.bundle === 'custom-bundle'
+
+  // -------> Functionality to make the header sticky in landing pages <-------
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [isSticky, setIsSticky] = useState(false);
+
+  const handleScroll = () => {
+    const currentScrollPos = window.pageYOffset;
+
+    // Becomes sticky (true) if scrolling up, and not sticky (false) if scrolling down
+    if (prevScrollPos > currentScrollPos) {
+      setIsSticky(true);
+    } else {
+      setIsSticky(false);
+    }
+
+    setPrevScrollPos(currentScrollPos);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [prevScrollPos, isSticky]);
+
 
   const HoverUnderNavLink = (to, text) => {
     const spanRef = useRef(null)
@@ -157,7 +181,7 @@ export function Header() {
   }
 
   return (
-    <header className="bg-[#eeeeee] border-b border-solid border-[#1D1D1D10]">
+    <header className={`header ${isSticky && !isCartPage ? 'header--sticky' : 'header--hidden'} bg-[#eeeeee] border-b border-solid border-[#1D1D1D10]`}>
       {isCartPage ? <Landingheader /> : <Mainheader />}
     </header>
   )

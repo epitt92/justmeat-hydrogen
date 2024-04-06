@@ -298,6 +298,21 @@ button.free-gift-label {
   padding: 0;
 }
 
+/* -----> Make Header Sticky <------ */
+.header {
+  transition: top 0.3s;
+}
+
+.header--hidden {
+  top: -100%;
+}
+
+.header--sticky {
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
 @media screen and (min-width: 640px) {
   span.free-text-label , button.free-gift-label {
     display: none;
