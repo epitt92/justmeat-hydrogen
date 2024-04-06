@@ -3,7 +3,6 @@ import { getDynamicBundleItems } from '@rechargeapps/storefront-client'
 import { getPaginationVariables } from '@shopify/hydrogen'
 
 import { CustomBundle } from '~/containers/CustomBundle'
-import { PlanPickerBlock } from '~/containers/CustomBundle/PlanPickerBlock'
 import Notification from '~/components/Notification'
 import { ALL_PRODUCTS_QUERY } from '~/graphql/Product'
 

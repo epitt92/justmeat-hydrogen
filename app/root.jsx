@@ -16,6 +16,7 @@ import {
 
 import sliderStyles from 'swiper/css'
 import sliderNavigation from 'swiper/css/navigation'
+import sliderPagination from 'swiper/css/pagination'
 
 import favicon from '../public/favicon.svg'
 import appStyles from '~/styles/app.css'
@@ -45,6 +46,7 @@ export function links() {
     { rel: 'stylesheet', href: appStyles },
     { rel: 'stylesheet', href: sliderStyles },
     { rel: 'stylesheet', href: sliderNavigation },
+    { rel: 'stylesheet', href: sliderPagination },
     { rel: 'stylesheet', href: tailwindStyles },
     {
       rel: 'preconnect',
@@ -254,17 +256,15 @@ export function ErrorBoundary() {
         <Links />
       </head>
       <body>
-        <Layout {...rootData}>
-          <div className="route-error">
-            <h1>Oops</h1>
-            <h2>{errorStatus}</h2>
-            {errorMessage && (
-              <fieldset>
-                <pre>{errorMessage}</pre>
-              </fieldset>
-            )}
-          </div>
-        </Layout>
+        <div className="route-error">
+          <h1>Oops</h1>
+          <h2>{errorStatus}</h2>
+          {errorMessage && (
+            <fieldset>
+              <pre>{errorMessage}</pre>
+            </fieldset>
+          )}
+        </div>
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
         <LiveReload nonce={nonce} />
