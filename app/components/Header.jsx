@@ -22,7 +22,7 @@ export function Header() {
     const currentScrollPos = window.pageYOffset;
 
     // Becomes sticky (true) if scrolling up, and not sticky (false) if scrolling down
-    if (prevScrollPos > currentScrollPos) {
+    if (prevScrollPos > currentScrollPos && window.screen.width < 900) {
       setIsSticky(true);
     } else {
       setIsSticky(false);
