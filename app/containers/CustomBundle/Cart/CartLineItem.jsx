@@ -75,26 +75,26 @@ export function CartLineItem({ line, lineType = 'paid' }) {
             )}
           </div>
         </div>
-        {lineType === 'free' && (
-          <>
-            <span className="lg:hidden text-black -mt-15 pb-10 font-roboto">
-              Free
-            </span>
-            <button className="lg:hidden w-full bg-[#1b7084] text-white px-[10px] py-[20px] text-[12px] font-['Roboto'] mb-[10px]">
-              First Order Gift
-            </button>
-          </>
-        )}
       </div>
       {line && (
         <div
           className={cn(
-            'flex justify-center items-center sm:mt-0',
+            'relative flex justify-center items-center sm:mt-0',
             lineType === 'bonus' ? ' -mt-[5px]' : ' -mt-[13px]',
           )}
         >
           {lineType === 'paid' && <Quantity isViewingCart={true} line={line} />}
           {lineType === 'bonus' && <LockedItem />}
+          {lineType === 'free' && (
+            <>
+              <span className="sm:hidden text-black text-sm -mt-15 pb-10 font-roboto font-semibold absolute -top-[15px]">
+                Free
+              </span>
+              <button className="sm:hidden w-full bg-[#1b7084] mt-[6px] text-white px-[10px] py-[9px] text-[12px] font-['Roboto']">
+                First Order Gift
+              </button>
+            </>
+          )}
         </div>
       )}
     </div>
