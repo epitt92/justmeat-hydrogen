@@ -15,7 +15,7 @@ export const Banner = () => {
                 <MayhemNation />
               </div>
               <div className="">
-                <div className="font-nunito font-bold sm:text-[27px] text-[20px] text-yellow mb-[6px] sm:mb-[8px]">
+                <div className="font-nunito font-bold sm:text-[27px] text-[20px] text-yellow">
                   6 lbs of meat FOR FREE!
                 </div>
                 <div className="sm:text-[36px] text-[27px] font-bold text-white leading-tight">
