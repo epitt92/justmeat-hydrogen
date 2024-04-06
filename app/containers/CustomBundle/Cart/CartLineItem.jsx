@@ -1,7 +1,7 @@
 import { Quantity } from '../ProductActions/Quantity'
 import { cn } from '~/lib/utils'
 import { LockedItem } from './LockedItem'
-import { useEffect , useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export function CartLineItem({ line, lineType = 'paid' }) {
   const {
@@ -12,21 +12,21 @@ export function CartLineItem({ line, lineType = 'paid' }) {
     variants: { nodes },
     cart_drawer_img,
   } = line
-  
-  const [freeTag, setFreeTag] = useState('');
+
+  const [freeTag, setFreeTag] = useState('')
 
   useEffect(() => {
     if (tags && tags.length > 0) {
-      tags.forEach(tag => {
+      tags.forEach((tag) => {
         if (tag.includes('free-')) {
-          let priceForFreeProduct = tag.split("-");
-          priceForFreeProduct = +priceForFreeProduct[1];
-          setFreeTag(priceForFreeProduct);
+          let priceForFreeProduct = tag.split('-')
+          priceForFreeProduct = +priceForFreeProduct[1]
+          setFreeTag(priceForFreeProduct)
         }
-      });
+      })
     }
-  }, [tags]);
-  
+  }, [tags])
+
   const desktopImage =
     lineType === 'bonus' ? nodes[0]?.image.url : featuredImage.url
   const mobileImage =
@@ -77,8 +77,10 @@ export function CartLineItem({ line, lineType = 'paid' }) {
         </div>
         {lineType === 'free' && (
           <>
-            <span className="text-black -mt-15 pb-10 font-roboto">Free</span>
-            <button className="w-full bg-[#1b7084] text-white px-[10px] py-[20px] text-[12px] font-['Roboto'] mb-[10px]">
+            <span className="lg:hidden text-black -mt-15 pb-10 font-roboto">
+              Free
+            </span>
+            <button className="lg:hidden w-full bg-[#1b7084] text-white px-[10px] py-[20px] text-[12px] font-['Roboto'] mb-[10px]">
               First Order Gift
             </button>
           </>
