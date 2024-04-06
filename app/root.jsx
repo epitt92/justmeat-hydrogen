@@ -16,6 +16,7 @@ import {
 
 import sliderStyles from 'swiper/css'
 import sliderNavigation from 'swiper/css/navigation'
+import sliderPagination from 'swiper/css/pagination'
 
 import favicon from '../public/favicon.svg'
 import appStyles from '~/styles/app.css'
@@ -45,6 +46,7 @@ export function links() {
     { rel: 'stylesheet', href: appStyles },
     { rel: 'stylesheet', href: sliderStyles },
     { rel: 'stylesheet', href: sliderNavigation },
+    { rel: 'stylesheet', href: sliderPagination },
     { rel: 'stylesheet', href: tailwindStyles },
     {
       rel: 'preconnect',
@@ -210,6 +212,7 @@ export default function App() {
           <Meta />
           <Links />
           <Script async src="https://cdn.reamaze.com/assets/reamaze.js" />
+          <Script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UMcvkS"/>
           <Script src="/chat.js" />
         </head>
         <body>
@@ -253,22 +256,21 @@ export function ErrorBoundary() {
         <Links />
       </head>
       <body>
-        <Layout {...rootData}>
-          <div className="route-error">
-            <h1>Oops</h1>
-            <h2>{errorStatus}</h2>
-            {errorMessage && (
-              <fieldset>
-                <pre>{errorMessage}</pre>
-              </fieldset>
-            )}
-          </div>
-        </Layout>
+        <div className="route-error">
+          <h1>Oops</h1>
+          <h2>{errorStatus}</h2>
+          {errorMessage && (
+            <fieldset>
+              <pre>{errorMessage}</pre>
+            </fieldset>
+          )}
+        </div>
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
         <LiveReload nonce={nonce} />
 
         <Scripts src="//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com"></Scripts>
+        <Script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UMcvkS"/>
       </body>
     </html>
   )

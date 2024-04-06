@@ -37,7 +37,7 @@ export async function loader({ context }) {
 const AccountOrderHistory = () => {
   const { subscriptionsResponse, listOrdersResponse } = useLoaderData()
   return (
-    <div className="bg-sublistbgGray py-8">
+    <div className="bg-sublistbgGray py-0 md:py-8">
       <div className="container">
         <div className="flex flex-col md:flex-row items-center border-gray-500 border-b-2 py-4 my-4">
           <NavLink

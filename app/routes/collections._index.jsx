@@ -1,18 +1,19 @@
 import { useLoaderData, Link } from '@remix-run/react'
 import { json } from '@shopify/remix-oxygen'
 import { Pagination, getPaginationVariables, Image } from '@shopify/hydrogen'
+import { ALL_COLLECTIONS_QUERY } from '~/graphql/Collection'
 
-/**
- * @param {LoaderFunctionArgs}
- */
 export async function loader({ context, request }) {
   const paginationVariables = getPaginationVariables(request, {
     pageBy: 4,
   })
 
-  const { collections } = await context.storefront.query(COLLECTIONS_QUERY, {
-    variables: paginationVariables,
-  })
+  const { collections } = await context.storefront.query(
+    ALL_COLLECTIONS_QUERY,
+    {
+      variables: paginationVariables,
+    },
+  )
 
   return json({ collections })
 }
@@ -84,47 +85,3 @@ function CollectionItem({ collection, index }) {
     </Link>
   )
 }
-
-const COLLECTIONS_QUERY = `#graphql
-  fragment Collection on Collection {
-    id
-    title
-    handle
-    image {
-      id
-      url
-      altText
-      width
-      height
-    }
-  }
-  query StoreCollections(
-    $country: CountryCode
-    $endCursor: String
-    $first: Int
-    $language: LanguageCode
-    $last: Int
-    $startCursor: String
-  ) @inContext(country: $country, language: $language) {
-    collections(
-      first: $first,
-      last: $last,
-      before: $startCursor,
-      after: $endCursor
-    ) {
-      nodes {
-        ...Collection
-      }
-      pageInfo {
-        hasNextPage
-        hasPreviousPage
-        startCursor
-        endCursor
-      }
-    }
-  }
-`
-
-/** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
-/** @typedef {import('storefrontapi.generated').CollectionFragment} CollectionFragment */
-/** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */
