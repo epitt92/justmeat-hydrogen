@@ -1,8 +1,25 @@
-import { useContext } from 'react'
+import { useContext , useEffect , useState } from 'react'
 import { CustomBundleContext } from '~/contexts'
+import { useLoaderData } from '@remix-run/react'
 
 export function CartSummary({ layout, children = null }) {
+  const { freeProduct } = useLoaderData()
   const { totalCost } = useContext(CustomBundleContext)
+
+  const [freeTag, setFreeTag] = useState('');
+
+  useEffect(() => {
+    let tags = freeProduct.tags;
+    if (tags && tags.length > 0) {
+      tags.forEach(tag => {
+        if (tag.includes('free-')) {
+          let priceForFreeProduct = tag.split("-");
+          priceForFreeProduct = +priceForFreeProduct[1];
+          setFreeTag(priceForFreeProduct);
+        }
+      });
+    }
+  }, [freeProduct]);
 
   const className =
     layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside'
@@ -17,7 +34,7 @@ export function CartSummary({ layout, children = null }) {
         <dt>Total: </dt>
         {totalCost ? (
           <span className="text-[16px] pr-1 line-through decoration-[#000] decoration-[3px] text-[#919191] ">
-            {`$${(totalCost + 11.45).toFixed(2)}`}
+            {`$${(totalCost + parseFloat(freeTag)).toFixed(2)}`}
           </span>
         ) : (
           '-'

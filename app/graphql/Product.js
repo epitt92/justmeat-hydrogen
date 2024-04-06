@@ -5,6 +5,7 @@ export const PRODUCT_ITEM_FRAGMENT = `#graphql
   }
   fragment ProductItem on Product {
     id
+    tags
     handle
     title
     description
