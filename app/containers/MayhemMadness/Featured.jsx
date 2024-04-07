@@ -36,7 +36,7 @@ export const Featured = () => {
     <section className="bg-[#222222] sm:pt-[176px] pt-[190px] sm:pb-[82px] pb-[61px] font-nunito">
       <div className="flex flex-col items-center overflow-hidden container-1120 sm:block">
         <div className="sm:flex justify-center mb-[44px]">
-          <div className="flex bg-black rounded-[6px] text-white sm:text-[14px] text-[13px] font-normal border-[3px] border-solid border-white">
+          <div className="flex bg-[#222222] rounded-[6px] text-white sm:text-[14px] text-[13px] font-normal border-[3px] border-solid border-white">
             <div className="flex gap-[3px] bg-white">
               {collections.map((el, index) => (
                 <button
@@ -45,8 +45,8 @@ export const Featured = () => {
                   className={cn(
                     'sm:px-[24px] px-[14px] py-[13px] uppercase tracking-[1px]',
                     el.id === collection.id
-                      ? 'text-black bg-white'
-                      : 'text-white bg-black',
+                      ? 'text-[#231B19] bg-white'
+                      : 'text-white bg-[#222222]',
                   )}
                   onClick={() => setCollection(el)}
                 >

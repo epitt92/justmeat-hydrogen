@@ -374,3 +374,11 @@ button.free-gift-label {
     display: none;
   }
 }
+
+.bg-second-info-image-1 {
+  background-image: url('../assets/images/bg-second-info-image-1.png');
+}
+
+.bg-second-info-image-2 {
+  background-image: url('../assets/images/bg-second-info-image-2.png');
+}
