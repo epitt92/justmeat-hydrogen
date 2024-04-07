@@ -10,7 +10,7 @@ import skillet from '~/assets/images/Skillet.png'
 
 export const FirstInfo = () => {
   return (
-    <section className="bg-[#efeeed]">
+    <section className="bg-[#efeeed] overflow-x-hidden">
       <div className="bg-[#222222] sm:pb-[100px] pb-[66px]">
         <div className="relative container-1120">
           <div className="flex justify-center sm:mb-[6px]">

@@ -5,6 +5,7 @@ import { Banner } from '~/containers/MayhemMadness/Banner'
 import { Featured } from '~/containers/MayhemMadness/Featured'
 import { FirstContact } from '~/containers/MayhemMadness/FirstContact'
 import { FirstInfo } from '~/containers/MayhemMadness/FirstInfo'
+import { Footer } from '~/containers/MayhemMadness/Footer'
 import { COLLECTIONS_QUERY } from '~/graphql/Collection'
 
 export async function loader({ request, context }) {
@@ -38,6 +39,7 @@ export default function MayhemMadness() {
         <FirstContact />
         <FirstInfo />
       </main>
+      <Footer />
     </>
   )
 }
