@@ -331,3 +331,46 @@ button.free-gift-label {
 .container-1120 {
   @apply w-full max-w-[1120px] mx-auto my-0 px-[20px] py-0;
 }
+
+span.free-text-label {
+  color: black;
+  margin-top: -15px;
+  padding-bottom: 10px;
+  font-family: Roboto;
+}
+
+button.free-gift-label {
+  width: 100%;
+  background: #1b7084;
+  color: #fff;
+  padding: 20px 10px;
+  font-size: 12px;
+  font-family: Roboto;
+  margin: 5px;
+}
+
+.flex.flex-1.flex-col.sm\:flex-row.pr-\[10px\].justify-between.items-center {
+  padding: 0;
+}
+
+/* -----> Make Header Sticky <------ */
+.header {
+  transition: top 0.3s;
+}
+
+.header--hidden {
+  top: -100%;
+}
+
+.header--sticky {
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+@media screen and (min-width: 640px) {
+  span.free-text-label,
+  button.free-gift-label {
+    display: none;
+  }
+}
