@@ -7,6 +7,7 @@ import { FirstContact } from '~/containers/MayhemMadness/FirstContact'
 import { FirstInfo } from '~/containers/MayhemMadness/FirstInfo'
 import { Footer } from '~/containers/MayhemMadness/Footer'
 import { COLLECTIONS_QUERY } from '~/graphql/Collection'
+import { SecondInfo } from '~/containers/MayhemMadness/SecondInfo'
 
 export async function loader({ request, context }) {
   const { storefront } = context
@@ -33,11 +34,12 @@ export default function MayhemMadness() {
   return (
     <>
       <Header />
-      <main className="relative font-dunbar tracking-[1px] leading-1">
+      <main className="relative font-dunbar tracking-[1px] leading-1 text-[#231B19]">
         <Banner />
         <Featured />
         <FirstContact />
         <FirstInfo />
+        <SecondInfo />
       </main>
       <Footer />
     </>
