@@ -62,7 +62,7 @@ export const Featured = () => {
           <Swiper
             loop
             autoplay
-            pagination
+            pagination={{ clickable: true }}
             slidesPerView={4}
             spaceBetween={30}
             modules={[Pagination]}
@@ -93,9 +93,6 @@ export const Featured = () => {
               </SwiperSlide>
             ))}
           </Swiper>
-          <br />
-          <br />
-          <br />
         </div>
       </div>
     </section>
