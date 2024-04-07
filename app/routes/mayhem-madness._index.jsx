@@ -10,6 +10,7 @@ import { COLLECTIONS_QUERY } from '~/graphql/Collection'
 import { SecondInfo } from '~/containers/MayhemMadness/SecondInfo'
 import { SecondContact } from '~/containers/MayhemMadness/SecondContact'
 import { ChefCook } from '~/containers/MayhemMadness/ChefCook'
+import { HowItWorks } from '~/containers/MayhemMadness/HowItWorks'
 import { Reviews } from '~/containers/MayhemMadness/Reviews'
 
 export async function loader({ request, context }) {
@@ -45,6 +46,7 @@ export default function MayhemMadness() {
         <SecondInfo />
         <SecondContact />
         <ChefCook />
+        <HowItWorks />
         <Reviews />
       </main>
       <Footer />
