@@ -37,7 +37,7 @@ export const ChefCook = () => {
                   ethically sourced product as a commitment to our customers.
                 </div>
                 <div>
-                  <div className="sm:text-[36px] text-[24px] font-bold tracking-[2px] sm:mb-[28px] mb-[28px]">
+                  <div className="sm:text-[36px] text-[24px] font-bold tracking-[2px] 2xl:mb-[28px] xl:mb-[20px] mb-[28px]">
                     GRASS FED & FINISHED
                   </div>
                   <div className="text-[#E47A0F] sm:text-[14px] sm:leading-[22px] text-[12px] leading-[23px] font-nunito font-bold">
@@ -51,7 +51,7 @@ export const ChefCook = () => {
           </div>
         </div>
       </div>
-      <div className="sm:h-[100px] bg-[#222222]"></div>
+      <div className="2xl:h-0 xl:h-[100px] lg:h-[240px] bg-[#222222]"></div>
     </section>
   )
 }
