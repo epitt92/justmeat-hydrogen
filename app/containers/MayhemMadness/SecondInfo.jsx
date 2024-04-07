@@ -2,7 +2,7 @@ export const SecondInfo = () => (
   <section className="bg-[#efeeed]">
     <div className="sm:h-[614px] grid sm:grid-cols-2 grid-cols-1 sm:mb-0 mb-[70px]">
       <div className="bg-second-info-image-1 sm:h-auto h-[316px] sm:mb-0 mb-[62px] bg-cover rounded-tr-[8px] overflow-hidden sm:mr-0 mr-[20px]"></div>
-      <div className="max-w-[560px] w-full sm:px-0 sm:pl-[79px] px-[20px] flex justify-center items-center">
+      <div className="max-w-[540px] w-full sm:px-0 sm:pl-[79px] px-[20px] flex justify-center items-center">
         <div>
           <div className="sm:text-[36px] text-[24px] font-bold tracking-[1px] text-[#231B19] sm:mb-[12px] mb-[7px]">
             THE PROBLEM
@@ -12,7 +12,7 @@ export const SecondInfo = () => (
             HABITS/NUTRITION PLANS. NO MEAL PREP, OR RESTAURANT CAN SATISFY
             EVERYTHING AT THE SAME TIME.
           </div>
-          <div className="sm:px-[27px] sm:py-[25px] px-[20px] py-[16px] rounded-[8px] bg-[#e6e3e0] font-nunito text-black">
+          <div className="sm:px-[18px] sm:py-[25px] px-[20px] py-[16px] rounded-[8px] bg-[#e6e3e0] font-nunito text-black">
             <div className="flex items-start gap-[8px] sm:text-[18px] text-[16px]">
               <div className="sm:h-[27px] h-[26px] flex justify-center items-center">
                 <span className="w-[9px] h-[9px] rounded-full bg-black" />
