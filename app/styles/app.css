@@ -323,3 +323,11 @@ button.free-gift-label {
 .featured-slider .swiper-pagination-bullet {
   @apply bg-[#7A392D];
 }
+
+.bg-us-flag {
+  background-image: url('../assets/images/bg-us-flag.png');
+}
+
+.container-1120 {
+  @apply w-full max-w-[1120px] mx-auto my-0 px-[20px] py-0;
+}

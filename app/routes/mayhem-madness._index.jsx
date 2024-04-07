@@ -3,6 +3,7 @@ import { getPaginationVariables } from '@shopify/hydrogen'
 import { Header } from '~/containers/MayhemMadness/Header'
 import { Banner } from '~/containers/MayhemMadness/Banner'
 import { Featured } from '~/containers/MayhemMadness/Featured'
+import { FirstContact } from '~/containers/MayhemMadness/FirstContact'
 import { COLLECTIONS_QUERY } from '~/graphql/Collection'
 
 export async function loader({ request, context }) {
@@ -33,6 +34,7 @@ export default function MayhemMadness() {
       <main className="relative font-dunbar tracking-[1px] leading-1">
         <Banner />
         <Featured />
+        <FirstContact />
       </main>
     </>
   )

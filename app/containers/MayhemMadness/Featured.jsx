@@ -32,11 +32,10 @@ export const Featured = () => {
   const [collection, setCollection] = useState(collections[0])
 
   const products = collection.products.nodes
-  console.log('🚀 ~ Featured ~ products:', products)
 
   return (
     <section className="bg-[#222222] sm:pt-[176px] pt-[190px] sm:pb-[82px] pb-[61px] font-nunito">
-      <div className="container flex flex-col items-center overflow-hidden sm:block">
+      <div className="flex flex-col items-center overflow-hidden container-1120 sm:block">
         <div className="sm:flex justify-center mb-[44px]">
           <div className="flex bg-black rounded-[6px] text-white sm:text-[14px] text-[13px] font-normal border-[3px] border-solid border-white">
             <div className="flex gap-[3px] bg-white">
@@ -45,7 +44,7 @@ export const Featured = () => {
                   key={index}
                   disabled={el.id === collection.id}
                   className={cn(
-                    'sm:px-[24px] px-[18px] py-[13px] uppercase tracking-[1px]',
+                    'sm:px-[24px] px-[14px] py-[13px] uppercase tracking-[1px]',
                     el.id === collection.id
                       ? 'text-black bg-white'
                       : 'text-white bg-black',
