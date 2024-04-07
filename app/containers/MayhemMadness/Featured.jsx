@@ -3,6 +3,7 @@ import { useLoaderData } from '@remix-run/react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination } from 'swiper/modules'
 import { cn } from '~/lib/utils'
+import { Image } from '@shopify/hydrogen'
 
 const swiperBreakpoints = {
   360: {
@@ -68,17 +69,25 @@ export const Featured = () => {
             breakpoints={swiperBreakpoints}
           >
             {products.map((product, index) => (
-              <SwiperSlide key={index} className="w-[265px]">
-                <div
-                  className="px-[25px] pt-[40px] pb-[14px] rounded-t-[8px]"
-                  style={{ backgroundColor: sliderItemColors[index % 4] }}
-                >
-                  <div className="h-[114px] flex justify-center items-end text-white">
-                    Everyday Meats
+              <SwiperSlide key={index}>
+                <div className="relative flex flex-col aspect-square mt-[24%]">
+                  <div
+                    className="relative px-[25px] pt-[40px] pb-[14px] rounded-t-[8px] h-[69%] flex text-white"
+                    style={{ backgroundColor: sliderItemColors[index % 4] }}
+                  >
+                    <div className="relative flex items-end justify-center flex-1">
+                      <div className="absolute w-[80%] top-[-90%]">
+                        <Image
+                          src={product.images.nodes[1].url}
+                          className="rotate-90"
+                        />
+                      </div>
+                      <div className="xl:mb-[6%]">Everyday Meats</div>
+                    </div>
                   </div>
-                </div>
-                <div className="bg-white py-[22px] px-[10px] flex justify-center text-[20px] font-normal rounded-b-[8px]">
-                  {product.title}
+                  <div className="flex-1 bg-white py-[22px] px-[10px] flex justify-center items-center text-[20px] rounded-b-[8px] font-bold tracking-normal">
+                    {product.title}
+                  </div>
                 </div>
               </SwiperSlide>
             ))}
