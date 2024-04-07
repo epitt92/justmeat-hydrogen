@@ -9,6 +9,7 @@ import { Footer } from '~/containers/MayhemMadness/Footer'
 import { COLLECTIONS_QUERY } from '~/graphql/Collection'
 import { SecondInfo } from '~/containers/MayhemMadness/SecondInfo'
 import { SecondContact } from '~/containers/MayhemMadness/SecondContact'
+import { ChefCook } from '~/containers/MayhemMadness/ChefCook'
 
 export async function loader({ request, context }) {
   const { storefront } = context
@@ -42,6 +43,7 @@ export default function MayhemMadness() {
         <FirstInfo />
         <SecondInfo />
         <SecondContact />
+        <ChefCook />
       </main>
       <Footer />
     </>
