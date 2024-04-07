@@ -67,10 +67,11 @@ export const Featured = () => {
             spaceBetween={30}
             modules={[Pagination]}
             breakpoints={swiperBreakpoints}
+            className="featured-slider"
           >
             {products.map((product, index) => (
               <SwiperSlide key={index}>
-                <div className="relative flex flex-col aspect-square mt-[24%]">
+                <div className="relative flex flex-col aspect-square mt-[24%] mb-[20%]">
                   <div
                     className="relative px-[25px] pt-[12%] pb-[8%] rounded-t-[8px] h-[69%] flex text-white"
                     style={{ backgroundColor: sliderItemColors[index % 4] }}

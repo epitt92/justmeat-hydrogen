@@ -314,7 +314,12 @@ button.free-gift-label {
 }
 
 @media screen and (min-width: 640px) {
-  span.free-text-label , button.free-gift-label {
+  span.free-text-label,
+  button.free-gift-label {
     display: none;
   }
+}
+
+.featured-slider .swiper-pagination-bullet {
+  @apply bg-[#7A392D];
 }
