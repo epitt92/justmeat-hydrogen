@@ -1,4 +1,3 @@
-import { Image } from '@shopify/hydrogen'
 import { Button } from '~/components/Button'
 
 import videoThumbnail from '~/assets/images/first-contact-video-thumbnail.png'
@@ -14,10 +13,10 @@ export const FirstContact = () => {
         </div>
         <div className="grid sm:grid-cols-2 grid-cols-1 sm:gap-[55px] gap-[52px] items-end">
           <div className="relative flex aspect-square border-[3px] border-solid border-white">
-            <Image src={videoThumbnail} />
+            <img src={videoThumbnail} />
             <div className="absolute flex items-center justify-center w-full h-full">
               <button>
-                <Image src={videoPlayButton} />
+                <img src={videoPlayButton} />
               </button>
             </div>
           </div>
