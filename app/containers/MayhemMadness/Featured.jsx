@@ -3,7 +3,6 @@ import { useLoaderData } from '@remix-run/react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination } from 'swiper/modules'
 import { cn } from '~/lib/utils'
-import { Image } from '@shopify/hydrogen'
 
 const swiperBreakpoints = {
   360: {
@@ -77,7 +76,7 @@ export const Featured = () => {
                   >
                     <div className="relative flex items-end justify-center flex-1">
                       <div className="absolute w-[80%] top-0 -translate-y-1/2">
-                        <Image
+                        <img
                           src={product.images.nodes[1].url}
                           className="rotate-90"
                         />
