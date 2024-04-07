@@ -15,7 +15,7 @@ const swiperBreakpoints = {
     spaceBetween: 20,
   },
   1024: {
-    slidesPerView: 3,
+    slidesPerView: 4,
     spaceBetween: 20,
   },
   1440: {
@@ -36,7 +36,7 @@ export const Featured = () => {
 
   return (
     <section className="bg-[#222222] sm:pt-[176px] pt-[190px] sm:pb-[82px] pb-[61px] font-nunito">
-      <div className="container">
+      <div className="container flex flex-col items-center overflow-hidden sm:block">
         <div className="sm:flex justify-center mb-[44px]">
           <div className="flex bg-black rounded-[6px] text-white sm:text-[14px] text-[13px] font-normal border-[3px] border-solid border-white">
             <div className="flex gap-[3px] bg-white">
@@ -58,7 +58,7 @@ export const Featured = () => {
             </div>
           </div>
         </div>
-        <div className="">
+        <div className="sm:w-auto w-[835px]">
           <Swiper
             loop
             autoplay
@@ -72,17 +72,17 @@ export const Featured = () => {
               <SwiperSlide key={index}>
                 <div className="relative flex flex-col aspect-square mt-[24%]">
                   <div
-                    className="relative px-[25px] pt-[40px] pb-[14px] rounded-t-[8px] h-[69%] flex text-white"
+                    className="relative px-[25px] pt-[12%] pb-[8%] rounded-t-[8px] h-[69%] flex text-white"
                     style={{ backgroundColor: sliderItemColors[index % 4] }}
                   >
                     <div className="relative flex items-end justify-center flex-1">
-                      <div className="absolute w-[80%] top-[-90%]">
+                      <div className="absolute w-[80%] top-0 -translate-y-1/2">
                         <Image
                           src={product.images.nodes[1].url}
                           className="rotate-90"
                         />
                       </div>
-                      <div className="xl:mb-[6%]">Everyday Meats</div>
+                      <div className="xl:mb-[2%]">Everyday Meats</div>
                     </div>
                   </div>
                   <div className="flex-1 bg-white py-[22px] px-[10px] flex justify-center items-center text-[20px] rounded-b-[8px] font-bold tracking-normal">
