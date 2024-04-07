@@ -22,7 +22,7 @@ export const FirstContact = () => {
           </div>
           <div className="flex flex-col justify-between aspect-square">
             <div className="sm:mb-0 mb-[24px]">
-              <div className="xl:text-[14px] text-[12px] text-[#E47A0F] font-normal text-center sm:mb-[6px]">
+              <div className="xl:text-[14px] text-[12px] text-[#E47A0F] font-normal text-center sm:mb-[6px] tracking-[3px]">
                 CLAIM YOUR
               </div>
               <div className="xl:text-[36px] text-[24px] font-bold text-center">
