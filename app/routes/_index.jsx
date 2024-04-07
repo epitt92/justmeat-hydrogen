@@ -9,6 +9,7 @@ import { FEATURED_COLLECTION_QUERY } from '~/graphql/Collection'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
+import { Carousel } from '@material-tailwind/react'
 
 /**
  * @type {MetaFunction}
@@ -32,6 +33,12 @@ export async function loader({ context }) {
 export default function Homepage() {
   /** @type {LoaderReturnData} */
   const data = useLoaderData()
+  const tutorialImages = [
+    'https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Hannah_Zoomed.jpg?v=1702934270',
+    'https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Hannah_Tall2.jpg?v=1701447856',
+    'https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Hannah_Zoomed3.jpg?v=1702934278',
+  ]
+
   return (
     <div className="home relative">
       <div className=" p-[20px] xl:hidden hidden md:block text-center bg-[#c5972d] ">
@@ -124,12 +131,8 @@ export default function Homepage() {
 
               <OrderButton />
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-[16px] xl:gap-[30px]">
-              {[
-                'https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Hannah_Zoomed.jpg?v=1702934270',
-                'https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Hannah_Tall2.jpg?v=1701447856',
-                'https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Hannah_Zoomed3.jpg?v=1702934278',
-              ].map((item, index) => {
+            <div className="md:grid hidden md:grid-cols-3 gap-[16px] xl:gap-[30px]">
+              {tutorialImages.map((item, index) => {
                 return (
                   <img
                     src={item}
@@ -141,6 +144,17 @@ export default function Homepage() {
                 )
               })}
             </div>
+            <Carousel className="rounded-xl md:hidden">
+              {tutorialImages.map((item, index) => {
+                return (
+                  <img
+                    src={item}
+                    key={index}
+                    className="h-full w-full object-cover"
+                  />
+                )
+              })}
+            </Carousel>
           </div>
         </div>
       </section>
