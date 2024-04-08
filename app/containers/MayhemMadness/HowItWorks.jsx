@@ -1,6 +1,8 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination } from 'swiper/modules'
 
+import { PremiumSeal } from '~/icons/PremiumSeal'
+
 import stepImage1 from '~/assets/images/how-it-works-step-1.png'
 import stepImage2 from '~/assets/images/how-it-works-step-2.png'
 import stepImage3 from '~/assets/images/how-it-works-step-3.png'
@@ -42,6 +44,9 @@ const steps = [
 export const HowItWorks = () => {
   return (
     <section className="bg-[#222222] text-white sm:pt-[100px] sm:pb-[110px] pt-[50px] pb-[60px]">
+      <div className="absolute w-[133px] xl:block hidden 2xl:right-[300px] xl:right-[140px]">
+        <PremiumSeal />
+      </div>
       <div className="container text-center">
         <div className="sm:text-[14px] text-[12px] font-normal tracking-[3px] sm:mb-[6px] mb-[4px]">
           HOW IT WORKS SECTION HERE
