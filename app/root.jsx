@@ -211,12 +211,6 @@ export default function App() {
           <meta name="viewport" content="width=device-width,initial-scale=1" />
           <Meta />
           <Links />
-          <Script async src="https://cdn.reamaze.com/assets/reamaze.js" />
-          <Script
-            async
-            type="text/javascript"
-            src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UMcvkS"
-          />
         </head>
         <body>
           <SubscriptionCard></SubscriptionCard>
@@ -229,7 +223,13 @@ export default function App() {
           <Script
             async
             src="//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com"
-          ></Script>
+          />
+          <Script
+            async
+            type="text/javascript"
+            src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UMcvkS"
+          />
+          <Script async src="https://cdn.reamaze.com/assets/reamaze.js" />
         </body>
       </html>
     </RootContext.Provider>
