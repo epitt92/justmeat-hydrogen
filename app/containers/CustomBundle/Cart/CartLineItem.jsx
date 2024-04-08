@@ -37,8 +37,9 @@ export function CartLineItem({ line, lineType = 'paid' }) {
   return (
     <div
       className={cn(
-        'rounded-t-xl sm:border-none border-solid overflow-hidden border-[#425b34] gap-4',
+        'rounded-t-xl sm:border-none border-solid overflow-hidden gap-4 relative',
         lineType === 'bonus' ? 'sm:hidden block' : 'sm:flex block',
+        lineType === 'free' ? 'border-[#1b7084]' : 'border-[#425b34]',
         lineType !== 'paid' ? 'border' : 'border-t border-l border-r',
       )}
     >
@@ -56,6 +57,12 @@ export function CartLineItem({ line, lineType = 'paid' }) {
       />
 
       <div className="flex flex-1 flex-col sm:flex-row pr-[10px] justify-between items-center">
+        {lineType === 'bonus' && (
+          <div className="for_mobile_range absolute right-[0] top-[20px] bg-[#425B34] block left-[0] px-[5px] py-[2px] text-[11px] font-bold text-[white] w-[35.42px] max-w-max rounded-[3px]">FREE</div>
+        )}
+        {lineType === 'free' && (
+          <div className="for_mobile_range absolute right-[0] top-[20px] bg-[#1b7084] block left-[0] px-[5px] py-[2px] text-[11px] font-bold text-[white] w-[35.42px] max-w-max rounded-[3px]">FREE</div>
+        )}
         <div className="flex-1 hidden sm:block h-fit">
           <p className="font-semibold text-[10px] sm:text-[14px] text-center">
             <strong className="pr-[10px] flex justify-center">{title}</strong>

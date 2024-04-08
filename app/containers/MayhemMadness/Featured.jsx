@@ -14,7 +14,7 @@ const swiperBreakpoints = {
     spaceBetween: 20,
   },
   1024: {
-    slidesPerView: 3,
+    slidesPerView: 4,
     spaceBetween: 20,
   },
   1440: {
@@ -31,23 +31,22 @@ export const Featured = () => {
   const [collection, setCollection] = useState(collections[0])
 
   const products = collection.products.nodes
-  console.log('🚀 ~ Featured ~ products:', products)
 
   return (
     <section className="bg-[#222222] sm:pt-[176px] pt-[190px] sm:pb-[82px] pb-[61px] font-nunito">
-      <div className="container">
+      <div className="flex flex-col items-center overflow-hidden container-1120 sm:block">
         <div className="sm:flex justify-center mb-[44px]">
-          <div className="flex bg-black rounded-[6px] text-white sm:text-[14px] text-[13px] font-normal border-[3px] border-solid border-white">
+          <div className="flex bg-[#222222] rounded-[6px] text-white sm:text-[14px] text-[13px] font-normal border-[3px] border-solid border-white">
             <div className="flex gap-[3px] bg-white">
               {collections.map((el, index) => (
                 <button
                   key={index}
                   disabled={el.id === collection.id}
                   className={cn(
-                    'sm:px-[24px] px-[18px] py-[13px] uppercase tracking-[1px]',
+                    'sm:px-[24px] px-[14px] py-[13px] uppercase tracking-[1px]',
                     el.id === collection.id
-                      ? 'text-black bg-white'
-                      : 'text-white bg-black',
+                      ? 'text-[#231B19] bg-white'
+                      : 'text-white bg-[#222222]',
                   )}
                   onClick={() => setCollection(el)}
                 >
@@ -57,35 +56,41 @@ export const Featured = () => {
             </div>
           </div>
         </div>
-        <div className="">
+        <div className="sm:w-auto w-[835px]">
           <Swiper
             loop
             autoplay
-            pagination
+            pagination={{ clickable: true }}
             slidesPerView={4}
             spaceBetween={30}
             modules={[Pagination]}
             breakpoints={swiperBreakpoints}
+            className="featured-slider"
           >
             {products.map((product, index) => (
-              <SwiperSlide key={index} className="w-[265px]">
-                <div
-                  className="px-[25px] pt-[40px] pb-[14px] rounded-t-[8px]"
-                  style={{ backgroundColor: sliderItemColors[index % 4] }}
-                >
-                  <div className="h-[114px] flex justify-center items-end text-white">
-                    Everyday Meats
+              <SwiperSlide key={index}>
+                <div className="relative flex flex-col aspect-square mt-[24%] mb-[20%]">
+                  <div
+                    className="relative px-[25px] pt-[12%] pb-[8%] rounded-t-[8px] h-[69%] flex text-white"
+                    style={{ backgroundColor: sliderItemColors[index % 4] }}
+                  >
+                    <div className="relative flex items-end justify-center flex-1">
+                      <div className="absolute w-[80%] top-0 -translate-y-1/2">
+                        <img
+                          src={product.images.nodes[1].url}
+                          className="rotate-90"
+                        />
+                      </div>
+                      <div className="xl:mb-[2%]">Everyday Meats</div>
+                    </div>
                   </div>
-                </div>
-                <div className="bg-white py-[22px] px-[10px] flex justify-center text-[20px] font-normal rounded-b-[8px]">
-                  {product.title}
+                  <div className="flex-1 bg-white py-[22px] px-[10px] flex justify-center items-center text-[20px] rounded-b-[8px] font-bold tracking-normal">
+                    {product.title}
+                  </div>
                 </div>
               </SwiperSlide>
             ))}
           </Swiper>
-          <br />
-          <br />
-          <br />
         </div>
       </div>
     </section>
