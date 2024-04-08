@@ -172,13 +172,34 @@ export default function App() {
 
   const setCartProducts = (value) => {
     _setCartProducts(value)
-
     window.localStorage.setItem('_cartProducts', JSON.stringify(value))
+
+    triggerKlaviyo({ products: cartProducts })
   }
 
   const setCartBonusVariant = (value) => {
     _setCartBonusVariant(value)
     window.localStorage.setItem('_cartBonusVariant', JSON.stringify(value))
+  }
+
+  const triggerKlaviyo = ({ products }) => {
+    const _learnq = window._learnq || []
+
+    const cartItems = products.map((product) => ({
+      quantity: product.quantity,
+      merchandiseId: product.variants.nodes[0].id,
+    }))
+
+    const cart = {
+      total_price: cartCost,
+      value: cartCount,
+      original_total_price: cartCost,
+      items: cartItems,
+    }
+
+    if (products.length) {
+      _learnq.push(['track', 'Cart items changed', cart])
+    }
   }
 
   return (
