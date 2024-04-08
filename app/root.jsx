@@ -217,9 +217,8 @@ export default function App() {
           <Layout {...data}>
             <Outlet />
           </Layout>
-          <ScrollRestoration nonce={nonce} />
-          <Scripts nonce={nonce} />
-          <LiveReload nonce={nonce} />
+
+          {/* External scripts start here */}
           <Script
             async
             src="//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com"
@@ -230,6 +229,11 @@ export default function App() {
             src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UMcvkS"
           />
           <Script async src="https://cdn.reamaze.com/assets/reamaze.js" />
+          {/* External scripts end here */}
+
+          <ScrollRestoration nonce={nonce} />
+          <Scripts nonce={nonce} />
+          <LiveReload nonce={nonce} />
         </body>
       </html>
     </RootContext.Provider>
