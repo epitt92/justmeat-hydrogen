@@ -122,7 +122,7 @@ export const SubscriptionEditLayout = ({ children }) => {
         {children}
         <div className="my-5">
           {subscription.status === 'active' && (
-            <div className="mt-10 mb-10">
+            <div className="mb-10">
               <Button
                 loading={canceling}
                 onClick={handleCancel}
