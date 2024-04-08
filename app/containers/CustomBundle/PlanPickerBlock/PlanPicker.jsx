@@ -51,14 +51,27 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
               sellingPlan ? 'text-black sm:text-[#fff]' : 'text-[#1d1d1d]'
             } leading-[100%] flex-1 text-[18px] sm:text-[20px] text-center sm:text-left font-bold`}
           >
-            <span className="line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
+            <span className="sm:hidden line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
+              {total && `$${parseInt(total)}`}
+            </span>
+            <span className="hidden sm:inline line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
               {total && `$${formatPrice(total)}`}
             </span>
-            {totalCostForPlan &&
-              `$${formatPrice(
-                totalCostForPlan - firstOrderSavingFormatted,
-              )}`}{' '}
-            Subscribe & Save
+
+            <span className="sm:hidden">
+              {totalCostForPlan &&
+                `$${parseInt(
+                  totalCostForPlan - firstOrderSavingFormatted,
+                )}`}{' '}
+              Subscribe & Save
+            </span>
+            <span className="hidden sm:inline">
+              {totalCostForPlan &&
+                `$${formatPrice(
+                  totalCostForPlan - firstOrderSavingFormatted,
+                )}`}{' '}
+              Subscribe & Save
+            </span>
           </div>
 
           <select
@@ -224,10 +237,18 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
               sellingPlan ? 'text-[#1d1d1d]' : 'text-black sm:text-[#fff]'
             } text-[18px] sm:text-[20px] w-fit font-bold text-center sm:text-left sm:leading-[24px]`}
           >
-            <span className="line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
+            <span className="sm:hidden line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
+              {total && `$${parseInt(total)}`}
+            </span>
+            <span className="hidden sm:inline line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
               {total && `$${formatPrice(total)}`}
             </span>
-            {totalCostForPlan && `$${formatPrice(totalCostForPlan)}`} One Time
+            <span className="sm:hidden">
+              {totalCostForPlan && `$${parseInt(totalCostForPlan)}`} One Time
+            </span>
+            <span className="hidden sm:inline">
+              {totalCostForPlan && `$${formatPrice(totalCostForPlan)}`} One Time
+            </span>
           </div>
         </div>
       </div>
