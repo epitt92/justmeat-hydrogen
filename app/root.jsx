@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Script, useNonce } from '@shopify/hydrogen'
+import { useNonce } from '@shopify/hydrogen'
 import { defer } from '@shopify/remix-oxygen'
 import {
   Links,
@@ -219,16 +219,17 @@ export default function App() {
           </Layout>
 
           {/* External scripts start here */}
-          <Script
+          {/* Please use html native script tag ( <script ... />) */}
+          <script
             async
             src="//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com"
           />
-          <Script
+          <script
             async
             type="text/javascript"
             src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UMcvkS"
           />
-          <Script async src="https://cdn.reamaze.com/assets/reamaze.js" />
+          <script async src="https://cdn.reamaze.com/assets/reamaze.js" />
           {/* External scripts end here */}
 
           <ScrollRestoration nonce={nonce} />
@@ -277,7 +278,7 @@ export function ErrorBoundary() {
         <LiveReload nonce={nonce} />
 
         <Scripts src="//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com"></Scripts>
-        <Script
+        <script
           async
           type="text/javascript"
           src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UMcvkS"
