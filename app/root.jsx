@@ -18,7 +18,7 @@ import sliderStyles from 'swiper/css'
 import sliderNavigation from 'swiper/css/navigation'
 import sliderPagination from 'swiper/css/pagination'
 
-import favicon from '../public/favicon.svg'
+import favicon from '~/assets/logo.svg'
 import appStyles from '~/styles/app.css'
 import tailwindStyles from '~/styles/tailwind.css'
 import { RootContext } from '~/contexts'
