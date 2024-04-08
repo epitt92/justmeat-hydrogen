@@ -1,4 +1,4 @@
-import { useContext, useState , useEffect } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { cn, formatPrice } from '~/lib/utils'
 import { Button } from '~/components/Button'
 import { CustomBundleContext } from '~/contexts'
@@ -11,27 +11,26 @@ export const MobileCart = () => {
   const { freeProduct } = useLoaderData()
   const { totalCost, submitting, handleSubmit, isCartPage } =
     useContext(CustomBundleContext)
-  console.log('🚀 ~ MobileCart ~ isCartPage:', isCartPage)
 
   const [cartOpen, setCartOpen] = useState(false)
 
-  const [freeTag, setFreeTag] = useState(0);
+  const [freeTag, setFreeTag] = useState(0)
 
   useEffect(() => {
-    let tags = freeProduct.tags;
+    let tags = freeProduct.tags
     if (tags && tags.length > 0) {
-      tags.forEach(tag => {
+      tags.forEach((tag) => {
         if (tag.includes('free-')) {
-          let priceForFreeProduct = tag.split("-");
-          priceForFreeProduct = parseFloat(priceForFreeProduct[1]);
-          setFreeTag(priceForFreeProduct);
+          let priceForFreeProduct = tag.split('-')
+          priceForFreeProduct = parseFloat(priceForFreeProduct[1])
+          setFreeTag(priceForFreeProduct)
         }
-      });
+      })
     }
-  }, [freeProduct]);
+  }, [freeProduct])
 
   const isCheckoutable = totalCost >= 75
-  const total = totalCost + freeTag;
+  const total = totalCost + freeTag
 
   return (
     <div className="mobile-cart">
