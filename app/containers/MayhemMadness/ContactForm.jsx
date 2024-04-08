@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
+
 import { Button } from '~/components/Button'
+import { GreenCircleCheck } from '~/icons/GreenCircleCheck'
 
 const zapierHook = 'https://hooks.zapier.com/hooks/catch/18452229/3p52w81/'
 
 export const ContactForm = ({ formName }) => {
   const [submitting, setSubmitting] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   // Initialize useForm hook
   const {
@@ -26,11 +29,11 @@ export const ContactForm = ({ formName }) => {
       const result = await response.json()
 
       reset()
-      alert('Thank you.')
     } catch (error) {
       console.error('Error:', error)
     } finally {
       setSubmitting(false)
+      setIsSubmitted(true)
     }
   }
 
@@ -39,18 +42,27 @@ export const ContactForm = ({ formName }) => {
       onSubmit={handleSubmit(onSubmit)}
       className={
         formName === 'first'
-          ? 'relative xl:pt-[46px] xl:pb-[36px] xl:px-[50px] pt-[30px] pb-[30px] px-[33px] rounded-[8px] bg-[#ffffff25] flex flex-col items-start gap-[16px]'
-          : 'relative xl:pt-[46px] xl:pb-[36px] xl:px-[50px] pt-[30px] pb-[30px] px-[33px] rounded-[8px] bg-white flex flex-col items-start gap-[16px]'
+          ? 'relative xl:pt-[46px] xl:pb-[36px] xl:px-[50px] pt-[30px] pb-[30px] px-[33px] rounded-[8px] bg-[#ffffff25] flex flex-col items-start gap-[16px] font-nunito'
+          : 'relative xl:pt-[46px] xl:pb-[36px] xl:px-[50px] pt-[30px] pb-[30px] px-[33px] rounded-[8px] bg-white flex flex-col items-start gap-[16px] font-nunito'
       }
     >
+      {isSubmitted && (
+        <div className="flex gap-3 px-[10px] py-[8px] bg-[#eef3eb] rounded-[4px] text-black tracking-normal font-normal">
+          <div className="w-[26px] py-[2px] shrink-0">
+            <GreenCircleCheck />
+          </div>
+          Thanks for contacting us! We&apos;ll get back to you as soon as
+          possible.
+        </div>
+      )}
       <div className="w-full">
         <input
           {...register('name', { required: 'Name is required' })}
-          placeholder="Enter your name"
+          placeholder="Enter your full name"
           className={
             formName === 'first'
-              ? 'bg-[#222] rounded-[4px] font-nunito text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
-              : 'bg-[#efeeed] rounded-[4px] font-nunito text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
+              ? 'bg-[#222] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
+              : 'bg-[#efeeed] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
           }
         />
         {errors.name && (
@@ -67,16 +79,16 @@ export const ContactForm = ({ formName }) => {
       </div>
       <div className="w-full">
         <input
-          {...register('email', { required: 'Email is required' })}
-          placeholder="Enter your email"
-          type="email"
+          {...register('gym_name', { required: 'Gym name is required' })}
+          placeholder="Enter your Gym name"
+          type="text"
           className={
             formName === 'first'
-              ? 'bg-[#222] rounded-[4px] font-nunito text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
-              : 'bg-[#efeeed] rounded-[4px] font-nunito text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
+              ? 'bg-[#222] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
+              : 'bg-[#efeeed] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
           }
         />
-        {errors.email && (
+        {errors.gym_name && (
           <p
             className={
               formName === 'first'
@@ -84,7 +96,7 @@ export const ContactForm = ({ formName }) => {
                 : 'text-black uppercase text-[12px]'
             }
           >
-            {errors.email.message}
+            {errors.gym_name.message}
           </p>
         )}
       </div>
@@ -95,8 +107,8 @@ export const ContactForm = ({ formName }) => {
           type="tel"
           className={
             formName === 'first'
-              ? 'bg-[#222] rounded-[4px] font-nunito text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
-              : 'bg-[#efeeed] rounded-[4px] font-nunito text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
+              ? 'bg-[#222] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
+              : 'bg-[#efeeed] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
           }
         />
         {errors.phone && (
@@ -113,15 +125,15 @@ export const ContactForm = ({ formName }) => {
       </div>
       <div className="w-full">
         <textarea
-          {...register('message', { required: 'Message is required' })}
-          placeholder="Enter your message"
+          {...register('gym_address', { required: 'Gym address is required' })}
+          placeholder="Enter your Gym address"
           className={
             formName === 'first'
-              ? 'bg-[#222] rounded-[4px] font-nunito text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
-              : 'bg-[#efeeed] rounded-[4px] font-nunito text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
+              ? 'bg-[#222] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
+              : 'bg-[#efeeed] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
           }
         />
-        {errors.message && (
+        {errors.gym_address && (
           <p
             className={
               formName === 'first'
@@ -129,7 +141,7 @@ export const ContactForm = ({ formName }) => {
                 : 'text-black uppercase text-[12px]'
             }
           >
-            {errors.message.message}
+            {errors.gym_address.message}
           </p>
         )}
       </div>
