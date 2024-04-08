@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button } from '~/components/Button'
 
+const zapierHook = 'https://hooks.zapier.com/hooks/catch/18452229/3p52w81/'
+
 export const ContactForm = ({ formName }) => {
   const [submitting, setSubmitting] = useState(false)
 
@@ -17,13 +19,10 @@ export const ContactForm = ({ formName }) => {
     setSubmitting(true)
 
     try {
-      const response = await fetch(
-        'https://hooks.zapier.com/hooks/catch/18452229/3p52w81/',
-        {
-          method: 'POST',
-          body: data,
-        },
-      )
+      const response = await fetch(zapierHook, {
+        method: 'POST',
+        body: data,
+      })
       const result = await response.json()
 
       reset()
