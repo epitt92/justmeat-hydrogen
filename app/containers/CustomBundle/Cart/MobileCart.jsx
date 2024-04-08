@@ -1,20 +1,38 @@
-import { useContext, useState } from 'react'
+import { useContext, useState , useEffect } from 'react'
 import { cn, formatPrice } from '~/lib/utils'
 import { Button } from '~/components/Button'
 import { CustomBundleContext } from '~/contexts'
 import { ProgressBar } from './ProgressBar'
 import { CartLines } from './CartLines'
 import { PlanPicker } from '../PlanPickerBlock/PlanPicker'
+import { useLoaderData } from '@remix-run/react'
 
 export const MobileCart = () => {
+  const { freeProduct } = useLoaderData()
   const { totalCost, submitting, handleSubmit, isCartPage } =
     useContext(CustomBundleContext)
   console.log('🚀 ~ MobileCart ~ isCartPage:', isCartPage)
 
   const [cartOpen, setCartOpen] = useState(false)
 
+  const [freeTag, setFreeTag] = useState(0);
+
+  useEffect(() => {
+    let tags = freeProduct.tags;
+    if (tags && tags.length > 0) {
+      tags.forEach(tag => {
+        if (tag.includes('free-')) {
+          let priceForFreeProduct = tag.split("-");
+          priceForFreeProduct = parseFloat(priceForFreeProduct[1]);
+          setFreeTag(priceForFreeProduct);
+        }
+      });
+    }
+  }, [freeProduct]);
+
   const isCheckoutable = totalCost >= 75
-  const total = totalCost + 11.45
+  const total = totalCost + freeTag;
+
   return (
     <div className="mobile-cart">
       <Button

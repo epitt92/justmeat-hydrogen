@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Script, useNonce } from '@shopify/hydrogen'
+import { useNonce } from '@shopify/hydrogen'
 import { defer } from '@shopify/remix-oxygen'
 import {
   Links,
@@ -211,22 +211,30 @@ export default function App() {
           <meta name="viewport" content="width=device-width,initial-scale=1" />
           <Meta />
           <Links />
-          <Script async src="https://cdn.reamaze.com/assets/reamaze.js" />
-          <Script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UMcvkS"/>
-          <Script src="/chat.js" />
         </head>
         <body>
           <SubscriptionCard></SubscriptionCard>
           <Layout {...data}>
             <Outlet />
           </Layout>
+
+          {/* External scripts start here */}
+          {/* Please use html native script tag ( <script ... />) */}
+          <script
+            async
+            src="//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com"
+          />
+          <script
+            async
+            type="text/javascript"
+            src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UMcvkS"
+          />
+          <script async src="https://cdn.reamaze.com/assets/reamaze.js" />
+          {/* External scripts end here */}
+
           <ScrollRestoration nonce={nonce} />
           <Scripts nonce={nonce} />
           <LiveReload nonce={nonce} />
-          <Script
-            async
-            src="//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com"
-          ></Script>
         </body>
       </html>
     </RootContext.Provider>
@@ -270,7 +278,11 @@ export function ErrorBoundary() {
         <LiveReload nonce={nonce} />
 
         <Scripts src="//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com"></Scripts>
-        <Script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UMcvkS"/>
+        <script
+          async
+          type="text/javascript"
+          src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UMcvkS"
+        />
       </body>
     </html>
   )
