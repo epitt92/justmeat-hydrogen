@@ -1,7 +1,6 @@
+import { ContactForm } from './ContactForm'
+
 import justmeatsBoxPart from '~/assets/images/justmeants-box-part.png'
-
-import { Button } from '~/components/Button'
-
 import videoThumbnail from '~/assets/images/second-contact-video-thumbnail.png'
 import videoPlayButton from '~/assets/images/video-play-button.png'
 
@@ -36,31 +35,8 @@ export const SecondContact = () => {
                 6 LBS OF FREE MEAT
               </div>
             </div>
-            <div className="xl:pt-[46px] xl:pb-[36px] xl:px-[50px] pt-[30px] pb-[30px] px-[33px] rounded-[8px] bg-white flex flex-col items-start gap-[16px]">
-              <input
-                type="text"
-                className="bg-[#efeeed] rounded-[4px] font-nunito text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full"
-                placeholder="Enter your name"
-              />
-              <input
-                type="email"
-                className="bg-[#efeeed] rounded-[4px] font-nunito text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full"
-                placeholder="Enter your email"
-              />
-              <input
-                type="phone"
-                className="bg-[#efeeed] rounded-[4px] font-nunito text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full"
-                placeholder="Enter your phone"
-              />
-              <textarea
-                rows={3}
-                className="bg-[#efeeed] rounded-[4px] font-nunito text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full"
-                placeholder="Enter your message"
-              />
-              <Button className="text-[16px] font-normal px-[24px] py-[12px] rounded-[4px] text-white bg-[#223661]">
-                SUBMIT
-              </Button>
-            </div>
+
+            <ContactForm formName="second" />
           </div>
           <div className="relative flex aspect-square">
             <img src={videoThumbnail} />
