@@ -118,7 +118,7 @@ export default function Product() {
   return (
     <>
       <Notification />
-      <div className="bg-cover h-[100%] w-[100%] bg-fixed	flex justify-center sm:bg-house">
+      <div className="bg-cover h-[100%] w-[100%] bg-fixed	flex justify-center sm:bg-house bg-[url(https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Mask_Group_125_2_1.png?v=1693548433)]">
         <div className="container">
           <CustomBundle />
         </div>
