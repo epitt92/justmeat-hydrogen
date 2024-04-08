@@ -217,7 +217,7 @@ export default function App() {
             type="text/javascript"
             src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UMcvkS"
           />
-          <Script src="/chat.js" />
+          <Script src="./lib/chat.js" />
         </head>
         <body>
           <SubscriptionCard></SubscriptionCard>
