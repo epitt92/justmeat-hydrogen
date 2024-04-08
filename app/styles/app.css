@@ -320,8 +320,12 @@ button.free-gift-label {
   }
 }
 
-.featured-slider .swiper-pagination-bullet {
-  @apply bg-[#7A392D];
+.swiper-pagination-bullet {
+  @apply !bg-[#7A392D];
+}
+
+.how-it-works-slider .swiper-pagination.swiper-pagination-lock {
+  @apply sm:!hidden !block;
 }
 
 .bg-us-flag {
