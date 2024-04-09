@@ -1,7 +1,10 @@
+import ReactPlayer from 'react-player'
 import { ContactForm } from './ContactForm'
 
 import videoThumbnail from '~/assets/images/first-contact-video-thumbnail.png'
 import videoPlayButton from '~/assets/images/video-play-button.png'
+
+// https://player.vimeo.com/video/927773921?title=0&h=dab2c18ae7
 
 export const FirstContact = () => {
   return (
@@ -13,12 +16,13 @@ export const FirstContact = () => {
         </div>
         <div className="grid sm:grid-cols-2 grid-cols-1 sm:gap-[55px] gap-[52px] items-end">
           <div className="relative flex aspect-square border-[3px] border-solid border-white">
-            <img src={videoThumbnail} />
+            <ReactPlayer url="https://player.vimeo.com/video/927773921?title=0&h=dab2c18ae7" />
+            {/* <img src={videoThumbnail} />
             <div className="absolute flex items-center justify-center w-full h-full">
               <button>
                 <img src={videoPlayButton} />
               </button>
-            </div>
+            </div> */}
           </div>
           <div className="flex flex-col justify-between aspect-square">
             <div className="sm:mb-0 mb-[24px]">

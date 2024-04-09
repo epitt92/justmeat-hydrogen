@@ -4,6 +4,8 @@ import justmeatsBoxPart from '~/assets/images/justmeants-box-part.png'
 import videoThumbnail from '~/assets/images/second-contact-video-thumbnail.png'
 import videoPlayButton from '~/assets/images/video-play-button.png'
 
+// https://player.vimeo.com/video/927745843?title=0&h=a456f827ea
+
 export const SecondContact = () => {
   return (
     <section className="bg-[#efeeed] sm:pt-[110px] sm:pb-[25px] pt-[70px] pb-[32px] relative">
