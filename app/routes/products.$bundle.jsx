@@ -4,16 +4,19 @@ import { getPaginationVariables } from '@shopify/hydrogen'
 
 import { CustomBundle } from '~/containers/CustomBundle'
 import Notification from '~/components/Notification'
-import { ALL_PRODUCTS_QUERY } from '~/graphql/Product'
+import { ALL_PRODUCTS_QUERY, PRODUCT_BY_HANDLER_QUERY } from '~/graphql/Product'
+import { COLLECTION_QUERY } from '~/graphql/Collection'
+
+const bundleCollectionHandler = 'all-products'
+const freeProductHandler = 'raspberry-bbq-chicken-breast'
+const bonusProductHandler = 'free-meat-unlocked-at-125'
+const bundleProductHandler = 'custom-bundle'
 
 export async function loader({ request, context }) {
   const { storefront } = context
+
   const discountCode = context.session.get('discountCode')
   const discountCodes = discountCode ? [discountCode] : []
-
-  const allProductsHandler = 'all-products'
-  const freeProductHandler = 'raspberry-bbq-chicken-breast'
-  const bonusProductHandler = 'free-meat-unlocked-at-125'
 
   const variables = getPaginationVariables(request, { pageBy: 50 })
 
@@ -37,7 +40,7 @@ export async function loader({ request, context }) {
   const products = allProducts
     .filter((product) =>
       product.collections.edges.some(
-        (collection) => collection.node.handle === allProductsHandler,
+        (collection) => collection.node.handle === bundleCollectionHandler,
       ),
     )
     .filter(
@@ -54,22 +57,57 @@ export async function loader({ request, context }) {
 
 export async function action({ request, context }) {
   const _cart = context.cart
+  const storefront = context.storefront
   const discountCode = context.session.get('discountCode')
+  const variables = getPaginationVariables(request, { pageBy: 1 })
+
+  const { collection: bundleCollection } = await storefront.query(
+    COLLECTION_QUERY,
+    {
+      variables: {
+        ...variables,
+        handle: bundleCollectionHandler,
+        country: storefront.i18n.country,
+        language: storefront.i18n.language,
+      },
+    },
+  )
+
+  const { product: bundleProduct } = await storefront.query(
+    PRODUCT_BY_HANDLER_QUERY,
+    {
+      variables: {
+        ...variables,
+        handle: bundleProductHandler,
+        country: storefront.i18n.country,
+        language: storefront.i18n.language,
+      },
+    },
+  )
 
   const form = await request.formData()
   const data = JSON.parse(form.get('body'))
   const products = data.products
   const sellingPlanName = data.sellingPlanName
 
+  const bundleCollectionId = bundleCollection.id.split(
+    'gid://shopify/Collection/',
+  )[1]
+  const bundleProductExternalProductId = bundleProduct.id.split(
+    'gid://shopify/Product/',
+  )[1]
+  const bundleProductExternalVariantId =
+    bundleProduct.variants.nodes[0].id.split('gid://shopify/ProductVariant/')[1]
+
   let cartData
 
   if (sellingPlanName) {
     const bundle = {
-      externalProductId: '8374391898338', // Custom Meat Bundle's Shopify Product ID - Hard coded
-      externalVariantId: '45086855332066', // Custom Meat Bundle's Shopify Variant ID - Hard coded
+      externalProductId: bundleProductExternalProductId,
+      externalVariantId: bundleProductExternalVariantId,
 
       selections: products.map((product) => ({
-        collectionId: '424769257698',
+        collectionId: bundleCollectionId,
         externalProductId: product.id.split('gid://shopify/Product/')[1],
         externalVariantId: product.variants.nodes[0].id.split(
           'gid://shopify/ProductVariant/',
@@ -90,16 +128,14 @@ export async function action({ request, context }) {
       'shopifyProductHandle',
     )
 
-    cartData = [
-      ...bundleItems.map((bundleItem) => ({
-        quantity: bundleItem.quantity,
-        merchandiseId: `gid://shopify/ProductVariant/${bundleItem.id}`,
-        sellingPlanId: `gid://shopify/SellingPlan/${bundleItem.selling_plan}`,
-        attributes: Object.keys(bundleItem.properties).map((key) => {
-          return { key, value: String(bundleItem.properties[key]) }
-        }),
-      })),
-    ]
+    cartData = bundleItems.map((bundleItem) => ({
+      quantity: bundleItem.quantity,
+      merchandiseId: `gid://shopify/ProductVariant/${bundleItem.id}`,
+      sellingPlanId: `gid://shopify/SellingPlan/${bundleItem.selling_plan}`,
+      attributes: Object.keys(bundleItem.properties).map((key) => {
+        return { key, value: String(bundleItem.properties[key]) }
+      }),
+    }))
   } else {
     cartData = products.map((product) => ({
       quantity: product.quantity,
@@ -108,8 +144,12 @@ export async function action({ request, context }) {
   }
 
   const { cart } = await _cart.addLines(cartData)
+
   _cart.setCartId(cart.id)
-  await _cart.updateDiscountCodes([discountCode], { cartId: cart.id })
+
+  if (discountCode) {
+    await _cart.updateDiscountCodes([discountCode], { cartId: cart.id })
+  }
 
   return json({ cart, msg: 'ok' })
 }
