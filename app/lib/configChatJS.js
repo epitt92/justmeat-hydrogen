@@ -1,4 +1,4 @@
-export const initChatJS = () => {
+export const configChatJS = () => {
   window._support = window._support || { ui: {}, user: {} }
   window._support['account'] = 'justmeats'
   window._support['ui']['contactMode'] = 'mixed'

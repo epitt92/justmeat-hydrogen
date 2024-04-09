@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNonce } from '@shopify/hydrogen'
+import { useNonce, Script } from '@shopify/hydrogen'
 import { defer } from '@shopify/remix-oxygen'
 import {
   Links,
@@ -25,6 +25,7 @@ import { RootContext } from '~/contexts'
 import { Layout } from '~/components/Layout'
 import { SubscriptionCard } from '~/components/SubscriptionCard'
 import { FOOTER_QUERY, HEADER_QUERY } from '~/graphql/HeaderMenuFooter'
+import { addScriptToHead } from '~/lib/utils'
 
 export const shouldRevalidate = ({ formMethod, currentUrl, nextUrl }) => {
   // revalidate when a mutation is performed e.g add to cart, login...
@@ -104,6 +105,12 @@ export async function loader({ context }) {
   )
 }
 
+const externalScripts = [
+  'https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UMcvkS',
+  '//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com',
+  'https://cdn.reamaze.com/assets/reamaze.js',
+]
+
 export default function App() {
   const nonce = useNonce()
   const data = useLoaderData()
@@ -154,6 +161,11 @@ export default function App() {
     }
     if (_cartBonusVariant) {
       setCartBonusVariant(JSON.parse(_cartBonusVariant))
+    }
+
+    // HACK: for react hydration error due to direct external script tag imports in head
+    for (const script of externalScripts) {
+      addScriptToHead(script)
     }
   }, [])
 
@@ -239,20 +251,7 @@ export default function App() {
             <Outlet />
           </Layout>
 
-          {/* External scripts start here */}
-          {/* Please use html native script tag ( <script ... />) */}
-          <script
-            async
-            src="//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com"
-          />
-          <script
-            async
-            type="text/javascript"
-            src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UMcvkS"
-          />
-          <script async src="https://cdn.reamaze.com/assets/reamaze.js" />
-          {/* External scripts end here */}
-
+          {/* CAUTION: Please don't inject script tags here, instead use addScriptToHead util in useEffect like above */}
           <ScrollRestoration nonce={nonce} />
           <Scripts nonce={nonce} />
           <LiveReload nonce={nonce} />
