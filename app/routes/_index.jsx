@@ -65,13 +65,13 @@ export default function Homepage() {
             Your browser does not support the video tag.
           </video>
         </div>
-        <div className="flex flex-col z-10 justify-center items-center p-5 gap-6 w-max-[1440px] ">
-          <div className="flex flex-col justify-center items-center gap-4 py-16 sm:py-44 mt-[-30px] w-full sm:w-8/12">
+        <div className="flex flex-col z-10 justify-center items-center p-5 gap-6 w-max-[1440px] before:content-[''] before:absolute before:top-[0] before:left-[0] before:w-full before:h-full before:bg-[rgba(0,_0,_0,_0.4)]">
+          <div className="flex flex-col justify-center items-center gap-4 py-16 sm:py-44 mt-[-30px] w-full sm:w-8/12 z-20">
             <p className="sm:text-5xl text-3xl leading-[55px] font-bold text-white">
               No Fuss, All Flavor <br></br>
               Ready & Delivered
             </p>
-            <p className="text-base text-center text-white sm:text-2xl ">
+            <p className="text-base text-center text-white sm:text-2xl">
               Leave the protein to the professionals: choose from our lineup of
               12 premium meats with new flavors releasing regularly.
             </p>

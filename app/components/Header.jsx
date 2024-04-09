@@ -93,7 +93,7 @@ export function Header() {
             src={logo}
             className="object-cover h-16 w-30 sm:h-24"
             alt=""
-            style={{ height: '70px' }}
+            style={{ height: 'revert-layer' }}
           />
         </NavLink>
         <div className="flex items-center justify-between gap-10 navBar">
