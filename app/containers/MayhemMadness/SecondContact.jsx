@@ -38,13 +38,14 @@ export const SecondContact = () => {
 
             <ContactForm formName="second" />
           </div>
-          <div className="relative flex aspect-square">
-            <img src={videoThumbnail} />
-            <div className="absolute flex items-center justify-center w-full h-full">
-              <button>
-                <img src={videoPlayButton} />
-              </button>
-            </div>
+          <div className="relative flex aspect-square border-[3px] border-solid border-white">
+            <iframe
+              src="https://player.vimeo.com/video/927745843?title=0&h=a456f827ea"
+              className="w-full h-full"
+              allow="autoplay; fullscreen"
+              allowFullScreen
+              title="contact video 1"
+            />
           </div>
         </div>
       </div>
