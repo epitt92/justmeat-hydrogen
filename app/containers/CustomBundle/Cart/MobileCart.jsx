@@ -82,6 +82,7 @@ export const MobileCart = () => {
           )}
           <Button
             loading={submitting}
+            disabled={!isCheckoutable}
             onClick={handleSubmit}
             className={cn(
               'rounded-xl text-white font-semibold text-center py-[12px]',
