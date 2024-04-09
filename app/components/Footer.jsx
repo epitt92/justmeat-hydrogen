@@ -44,11 +44,6 @@ export function Footer({ menu, shop }) {
                   Need Help?
                 </li>
                 <li className="text-white font-normal text-base my-2 transition hover:text-[#862E1B] cursor-pointer ">
-                  <NavLink end prefetch="intent" to="/about">
-                    FAQs
-                  </NavLink>
-                </li>
-                <li className="text-white font-normal text-base my-2 transition hover:text-[#862E1B] cursor-pointer ">
                   <NavLink end prefetch="intent" to="/term-services">
                     Terms of Service
                   </NavLink>
