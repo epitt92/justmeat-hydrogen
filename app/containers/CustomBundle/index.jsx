@@ -178,7 +178,7 @@ export const CustomBundle = () => {
               </div>
             )}
             <div className="flex product-and-cart">
-              <div className="grid grid-cols-2 product-grid md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12">
+              <div className="grid grid-cols-2 product-grid md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12 xl:mb-[0px] mb-[50px]">
                 {products.map((product, key) => {
                   const shouldSkip =
                     !sellingPlan &&

@@ -19,7 +19,7 @@ export function MobileMenuAside() {
       <div
         className={`${
           menuToggle ? 'translate-x-0' : 'translate-x-[-4000px]'
-        } absolute top-0 max-w-[420px] w-full transition-all duration-500 z-40 h-[100vh] bg-white`}
+        } fixed top-0 max-w-[420px] w-full transition-all duration-500 z-40 h-[100vh] bg-white z-100`}
       >
         <div className="flex justify-between items-center py-5 px-10 border-b border-[#1d1d1d26] ">
           <p className="text-[20px] text-black">Menu</p>
