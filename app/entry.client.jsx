@@ -2,9 +2,9 @@ import { RemixBrowser } from '@remix-run/react'
 import { startTransition, StrictMode } from 'react'
 import { hydrateRoot } from 'react-dom/client'
 import { ThemeProvider } from '@material-tailwind/react'
-import { initChatJS } from '~/lib/chat'
+import { configChatJS } from '~/lib/configChatJS'
 
-initChatJS()
+configChatJS()
 
 startTransition(() => {
   hydrateRoot(
