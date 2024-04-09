@@ -90,7 +90,7 @@ export const HowItWorks = () => {
           </Swiper>
         </div>
       </div>
-      <div className="container">
+      {/* <div className="container">
         <div className="flex justify-center sm:gap-[20px] gap-[8px]">
           <button className="px-[24px] py-[12px] rounded-[4px] bg-[#7A392D] tracking-[1px]">
             HOW IT WORKS
@@ -99,7 +99,7 @@ export const HowItWorks = () => {
             GET INSPIRED
           </button>
         </div>
-      </div>
+      </div> */}
     </section>
   )
 }
