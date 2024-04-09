@@ -4,8 +4,6 @@ import justmeatsBoxPart from '~/assets/images/justmeants-box-part.png'
 import videoThumbnail from '~/assets/images/second-contact-video-thumbnail.png'
 import videoPlayButton from '~/assets/images/video-play-button.png'
 
-// https://player.vimeo.com/video/927745843?title=0&h=a456f827ea
-
 export const SecondContact = () => {
   return (
     <section className="bg-[#efeeed] sm:pt-[110px] sm:pb-[25px] pt-[70px] pb-[32px] relative">
@@ -40,13 +38,14 @@ export const SecondContact = () => {
 
             <ContactForm formName="second" />
           </div>
-          <div className="relative flex aspect-square">
-            <img src={videoThumbnail} />
-            <div className="absolute flex items-center justify-center w-full h-full">
-              <button>
-                <img src={videoPlayButton} />
-              </button>
-            </div>
+          <div className="relative flex aspect-square border-[3px] border-solid border-white">
+            <iframe
+              src="https://player.vimeo.com/video/927745843?title=0&h=a456f827ea"
+              className="w-full h-full"
+              allow="autoplay; fullscreen"
+              allowFullScreen
+              title="contact video 1"
+            />
           </div>
         </div>
       </div>
