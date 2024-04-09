@@ -16,7 +16,14 @@ export const FirstContact = () => {
         </div>
         <div className="grid sm:grid-cols-2 grid-cols-1 sm:gap-[55px] gap-[52px] items-end">
           <div className="relative flex aspect-square border-[3px] border-solid border-white">
-            <ReactPlayer url="https://player.vimeo.com/video/927773921?title=0&h=dab2c18ae7" />
+            <iframe
+              src="https://player.vimeo.com/video/927773921?title=0&h=dab2c18ae7"
+              className="w-full h-full"
+              allow="autoplay; fullscreen"
+              allowFullScreen
+              title="contact video 1"
+            />
+
             {/* <img src={videoThumbnail} />
             <div className="absolute flex items-center justify-center w-full h-full">
               <button>
