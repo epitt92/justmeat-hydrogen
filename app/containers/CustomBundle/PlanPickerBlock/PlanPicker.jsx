@@ -155,6 +155,18 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
               </span>{' '}
               25% Off First Order
             </li>
+            <li className="flex items-center text-[10px] sm:text-[12px] font-medium sm:font-bold m-0 sm:flex md:hidden lg:hidden">
+              <span className="text-[#425B34] sm:text-black">
+                <CheckBox
+                  className={
+                    sellingPlan
+                      ? 'fill-[#425b34] sm:fill-black'
+                      : 'fill-[#aaaaaa]'
+                  }
+                />
+              </span>{' '}
+              Subscriber-Only Monthly Flavors
+            </li>
             <li className="flex items-center text-[11px] sm:text-[12px] font-normal sm:font-bold m-0 sm:flex md:hidden lg:hidden">
               <span className="text-[#425B34] sm:text-black">
                 <CheckBox
@@ -167,18 +179,7 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
               </span>{' '}
               10% Off Future Orders
             </li>
-            <li className="flex items-center text-[11px] sm:text-[12px] font-normal sm:font-bold m-0 sm:flex md:hidden lg:hidden">
-              <span className="text-[#425B34] sm:text-black">
-                <CheckBox
-                  className={
-                    sellingPlan
-                      ? 'fill-[#425b34] sm:fill-black'
-                      : 'fill-[#aaaaaa]'
-                  }
-                />
-              </span>{' '}
-              Subscriber-Only Monthly Flavors
-            </li>
+         
             <li className="flex items-center text-[11px] sm:text-[12px] font-normal sm:font-bold m-0 hidden md:flex lg:flex">
               <span className="text-[#425B34] sm:text-black">
                 <CheckBox
@@ -205,7 +206,7 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
               </span>{' '}
               Exclusive Meat Options
             </li>
-            <li className="flex items-center text-[11px] sm:text-[12px] font-normal sm:font-bold m-0">
+            <li className="flex items-center text-[10px] sm:text-[12px] font-medium sm:font-bold m-0">
               <span className="text-[#425B34] sm:text-black">
                 <CheckBox
                   className={
@@ -235,7 +236,7 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
           <div
             className={`${
               sellingPlan ? 'text-[#1d1d1d]' : 'text-black sm:text-[#fff]'
-            } text-[18px] sm:text-[20px] w-fit font-bold text-center sm:text-left sm:leading-[24px]`}
+            } text-[18px] sm:text-[20px] w-fit font-bold text-center sm:text-left leading-[100%] sm:leading-[24px]`}
           >
             <span className="sm:hidden line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
               {total && `$${parseInt(total)}`}

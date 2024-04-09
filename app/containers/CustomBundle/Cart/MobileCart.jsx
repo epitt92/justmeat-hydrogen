@@ -92,7 +92,7 @@ export const MobileCart = () => {
               ? isCartPage
                 ? 'Checkout'
                 : 'Update Changes'
-              : 'Spend $75 to Continue)'}
+              : 'Spend $75 to Continue'}
           </Button>
         </div>
       </div>
