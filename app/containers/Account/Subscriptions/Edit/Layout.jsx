@@ -31,7 +31,7 @@ export const SubscriptionEditLayout = ({ children }) => {
     )
 
     if (res.msg === 'ok') {
-      alert("We've successfully proceeded your order")
+      console.debug('ok')
     }
 
     setProcessing(false)
@@ -57,7 +57,7 @@ export const SubscriptionEditLayout = ({ children }) => {
     )
 
     if (res.msg === 'ok') {
-      alert('Your next order has been delayed one week')
+      console.debug('ok')
     }
 
     setDelaying(false)
@@ -77,7 +77,7 @@ export const SubscriptionEditLayout = ({ children }) => {
     )
 
     if (res.msg === 'ok') {
-      alert('Your subscription has been canceled')
+      console.debug('ok')
       navigate('..', { replace: true })
     }
 
