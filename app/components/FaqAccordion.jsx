@@ -41,9 +41,9 @@ function FaqAccordion() {
         >
           What kind of meat can I buy?
         </AccordionHeader>
-        <AccordionBody className="p-5 text-center text-base">
+        <AccordionBody className="py-5 px-0 text-center text-base text-[#000] font-normal">
           Each week, you can choose from{' '}
-          <span className="bg-[#d9ead3]">chicken, pork, or beef options</span>{' '}
+          <span className="bg-[#D9EAD3]">chicken, pork, or beef options</span>{' '}
           cooked in a variety of ways with unique spices and sauces.
         </AccordionBody>
       </Accordion>
@@ -54,7 +54,7 @@ function FaqAccordion() {
         >
           Can I get meats delivered weekly?
         </AccordionHeader>
-        <AccordionBody className="p-5 text-center text-base">
+        <AccordionBody className="p-5 text-center text-base text-[#000] font-normal">
           You can get your meat delivered every 15 or 30 days.
         </AccordionBody>
       </Accordion>
@@ -65,7 +65,7 @@ function FaqAccordion() {
         >
           How do I choose my meat?
         </AccordionHeader>
-        <AccordionBody className="p-5 text-center text-base">
+        <AccordionBody className="p-5 text-center text-base text-[#000] font-normal">
           When you go to the order page, you will choose between a subscription
           and a one time purchase and then see which meat options to choose
           from.
@@ -78,7 +78,7 @@ function FaqAccordion() {
         >
           When does my meat arrive?
         </AccordionHeader>
-        <AccordionBody className="p-5 text-center text-base">
+        <AccordionBody className="p-5 text-center text-base text-[#000] font-normal">
           Depending on the shipping option you choose, within 1-5 business days.{' '}
         </AccordionBody>
       </Accordion>
@@ -89,7 +89,7 @@ function FaqAccordion() {
         >
           Is the meat precooked?
         </AccordionHeader>
-        <AccordionBody className="p-5 text-center text-base">
+        <AccordionBody className="p-5 text-center text-base text-[#000] font-normal">
           Yes! All meat is precooked, chilled, and then shipped to you. All you
           have to do is reheat!{' '}
         </AccordionBody>
@@ -101,7 +101,7 @@ function FaqAccordion() {
         >
           How is the meat shipped?
         </AccordionHeader>
-        <AccordionBody className="p-5 text-center text-base">
+        <AccordionBody className="p-5 text-center text-base text-[#000] font-normal">
           All meat is sent chilled and packaged with an insulated liner
           surrounded by ice packets to ensure it will reach your door at a safe
           temperature.{' '}
@@ -114,7 +114,7 @@ function FaqAccordion() {
         >
           Where is the meat sourced?
         </AccordionHeader>
-        <AccordionBody className="p-5 text-center text-base">
+        <AccordionBody className="p-5 text-center text-base text-[#000] font-normal">
           We are a Utah company that sources 100% real meat from trusted local
           ranches. Selecting grass fed ranches, we prioritize that our meat is
           of the highest standards of taste and nutritional value.
@@ -127,7 +127,7 @@ function FaqAccordion() {
         >
           How should I store my meat?
         </AccordionHeader>
-        <AccordionBody className="p-5 text-center  text-base">
+        <AccordionBody className="p-5 text-center  text-base text-[#000] font-normal">
           All sealed meats can be stored in the refrigerator for 10-14 days upon
           arrival. Once the package is opened, we recommend consuming the
           refrigerated meat within 3-5 days. If this timeline will not work, all
