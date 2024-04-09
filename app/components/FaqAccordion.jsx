@@ -43,7 +43,7 @@ function FaqAccordion() {
         </AccordionHeader>
         <AccordionBody className="py-5 px-0 text-center text-base text-[#000] font-normal">
           Each week, you can choose from{' '}
-          <span className="bg-[#D9EAD3]">chicken, pork, or beef options</span>{' '}
+          <span className="">chicken, pork, or beef options</span>{' '}
           cooked in a variety of ways with unique spices and sauces.
         </AccordionBody>
       </Accordion>
