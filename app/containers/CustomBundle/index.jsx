@@ -128,7 +128,7 @@ export const CustomBundle = () => {
       )
 
       if (res.msg === 'ok') {
-        alert('Bundle items in the subscription have been successfully updated')
+        console.debug('ok')
       }
     }
 
