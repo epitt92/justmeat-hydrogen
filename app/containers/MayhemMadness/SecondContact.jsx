@@ -1,8 +1,8 @@
-import { ContactForm } from './ContactForm'
-
 import justmeatsBoxPart from '~/assets/images/justmeants-box-part.png'
 import videoThumbnail from '~/assets/images/second-contact-video-thumbnail.png'
 import videoPlayButton from '~/assets/images/video-play-button.png'
+
+import { ContactForm } from './ContactForm'
 
 export const SecondContact = () => {
   return (

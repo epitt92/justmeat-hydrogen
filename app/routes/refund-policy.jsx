@@ -1,4 +1,5 @@
 import React from 'react'
+
 import RefundPolicy from '~/containers/RefundPolicy'
 
 const RefundPolicyPage = () => {

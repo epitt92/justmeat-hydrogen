@@ -1,12 +1,11 @@
 // Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react'
-
-// import required modules
-import { Navigation } from 'swiper/modules'
-
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
+// import required modules
+import { Navigation } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
+
 import { NavLink } from '@remix-run/react'
 
 function Carousel({ images }) {

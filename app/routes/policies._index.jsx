@@ -1,5 +1,5 @@
+import { Link, useLoaderData } from '@remix-run/react'
 import { json } from '@shopify/remix-oxygen'
-import { useLoaderData, Link } from '@remix-run/react'
 
 /**
  * @param {LoaderFunctionArgs}

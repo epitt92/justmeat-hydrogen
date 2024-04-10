@@ -1,8 +1,9 @@
 import React from 'react'
+
 import {
   Accordion,
-  AccordionHeader,
   AccordionBody,
+  AccordionHeader,
 } from '@material-tailwind/react'
 
 function Icon({ id, open }) {
@@ -43,8 +44,8 @@ function FaqAccordion() {
         </AccordionHeader>
         <AccordionBody className="py-5 px-0 text-center text-base text-[#000] font-normal">
           Each week, you can choose from{' '}
-          <span className="">chicken, pork, or beef options</span>{' '}
-          cooked in a variety of ways with unique spices and sauces.
+          <span className="">chicken, pork, or beef options</span> cooked in a
+          variety of ways with unique spices and sauces.
         </AccordionBody>
       </Accordion>
       <Accordion open={open === 2} icon={<Icon id={2} open={open} />}>

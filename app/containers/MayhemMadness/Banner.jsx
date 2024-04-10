@@ -1,5 +1,5 @@
-import { MayhemNation } from '~/icons/MayhemNation'
 import BannerCharacter from '~/assets/images/Copy-of-JustMeats_Partnerships_Stills_RichFroning_202MAR25_SethH-7.png'
+import { MayhemNation } from '~/icons/MayhemNation'
 
 export const Banner = () => {
   return (

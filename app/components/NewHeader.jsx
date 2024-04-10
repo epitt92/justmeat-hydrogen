@@ -1,14 +1,17 @@
-import { NavLink, useMatches } from '@remix-run/react'
 import { useContext, useRef } from 'react'
-import { useRootLoaderData } from '~/root'
-import OrderButton from './OrderButton'
-import { CartButton } from './CartButton'
+
+import { NavLink, useMatches } from '@remix-run/react'
+
 import logo from '~/assets/logo.png'
-import { Button } from './Button'
-import { HamburgerOpen } from '~/icons/HamburgerOpen'
-import { Account as AccountIcon } from '~/icons/Account'
 import { LayoutContext } from '~/contexts'
+import { Account as AccountIcon } from '~/icons/Account'
+import { HamburgerOpen } from '~/icons/HamburgerOpen'
 import { Logo } from '~/icons/Logo'
+import { useRootLoaderData } from '~/root'
+
+import { Button } from './Button'
+import { CartButton } from './CartButton'
+import OrderButton from './OrderButton'
 
 export function Header() {
   const matches = useMatches()

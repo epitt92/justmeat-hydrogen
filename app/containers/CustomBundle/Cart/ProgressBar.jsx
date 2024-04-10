@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 
-import { CustomBundleContext } from '~/contexts'
 import { Progress } from '~/components/Progress'
+import { CustomBundleContext } from '~/contexts'
 import { cn } from '~/lib/utils'
 
 export function ProgressBar() {

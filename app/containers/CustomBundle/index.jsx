@@ -1,15 +1,16 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext, useState } from 'react'
+
 import { useLoaderData, useMatches } from '@remix-run/react'
 
+import { PlanPickerBlock } from '~/containers/CustomBundle/PlanPickerBlock'
+import { CustomBundleContext, RootContext } from '~/contexts'
 import { useSubmitPromise } from '~/hooks/useSubmitPromise'
-import { RootContext, CustomBundleContext } from '~/contexts'
 
+import { PROMO_CODES } from '../../promo-codes'
 import { Cart } from './Cart'
 import { MobileCart } from './Cart/MobileCart'
-import { ProductModal } from './ProductModal'
 import { ProductCard } from './ProductCard'
-import { PROMO_CODES } from '../../promo-codes'
-import { PlanPickerBlock } from '~/containers/CustomBundle/PlanPickerBlock'
+import { ProductModal } from './ProductModal'
 
 export const CustomBundle = () => {
   const submit = useSubmitPromise()
@@ -128,7 +129,7 @@ export const CustomBundle = () => {
       )
 
       if (res.msg === 'ok') {
-        alert('Bundle items in the subscription have been successfully updated')
+        console.debug('ok')
       }
     }
 
@@ -177,8 +178,9 @@ export const CustomBundle = () => {
                 </div>
               </div>
             )}
+
             <div className="flex product-and-cart mb-[62px] md:mb-0">
-              <div className="grid grid-cols-2 product-grid md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12">
+              <div className="grid grid-cols-2 product-grid md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12 xl:mb-[0px] mb-[50px]">
                 {products.map((product, key) => {
                   const shouldSkip =
                     !sellingPlan &&

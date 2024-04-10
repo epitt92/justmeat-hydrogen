@@ -12,3 +12,10 @@ export function formatPrice(price) {
     return price.toFixed(2).replace(/(\.0+|0+)$/, '')
   }
 }
+
+export function addScriptToHead(src) {
+  const script = document.createElement('script')
+  script.async = true
+  script.src = src
+  document.head.appendChild(script)
+}

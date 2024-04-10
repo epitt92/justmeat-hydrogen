@@ -1,7 +1,9 @@
 import React, { useContext } from 'react'
+
 import { CustomBundleContext } from '~/contexts'
-import { Quantity } from './Quantity'
+
 import { Add } from './Add'
+import { Quantity } from './Quantity'
 
 export const ProductActions = ({ product }) => {
   const { selectedProducts } = useContext(CustomBundleContext)

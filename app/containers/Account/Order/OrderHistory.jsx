@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { Image } from '@shopify/hydrogen'
 
 const OrderHistory = ({ order }) => {
@@ -46,7 +47,9 @@ const OrderHistory = ({ order }) => {
         </div>
         <div className="basis-2/12">
           <div className="text-start">
-            <h5 className="capitalize text-[14px] font-bold leading-3 tracking-[0.47px] my-2 ">Shipping to</h5>
+            <h5 className="capitalize text-[14px] font-bold leading-3 tracking-[0.47px] my-2 ">
+              Shipping to
+            </h5>
             <p className="capitalize font-normal leading-5 text-[14px] tracking-[0.47px] my-2 ">
               {shipping_address.first_name} {shipping_address.last_name}
             </p>

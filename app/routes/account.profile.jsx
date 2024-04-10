@@ -1,11 +1,12 @@
-import { CUSTOMER_UPDATE_MUTATION } from '~/graphql/customer-account/CustomerUpdateMutation'
-import { json } from '@shopify/remix-oxygen'
 import {
   Form,
   useActionData,
   useNavigation,
   useOutletContext,
 } from '@remix-run/react'
+import { json } from '@shopify/remix-oxygen'
+
+import { CUSTOMER_UPDATE_MUTATION } from '~/graphql/customer-account/CustomerUpdateMutation'
 
 /**
  * @type {MetaFunction}

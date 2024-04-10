@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
+
+import { listPaymentMethods } from '@rechargeapps/storefront-client'
 import {
-  NavLink,
-  useLoaderData,
   Form,
+  NavLink,
   useActionData,
+  useLoaderData,
   useNavigation,
   useOutletContext,
 } from '@remix-run/react'
 import { json } from '@shopify/remix-oxygen'
-import { CUSTOMER_UPDATE_MUTATION } from '~/graphql/customer-account/CustomerUpdateMutation'
-import { listPaymentMethods } from '@rechargeapps/storefront-client'
-import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
+
 import PaymentDetails from '~/containers/Account/AccountDetails/PaymentDetails'
+import { CUSTOMER_UPDATE_MUTATION } from '~/graphql/customer-account/CustomerUpdateMutation'
+import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
 
 export async function loader({ context }) {
   await context.customerAccount.handleAuthStatus()
@@ -97,7 +99,7 @@ const AccountDetails = () => {
   const [showAccountDetails, setShowAccountDetails] = useState(true)
   const { listPaymentResponse } = useLoaderData()
   const account = useOutletContext()
-  const { state,formAction } = useNavigation()
+  const { state, formAction } = useNavigation()
   /** @type {ActionReturnData} */
   const action = useActionData()
   const customer = action?.customer ?? account?.customer
@@ -200,8 +202,7 @@ const AccountDetails = () => {
                     disabled={state !== 'idle'}
                     className="px-8 py-1 text-lg font-bold text-black border-2 border-black rounded-sm shadow-sm"
                   >
-                    {state !== 'idle' && formAction  ? 'Saving....' : 'Save'}
-                    
+                    {state !== 'idle' && formAction ? 'Saving....' : 'Save'}
                   </button>
                 </div>
               </div>

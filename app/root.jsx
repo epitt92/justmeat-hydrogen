@@ -1,30 +1,32 @@
-import { useState, useEffect } from 'react'
-import { useNonce } from '@shopify/hydrogen'
-import { defer } from '@shopify/remix-oxygen'
-import {
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  LiveReload,
-  useMatches,
-  useRouteError,
-  useLoaderData,
-  ScrollRestoration,
-  isRouteErrorResponse,
-} from '@remix-run/react'
+import { useEffect, useState } from 'react'
 
 import sliderStyles from 'swiper/css'
 import sliderNavigation from 'swiper/css/navigation'
 import sliderPagination from 'swiper/css/pagination'
 
+import {
+  Links,
+  LiveReload,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  isRouteErrorResponse,
+  useLoaderData,
+  useMatches,
+  useRouteError,
+} from '@remix-run/react'
+import { Script, useNonce } from '@shopify/hydrogen'
+import { defer } from '@shopify/remix-oxygen'
+
 import favicon from '~/assets/logo.svg'
-import appStyles from '~/styles/app.css'
-import tailwindStyles from '~/styles/tailwind.css'
-import { RootContext } from '~/contexts'
 import { Layout } from '~/components/Layout'
 import { SubscriptionCard } from '~/components/SubscriptionCard'
+import { RootContext } from '~/contexts'
 import { FOOTER_QUERY, HEADER_QUERY } from '~/graphql/HeaderMenuFooter'
+import { addScriptToHead } from '~/lib/utils'
+import appStyles from '~/styles/app.css'
+import tailwindStyles from '~/styles/tailwind.css'
 
 export const shouldRevalidate = ({ formMethod, currentUrl, nextUrl }) => {
   // revalidate when a mutation is performed e.g add to cart, login...
@@ -104,6 +106,12 @@ export async function loader({ context }) {
   )
 }
 
+const externalScripts = [
+  'https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UMcvkS',
+  '//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com',
+  'https://cdn.reamaze.com/assets/reamaze.js',
+]
+
 export default function App() {
   const nonce = useNonce()
   const data = useLoaderData()
@@ -154,6 +162,11 @@ export default function App() {
     }
     if (_cartBonusVariant) {
       setCartBonusVariant(JSON.parse(_cartBonusVariant))
+    }
+
+    // HACK: for react hydration error due to direct external script tag imports in head
+    for (const script of externalScripts) {
+      addScriptToHead(script)
     }
   }, [])
 
@@ -239,20 +252,7 @@ export default function App() {
             <Outlet />
           </Layout>
 
-          {/* External scripts start here */}
-          {/* Please use html native script tag ( <script ... />) */}
-          <script
-            async
-            src="//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com"
-          />
-          <script
-            async
-            type="text/javascript"
-            src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UMcvkS"
-          />
-          <script async src="https://cdn.reamaze.com/assets/reamaze.js" />
-          {/* External scripts end here */}
-
+          {/* CAUTION: Please don't inject script tags here, instead use addScriptToHead util in useEffect like above */}
           <ScrollRestoration nonce={nonce} />
           <Scripts nonce={nonce} />
           <LiveReload nonce={nonce} />

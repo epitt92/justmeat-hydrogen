@@ -1,6 +1,7 @@
-import { json, redirect } from '@shopify/remix-oxygen'
 import { useLoaderData } from '@remix-run/react'
-import { Money, Image, flattenConnection } from '@shopify/hydrogen'
+import { Image, Money, flattenConnection } from '@shopify/hydrogen'
+import { json, redirect } from '@shopify/remix-oxygen'
+
 import { CUSTOMER_ORDER_QUERY } from '~/graphql/customer-account/CustomerOrderQuery'
 
 /**

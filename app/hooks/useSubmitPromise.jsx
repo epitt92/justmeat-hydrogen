@@ -1,5 +1,6 @@
-import { useEffect, useCallback, useRef } from 'react'
-import { useSubmit, useActionData, useNavigation } from '@remix-run/react'
+import { useCallback, useEffect, useRef } from 'react'
+
+import { useActionData, useNavigation, useSubmit } from '@remix-run/react'
 
 export function useSubmitPromise() {
   const submit = useSubmit()

@@ -1,8 +1,9 @@
 import React from 'react'
+
 import {
   Accordion,
-  AccordionHeader,
   AccordionBody,
+  AccordionHeader,
 } from '@material-tailwind/react'
 
 import Video from './Video'
