@@ -228,7 +228,7 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
             !sellingPlan
               ? 'bg-white sm:bg-[#862E1B] border-[#425B34]'
               : 'border-[#eaeaea]'
-          } hover:bg-[#862E1B] hover:text-[#fff] p-[7px] sm:p-[10px] border-[3px] border-solid flex justify-center sm:justify-start gap-6 sm:border-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px] subscriptionlabel sm:mt-[28px] mt-0`}
+          } hover:bg-[#862E1B] hover:text-[#fff] border-[3px] border-solid flex justify-center sm:justify-start gap-6 sm:border-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px] subscriptionlabel sm:mt-[28px] mt-0`}
           onClick={() => {
             setSellingPlan('')
           }}
@@ -236,7 +236,7 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
           <div
             className={`${
               sellingPlan ? 'text-[#1d1d1d] hover:text-[#fff]' : 'text-black sm:text-[#fff]'
-            } hover:text-[#fff] text-[18px] sm:text-[20px] w-fit font-bold text-center sm:text-left leading-[100%] sm:leading-[24px]`}
+            } hover:text-[#fff] text-[18px] sm:text-[20px] p-[7px] sm:p-[10px] w-full font-bold text-center sm:text-left leading-[100%] sm:leading-[24px]`}
           >
             <span className="sm:hidden line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
               {total && `$${parseInt(total)}`}
