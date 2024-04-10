@@ -1,5 +1,6 @@
-import { useLocation } from '@remix-run/react'
 import { useMemo } from 'react'
+
+import { useLocation } from '@remix-run/react'
 
 /**
  * @param {string} handle

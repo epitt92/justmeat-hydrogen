@@ -3,10 +3,11 @@ import { Link, useLoaderData } from '@remix-run/react'
 import {
   Money,
   Pagination,
-  getPaginationVariables,
   flattenConnection,
+  getPaginationVariables,
 } from '@shopify/hydrogen'
 import { json } from '@shopify/remix-oxygen'
+
 import { CUSTOMER_ORDERS_QUERY } from '~/graphql/customer-account/CustomerOrdersQuery'
 
 /**
@@ -141,8 +142,6 @@ function OrderItem({ order }) {
           </Link>
         </td>
         <td className="w-1/5 text-center">
-          
-
           <p>{new Date(order.processedAt).toDateString()}</p>
         </td>
         <td className="w-1/5 text-center">

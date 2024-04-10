@@ -1,11 +1,10 @@
-import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination } from 'swiper/modules'
-
-import { PremiumSeal } from '~/icons/PremiumSeal'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
 import stepImage1 from '~/assets/images/how-it-works-step-1.png'
 import stepImage2 from '~/assets/images/how-it-works-step-2.png'
 import stepImage3 from '~/assets/images/how-it-works-step-3.png'
+import { PremiumSeal } from '~/icons/PremiumSeal'
 
 const swiperBreakpoints = {
   360: {

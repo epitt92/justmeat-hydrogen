@@ -1,6 +1,7 @@
-import { useLoaderData, Link } from '@remix-run/react'
+import { Link, useLoaderData } from '@remix-run/react'
+import { Image, Pagination, getPaginationVariables } from '@shopify/hydrogen'
 import { json } from '@shopify/remix-oxygen'
-import { Pagination, getPaginationVariables, Image } from '@shopify/hydrogen'
+
 import { ALL_COLLECTIONS_QUERY } from '~/graphql/Collection'
 
 export async function loader({ context, request }) {

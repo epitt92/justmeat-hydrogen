@@ -1,13 +1,14 @@
-import { json, redirect } from '@shopify/remix-oxygen'
-import { useLoaderData, Link } from '@remix-run/react'
+import { Link, useLoaderData } from '@remix-run/react'
 import {
-  Pagination,
-  getPaginationVariables,
   Image,
   Money,
+  Pagination,
+  getPaginationVariables,
 } from '@shopify/hydrogen'
-import { useVariantUrl } from '~/lib/variants'
+import { json, redirect } from '@shopify/remix-oxygen'
+
 import { COLLECTION_QUERY } from '~/graphql/Collection'
+import { useVariantUrl } from '~/lib/variants'
 
 /**
  * @type {MetaFunction<typeof loader>}

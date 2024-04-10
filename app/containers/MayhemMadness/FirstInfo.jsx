@@ -1,12 +1,11 @@
+import skillet from '~/assets/images/Skillet.png'
+import justmeatsBlack from '~/assets/images/justmeats-black.png'
+import mayhemNation from '~/assets/images/mayhem-nation-1.png'
+import traningCommunityNutrition from '~/assets/images/traning-community-nutrition.png'
 import { Cooking } from '~/icons/Cooking'
+import { MeatRecycle } from '~/icons/MeatRecycle'
 import { SmilingSun } from '~/icons/SmilingSun'
 import { Weighter } from '~/icons/Weighter'
-import { MeatRecycle } from '~/icons/MeatRecycle'
-
-import mayhemNation from '~/assets/images/mayhem-nation-1.png'
-import justmeatsBlack from '~/assets/images/justmeats-black.png'
-import traningCommunityNutrition from '~/assets/images/traning-community-nutrition.png'
-import skillet from '~/assets/images/Skillet.png'
 
 export const FirstInfo = () => {
   return (

@@ -1,12 +1,15 @@
+import { useContext, useEffect, useRef, useState } from 'react'
+
 import { NavLink, useMatches } from '@remix-run/react'
-import { useContext, useRef, useState, useEffect } from 'react'
-import { useRootLoaderData } from '~/root'
-import OrderButton from './OrderButton'
-import { CartButton } from './CartButton'
+
 import logo from '~/assets/logo.png'
-import { Button } from './Button'
-import { HamburgerOpen } from '~/icons/HamburgerOpen'
 import { LayoutContext } from '~/contexts'
+import { HamburgerOpen } from '~/icons/HamburgerOpen'
+import { useRootLoaderData } from '~/root'
+
+import { Button } from './Button'
+import { CartButton } from './CartButton'
+import OrderButton from './OrderButton'
 
 export function Header() {
   const matches = useMatches()
@@ -15,28 +18,27 @@ export function Header() {
   const isCartPage = matches[1].params.bundle === 'custom-bundle'
 
   // -------> Functionality to make the header sticky in landing pages <-------
-  const [prevScrollPos, setPrevScrollPos] = useState(0);
-  const [isSticky, setIsSticky] = useState(false);
+  const [prevScrollPos, setPrevScrollPos] = useState(0)
+  const [isSticky, setIsSticky] = useState(false)
 
   const handleScroll = () => {
-    const currentScrollPos = window.pageYOffset;
+    const currentScrollPos = window.pageYOffset
 
     // Becomes sticky (true) if scrolling up, and not sticky (false) if scrolling down
     if (prevScrollPos > currentScrollPos && window.screen.width < 900) {
-      setIsSticky(true);
+      setIsSticky(true)
     } else {
-      setIsSticky(false);
+      setIsSticky(false)
     }
 
-    setPrevScrollPos(currentScrollPos);
-  };
+    setPrevScrollPos(currentScrollPos)
+  }
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll, { passive: true })
 
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [prevScrollPos, isSticky]);
-
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [prevScrollPos, isSticky])
 
   const HoverUnderNavLink = (to, text) => {
     const spanRef = useRef(null)
@@ -181,7 +183,11 @@ export function Header() {
   }
 
   return (
-    <header className={`header ${isSticky && !isCartPage ? 'header--sticky' : 'header--hidden'} bg-[#eeeeee] border-b border-solid border-[#1D1D1D10]`}>
+    <header
+      className={`header ${
+        isSticky && !isCartPage ? 'header--sticky' : 'header--hidden'
+      } bg-[#eeeeee] border-b border-solid border-[#1D1D1D10]`}
+    >
       {isCartPage ? <Landingheader /> : <Mainheader />}
     </header>
   )

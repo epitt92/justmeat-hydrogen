@@ -1,17 +1,18 @@
-import { json } from '@shopify/remix-oxygen'
 import { getPaginationVariables } from '@shopify/hydrogen'
-import { Header } from '~/containers/MayhemMadness/Header'
+import { json } from '@shopify/remix-oxygen'
+
 import { Banner } from '~/containers/MayhemMadness/Banner'
+import { ChefCook } from '~/containers/MayhemMadness/ChefCook'
 import { Featured } from '~/containers/MayhemMadness/Featured'
 import { FirstContact } from '~/containers/MayhemMadness/FirstContact'
 import { FirstInfo } from '~/containers/MayhemMadness/FirstInfo'
 import { Footer } from '~/containers/MayhemMadness/Footer'
-import { COLLECTIONS_QUERY } from '~/graphql/Collection'
-import { SecondInfo } from '~/containers/MayhemMadness/SecondInfo'
-import { SecondContact } from '~/containers/MayhemMadness/SecondContact'
-import { ChefCook } from '~/containers/MayhemMadness/ChefCook'
+import { Header } from '~/containers/MayhemMadness/Header'
 import { HowItWorks } from '~/containers/MayhemMadness/HowItWorks'
 import { Reviews } from '~/containers/MayhemMadness/Reviews'
+import { SecondContact } from '~/containers/MayhemMadness/SecondContact'
+import { SecondInfo } from '~/containers/MayhemMadness/SecondInfo'
+import { COLLECTIONS_QUERY } from '~/graphql/Collection'
 
 export async function loader({ request, context }) {
   const { storefront } = context

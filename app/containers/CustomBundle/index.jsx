@@ -1,15 +1,16 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext, useState } from 'react'
+
 import { useLoaderData, useMatches } from '@remix-run/react'
 
+import { PlanPickerBlock } from '~/containers/CustomBundle/PlanPickerBlock'
+import { CustomBundleContext, RootContext } from '~/contexts'
 import { useSubmitPromise } from '~/hooks/useSubmitPromise'
-import { RootContext, CustomBundleContext } from '~/contexts'
 
+import { PROMO_CODES } from '../../promo-codes'
 import { Cart } from './Cart'
 import { MobileCart } from './Cart/MobileCart'
-import { ProductModal } from './ProductModal'
 import { ProductCard } from './ProductCard'
-import { PROMO_CODES } from '../../promo-codes'
-import { PlanPickerBlock } from '~/containers/CustomBundle/PlanPickerBlock'
+import { ProductModal } from './ProductModal'
 
 export const CustomBundle = () => {
   const submit = useSubmitPromise()

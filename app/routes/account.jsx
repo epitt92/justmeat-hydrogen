@@ -1,7 +1,9 @@
-import { json } from '@shopify/remix-oxygen'
 import { Form, NavLink, Outlet, useLoaderData } from '@remix-run/react'
-import { CUSTOMER_DETAILS_QUERY } from '~/graphql/customer-account/CustomerDetailsQuery'
+import { json } from '@shopify/remix-oxygen'
+
 import ToggleMenu from '~/containers/Account/AccountMenu/ToggleMenu'
+import { CUSTOMER_DETAILS_QUERY } from '~/graphql/customer-account/CustomerDetailsQuery'
+
 export function shouldRevalidate() {
   return true
 }
@@ -64,8 +66,8 @@ function AccountMenu() {
 
         <Logout />
       </nav>
-      <div className='block md:hidden'>
-        <ToggleMenu/>
+      <div className="block md:hidden">
+        <ToggleMenu />
       </div>
     </div>
   )

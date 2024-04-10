@@ -1,5 +1,6 @@
-import { NavLink } from '@remix-run/react'
 import React from 'react'
+
+import { NavLink } from '@remix-run/react'
 
 export const Video = () => {
   return (
@@ -20,7 +21,14 @@ export const Video = () => {
               delicious choice of your life and leave the protein to the pros
               (yes, that’s us!).
             </p>
-            <NavLink end prefetch="intent" className="py-[12px] px-[20px] bg-[#862e1b]" to="/products/custom-bundle">ORDER NOW</NavLink>
+            <NavLink
+              end
+              prefetch="intent"
+              className="py-[12px] px-[20px] bg-[#862e1b]"
+              to="/products/custom-bundle"
+            >
+              ORDER NOW
+            </NavLink>
           </div>
           <div className="flex justify-center items-center">
             <img

@@ -1,16 +1,18 @@
 import React, { useState } from 'react'
-import { json } from '@shopify/remix-oxygen'
+
+import { listSubscriptions } from '@rechargeapps/storefront-client'
 import {
   Form,
   useActionData,
+  useLoaderData,
   useNavigation,
   useOutletContext,
-  useLoaderData,
 } from '@remix-run/react'
-import { CUSTOMER_DETAILS_QUERY } from '~/graphql/customer-account/CustomerDetailsQuery'
-import { UPDATE_ADDRESS_MUTATION } from '~/graphql/customer-account/CustomerAddressMutations'
-import { listSubscriptions } from '@rechargeapps/storefront-client'
+import { json } from '@shopify/remix-oxygen'
+
 import { SubscriptionCard } from '~/components/SubscriptionCard'
+import { UPDATE_ADDRESS_MUTATION } from '~/graphql/customer-account/CustomerAddressMutations'
+import { CUSTOMER_DETAILS_QUERY } from '~/graphql/customer-account/CustomerDetailsQuery'
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
 
 export function shouldRevalidate() {

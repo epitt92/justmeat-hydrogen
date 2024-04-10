@@ -1,11 +1,13 @@
 import { Suspense, useState } from 'react'
+
 import { Await, useMatches } from '@remix-run/react'
 
 import { Footer } from '~/components/Footer'
 import { Header } from '~/components/Header'
-import OrderHeader from './OrderHeader'
 import { LayoutContext } from '~/contexts'
+
 import { MobileMenuAside } from './MobileMenuAside'
+import OrderHeader from './OrderHeader'
 
 export function Layout({
   cart,

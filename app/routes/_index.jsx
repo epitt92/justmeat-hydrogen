@@ -1,25 +1,24 @@
-import { defer } from '@shopify/remix-oxygen'
-import { useLoaderData, Link, NavLink } from '@remix-run/react'
 import OrderButton from 'app/components/OrderButton'
-import ProductSlider from '~/components/ProductSlider'
-import FaqAccordion from '~/components/FaqAccordion'
-import { RECOMMENDED_PRODUCTS_QUERY } from '~/graphql/Product'
-import { FEATURED_COLLECTION_QUERY } from '~/graphql/Collection'
-
-import tutorialImage1 from '~/assets/images/Hannah_Zoomed.webp'
-import tutorialImage2 from '~/assets/images/Hannah_Tall2.webp'
-import tutorialImage3 from '~/assets/images/Hannah_Zoomed3.webp'
-import subscriptionBannerImage from '~/assets/images/april_banner_Desktop.jpg'
-import subscriptionBannerMobileImage from '~/assets/images/april_banner_Mobile.jpg'
-import mosaicImage from '~/assets/images/Mosaic.webp'
-import carneAsasaImage from '~/assets/images/BodyBulding_Recipie_CarneAsasa.webp'
-
-import video1 from '~/assets/videos/32c027bc585340199844575c5e85cf42.mp4'
-
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
-import { Carousel,IconButton  } from '@material-tailwind/react'
+
+import { Carousel, IconButton } from '@material-tailwind/react'
+import { Link, NavLink, useLoaderData } from '@remix-run/react'
+import { defer } from '@shopify/remix-oxygen'
+
+import carneAsasaImage from '~/assets/images/BodyBulding_Recipie_CarneAsasa.webp'
+import tutorialImage2 from '~/assets/images/Hannah_Tall2.webp'
+import tutorialImage3 from '~/assets/images/Hannah_Zoomed3.webp'
+import tutorialImage1 from '~/assets/images/Hannah_Zoomed.webp'
+import mosaicImage from '~/assets/images/Mosaic.webp'
+import subscriptionBannerImage from '~/assets/images/april_banner_Desktop.jpg'
+import subscriptionBannerMobileImage from '~/assets/images/april_banner_Mobile.jpg'
+import video1 from '~/assets/videos/32c027bc585340199844575c5e85cf42.mp4'
+import FaqAccordion from '~/components/FaqAccordion'
+import ProductSlider from '~/components/ProductSlider'
+import { FEATURED_COLLECTION_QUERY } from '~/graphql/Collection'
+import { RECOMMENDED_PRODUCTS_QUERY } from '~/graphql/Product'
 
 /**
  * @type {MetaFunction}
@@ -148,30 +147,56 @@ export default function Homepage() {
               })}
             </div>
             <Carousel
-      className="rounded-xl md:hidden"
-      prevArrow={({ handlePrev }) => (
-        <IconButton
-          variant="text"
-          color="white"
-          size="lg"
-          onClick={handlePrev}
-          className="!absolute top-2/4 left-4 -translate-y-2/4 bg-[#425B35] rounded-full"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3" className="-ml-1 h-7 w-7"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path></svg>
-        </IconButton>
-      )}
-      nextArrow={({ handleNext }) => (
-        <IconButton
-          variant="text"
-          color="white"
-          size="lg"
-          onClick={handleNext}
-          className="!absolute top-2/4 !right-4 -translate-y-2/4 bg-[#425B35] rounded-full"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3" className="ml-1 h-7 w-7"><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path></svg>
-        </IconButton>
-      )}
-    >
+              className="rounded-xl md:hidden"
+              prevArrow={({ handlePrev }) => (
+                <IconButton
+                  variant="text"
+                  color="white"
+                  size="lg"
+                  onClick={handlePrev}
+                  className="!absolute top-2/4 left-4 -translate-y-2/4 bg-[#425B35] rounded-full"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    className="-ml-1 h-7 w-7"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15.75 19.5L8.25 12l7.5-7.5"
+                    ></path>
+                  </svg>
+                </IconButton>
+              )}
+              nextArrow={({ handleNext }) => (
+                <IconButton
+                  variant="text"
+                  color="white"
+                  size="lg"
+                  onClick={handleNext}
+                  className="!absolute top-2/4 !right-4 -translate-y-2/4 bg-[#425B35] rounded-full"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    className="ml-1 h-7 w-7"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                    ></path>
+                  </svg>
+                </IconButton>
+              )}
+            >
               {tutorialImages.map((item, index) => {
                 return (
                   <img

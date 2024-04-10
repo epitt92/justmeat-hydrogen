@@ -1,6 +1,6 @@
+import { CartDetails } from './CartDetails'
 import { CartEmpty } from './CartEmpty'
 import { ProgressBar } from './ProgressBar'
-import { CartDetails } from './CartDetails'
 
 export function Cart({ layout, onCheckout }) {
   return (

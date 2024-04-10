@@ -1,11 +1,12 @@
 import React from 'react'
-import { json } from '@shopify/remix-oxygen'
-import { NavLink, useLoaderData } from '@remix-run/react'
 
-import { listSubscriptions, listOrders } from '@rechargeapps/storefront-client'
+import { listOrders, listSubscriptions } from '@rechargeapps/storefront-client'
+import { NavLink, useLoaderData } from '@remix-run/react'
+import { json } from '@shopify/remix-oxygen'
+
 import { SubscriptionCard } from '~/components/SubscriptionCard'
-import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
 import OrderHistory from '~/containers/Account/Order/OrderHistory'
+import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
 
 export async function loader({ context }) {
   const subscriptionsResponse = await rechargeQueryWrapper(

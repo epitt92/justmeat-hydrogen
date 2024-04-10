@@ -1,8 +1,10 @@
-import { RemixServer } from '@remix-run/react'
-import isbot from 'isbot'
 import { renderToReadableStream } from 'react-dom/server'
-import { createContentSecurityPolicy } from '@shopify/hydrogen'
+
 import { Buffer } from 'buffer-polyfill'
+import isbot from 'isbot'
+
+import { RemixServer } from '@remix-run/react'
+import { createContentSecurityPolicy } from '@shopify/hydrogen'
 
 globalThis.Buffer = Buffer
 
