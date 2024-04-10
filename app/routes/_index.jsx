@@ -19,7 +19,7 @@ import video1 from '~/assets/videos/32c027bc585340199844575c5e85cf42.mp4'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
-import { Carousel } from '@material-tailwind/react'
+import { Carousel,IconButton  } from '@material-tailwind/react'
 
 /**
  * @type {MetaFunction}
@@ -147,7 +147,31 @@ export default function Homepage() {
                 )
               })}
             </div>
-            <Carousel className="rounded-xl md:hidden">
+            <Carousel
+      className="rounded-xl md:hidden"
+      prevArrow={({ handlePrev }) => (
+        <IconButton
+          variant="text"
+          color="white"
+          size="lg"
+          onClick={handlePrev}
+          className="!absolute top-2/4 left-4 -translate-y-2/4 bg-[#425B35] rounded-full"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3" className="-ml-1 h-7 w-7"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path></svg>
+        </IconButton>
+      )}
+      nextArrow={({ handleNext }) => (
+        <IconButton
+          variant="text"
+          color="white"
+          size="lg"
+          onClick={handleNext}
+          className="!absolute top-2/4 !right-4 -translate-y-2/4 bg-[#425B35] rounded-full"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3" className="ml-1 h-7 w-7"><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path></svg>
+        </IconButton>
+      )}
+    >
               {tutorialImages.map((item, index) => {
                 return (
                   <img

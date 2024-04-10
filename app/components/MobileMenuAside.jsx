@@ -39,7 +39,7 @@ export function MobileMenuAside() {
           </li>
           <li className="text-[16px] px-10 py-4 text-black border-b border-[#1d1d1d26] uppercase">
             {' '}
-            <MenuNavLink to="/recipes">Recipies</MenuNavLink>{' '}
+            <MenuNavLink to="/recipes">Recipes</MenuNavLink>{' '}
           </li>
           <li className=" text-[16px] px-10 py-4 text-black border-b border-[#1d1d1d26] uppercase">
             <MenuNavLink to="/account">
