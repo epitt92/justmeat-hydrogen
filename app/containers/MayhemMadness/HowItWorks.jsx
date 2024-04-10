@@ -43,15 +43,12 @@ const steps = [
 export const HowItWorks = () => {
   return (
     <section className="bg-[#222222] text-white sm:pt-[100px] sm:pb-[110px] pt-[50px] pb-[60px]">
-      <div className="absolute w-[133px] xl:block hidden 2xl:right-[300px] xl:right-[140px]">
+      <div className="absolute w-[120px] xl:block hidden 2xl:right-[160px] xl:right-[140px]">
         <PremiumSeal />
       </div>
       <div className="container text-center">
-        <div className="sm:text-[14px] text-[12px] font-normal tracking-[3px] sm:mb-[6px] mb-[4px]">
-          HOW IT WORKS SECTION HERE
-        </div>
-        <div className="sm:text-[36px] text-[24px] font-bold sm:mb-[23px] mb-[17px]">
-          THE ULTI-MEAT EXPERIENCE
+        <div className=" font-dunbar sm:text-[14px] text-[12px] font-normal tracking-[3px] mt-8 sm:mb-[6px] pb-12">
+        How JUST MEATS WORKS
         </div>
         <div className="sm:text-[18px] text-[16px] sm:leading-[26px] leading-[25px] font-nunito max-w-[710px] w-full mx-auto sm:mb-[43px] mb-[35px]">
           Here&rsquo;s how having <span className="font-bold">JUST MEATS</span>{' '}
