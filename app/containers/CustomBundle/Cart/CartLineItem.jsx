@@ -1,7 +1,9 @@
-import { Quantity } from '../ProductActions/Quantity'
-import { cn } from '~/lib/utils'
-import { LockedItem } from './LockedItem'
 import { useEffect, useState } from 'react'
+
+import { cn } from '~/lib/utils'
+
+import { Quantity } from '../ProductActions/Quantity'
+import { LockedItem } from './LockedItem'
 
 export function CartLineItem({ line, lineType = 'paid' }) {
   const {
@@ -58,10 +60,14 @@ export function CartLineItem({ line, lineType = 'paid' }) {
 
       <div className="flex flex-1 flex-col sm:flex-row pr-[10px] justify-between items-center">
         {lineType === 'bonus' && (
-          <div className="for_mobile_range absolute right-[0] top-[20px] bg-[#425B34] block left-[0] px-[5px] py-[2px] text-[11px] font-bold text-[white] w-[35.42px] max-w-max rounded-[3px]">FREE</div>
+          <div className="for_mobile_range absolute right-[0] top-[20px] bg-[#425B34] block left-[0] px-[5px] py-[2px] text-[11px] font-bold text-[white] w-[35.42px] max-w-max rounded-[3px]">
+            FREE
+          </div>
         )}
         {lineType === 'free' && (
-          <div className="for_mobile_range absolute right-[0] top-[20px] bg-[#1b7084] block left-[0] px-[5px] py-[2px] text-[11px] font-bold text-[white] w-[35.42px] max-w-max rounded-[3px]">FREE</div>
+          <div className="for_mobile_range absolute right-[0] top-[20px] bg-[#1b7084] block left-[0] px-[5px] py-[2px] text-[11px] font-bold text-[white] w-[35.42px] max-w-max rounded-[3px]">
+            FREE
+          </div>
         )}
         <div className="flex-1 hidden sm:block h-fit">
           <p className="font-semibold text-[10px] sm:text-[14px] text-center">

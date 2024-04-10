@@ -1,4 +1,5 @@
 import { NavLink } from '@remix-run/react'
+
 import { LogoWhite } from '~/icons/LogoWhite'
 
 export const Footer = () => {

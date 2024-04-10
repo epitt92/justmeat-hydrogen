@@ -1,6 +1,8 @@
-import { Link, Form, useParams, useFetcher } from '@remix-run/react'
+import React, { useEffect, useRef } from 'react'
+
+import { Form, Link, useFetcher, useParams } from '@remix-run/react'
 import { Image, Money, Pagination } from '@shopify/hydrogen'
-import React, { useRef, useEffect } from 'react'
+
 import { applyTrackingParams } from '~/lib/search'
 
 export const NO_PREDICTIVE_SEARCH_RESULTS = [

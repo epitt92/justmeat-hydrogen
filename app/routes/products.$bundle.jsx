@@ -1,11 +1,11 @@
-import { json } from '@shopify/remix-oxygen'
 import { getDynamicBundleItems } from '@rechargeapps/storefront-client'
 import { getPaginationVariables } from '@shopify/hydrogen'
+import { json } from '@shopify/remix-oxygen'
 
-import { CustomBundle } from '~/containers/CustomBundle'
 import Notification from '~/components/Notification'
-import { ALL_PRODUCTS_QUERY, PRODUCT_BY_HANDLER_QUERY } from '~/graphql/Product'
+import { CustomBundle } from '~/containers/CustomBundle'
 import { COLLECTION_QUERY } from '~/graphql/Collection'
+import { ALL_PRODUCTS_QUERY, PRODUCT_BY_HANDLER_QUERY } from '~/graphql/Product'
 
 const bundleCollectionHandler = 'all-products'
 const freeProductHandler = 'raspberry-bbq-chicken-breast'

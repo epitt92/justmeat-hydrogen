@@ -1,25 +1,27 @@
-import { useContext , useEffect , useState } from 'react'
-import { CustomBundleContext } from '~/contexts'
+import { useContext, useEffect, useState } from 'react'
+
 import { useLoaderData } from '@remix-run/react'
+
+import { CustomBundleContext } from '~/contexts'
 
 export function CartSummary({ layout, children = null }) {
   const { freeProduct } = useLoaderData()
   const { totalCost } = useContext(CustomBundleContext)
 
-  const [freeTag, setFreeTag] = useState('');
+  const [freeTag, setFreeTag] = useState('')
 
   useEffect(() => {
-    let tags = freeProduct.tags;
+    let tags = freeProduct.tags
     if (tags && tags.length > 0) {
-      tags.forEach(tag => {
+      tags.forEach((tag) => {
         if (tag.includes('free-')) {
-          let priceForFreeProduct = tag.split("-");
-          priceForFreeProduct = +priceForFreeProduct[1];
-          setFreeTag(priceForFreeProduct);
+          let priceForFreeProduct = tag.split('-')
+          priceForFreeProduct = +priceForFreeProduct[1]
+          setFreeTag(priceForFreeProduct)
         }
-      });
+      })
     }
-  }, [freeProduct]);
+  }, [freeProduct])
 
   const className =
     layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside'

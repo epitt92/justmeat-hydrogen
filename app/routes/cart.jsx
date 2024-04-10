@@ -1,5 +1,6 @@
 import { CartForm } from '@shopify/hydrogen'
 import { json } from '@shopify/remix-oxygen'
+
 import { useRootLoaderData } from '~/root'
 
 /**

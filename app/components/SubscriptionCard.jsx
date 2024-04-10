@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Money } from '@shopify/hydrogen'
 import { Link } from 'react-router-dom'
+
+import { Money } from '@shopify/hydrogen'
 import { json } from '@shopify/remix-oxygen'
 
 export async function loader({ context }) {

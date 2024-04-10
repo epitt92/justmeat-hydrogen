@@ -1,5 +1,7 @@
-import React, { useEffect, useState, Fragment } from 'react'
-import { CarouselProvider, Slider, Slide } from 'pure-react-carousel'
+import React, { Fragment, useEffect, useState } from 'react'
+
+import { CarouselProvider, Slide, Slider } from 'pure-react-carousel'
+
 import { Dialog, Transition } from '@headlessui/react'
 
 import { ProductActions } from './ProductActions'
@@ -42,7 +44,9 @@ export const ProductModal = ({ product, onClose }) => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full max-w-[1120px] text-left align-middle transition-all transform bg-[#edeaea] text-[#1d1d1d] shadow-xl">
-                {product && <DialogContent product={product} onClose={onClose} />}
+                {product && (
+                  <DialogContent product={product} onClose={onClose} />
+                )}
               </Dialog.Panel>
             </Transition.Child>
           </div>
@@ -52,34 +56,48 @@ export const ProductModal = ({ product, onClose }) => {
   )
 }
 
-const DialogContent = ({ product,onClose }) => {
+const DialogContent = ({ product, onClose }) => {
   const images = product.images
   const media = images.nodes
 
   return (
     <>
-    <div className='bg-white md:bg-[#EDEAEA] py-4 px-5 flex justify-between md:justify-end items-center mb-3'>
-      <p className='block md:hidden'>Quick View</p>
-      <button onClick={() => onClose()} className=' w-[26px] h-[26px] cursor-pointer'>
-        <svg viewBox="0 0 12 12" version="1.1"
-              xmlns="http://www.w3.org/2000/svg">
-              <line x1="1" y1="11" 
-                x2="11" y2="1" 
-                stroke="black" 
-                strokeWidth="2"/>
-              <line x1="1" y1="1" 
-                x2="11" y2="11" 
-                stroke="black" 
-                strokeWidth="2"/>
-            </svg>
-          </button>
-          </div>
-      
+      <div className="bg-white md:bg-[#EDEAEA] py-4 px-5 flex justify-between md:justify-end items-center mb-3">
+        <p className="block md:hidden">Quick View</p>
+        <button
+          onClick={() => onClose()}
+          className=" w-[26px] h-[26px] cursor-pointer"
+        >
+          <svg
+            viewBox="0 0 12 12"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line
+              x1="1"
+              y1="11"
+              x2="11"
+              y2="1"
+              stroke="black"
+              strokeWidth="2"
+            />
+            <line
+              x1="1"
+              y1="1"
+              x2="11"
+              y2="11"
+              stroke="black"
+              strokeWidth="2"
+            />
+          </svg>
+        </button>
+      </div>
+
       <div className="md:grid grid-cols-2 lg:grid-cols-3 pb-[20px] ">
         <div className="px-[24px] overflow-hidden w-full product-gallary">
           <ProductGallary media={media} />
         </div>
-      
+
         <div className="mt-[24px] px-[24px] col-span-2 content">
           <h1 className="title font-roboto_bold font-bold leading-[100%] text-[28px] md:text-[34px] lg:text-[50px]">
             {product.title}

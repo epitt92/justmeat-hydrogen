@@ -1,5 +1,7 @@
-import { NavLink } from '@remix-run/react'
 import React from 'react'
+
+import { NavLink } from '@remix-run/react'
+
 import { cn } from '~/lib/utils'
 
 const OrderButton = ({ className }) => {

@@ -1,7 +1,9 @@
 import { useContext } from 'react'
+
 import { NavLink } from '@remix-run/react'
-import { Cart as CartIcon } from '~/icons/Cart'
+
 import { RootContext } from '~/contexts'
+import { Cart as CartIcon } from '~/icons/Cart'
 
 export function CartButton() {
   const { cartCount } = useContext(RootContext)

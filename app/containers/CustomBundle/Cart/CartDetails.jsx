@@ -1,9 +1,10 @@
 import { useContext } from 'react'
 
 import { CustomBundleContext } from '~/contexts'
+
+import { CartCheckoutActions } from './CartCheckoutActions'
 import { CartLines } from './CartLines'
 import { CartSummary } from './CartSummary'
-import { CartCheckoutActions } from './CartCheckoutActions'
 import { LockedItem } from './LockedItem'
 
 export function CartDetails({ layout, onCheckout }) {

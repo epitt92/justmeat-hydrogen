@@ -1,7 +1,10 @@
 import { useState } from 'react'
-import { useLoaderData } from '@remix-run/react'
-import { Swiper, SwiperSlide } from 'swiper/react'
+
 import { Pagination } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
+
+import { useLoaderData } from '@remix-run/react'
+
 import { cn } from '~/lib/utils'
 
 const swiperBreakpoints = {

@@ -1,6 +1,7 @@
 import React from 'react'
-import { Video } from '~/containers/About/Video'
+
 import { Passion } from '~/containers/About/Passion'
+import { Video } from '~/containers/About/Video'
 
 const About = () => {
   return (

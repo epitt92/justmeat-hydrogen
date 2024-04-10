@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+
 import { CustomBundleContext } from '~/contexts'
 
 export const Quantity = ({ line, isViewingCart = false }) => {

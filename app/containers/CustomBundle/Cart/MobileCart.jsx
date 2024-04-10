@@ -1,11 +1,14 @@
-import { useContext, useState, useEffect } from 'react'
-import { cn, formatPrice } from '~/lib/utils'
+import { useContext, useEffect, useState } from 'react'
+
+import { useLoaderData } from '@remix-run/react'
+
 import { Button } from '~/components/Button'
 import { CustomBundleContext } from '~/contexts'
-import { ProgressBar } from './ProgressBar'
-import { CartLines } from './CartLines'
+import { cn, formatPrice } from '~/lib/utils'
+
 import { PlanPicker } from '../PlanPickerBlock/PlanPicker'
-import { useLoaderData } from '@remix-run/react'
+import { CartLines } from './CartLines'
+import { ProgressBar } from './ProgressBar'
 
 export const MobileCart = () => {
   const { freeProduct } = useLoaderData()

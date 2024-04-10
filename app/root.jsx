@@ -1,31 +1,32 @@
-import { useState, useEffect } from 'react'
-import { useNonce, Script } from '@shopify/hydrogen'
-import { defer } from '@shopify/remix-oxygen'
-import {
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  LiveReload,
-  useMatches,
-  useRouteError,
-  useLoaderData,
-  ScrollRestoration,
-  isRouteErrorResponse,
-} from '@remix-run/react'
+import { useEffect, useState } from 'react'
 
 import sliderStyles from 'swiper/css'
 import sliderNavigation from 'swiper/css/navigation'
 import sliderPagination from 'swiper/css/pagination'
 
+import {
+  Links,
+  LiveReload,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  isRouteErrorResponse,
+  useLoaderData,
+  useMatches,
+  useRouteError,
+} from '@remix-run/react'
+import { Script, useNonce } from '@shopify/hydrogen'
+import { defer } from '@shopify/remix-oxygen'
+
 import favicon from '~/assets/logo.svg'
-import appStyles from '~/styles/app.css'
-import tailwindStyles from '~/styles/tailwind.css'
-import { RootContext } from '~/contexts'
 import { Layout } from '~/components/Layout'
 import { SubscriptionCard } from '~/components/SubscriptionCard'
+import { RootContext } from '~/contexts'
 import { FOOTER_QUERY, HEADER_QUERY } from '~/graphql/HeaderMenuFooter'
 import { addScriptToHead } from '~/lib/utils'
+import appStyles from '~/styles/app.css'
+import tailwindStyles from '~/styles/tailwind.css'
 
 export const shouldRevalidate = ({ formMethod, currentUrl, nextUrl }) => {
   // revalidate when a mutation is performed e.g add to cart, login...

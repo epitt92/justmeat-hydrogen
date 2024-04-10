@@ -1,7 +1,7 @@
-import { ContactForm } from './ContactForm'
-
 import videoThumbnail from '~/assets/images/first-contact-video-thumbnail.png'
 import videoPlayButton from '~/assets/images/video-play-button.png'
+
+import { ContactForm } from './ContactForm'
 
 export const FirstContact = () => {
   return (

@@ -1,8 +1,8 @@
-import { defer } from '@shopify/remix-oxygen'
 import { useLoaderData } from '@remix-run/react'
 import { getPaginationVariables } from '@shopify/hydrogen'
+import { defer } from '@shopify/remix-oxygen'
 
-import { SearchForm, SearchResults, NoSearchResults } from '~/components/Search'
+import { NoSearchResults, SearchForm, SearchResults } from '~/components/Search'
 
 /**
  * @type {MetaFunction}

@@ -1,6 +1,7 @@
 import { NavLink, useMatches } from '@remix-run/react'
-import { useRootLoaderData } from '~/root'
+
 import logo from '~/assets/footer_logo.webp'
+import { useRootLoaderData } from '~/root'
 
 /**
  * @param {FooterQuery & {shop: HeaderQuery['shop']}}
