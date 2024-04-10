@@ -13,7 +13,7 @@ export const FirstInfo = () => {
       <div className="bg-[#222222] sm:pb-[100px] pb-[66px]">
         <div className="relative container-1120">
           <div className="flex justify-center sm:mb-[6px]">
-            <div className="sm:w-[512px] sm:text-[14px] text-[12px] font-normal text-[#E47A0F] tracking-[3px]">
+            <div className="sm:w-[512px] sm:text-[14px] pt-5 text-[12px] font-normal text-[#E47A0F] tracking-[3px]">
               LEARN HOW YOU CAN EARN ANYWHERE FROM{' '}
               <span className="text-white">$5K - $10K</span> IN ADDITIONAL
               REVENUE IN AS LITTLE AS 3 MONTHS!

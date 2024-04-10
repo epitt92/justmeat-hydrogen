@@ -59,7 +59,7 @@ export const Featured = () => {
   }
 
   return (
-    <section className="bg-[#222222] sm:pt-[176px] pt-[190px] sm:pb-[82px] pb-[61px] font-nunito">
+    <section className="bg-[#222222]  pt-[120px] sm:pt-[150px]  pb-[45px] sm:pb-[40px] font-nunito">
       <div className="flex flex-col items-center overflow-hidden container-1120 sm:block">
         <div className="sm:w-auto w-[835px]">
           <Swiper
