@@ -41,7 +41,7 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
         <div
           className={`${
             sellingPlan ? 'bg-white sm:bg-[#862E1B]' : 'border-[#eaeaea]'
-          } p-[7px] sm:p-[10px] border-[3px] border-solid flex gap-6 border-[#425B34] sm:border-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px]`}
+          } p-[7px] sm:p-[10px] border-[3px] border-solid flex gap-6 border-[#425B34] sm:border-[#862E1B] sm:hover:bg-[#862E1B] sm:hover:!text-[#fff] cursor-pointer rounded-[14px] sm:rounded-[0px]`}
           onClick={() => {
             setSellingPlan(sellingPlanFrequency)
           }}
@@ -49,7 +49,7 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
           <div
             className={`${
               sellingPlan ? 'text-black sm:text-[#fff]' : 'text-[#1d1d1d]'
-            } leading-[100%] flex-1 text-[18px] sm:text-[20px] text-center sm:text-left font-bold`}
+            }  leading-[100%] flex-1 text-[18px] sm:text-[20px] text-center sm:text-left font-bold`}
           >
             <span className="sm:hidden line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
               {total && `$${parseInt(total)}`}
@@ -65,7 +65,7 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
                 )}`}{' '}
               Subscribe & Save
             </span>
-            <span className="hidden sm:inline">
+            <span className={`hidden sm:inline sm:hover:text-[#fff]`}>
               {totalCostForPlan &&
                 `$${formatPrice(
                   totalCostForPlan - firstOrderSavingFormatted,
@@ -78,7 +78,7 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
             name=""
             className={`${
               sellingPlan ? 'text-[#fff] brightness-0 invert' : 'text-[#1d1d1d]'
-            } max-w-[142px] hidden sm:block text-[12px] pl-[10px] py-0 pr-0 w-full bg-transparent bg-auto bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')]
+            } sm:hover:text-[#fff] max-w-[142px] hidden sm:block text-[12px] pl-[10px] py-0 pr-0 w-full bg-transparent bg-auto bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')]
             outline-none border-none focus:shadow-none shadow-none focus:outline-none focus:border-none webkit-box-shadow-none 
             `}
             value={sellingPlanFrequency}
@@ -236,7 +236,7 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
           <div
             className={`${
               sellingPlan ? 'text-[#1d1d1d]' : 'text-black sm:text-[#fff]'
-            } text-[18px] sm:text-[20px] p-[7px] sm:p-[10px] w-full font-bold text-center sm:text-left leading-[100%] sm:leading-[24px]`}
+            } sm:hover:bg-[#862E1B] sm:hover:text-[#fff] text-[18px] sm:text-[20px] p-[7px] sm:p-[10px] w-full font-bold text-center sm:text-left leading-[100%] sm:leading-[24px]`}
           >
             <span className="sm:hidden line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
               {total && `$${parseInt(total)}`}
