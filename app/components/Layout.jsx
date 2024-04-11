@@ -27,6 +27,7 @@ export function Layout({
       <LayoutContext.Provider value={{ menuToggle, setMenuToggle }}>
         <NewHeader header={header} cart={cart} isLoggedIn={isLoggedIn} />
 
+        <MobileMenuAside menu={header?.menu} shop={header?.shop} />
         {children}
         <Suspense>
           <Await resolve={footer}>
