@@ -7,7 +7,7 @@ export const FirstContact = () => {
   return (
     <section className="relative bg-[#222222] text-white sm:pb-[80px] pb-[60px]">
       <div className="absolute w-full left-0 top-0 sm:h-full h-[730px] bg-us-flag bg-cover"></div>
-      <div className="relative container-1120">
+      <div className="relative container-small">
         <div className="sm:text-[36px] text-[24px] font-bold text-center sm:mb-[96px] mb-[55px]">
           WORLD CLASS FITNESS JOINS WORLD CLASS NUTRITION
         </div>

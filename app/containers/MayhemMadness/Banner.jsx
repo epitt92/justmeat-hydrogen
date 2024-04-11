@@ -6,7 +6,7 @@ export const Banner = () => {
     <section className="relative">
       <div className="banner bg-cover sm:h-[calc(100vh-120px)] h-[820px]"></div>
       <div className="absolute top-0 left-0 w-full h-full">
-        <div className="relative h-full container-1120">
+        <div className="relative h-full container-small">
           <div className="relative h-full">
             <div className="sm:h-[40px] h-[15px]"></div>
             <div className="flex flex-col-reverse sm:flex-col sm:gap-[66px] gap-0">

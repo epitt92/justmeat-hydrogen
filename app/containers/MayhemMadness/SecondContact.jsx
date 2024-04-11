@@ -7,7 +7,7 @@ import { ContactForm } from './ContactForm'
 export const SecondContact = () => {
   return (
     <section className="bg-[#efeeed] sm:pt-[110px] sm:pb-[25px] pt-[70px] pb-[32px] relative">
-      <div className="container-1120">
+      <div className="container-small">
         <div
           className="flex flex-col items-center bg-brown-pattern text-white sm:py-[45px] py-[22px] sm:rounded-[8px] rounded-[6px]"
           style={{ boxShadow: '0px 32px 43px -8px rgba(0, 0, 0, 0.20)' }}
@@ -24,7 +24,7 @@ export const SecondContact = () => {
         src={justmeatsBoxPart}
         className="absolute sm:w-auto w-[100px] sm:top-[-180px] top-[-4px] sm:left-0 left-[-25px]"
       />
-      <div className="container-1120 sm:pt-[104px] pt-[62px]">
+      <div className="container-small sm:pt-[104px] pt-[62px]">
         <div className="grid sm:grid-cols-2 grid-cols-1 sm:gap-[55px] gap-[70px] items-end">
           <div className="flex flex-col justify-between aspect-square">
             <div className="sm:mb-0 mb-[24px]">

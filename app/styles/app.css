@@ -332,7 +332,7 @@ button.free-gift-label {
   background-image: url('../assets/images/bg-us-flag.png');
 }
 
-.container-1120 {
+.container-small {
   @apply w-full max-w-[1120px] mx-auto my-0 px-[20px] py-0;
 }
 
