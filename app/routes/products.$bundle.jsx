@@ -6,7 +6,7 @@ import Notification from '~/components/Notification'
 import { CustomBundle } from '~/containers/CustomBundle'
 import { COLLECTION_QUERY } from '~/graphql/Collection'
 import { ALL_PRODUCTS_QUERY, PRODUCT_BY_HANDLER_QUERY } from '~/graphql/Product'
-import { getPureId } from '~/lib/utils'
+import { getFullId, getPureId } from '~/lib/utils'
 
 const bundleCollectionHandler = 'all-products'
 const freeProductHandler = 'raspberry-bbq-chicken-breast'
@@ -139,8 +139,8 @@ export async function action({ request, context }) {
 
     cartData = bundleItems.map((bundleItem) => ({
       quantity: bundleItem.quantity,
-      merchandiseId: `gid://shopify/ProductVariant/${bundleItem.id}`,
-      sellingPlanId: `gid://shopify/SellingPlan/${bundleItem.selling_plan}`,
+      merchandiseId: getFullId(bundleItem.id, 'ProductVariant'),
+      sellingPlanId: getFullId(bundleItem.selling_plan, 'SellingPlan'),
       attributes: Object.keys(bundleItem.properties).map((key) => {
         return { key, value: String(bundleItem.properties[key]) }
       }),
