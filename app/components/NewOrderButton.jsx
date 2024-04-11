@@ -4,7 +4,7 @@ import { NavLink } from '@remix-run/react'
 
 import { cn } from '~/lib/utils'
 
-const OrderButton = ({ className }) => {
+export const OrderButton = ({ className }) => {
   return (
     <NavLink end prefetch="intent" to="/products/custom-bundle">
       <span
@@ -18,5 +18,3 @@ const OrderButton = ({ className }) => {
     </NavLink>
   )
 }
-
-export default OrderButton

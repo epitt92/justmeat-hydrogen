@@ -3,11 +3,15 @@ import { Suspense, useState } from 'react'
 import { Await, useMatches } from '@remix-run/react'
 
 import { Footer } from '~/components/Footer'
+import { Footer as NewFooter } from '~/components/NewFooter'
 import { Header } from '~/components/Header'
+import { Header as NewHeader } from '~/components/NewHeader'
 import { LayoutContext } from '~/contexts'
 
 import { MobileMenuAside } from './MobileMenuAside'
 import OrderHeader from './OrderHeader'
+
+const newLayoutRoutes = ['mayhem-madness', 'rich-froning']
 
 export function Layout({
   cart,
@@ -23,10 +27,22 @@ export function Layout({
   const matches = useMatches()
   const { pathname } = matches.at(-1)
   const route = pathname.split('/')[1]
-  const noLayoutRoutes = ['mayhem-madness']
-  const isLayout = !noLayoutRoutes.includes(route)
+  const isNewLayout = newLayoutRoutes.includes(route)
 
-  if (isLayout)
+  if (isNewLayout)
+    return (
+      <LayoutContext.Provider value={{ menuToggle, setMenuToggle }}>
+        <NewHeader header={header} cart={cart} isLoggedIn={isLoggedIn} />
+        
+        <main>{children}</main>
+        <Suspense>
+          <Await resolve={footer}>
+            {(footer) => <NewFooter menu={footer?.menu} shop={header?.shop} />}
+          </Await>
+        </Suspense>
+      </LayoutContext.Provider>
+    )
+
     return (
       <LayoutContext.Provider value={{ menuToggle, setMenuToggle }}>
         {isProductPage ? (
@@ -48,6 +64,4 @@ export function Layout({
         </Suspense>
       </LayoutContext.Provider>
     )
-
-  return children
 }
