@@ -1,11 +1,8 @@
 import React, { useContext } from 'react'
-
-import { useLoaderData } from '@remix-run/react'
-
+import { cn, formatPrice } from '~/lib/utils'
 import { CustomBundleContext } from '~/contexts'
 import { CheckBox } from '~/icons/CheckBox'
-import { cn, formatPrice } from '~/lib/utils'
-
+import { useLoaderData } from '@remix-run/react'
 import { PROMO_CODES } from '../../../promo-codes'
 
 export const PlanPicker = ({ total, totalCostForPlan }) => {
@@ -44,16 +41,14 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
         <div
           className={`${
             sellingPlan ? 'bg-white sm:bg-[#862E1B]' : 'border-[#eaeaea]'
-          } hover:bg-[#862E1B] p-[7px] sm:p-[10px] border-[3px] border-solid flex gap-6 border-[#425B34] sm:border-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px]`}
+          } p-[7px] sm:p-[10px] border-[3px] border-solid flex gap-6 border-[#425B34] sm:border-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px]`}
           onClick={() => {
             setSellingPlan(sellingPlanFrequency)
           }}
         >
           <div
             className={`${
-              sellingPlan
-                ? 'text-black sm:text-[#fff]'
-                : 'text-[#1d1d1d] hover:text-[#fff]'
+              sellingPlan ? 'text-black sm:text-[#fff]' : 'text-[#1d1d1d]'
             } leading-[100%] flex-1 text-[18px] sm:text-[20px] text-center sm:text-left font-bold`}
           >
             <span className="sm:hidden line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
@@ -82,9 +77,7 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
           <select
             name=""
             className={`${
-              sellingPlan
-                ? 'text-[#fff] brightness-0 invert'
-                : 'text-[#1d1d1d] hover:text-[#fff]'
+              sellingPlan ? 'text-[#fff] brightness-0 invert' : 'text-[#1d1d1d]'
             } max-w-[142px] hidden sm:block text-[12px] pl-[10px] py-0 pr-0 w-full bg-transparent bg-auto bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')]
             outline-none border-none focus:shadow-none shadow-none focus:outline-none focus:border-none webkit-box-shadow-none 
             `}
@@ -186,7 +179,7 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
               </span>{' '}
               10% Off Future Orders
             </li>
-
+         
             <li className="flex items-center text-[11px] sm:text-[12px] font-normal sm:font-bold m-0 hidden md:flex lg:flex">
               <span className="text-[#425B34] sm:text-black">
                 <CheckBox
@@ -235,17 +228,15 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
             !sellingPlan
               ? 'bg-white sm:bg-[#862E1B] border-[#425B34]'
               : 'border-[#eaeaea]'
-          } hover:bg-[#862E1B] hover:text-[#fff] border-[3px] border-solid flex justify-center sm:justify-start gap-6 sm:border-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px] subscriptionlabel sm:mt-[28px] mt-0`}
+          }  border-[3px] border-solid flex justify-center sm:justify-start gap-6 sm:border-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px] subscriptionlabel sm:mt-[28px] mt-0`}
           onClick={() => {
             setSellingPlan('')
           }}
         >
           <div
             className={`${
-              sellingPlan
-                ? 'text-[#1d1d1d] hover:text-[#fff]'
-                : 'text-black sm:text-[#fff]'
-            } hover:text-[#fff] text-[18px] sm:text-[20px] p-[7px] sm:p-[10px] w-full font-bold text-center sm:text-left leading-[100%] sm:leading-[24px]`}
+              sellingPlan ? 'text-[#1d1d1d]' : 'text-black sm:text-[#fff]'
+            } text-[18px] sm:text-[20px] p-[7px] sm:p-[10px] w-full font-bold text-center sm:text-left leading-[100%] sm:leading-[24px]`}
           >
             <span className="sm:hidden line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
               {total && `$${parseInt(total)}`}
@@ -253,7 +244,7 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
             <span className="hidden sm:inline line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
               {total && `$${formatPrice(total)}`}
             </span>
-            <span className=" hover:text-[#fff] sm:hidden">
+            <span className="sm:hidden">
               {totalCostForPlan && `$${parseInt(totalCostForPlan)}`} One Time
             </span>
             <span className="hidden sm:inline">
