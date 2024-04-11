@@ -37,20 +37,16 @@ export async function loader({ request, context }) {
 
 export default function MayhemMadness() {
   return (
-    <>
-      <Header />
-      <main className="relative font-dunbar tracking-[1px] leading-1 text-[#231B19]">
-        <Banner />
-        <Featured />
-        <FirstContact />
-        <FirstInfo />
-        <SecondInfo />
-        <SecondContact />
-        <ChefCook />
-        <HowItWorks />
-        <Reviews />
-      </main>
-      <Footer />
-    </>
+    <main className="relative font-dunbar tracking-[1px] leading-1 text-[#231B19]">
+      <Banner />
+      <Featured />
+      <FirstContact />
+      <FirstInfo />
+      <SecondInfo />
+      <SecondContact />
+      <ChefCook />
+      <HowItWorks />
+      <Reviews />
+    </main>
   )
 }
