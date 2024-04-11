@@ -1,5 +1,7 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
+
 /* eslint-disable eslint-comments/no-unlimited-disable */
+
 /* eslint-disable */
 import * as CustomerAccountAPI from '@shopify/hydrogen/customer-account-api-types';
 

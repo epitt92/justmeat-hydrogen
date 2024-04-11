@@ -19,3 +19,12 @@ export function addScriptToHead(src) {
   script.src = src
   document.head.appendChild(script)
 }
+
+export function getPureId(fullId, type) {
+  const keyword = `gid://shopify/${type}/`
+  return fullId.split(keyword)[1]
+}
+
+export function getFullId(id, type) {
+  return `gid://shopify/${type}/${id}`
+}
