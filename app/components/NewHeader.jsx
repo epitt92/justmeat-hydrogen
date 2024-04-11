@@ -10,8 +10,8 @@ import { Logo } from '~/icons/Logo'
 import { useRootLoaderData } from '~/root'
 
 import { Button } from './Button'
-import { CartButton } from './CartButton'
-import OrderButton from './OrderButton'
+import { CartButton } from './NewCartButton'
+import { OrderButton } from './NewOrderButton'
 
 export function Header() {
   const matches = useMatches()

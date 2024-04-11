@@ -27,7 +27,7 @@ export function Layout({
   const matches = useMatches()
   const { pathname } = matches.at(-1)
   const route = pathname.split('/')[1]
-  const isNewLayout = !newLayoutRoutes.includes(route)
+  const isNewLayout = newLayoutRoutes.includes(route)
 
   if (isNewLayout)
     return (
