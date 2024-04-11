@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react'
+import { useContext } from 'react'
 
 import { NavLink, useMatches } from '@remix-run/react'
 
@@ -28,7 +28,7 @@ export function Header() {
 
   const Mainheader = () => {
     return (
-      <div className="container relative h-[88px] sm:h-[120px] flex items-center justify-between py-4 mainheader">
+      <div className="container-1120 relative h-[88px] sm:h-[120px] flex items-center justify-between py-4 mainheader">
         <div className="flex items-center justify-between gap-10 navBar">
           <div className="hidden navLinks sm:flex sm:gap-[32px]">
             {navLinks.map(([to, text], index) => (
@@ -76,7 +76,7 @@ export function Header() {
 
   const Landingheader = () => {
     return (
-      <div className="container flex justify-center items-center py-[3px] mx-auto relative landingheader">
+      <div className="container-1120 flex justify-center items-center py-[3px] mx-auto relative landingheader">
         <NavLink end prefetch="intent" to="/">
           <img
             src={logo}
