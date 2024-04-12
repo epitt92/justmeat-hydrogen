@@ -328,6 +328,10 @@ button.free-gift-label {
   @apply sm:!hidden !block;
 }
 
+.how-it-works-slider.mobile .swiper-pagination > span:last-child {
+  @apply hidden;
+}
+
 .rich-froning-banner-slider .swiper-pagination-bullet {
   @apply !bg-white w-[12px] h-[12px];
 }
