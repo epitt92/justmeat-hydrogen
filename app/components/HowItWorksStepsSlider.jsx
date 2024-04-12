@@ -7,7 +7,7 @@ import stepImage3 from '~/assets/images/how-it-works-step-3.png'
 
 const swiperBreakpoints = {
   360: {
-    slidesPerView: 3,
+    slidesPerView: 1,
     spaceBetween: 24,
   },
   768: {
@@ -42,7 +42,7 @@ const steps = [
 export const HowItWorksStepsSlider = () => {
   return (
     <div className="relative flex justify-center overflow-x-hidden sm:mb-[56px] mb-[10px]">
-      <div className="sm:w-[891px] w-[843px] mx-auto">
+      <div className="sm:w-[891px] w-[350px] mx-auto">
         <Swiper
           loop
           autoplay
@@ -55,7 +55,7 @@ export const HowItWorksStepsSlider = () => {
           {steps.map((step, index) => (
             <SwiperSlide key={index}>
               <div
-                className="relative rounded-[8px] overflow-hidden sm:mb-0 mb-[50px]"
+                className="relative rounded-[8px] overflow-hidden sm:mb-0 mb-[50px] w-full"
                 style={{ boxShadow: '0px 30px 30px -9px rgba(0, 0, 0, 0.14)' }}
               >
                 <img className="w-full" src={step.image} alt="" />
