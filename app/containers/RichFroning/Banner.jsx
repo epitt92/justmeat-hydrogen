@@ -10,8 +10,8 @@ import { WeighterLight } from '~/icons/WeighterLight'
 
 const sliderImages = [
   { image: sliderImage1 },
-  { image: sliderImage1 },
-  { image: sliderImage1 },
+  // { image: sliderImage1 },
+  // { image: sliderImage1 },
 ]
 
 export const Banner = () => {
