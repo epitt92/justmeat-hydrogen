@@ -25,7 +25,7 @@ export const Banner = () => {
             pagination={{ clickable: true }}
             slidesPerView={1}
             modules={[Pagination]}
-            className="h-full rich-froning-slider"
+            className="h-full rich-froning-banner-slider"
           >
             {sliderImages.map((slider, index) => (
               <SwiperSlide key={index}>
@@ -68,7 +68,10 @@ export const Banner = () => {
           </div>
         </div>
       </div>
-      <div className="bg-[#7A392D]">
+      <div
+        className="bg-[#7A392D]"
+        style={{ boxShadow: '0px 30px 50px -10px rgba(0, 0, 0, 0.20)' }}
+      >
         <div className="container-small sm:pt-[50px] sm:pb-[50px] pt-[44px] pb-[55px] grid sm:grid-cols-3 grid-cols-1 sm:gap-0 gap-[38px]">
           <div className="flex justify-center">
             <div className="flex items-center sm:gap-[26px] gap-[17px]">
@@ -91,7 +94,7 @@ export const Banner = () => {
               <div>
                 <div className="text-[16px]">Pounds cooked</div>
                 <div className="sm:text-[29px] text-[28px] font-bold font-dunbar">
-                  345,431 Lbs
+                  345,431 LBS
                 </div>
               </div>
             </div>

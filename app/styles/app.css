@@ -328,6 +328,10 @@ button.free-gift-label {
   @apply sm:!hidden !block;
 }
 
+.rich-froning-banner-slider .swiper-pagination-bullet {
+  @apply !bg-white w-[12px] h-[12px];
+}
+
 .bg-us-flag {
   background-image: url('../assets/images/bg-us-flag.png');
 }

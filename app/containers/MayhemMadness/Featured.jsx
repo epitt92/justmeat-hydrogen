@@ -49,7 +49,7 @@ export const Featured = () => {
             </div>
           </div>
           <div className="flex-1 bg-white py-[22px] px-[10px] flex justify-center items-center text-[20px] rounded-b-[8px] font-bold tracking-normal">
-            {product.title}
+            <div className="truncate">{product.title}</div>
           </div>
         </div>
       </SwiperSlide>
