@@ -1,7 +1,7 @@
 import { Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-import { useLoaderData } from '@remix-run/react'
+import { NavLink, useLoaderData } from '@remix-run/react'
 
 import RichPhoto from '~/assets/images/RichPhoto.png'
 import JustMeatsBoxPart from '~/assets/images/justmeats-box-part2.png'
@@ -136,7 +136,7 @@ export const Featured = () => {
             <div className="sm:text-[20px] text-[16px] font-bold sm:tracking-[1px] tracking-[0.8px] sm:mb-[22px] mb-[12px]">
               VARIETY
             </div>
-            <div className="sm:text-[14px] text-[12px] font-nunito leading-[15px] tracking-normal sm:px-[40px] px-[12px] text-center">
+            <div className="sm:text-[14px] text-[12px] font-nunito leading-[15px] tracking-normal sm:px-[20px] px-[12px] text-center">
               Choose from 12 delicious flavors with new ones added regularly
             </div>
           </div>
@@ -161,14 +161,18 @@ export const Featured = () => {
           </div>
         </div>
       </div>
-      <div className="container-small text-[#EFEEED] sm:mb-[82px] mb-[62px]">
+      <div className="container-small text-[#EFEEED] sm:mb-[82px] mb-[62px] relative">
         <div className="flex justify-center sm:gap-[20px] gap-[8px]">
-          <button className="px-[24px] py-[12px] rounded-[4px] bg-[#7A392D] tracking-[1px]">
-            HOW IT WORKS
-          </button>
-          <button className="px-[24px] py-[12px] rounded-[4px] bg-[#637160] tracking-[1px]">
-            GET INSPIRED
-          </button>
+          <NavLink end prefetch="intent" to="/about">
+            <button className="px-[24px] py-[12px] rounded-[4px] bg-[#7A392D] tracking-[1px]">
+              HOW IT WORKS
+            </button>
+          </NavLink>
+          <NavLink end prefetch="intent" to="/products/custom-bundle">
+            <button className="px-[24px] py-[12px] rounded-[4px] bg-[#637160] tracking-[1px]">
+              ORDER NOW
+            </button>
+          </NavLink>
         </div>
       </div>
       <div className=""></div>
@@ -180,7 +184,7 @@ export const Featured = () => {
           <Swiper
             loop
             autoplay
-            pagination={{ clickable: true }}
+            // pagination={{ clickable: true }}
             slidesPerView={4}
             spaceBetween={30}
             modules={[Pagination]}
