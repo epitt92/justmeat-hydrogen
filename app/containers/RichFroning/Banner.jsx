@@ -69,7 +69,7 @@ export const Banner = () => {
         </div>
       </div>
       <div
-        className="bg-[#7A392D]"
+        className="bg-[#7A392D] relative z-10"
         style={{ boxShadow: '0px 30px 50px -10px rgba(0, 0, 0, 0.20)' }}
       >
         <div className="container-small sm:pt-[50px] sm:pb-[50px] pt-[44px] pb-[55px] grid sm:grid-cols-3 grid-cols-1 sm:gap-0 gap-[38px]">

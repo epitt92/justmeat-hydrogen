@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { useLoaderData } from '@remix-run/react'
 
+import RichPhoto from '~/assets/images/RichPhoto.png'
 import JustMeatsBoxPart from '~/assets/images/justmeats-box-part2.png'
 import { Boutique } from '~/icons/Boutique'
 import { Cooking } from '~/icons/Cooking'
@@ -59,10 +60,14 @@ export const Featured = () => {
   }
 
   return (
-    <section className="bg-[#EFEEED] text-[#231B19] pt-[62px] sm:pt-[103px] pb-[45px] sm:pb-[40px] font-dunbar relative">
+    <section className="bg-[#EFEEED] text-[#231B19] pt-[62px] sm:pt-[103px] font-dunbar relative overflow-x-hidden">
       <img
         src={JustMeatsBoxPart}
         className="absolute sm:block hidden left-0 top-[120px]"
+      />
+      <img
+        src={RichPhoto}
+        className="absolute sm:right-0 sm:top-[-140px] right-[-40px] top-[-100px]"
       />
       <div className="container-small flex flex-col items-center sm:mb-[56px] mb-[41px] relative">
         <div className="sm:text-[14px] font-normal leading-[23px] sm:tracking-[2.8px] text-[12px] tracking-[2.8px] text-[#7A392D] text-center">
@@ -167,7 +172,7 @@ export const Featured = () => {
         </div>
       </div>
       <div className=""></div>
-      <div className="flex flex-col items-center overflow-hidden container-small sm:block">
+      <div className="flex flex-col items-center overflow-hidden container-small sm:block pb-[45px] sm:pb-[40px]">
         <div className="text-center sm:text-[36px] text-[24px] font-bold leading-tight sm:tracking-[1.8px] tracking-[1.2px] sm:mb-[87px] mb-[65px]">
           NOW SERVING
         </div>
@@ -185,6 +190,9 @@ export const Featured = () => {
             {slides[collections[0].id]}
           </Swiper>
         </div>
+      </div>
+      <div className="bg-JustMeatsPartnershipsWithRichFroningImage h-[472px] sm:bg-cover 2xl:[background-position-y:-480px] xl:[background-position-y:-360px] lg:[background-position-y:-220px]  [background-position-y:-64px] sm:[background-position-x:0] [background-position-x:-340px] [background-size:834px] relative">
+        <div className="h-full bg-[#00000040] [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"></div>
       </div>
     </section>
   )

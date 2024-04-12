@@ -5,6 +5,7 @@ import { Banner } from '~/containers/RichFroning/Banner'
 import { CustomerReviews } from '~/containers/RichFroning/CustomerReviews'
 import { DoMeatRight } from '~/containers/RichFroning/DoMeatRight'
 import { Featured } from '~/containers/RichFroning/Featured'
+import { HowItWorks } from '~/containers/RichFroning/HowItWorks'
 import { COLLECTIONS_QUERY } from '~/graphql/Collection'
 
 export async function loader({ request, context }) {
@@ -33,6 +34,7 @@ export default function RichFroning() {
     <main className="relative font-dunbar tracking-[1px] leading-1 text-[#231B19]">
       <Banner />
       <Featured />
+      <HowItWorks />
       <CustomerReviews />
       <DoMeatRight />
     </main>
