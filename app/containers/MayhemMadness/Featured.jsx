@@ -5,8 +5,6 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { useLoaderData } from '@remix-run/react'
 
-import { cn } from '~/lib/utils'
-
 const swiperBreakpoints = {
   360: {
     slidesPerView: 3,
