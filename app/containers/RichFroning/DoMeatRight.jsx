@@ -6,7 +6,7 @@ import {FaqAccordion} from './FaqAccordion'
 import OrderButton from 'app/components/OrderButton'
 export const DoMeatRight = () => {
   return (
-    <section className="bg-[#efeeed] sm:pt-[10px]  sm:pb-[25px] pt-[70px] pb-[32px] relative">
+    <section className="bg-[#efeeed] sm:pt-[10px]  sm:pb-[25px]  pb-[32px] relative">
       <div className="container-1120 z-50 relative w-[90%] sm:w-[80%] mx-auto">
         <div
           className="flex flex-col items-center bg-brown-pattern z-50 text-white sm:py-[45px] py-[22px] sm:rounded-[8px] rounded-[6px]"
@@ -32,21 +32,21 @@ export const DoMeatRight = () => {
       />
       <img
         src={TrayPhoto}
-        className="absolute z-10 sm:w-auto w-[100px] sm:top-[-122px] top-[-4px] right-0 "
+        className="absolute z-10 sm:w-auto w-[250px] sm:top-[-122px] top-[-150px] right-0 "
       />
     <div className='relative z-50 pt-12'>
         <div className='font-dunbar uppercase mt-8 pb-8 text-[24px] sm:text-[36px] text-center  font-bold sm:mb-[4px] mb-[3px] leading-normal tracking-[1.8px]'>YOU ASK. WE ANSWER.</div>
-        <div className="relative z-50 w-[90%] sm:w-[50%] mx-auto pb-20">
+        <div className="relative z-50 w-[90%] sm:w-[50%] mx-auto pb-4  sm:pb-20">
               <FaqAccordion />
 
         </div>
         <img
         src={RichsPhoto}
-        className="absolute z-10 sm:w-auto w-[100px] bottom-[-25px]  left-0 "
+        className="hidden sm:block absolute z-10 sm:w-auto w-[100px] bottom-[-25px]  left-0 "
       />
       <img
         src={RichsPhoto1}
-        className="absolute z-10 sm:w-[auto] w-[100px] h-[85%] bottom-[0px] right-0 "
+        className="hidden sm:block absolute z-10 sm:w-[auto] w-[100px] h-[85%] bottom-[0px] right-0 "
       />
     </div>
     </section>
