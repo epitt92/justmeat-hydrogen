@@ -63,7 +63,7 @@ export const Banner = () => {
             <div>SERVICE</div>
             <div>CONVENIENCE</div>
             <div>TASTE</div>
-            <div>VERIETY</div>
+            <div>VARIETY</div>
             <div>PRICE</div>
           </div>
         </div>

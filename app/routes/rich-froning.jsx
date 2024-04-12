@@ -6,6 +6,7 @@ import { CustomerReviews } from '~/containers/RichFroning/CustomerReviews'
 import { DoMeatRight } from '~/containers/RichFroning/DoMeatRight'
 import { Featured } from '~/containers/RichFroning/Featured'
 import { HowItWorks } from '~/containers/RichFroning/HowItWorks'
+import { LearnMore } from '~/containers/RichFroning/LearnMore'
 import { COLLECTIONS_QUERY } from '~/graphql/Collection'
 
 export async function loader({ request, context }) {
@@ -35,6 +36,7 @@ export default function RichFroning() {
       <Banner />
       <Featured />
       <HowItWorks />
+      <LearnMore />
       <CustomerReviews />
       <DoMeatRight />
     </main>
