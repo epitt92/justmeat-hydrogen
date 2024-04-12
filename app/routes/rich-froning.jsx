@@ -2,6 +2,8 @@ import { getPaginationVariables } from '@shopify/hydrogen'
 import { json } from '@shopify/remix-oxygen'
 
 import { Banner } from '~/containers/RichFroning/Banner'
+import { CustomerReviews } from '~/containers/RichFroning/CustomerReviews'
+import { DoMeatRight } from '~/containers/RichFroning/DoMeatRight'
 import { Featured } from '~/containers/RichFroning/Featured'
 import { COLLECTIONS_QUERY } from '~/graphql/Collection'
 
@@ -31,6 +33,8 @@ export default function RichFroning() {
     <main className="relative font-dunbar tracking-[1px] leading-1 text-[#231B19]">
       <Banner />
       <Featured />
+      <CustomerReviews />
+      <DoMeatRight />
     </main>
   )
 }
