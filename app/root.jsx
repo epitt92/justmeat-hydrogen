@@ -24,6 +24,7 @@ import { Layout } from '~/components/Layout'
 import { SubscriptionCard } from '~/components/SubscriptionCard'
 import { RootContext } from '~/contexts'
 import { FOOTER_QUERY, HEADER_QUERY } from '~/graphql/HeaderMenuFooter'
+import { changeLooxUI } from '~/lib/changeLooxUI'
 import { addScriptToHead } from '~/lib/utils'
 import appStyles from '~/styles/app.css'
 import tailwindStyles from '~/styles/tailwind.css'
@@ -176,6 +177,8 @@ export default function App() {
     for (const script of externalScripts) {
       addScriptToHead(script)
     }
+
+    changeLooxUI()
   }, [])
 
   const setCartSellingPlan = (value) => {
