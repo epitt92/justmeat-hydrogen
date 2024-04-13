@@ -8,6 +8,17 @@ import { DeliveryTruck } from '~/icons/DeliveryTruck'
 import { SmileEmoji } from '~/icons/SmileEmoji'
 import { WeighterLight } from '~/icons/WeighterLight'
 
+const swiper1_items = [
+  'FAMILY',
+  'FITNESS',
+  'FAITH',
+  'SERVICE',
+  'CONVENIENCE',
+  'TASTE',
+  'VARIETY',
+  'PRICE',
+]
+
 const sliderImages = [
   { image: sliderImage1 },
   // { image: sliderImage1 },
@@ -56,7 +67,7 @@ export const Banner = () => {
           </Swiper>
         </div>
         <div className="bg-[#231b19] py-[10px] text-[15px] leading-[33px] tracking-[3px] font-normal overflow-x-hidden">
-          <div className="container-small flex justify-between sm:gap-0 gap-[67px]">
+          <div className="sm:flex hidden container-small justify-between sm:gap-0 gap-[67px]">
             <div>FAMILY</div>
             <div>FITNESS</div>
             <div>FAITH</div>
@@ -65,6 +76,22 @@ export const Banner = () => {
             <div>TASTE</div>
             <div>VARIETY</div>
             <div>PRICE</div>
+          </div>
+          <div className="sm:hidden container-small flex justify-between sm:gap-0 gap-[67px]">
+            <Swiper
+              loop
+              autoplay
+              slidesPerView={3}
+              spaceBetween={5}
+              modules={[Pagination]}
+              className="how-it-works-slider"
+            >
+              {swiper1_items.map((text, index) => (
+                <SwiperSlide key={index} className="text-center">
+                  {text}
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         </div>
       </div>
