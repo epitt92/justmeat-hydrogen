@@ -186,7 +186,7 @@ export function Header() {
     <header
       className={`header ${
         isSticky && !isCartPage ? 'header--sticky' : 'header--hidden'
-      } bg-[#eeeeee] border-b border-solid border-[#1D1D1D10]`}
+      } bg-[#fff] border-b border-solid border-[#1D1D1D10]`}
     >
       {isCartPage ? <Landingheader /> : <Mainheader />}
     </header>
