@@ -22,9 +22,8 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
   )
 
   const firstOrderSavingNumber =
-    influencerCode.length > 0 ? parseFloat(influencerCode[0]) : 25
-  const firstOrderSavingFormatted = (firstOrderSavingNumber / 100) * total
-
+    influencerCode.length > 0 ? parseFloat(influencerCode[0].percentage) : 25
+  const firstOrderSavingFormatted = (firstOrderSavingNumber / 100) * totalCostForPlan
   return (
     <div className="flex gap-2 flex-col lg:flex-row w-[100%] lg:!max-w-[760px]">
       <div className="flex-1 w-full lg:w-6/12 xl:w-4/12">
@@ -59,8 +58,9 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
             </span>
 
             <span className="sm:hidden">
+              {console.log('totalCostForPlan', totalCostForPlan - firstOrderSavingFormatted)}
               {totalCostForPlan &&
-                `$${parseInt(
+                `$${formatPrice(
                   totalCostForPlan - firstOrderSavingFormatted,
                 )}`}{' '}
               Subscribe & Save
@@ -244,10 +244,10 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
             <span className="hidden sm:inline line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
               {total && `$${formatPrice(total)}`}
             </span>
-            <span className="sm:hidden text-[black]">
+            <span className="sm:hidden">
               {totalCostForPlan && `$${parseInt(totalCostForPlan)}`} One Time
             </span>
-            <span className="hidden sm:inline text-[black]">
+            <span className="hidden sm:inline">
               {totalCostForPlan && `$${formatPrice(totalCostForPlan)}`} One Time
             </span>
           </div>
