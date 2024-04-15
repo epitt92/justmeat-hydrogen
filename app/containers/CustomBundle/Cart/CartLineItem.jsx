@@ -63,7 +63,7 @@ const mobileImage =
         className={`block sm:hidden w-full sm:w-[72px] ${lineType === 'locked' ? 'opacity-[.22]' : 'opacity-[1]'}`}
       />
 
-      <div className="flex flex-1 flex-col sm:flex-row pr-[10px] justify-between items-center">
+      <div className="flex flex-1 flex-col sm:flex-row pr-[0px] justify-between items-center">
         {lineType === 'bonus' && (
           <div className="for_mobile_range absolute right-[0] top-[20px] bg-[#425B34] block left-[0] px-[5px] py-[2px] text-[11px] font-bold text-[white] w-[35.42px] max-w-max rounded-[3px]">
             FREE

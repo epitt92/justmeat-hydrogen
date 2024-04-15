@@ -361,10 +361,6 @@ button.free-gift-label {
   margin: 5px;
 }
 
-.flex.flex-1.flex-col.sm\:flex-row.pr-\[10px\].justify-between.items-center {
-  padding: 0;
-}
-
 /* -----> Make Header Sticky <------ */
 .header {
   transition: top 0.3s;
