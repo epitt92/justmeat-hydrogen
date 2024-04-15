@@ -30,11 +30,15 @@ export function CartLineItem({ line, lineType = 'paid' }) {
   }, [tags])
 
   const desktopImage =
-    lineType === 'bonus' ? nodes[0]?.image.url : featuredImage.url
-  const mobileImage =
-    lineType === 'bonus'
-      ? nodes[0]?.image.url
-      : cart_drawer_img?.reference.image.url
+  lineType === 'bonus' || lineType === 'locked'
+    ? nodes[0]?.image.url
+    : featuredImage.url;
+
+const mobileImage =
+  lineType === 'bonus' || lineType === 'locked'
+    ? nodes[0]?.image.url
+    : cart_drawer_img?.reference.image.url;
+
 
   return (
     <div
@@ -42,6 +46,7 @@ export function CartLineItem({ line, lineType = 'paid' }) {
         'rounded-t-xl sm:border-none border-solid overflow-hidden gap-4 relative',
         lineType === 'bonus' ? 'sm:hidden block' : 'sm:flex block',
         lineType === 'free' ? 'border-[#1b7084]' : 'border-[#425b34]',
+        lineType === 'locked' ? 'border-[#EEEDED1b7084] lg:hidden' : 'border-[#425b34]',
         lineType !== 'paid' ? 'border' : 'border-t border-l border-r',
       )}
     >
@@ -49,13 +54,13 @@ export function CartLineItem({ line, lineType = 'paid' }) {
         src={desktopImage}
         height={100}
         loading="lazy"
-        className="hidden sm:block w-full sm:w-[72px]"
+        className={`hidden sm:block w-full sm:w-[72px] ${lineType === 'locked' ? 'opacity-[.22]' : 'opacity-[1]'}`}
       />
       <img
         src={mobileImage}
         height={100}
         loading="lazy"
-        className="block sm:hidden w-full sm:w-[72px]"
+        className={`block sm:hidden w-full sm:w-[72px] ${lineType === 'locked' ? 'opacity-[.22]' : 'opacity-[1]'}`}
       />
 
       <div className="flex flex-1 flex-col sm:flex-row pr-[10px] justify-between items-center">
@@ -67,6 +72,11 @@ export function CartLineItem({ line, lineType = 'paid' }) {
         {lineType === 'free' && (
           <div className="for_mobile_range absolute right-[0] top-[20px] bg-[#1b7084] block left-[0] px-[5px] py-[2px] text-[11px] font-bold text-[white] w-[35.42px] max-w-max rounded-[3px]">
             FREE
+          </div>
+        )}
+        {lineType === 'locked' && (
+          <div className="for_mobile_range absolute right-[0] top-[20px] bg-[#862E1B] block left-[0] px-[5px] py-[2px] text-[11px] font-bold text-[white] w-[50.73px] max-w-max rounded-[3px]">
+            LOCKED
           </div>
         )}
         <div className="flex-1 hidden sm:block h-fit">
@@ -105,6 +115,13 @@ export function CartLineItem({ line, lineType = 'paid' }) {
               </span>
               <button className="sm:hidden w-full bg-[#1b7084] mt-[6px] text-white px-[10px] py-[9px] text-[12px] font-['Roboto']">
                 First Order Gift
+              </button>
+            </>
+          )}
+          {lineType === 'locked' && (
+            <>
+              <button className="sm:hidden w-full bg-[#EEEDED] mt-[6px] text-black px-[0px] py-[0px] text-[11px] font-['Roboto'] font-bold">
+                Free Bonus Meat (unlocked at $125)
               </button>
             </>
           )}

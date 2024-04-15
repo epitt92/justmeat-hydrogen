@@ -15,12 +15,13 @@ export function ProgressBar() {
         <Progress
           value={progressValue >= 100 ? 100 : progressValue}
           className="w-[100%] border border-[#000]"
+          totalCartPrice={totalCost}
         />
         <div className="absolute top-0 left-0 w-full h-full">
-          <Milestone className="left-[50%]">
+          <Milestone cartTotal={totalCost} milestonePrice={75} className="left-[50%]">
             <div className="block sm:hidden">$75</div>
           </Milestone>
-          <Milestone className="left-[83%]">
+          <Milestone cartTotal={totalCost} milestonePrice={125} className="left-[83%]">
             <div className="block sm:hidden">$125</div>
           </Milestone>
         </div>
@@ -52,13 +53,14 @@ export function ProgressBar() {
   )
 }
 
-const Milestone = ({ className, children }) => (
+const Milestone = ({ className, children , cartTotal , milestonePrice }) => (
   <div
-    className={cn(
-      'absolute rounded-full flex justify-center items-center bg-[#425b34] sm:bg-[#1b6f84] w-[28px] h-[28px] sm:w-[20px] sm:h-[20px] translate-x-[-50%] translate-y-[-50%] top-[50%] text-xs text-white border border-solid border-black',
-      className,
-    )}
-  >
-    {children}
-  </div>
+  className={cn(
+    "absolute rounded-full flex justify-center items-center sm:bg-[#1b6f84] w-[28px] h-[28px] sm:w-[20px] sm:h-[20px] translate-x-[-50%] translate-y-[-50%] top-[50%] text-xs text-white border border-solid border-black",
+    cartTotal >= milestonePrice ? "bg-[#425b34]" : "bg-[#862E1B]",
+    className
+  )}
+>
+  {children}
+</div>
 )

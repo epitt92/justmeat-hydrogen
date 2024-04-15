@@ -23,6 +23,7 @@ export function CartLines() {
     >
       <div className="grid grid-cols-3 gap-2 sm:grid-cols-1">
         {totalCost > 125 && <CartLineItem line={bonusLine} lineType="bonus" />}
+        {totalCost < 125 && <CartLineItem line={bonusLine} lineType="locked" />}
         <CartLineItem line={freeProduct} lineType="free" />
         {selectedProducts.map((product) => (
           <CartLineItem key={product.id} line={product} />
