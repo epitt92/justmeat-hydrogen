@@ -96,7 +96,7 @@ export const MobileCart = () => {
               ? isCartPage
                 ? 'Checkout'
                 : 'Update Changes'
-              : 'Spend $75 to Continue'}
+              : `Checkout - $${parseInt(totalCost)} (Add $75 to Unlock)`}
           </Button>
         </div>
       </div>
