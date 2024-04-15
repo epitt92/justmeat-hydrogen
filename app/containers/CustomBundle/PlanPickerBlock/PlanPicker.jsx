@@ -58,9 +58,8 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
             </span>
 
             <span className="sm:hidden">
-              {console.log('totalCostForPlan', totalCostForPlan - firstOrderSavingFormatted)}
               {totalCostForPlan &&
-                `$${formatPrice(
+                `$${parseInt(
                   totalCostForPlan - firstOrderSavingFormatted,
                 )}`}{' '}
               Subscribe & Save
