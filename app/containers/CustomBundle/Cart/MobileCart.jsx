@@ -76,7 +76,7 @@ export const MobileCart = () => {
           </div>
           <ProgressBar />
         </div>
-        <div className="flex-1 shrink overflow-y-auto mt-4 py-[6px] border-t border-solid border-[#d3d3d3]">
+        <div className="flex-1 shrink overflow-y-scroll mt-4 py-[6px] border-t border-solid border-[#d3d3d3]">
           <CartLines />
         </div>
         <div className="p-[5px] flex flex-col gap-[10px] [box-shadow:0_-3px_15px_-5px_#333]">
