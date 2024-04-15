@@ -5,8 +5,6 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { useLoaderData } from '@remix-run/react'
 
-import { cn } from '~/lib/utils'
-
 const swiperBreakpoints = {
   360: {
     slidesPerView: 3,
@@ -51,7 +49,7 @@ export const Featured = () => {
             </div>
           </div>
           <div className="flex-1 bg-white py-[22px] px-[10px] flex justify-center items-center text-[20px] rounded-b-[8px] font-bold tracking-normal">
-            {product.title}
+            <div className="truncate">{product.title}</div>
           </div>
         </div>
       </SwiperSlide>
@@ -59,29 +57,8 @@ export const Featured = () => {
   }
 
   return (
-    <section className="bg-[#222222] sm:pt-[176px] pt-[190px] sm:pb-[82px] pb-[61px] font-nunito">
-      <div className="flex flex-col items-center overflow-hidden container-1120 sm:block">
-        <div className="sm:flex justify-center mb-[44px]">
-          <div className="flex bg-[#222222] rounded-[6px] text-white sm:text-[14px] text-[13px] font-normal border-[3px] border-solid border-white">
-            <div className="flex gap-[3px] bg-white">
-              {collections.map((el, index) => (
-                <button
-                  key={index}
-                  disabled={el.id === collection.id}
-                  className={cn(
-                    'sm:px-[24px] px-[14px] py-[13px] uppercase tracking-[1px]',
-                    el.id === collection.id
-                      ? 'text-[#231B19] bg-white'
-                      : 'text-white bg-[#222222]',
-                  )}
-                  onClick={() => setCollection(el)}
-                >
-                  {el.title}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
+    <section className="bg-[#222222]  pt-[120px] sm:pt-[150px]  pb-[45px] sm:pb-[40px] font-nunito">
+      <div className="flex flex-col items-center overflow-hidden container-small sm:block">
         <div className="sm:w-auto w-[835px]">
           <Swiper
             loop

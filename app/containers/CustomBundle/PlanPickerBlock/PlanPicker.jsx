@@ -102,10 +102,10 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
         >
           <div className="mt-[4px] flex justify-between items-center sm:hidden">
             <p className="hidden lg:block text-black font-semibold text-[14px]">
-              Deliver Every
+              Select Frequency
             </p>
             <p className="lg:hidden block text-black font-semibold text-[14px]">
-              Select Frequency
+            Select Frequency
             </p>
             <div className="flex gap-2">
               <div
@@ -244,10 +244,10 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
             <span className="hidden sm:inline line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
               {total && `$${formatPrice(total)}`}
             </span>
-            <span className="sm:hidden">
+            <span className="sm:hidden text-[black]">
               {totalCostForPlan && `$${parseInt(totalCostForPlan)}`} One Time
             </span>
-            <span className="hidden sm:inline">
+            <span className="hidden sm:inline text-[black]">
               {totalCostForPlan && `$${formatPrice(totalCostForPlan)}`} One Time
             </span>
           </div>

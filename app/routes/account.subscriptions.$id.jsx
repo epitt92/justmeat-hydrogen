@@ -18,6 +18,7 @@ import { CustomBundle } from '~/containers/CustomBundle'
 import { RootContext } from '~/contexts'
 import { ALL_PRODUCTS_QUERY } from '~/graphql/Product'
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
+import { getFullId } from '~/lib/utils'
 
 export const meta = ({ data }) => {
   return [
@@ -115,8 +116,7 @@ export async function loader({ request, context, params }) {
   let subscriptionProducts = []
 
   for (const el of bundleItems) {
-    const idsSubscriptionItems = el.external_product_id
-    const subscriptionId = `gid://shopify/Product/${idsSubscriptionItems}`
+    const subscriptionId = getFullId(el.external_product_id, 'Product')
     idsSubscriptions.push(subscriptionId)
     subscriptionData[subscriptionId] = el.quantity
   }
@@ -144,10 +144,12 @@ export async function loader({ request, context, params }) {
   }
 
   const bonusItemInBundle = bundleItems.find(
-    (el) =>
-      `gid://shopify/Product/${el.external_product_id}` === bonusProduct.id,
+    (el) => getFullId(el.external_product_id, 'Product') === bonusProduct.id,
   )
-  const bonusItemVariantId = `gid://shopify/ProductVariant/${bonusItemInBundle?.external_variant_id}`
+  const bonusItemVariantId = getFullId(
+    bonusItemInBundle?.external_variant_id,
+    'ProductVariant',
+  )
   const subscriptionBonusVariant = bonusItemInBundle
     ? bonusProduct.variants.nodes.find((el) => el.id === bonusItemVariantId)
     : null

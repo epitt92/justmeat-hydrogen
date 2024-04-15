@@ -1,15 +1,12 @@
 import { getPaginationVariables } from '@shopify/hydrogen'
 import { json } from '@shopify/remix-oxygen'
 
-import { Banner } from '~/containers/MayhemMadness/Banner'
-import { ChefCook } from '~/containers/MayhemMadness/ChefCook'
-import { Featured } from '~/containers/MayhemMadness/Featured'
-import { FirstContact } from '~/containers/MayhemMadness/FirstContact'
-import { FirstInfo } from '~/containers/MayhemMadness/FirstInfo'
-import { HowItWorks } from '~/containers/MayhemMadness/HowItWorks'
-import { Reviews } from '~/containers/MayhemMadness/Reviews'
-import { SecondContact } from '~/containers/MayhemMadness/SecondContact'
-import { SecondInfo } from '~/containers/MayhemMadness/SecondInfo'
+import { Banner } from '~/containers/RichFroning/Banner'
+import { CustomerReviews } from '~/containers/RichFroning/CustomerReviews'
+import { DoMeatRight } from '~/containers/RichFroning/DoMeatRight'
+import { Featured } from '~/containers/RichFroning/Featured'
+import { HowItWorks } from '~/containers/RichFroning/HowItWorks'
+import { LearnMore } from '~/containers/RichFroning/LearnMore'
 import { COLLECTIONS_QUERY } from '~/graphql/Collection'
 
 export async function loader({ request, context }) {
@@ -33,18 +30,15 @@ export async function loader({ request, context }) {
   return json({ collections })
 }
 
-export default function MayhemMadness() {
+export default function RichFroning() {
   return (
     <main className="relative font-dunbar tracking-[1px] leading-1 text-[#231B19]">
       <Banner />
       <Featured />
-      <FirstContact />
-      <FirstInfo />
-      <SecondInfo />
-      <SecondContact />
-      <ChefCook />
       <HowItWorks />
-      <Reviews />
+      <LearnMore />
+      <CustomerReviews />
+      <DoMeatRight />
     </main>
   )
 }

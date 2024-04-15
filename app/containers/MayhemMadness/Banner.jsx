@@ -6,11 +6,11 @@ export const Banner = () => {
     <section className="relative">
       <div className="banner bg-cover sm:h-[calc(100vh-120px)] h-[820px]"></div>
       <div className="absolute top-0 left-0 w-full h-full">
-        <div className="relative h-full container-1120">
+        <div className="relative h-full container-small">
           <div className="relative h-full">
             <div className="sm:h-[40px] h-[15px]"></div>
             <div className="flex flex-col-reverse sm:flex-col sm:gap-[66px] gap-0">
-              <div className="w-[340px] sm:w-[663px]">
+              <div className="w-[340px] sm:w-[663px] lg:w-[550px] h-[240px]">
                 <MayhemNation />
               </div>
               <div className="">
@@ -24,7 +24,7 @@ export const Banner = () => {
                 </div>
               </div>
             </div>
-            <div className="absolute sm:w-auto w-[400px] sm:right-[100px] sm:translate-x-0 -translate-x-1/2 left-1/2 sm:bottom-[60px] bottom-[60px]">
+            <div className="absolute sm:w-auto w-[400px] sm:right-[100px] sm:translate-x-0 -translate-x-1/2 left-1/2 sm:bottom-[60px] bottom-[120px]">
               <img src={BannerCharacter} />
             </div>
             <div

@@ -16,7 +16,7 @@ import {
   useMatches,
   useRouteError,
 } from '@remix-run/react'
-import { Script, useNonce } from '@shopify/hydrogen'
+import { useNonce } from '@shopify/hydrogen'
 import { defer } from '@shopify/remix-oxygen'
 
 import favicon from '~/assets/logo.svg'
@@ -112,9 +112,17 @@ const externalScripts = [
   'https://cdn.reamaze.com/assets/reamaze.js',
 ]
 
+const newLayoutRoutes = ['mayhem-madness', 'rich-froning']
+
 export default function App() {
   const nonce = useNonce()
   const data = useLoaderData()
+
+  // Quick PATCH
+  const matches = useMatches()
+  const { pathname } = matches.at(-1)
+  const route = pathname.split('/')[1]
+  const isNewLayout = newLayoutRoutes.includes(route)
 
   const [cartSellingPlan, _setCartSellingPlan] = useState(
     'Delivery every 15 Days',
@@ -237,6 +245,7 @@ export default function App() {
         setSubscriptionProducts,
         setSubscriptionSellingPlanFrequency,
         setSubscriptionBonusVariant,
+        isNewLayout,
       }}
     >
       <html lang="en">

@@ -6,6 +6,7 @@ import Notification from '~/components/Notification'
 import { CustomBundle } from '~/containers/CustomBundle'
 import { COLLECTION_QUERY } from '~/graphql/Collection'
 import { ALL_PRODUCTS_QUERY, PRODUCT_BY_HANDLER_QUERY } from '~/graphql/Product'
+import { getFullId, getPureId } from '~/lib/utils'
 
 const bundleCollectionHandler = 'all-products'
 const freeProductHandler = 'raspberry-bbq-chicken-breast'
@@ -56,7 +57,7 @@ export async function loader({ request, context }) {
 }
 
 export async function action({ request, context }) {
-  const _cart = context.cart
+  let _cart = context.cart
   const storefront = context.storefront
   const discountCode = context.session.get('discountCode')
   const variables = getPaginationVariables(request, { pageBy: 1 })
@@ -90,14 +91,12 @@ export async function action({ request, context }) {
   const products = data.products
   const sellingPlanName = data.sellingPlanName
 
-  const bundleCollectionId = bundleCollection.id.split(
-    'gid://shopify/Collection/',
-  )[1]
-  const bundleProductExternalProductId = bundleProduct.id.split(
-    'gid://shopify/Product/',
-  )[1]
-  const bundleProductExternalVariantId =
-    bundleProduct.variants.nodes[0].id.split('gid://shopify/ProductVariant/')[1]
+  const bundleCollectionId = getPureId(bundleCollection.id, 'Collection')
+  const bundleProductExternalProductId = getPureId(bundleProduct.id, 'Product')
+  const bundleProductExternalVariantId = getPureId(
+    bundleProduct.variants.nodes[0].id,
+    'ProductVariant',
+  )
 
   let cartData
 
@@ -106,21 +105,31 @@ export async function action({ request, context }) {
       externalProductId: bundleProductExternalProductId,
       externalVariantId: bundleProductExternalVariantId,
 
-      selections: products.map((product) => ({
-        collectionId: bundleCollectionId,
-        externalProductId: product.id.split('gid://shopify/Product/')[1],
-        externalVariantId: product.variants.nodes[0].id.split(
-          'gid://shopify/ProductVariant/',
-        )[1],
-        quantity: product.quantity,
-        sellingPlan: Number(
-          product.sellingPlanGroups.edges
-            .find((edge) => edge.node.name === sellingPlanName)
-            .node.sellingPlans.edges[0].node.id.split(
-              'gid://shopify/SellingPlan/',
-            )[1],
-        ),
-      })),
+      selections: products.map((product) => {
+        const collectionId = bundleCollectionId
+        const externalProductId = getPureId(product.id, 'Product')
+        const externalVariantId = getPureId(
+          product.variants.nodes[0].id,
+          'ProductVariant',
+        )
+        const quantity = product.quantity
+        const sellingPlan = Number(
+          getPureId(
+            product.sellingPlanGroups.edges.find(
+              (edge) => edge.node.name === sellingPlanName,
+            ).node.sellingPlans.edges[0].node.id,
+            'SellingPlan',
+          ),
+        )
+
+        return {
+          collectionId,
+          externalProductId,
+          externalVariantId,
+          quantity,
+          sellingPlan,
+        }
+      }),
     }
 
     const bundleItems = await getDynamicBundleItems(
@@ -130,8 +139,8 @@ export async function action({ request, context }) {
 
     cartData = bundleItems.map((bundleItem) => ({
       quantity: bundleItem.quantity,
-      merchandiseId: `gid://shopify/ProductVariant/${bundleItem.id}`,
-      sellingPlanId: `gid://shopify/SellingPlan/${bundleItem.selling_plan}`,
+      merchandiseId: getFullId(bundleItem.id, 'ProductVariant'),
+      sellingPlanId: getFullId(bundleItem.selling_plan, 'SellingPlan'),
       attributes: Object.keys(bundleItem.properties).map((key) => {
         return { key, value: String(bundleItem.properties[key]) }
       }),

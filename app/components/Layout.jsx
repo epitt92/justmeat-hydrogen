@@ -1,10 +1,12 @@
-import { Suspense, useState } from 'react'
+import { Suspense, useContext, useState } from 'react'
 
-import { Await, useMatches } from '@remix-run/react'
+import { Await } from '@remix-run/react'
 
 import { Footer } from '~/components/Footer'
 import { Header } from '~/components/Header'
-import { LayoutContext } from '~/contexts'
+import { Footer as NewFooter } from '~/components/NewFooter'
+import { Header as NewHeader } from '~/components/NewHeader'
+import { LayoutContext, RootContext } from '~/contexts'
 
 import { MobileMenuAside } from './MobileMenuAside'
 import OrderHeader from './OrderHeader'
@@ -18,36 +20,42 @@ export function Layout({
   isProductPage,
 }) {
   const [menuToggle, setMenuToggle] = useState(false)
+  const { isNewLayout } = useContext(RootContext)
 
-  // Quick PATCH
-  const matches = useMatches()
-  const { pathname } = matches.at(-1)
-  const route = pathname.split('/')[1]
-  const noLayoutRoutes = ['mayhem-madness']
-  const isLayout = !noLayoutRoutes.includes(route)
-
-  if (isLayout)
+  if (isNewLayout)
     return (
       <LayoutContext.Provider value={{ menuToggle, setMenuToggle }}>
-        {isProductPage ? (
-          <OrderHeader />
-        ) : (
-          <>
-            {header && (
-              <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />
-            )}
-            <div>{isProductPage}</div>
-          </>
-        )}
+        <NewHeader header={header} cart={cart} isLoggedIn={isLoggedIn} />
+
         <MobileMenuAside menu={header?.menu} shop={header?.shop} />
-        <main>{children}</main>
+        {children}
         <Suspense>
           <Await resolve={footer}>
-            {(footer) => <Footer menu={footer?.menu} shop={header?.shop} />}
+            {(footer) => <NewFooter menu={footer?.menu} shop={header?.shop} />}
           </Await>
         </Suspense>
       </LayoutContext.Provider>
     )
 
-  return children
+  return (
+    <LayoutContext.Provider value={{ menuToggle, setMenuToggle }}>
+      {isProductPage ? (
+        <OrderHeader />
+      ) : (
+        <>
+          {header && (
+            <Header header={header} cart={cart} isLoggedIn={isLoggedIn} />
+          )}
+          <div>{isProductPage}</div>
+        </>
+      )}
+      <MobileMenuAside menu={header?.menu} shop={header?.shop} />
+      <main>{children}</main>
+      <Suspense>
+        <Await resolve={footer}>
+          {(footer) => <Footer menu={footer?.menu} shop={header?.shop} />}
+        </Await>
+      </Suspense>
+    </LayoutContext.Provider>
+  )
 }

@@ -11,9 +11,9 @@ export const FirstInfo = () => {
   return (
     <section className="bg-[#efeeed] overflow-x-hidden">
       <div className="bg-[#222222] sm:pb-[100px] pb-[66px]">
-        <div className="relative container-1120">
+        <div className="relative container-small">
           <div className="flex justify-center sm:mb-[6px]">
-            <div className="sm:w-[512px] sm:text-[14px] text-[12px] font-normal text-[#E47A0F] tracking-[3px]">
+            <div className="sm:w-[512px] sm:text-[14px] pt-5 text-[12px] font-normal text-[#E47A0F] tracking-[3px]">
               LEARN HOW YOU CAN EARN ANYWHERE FROM{' '}
               <span className="text-white">$5K - $10K</span> IN ADDITIONAL
               REVENUE IN AS LITTLE AS 3 MONTHS!
@@ -31,7 +31,7 @@ export const FirstInfo = () => {
             src={skillet}
           />
         </div>
-        <div className="relative container-1120">
+        <div className="relative container-small">
           <div className="w-full grid sm:grid-cols-4 grid-cols-2 sm:gap-[20px] gap-[12px]">
             <div
               className="aspect-[23/25] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[18px] pt-[12px] sm:pb-[50px] pb-[30px]"
@@ -101,7 +101,7 @@ export const FirstInfo = () => {
         </div>
       </div>
       <div className="sm:pt-[98px] pt-[62px]">
-        <div className="container-1120">
+        <div className="container-small">
           <div className="sm:text-[36px] text-[24px] font-bold tracking-[2px] text-center sm:mb-[100px] mb-[52px]">
             <div>A SUCCESFUL GYM...</div>
             <div>IS DETERMINED BY THE RESULTS IT DELIVERS ITS MEMBERS</div>

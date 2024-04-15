@@ -328,11 +328,19 @@ button.free-gift-label {
   @apply sm:!hidden !block;
 }
 
+.how-it-works-slider.mobile .swiper-pagination > span:last-child {
+  @apply hidden;
+}
+
+.rich-froning-banner-slider .swiper-pagination-bullet {
+  @apply !bg-white w-[12px] h-[12px];
+}
+
 .bg-us-flag {
   background-image: url('../assets/images/bg-us-flag.png');
 }
 
-.container-1120 {
+.container-small {
   @apply w-full max-w-[1120px] mx-auto my-0 px-[20px] py-0;
 }
 
@@ -406,6 +414,7 @@ button.free-gift-label {
 .bg-house {
   background-image: url('../assets/images/orderpage_bg.png');
 }
+
 /* Custom scrollbar styles for cart_lines_scrollbar */
 .cart_lines_scrollbar::-webkit-scrollbar {
   width: 8px;
@@ -420,5 +429,29 @@ button.free-gift-label {
 .cart_lines_scrollbar::-webkit-scrollbar-thumb {
   background-color: #1c7084;
   
+}
+
+.bg-rich-froning-banner {
+  background-image: url('../assets/images/rich-froning-banner.png');
+}
+
+.bg-yellow-pattern {
+  background-image: url('../assets/images/7e0c002b6aef76e3311b714b92b70294.jpg');
+}
+
+.bg-JustMeatsPartnershipsWithRichFroningImage {
+  background-image: url('../assets/images/d846c1f67f55ccfe07c25f1c0124d640.jpg');
+}
+
+.bg-rich-froning-learn-more {
+  background-image: url('../assets/images/46d7bfd1d15cd6fcf26b387428b1a213.png');
+}
+
+.bg-rich-froning-learn-more-lightPattern1 {
+  background-image: url('../assets/images/lightPattern1.png');
+}
+
+.bg-lower-footer {
+  background-image: url('../assets/images/lower-footer1.png');
 }
 
