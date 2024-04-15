@@ -93,7 +93,7 @@ export const PlanPickerBlock = () => {
         <h2 className="font-bold text-[28px] hidden lg:block">
           GET YOUR MEATS NOW
         </h2>
-        <p className="italic text-center text-black text-[14px] sm:text-[20px]">
+        <p className="italic text-center text-black text-[14px] sm:text-[20px] font-bold">
           We guarantee you&apos;ll love it or your money back !
         </p>
         <div className="flex pt-2 min-h-[30px] sm:min-h-[auto] font-semibold">
