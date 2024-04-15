@@ -105,7 +105,7 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
               Deliver Every
             </p>
             <p className="lg:hidden block text-black font-semibold text-[14px]">
-              Select Frequency
+            Deliver Every
             </p>
             <div className="flex gap-2">
               <div
