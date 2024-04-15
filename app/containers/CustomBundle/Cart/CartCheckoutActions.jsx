@@ -16,7 +16,7 @@ export function CartCheckoutActions() {
             onClick={handleSubmit}
             className="bg-[#425b34] text-[15px] py-[15px] font-semibold text-white px-1"
           >
-            {isCartPage ? 'Continue to Checkout' : 'Update Changes'}
+            {isCartPage ? 'Continue To Checkout' : 'Update Changes'}
           </Button>
         </div>
       ) : (
@@ -25,7 +25,7 @@ export function CartCheckoutActions() {
             disabled
             className=" text-[15px] text-center py-[15px] font-semibold text-white"
           >
-            Spend $75 to Continue
+            Spend $75 To Continue
           </Button>
         </div>
       )}
