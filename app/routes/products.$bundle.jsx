@@ -1,16 +1,9 @@
 import { getDynamicBundleItems } from '@rechargeapps/storefront-client'
-import { getPaginationVariables } from '@shopify/hydrogen'
 import { json } from '@shopify/remix-oxygen'
 
 import Notification from '~/components/Notification'
 import { CustomBundle } from '~/containers/CustomBundle'
-import { COLLECTION_QUERY } from '~/graphql/Collection'
-import { PRODUCT_BY_HANDLE_QUERY } from '~/graphql/Product'
-import {
-  bundleCollectionHandle,
-  bundleProductHandle,
-  getBundle,
-} from '~/lib/storefront'
+import { getBundle } from '~/lib/storefront'
 import { getFullId, getPureId } from '~/lib/utils'
 
 export async function loader({ request, context }) {
@@ -33,41 +26,18 @@ export async function loader({ request, context }) {
 }
 
 export async function action({ request, context }) {
-  let _cart = context.cart
+  const _cart = context.cart
   const storefront = context.storefront
   const discountCode = context.session.get('discountCode')
-  const variables = getPaginationVariables(request, { pageBy: 1 })
 
-  const { collection: bundleCollection } = await storefront.query(
-    COLLECTION_QUERY,
-    {
-      variables: {
-        ...variables,
-        handle: bundleCollectionHandle,
-        country: storefront.i18n.country,
-        language: storefront.i18n.language,
-      },
-    },
-  )
-
-  const { product: bundleProduct } = await storefront.query(
-    PRODUCT_BY_HANDLE_QUERY,
-    {
-      variables: {
-        ...variables,
-        handle: bundleProductHandle,
-        country: storefront.i18n.country,
-        language: storefront.i18n.language,
-      },
-    },
-  )
+  const { collection, bundleProduct } = await getBundle({ storefront, request })
 
   const form = await request.formData()
   const data = JSON.parse(form.get('body'))
   const products = data.products
   const sellingPlanName = data.sellingPlanName
 
-  const bundleCollectionId = getPureId(bundleCollection.id, 'Collection')
+  const bundleCollectionId = getPureId(collection.id, 'Collection')
   const bundleProductExternalProductId = getPureId(bundleProduct.id, 'Product')
   const bundleProductExternalVariantId = getPureId(
     bundleProduct.variants.nodes[0].id,

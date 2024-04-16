@@ -16,11 +16,9 @@ import { json, redirect } from '@shopify/remix-oxygen'
 import { SubscriptionEditLayout } from '~/containers/Account/Subscriptions/Edit/Layout'
 import { CustomBundle } from '~/containers/CustomBundle'
 import { RootContext } from '~/contexts'
-import { COLLECTION_QUERY } from '~/graphql/Collection'
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
 import {
   bonusProductHandle,
-  bundleCollectionHandle,
   freeProductHandle,
   getBundle,
 } from '~/lib/storefront'
@@ -172,19 +170,9 @@ export async function action({ request, context, params }) {
       const products = data.products
       const variables = getPaginationVariables(request, { pageBy: 1 })
 
-      const { collection: bundleCollection } = await storefront.query(
-        COLLECTION_QUERY,
-        {
-          variables: {
-            ...variables,
-            handle: bundleCollectionHandle,
-            country: storefront.i18n.country,
-            language: storefront.i18n.language,
-          },
-        },
-      )
+      const { collection } = await getBundle({ storefront, request })
 
-      const bundleCollectionId = getPureId(bundleCollection.id, 'Collection')
+      const bundleCollectionId = getPureId(collection.id, 'Collection')
 
       const items = products.map((product) => ({
         collection_id: bundleCollectionId,
