@@ -1,11 +1,8 @@
-import React, { useContext } from 'react'
-
 import { useLoaderData } from '@remix-run/react'
-
-import { CustomBundleContext } from '~/contexts'
-import { CheckBox } from '~/icons/CheckBox'
+import React, { useContext, useEffect } from 'react'
 import { cn, formatPrice } from '~/lib/utils'
-
+import { CustomBundleContext, RootContext } from '~/contexts'
+import { CheckBox } from '~/icons/CheckBox'
 import { PROMO_CODES } from '../../../promo-codes'
 
 export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
@@ -16,6 +13,10 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
     setSellingPlanFrequency,
     totalCost,
   } = useContext(CustomBundleContext)
+
+  const {
+    setCartProducts
+  } = useContext(RootContext)
 
   const { discountCodes } = useLoaderData()
 
@@ -28,6 +29,27 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
     influencerCode.length > 0 ? parseFloat(influencerCode[0].percentage) : 25
 
   const firstOrderSavingFormatted = (firstOrderSavingNumber / 100) * totalCostForPlan;
+
+  const planCartUpdate = () => {
+    let planCheck = localStorage.getItem("_cartSellingPlan");
+    let cartData = localStorage.getItem("_cartProducts");
+    if (planCheck && cartData) {
+      if (planCheck === `"Delivery every 15 Days"` || planCheck === `"Delivery every 30 Days"`) {
+        console.log("on plan");
+      } else if (planCheck === `""`) {
+        cartData = JSON.parse(localStorage.getItem("_cartProducts"));
+        const filteredProducts = cartData.filter(product => 
+          product.id !== "gid://shopify/Product/8249959186658" &&
+          product.id !== "gid://shopify/Product/8380892872930"
+        );
+        setCartProducts(filteredProducts);
+      }
+    }
+  };
+
+  useEffect(() => {
+    planCartUpdate();
+  }, []);
 
   return (
     <div className="flex gap-2 flex-col lg:flex-row w-[100%] lg:!max-w-[760px]">
@@ -44,12 +66,11 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
         </p>
         <div
           className={`${
-            sellingPlan
-              ? 'bg-white sm:bg-[#862E1B] text-black sm:text-[#fff]'
-              : 'border-[#eaeaea] text-[#1d1d1d] sm:hover:text-[#fff]'
-          } p-[7px] sm:p-[10px] border-[3px] border-solid flex gap-6 border-[#425B34] sm:border-[#862E1B] sm:hover:bg-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px]`}
+            sellingPlan ? 'bg-white sm:bg-[#862E1B]' : 'border-[#eaeaea]'
+          } p-[7px] sm:p-[10px] border-[3px] border-solid flex gap-6 border-[#425B34] sm:border-[#862E1B] sm:hover:bg-[#862E1B] sm:hover:!text-[#fff] cursor-pointer rounded-[14px] sm:rounded-[0px] plan-change-button`}
           onClick={() => {
-            setSellingPlan(sellingPlanFrequency)
+            setSellingPlan(sellingPlanFrequency);
+            planCartUpdate();
           }}
         >
           <div
@@ -232,9 +253,10 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
             !sellingPlan
               ? 'bg-white sm:bg-[#862E1B] border-[#425B34]'
               : 'border-[#eaeaea]'
-          }  border-[3px] border-solid flex justify-center sm:justify-start gap-6 sm:border-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px] subscriptionlabel sm:mt-[28px] mt-0`}
+          }  border-[3px] border-solid flex justify-center sm:justify-start gap-6 sm:border-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px] subscriptionlabel sm:mt-[28px] mt-0 plan-change-button`}
           onClick={() => {
-            setSellingPlan('')
+            setSellingPlan('');
+            planCartUpdate();
           }}
         >
           <div
