@@ -2,7 +2,7 @@ export const SecondInfo = () => (
   <section className="bg-[#efeeed]">
     <div className="sm:h-[614px] grid sm:grid-cols-2 grid-cols-1 sm:mb-0 mb-[70px]">
       <div className="bg-second-info-image-1 sm:h-auto h-[316px] sm:mb-0 mb-[62px] bg-cover rounded-tr-[8px] overflow-hidden sm:mr-0 mr-[20px]"></div>
-      <div className="max-w-[540px] w-full sm:px-0 sm:pl-[79px] px-[20px] flex justify-center items-center">
+      <div className="max-w-[540px] w-full sm:px-0 sm:pl-[79px] sm:pr-[20px] px-[20px] flex justify-center items-center">
         <div>
           <div className="sm:text-[36px] text-[24px] font-bold tracking-[1px] text-[#231B19] sm:mb-[12px] mb-[7px]">
             THE PROBLEM
@@ -49,7 +49,7 @@ export const SecondInfo = () => (
     </div>
     <div className="sm:h-[614px] grid sm:grid-cols-2 grid-cols-1">
       <div className="flex justify-end">
-        <div className="max-w-[540px] w-full sm:px-0 sm:pr-[73px] px-[20px] flex justify-center items-center">
+        <div className="max-w-[540px] w-full sm:px-0 sm:pr-[73px] sm:pl-[20px] px-[20px] flex justify-center items-center">
           <div>
             <div className="sm:text-[36px] text-[24px] font-bold tracking-[1px] text-[#231B19] sm:mb-[12px] mb-[7px]">
               THE JUST MEATS SOLUTION
