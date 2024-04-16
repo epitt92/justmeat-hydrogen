@@ -12,17 +12,17 @@ export const SecondContact = () => {
           className="flex flex-col items-center bg-brown-pattern text-white sm:py-[45px] py-[22px] sm:rounded-[8px] rounded-[6px]"
           style={{ boxShadow: '0px 32px 43px -8px rgba(0, 0, 0, 0.20)' }}
         >
-          <div className="text-[14px] text-center sm:text-left tracking-[3px] leading-[23px] text-[#ccbdb1]">
+          <div className="text-[10px] sm:text-[12px] tracking-[2px] text-center sm:text-left sm:tracking-[3px] leading-[23px] text-[#ccbdb1]">
             PRE COOKED RESTAURANT QUALITY MEATS
           </div>
-          <div className="sm:flex sm:text-[36px] sm:text-left text-center text-[24px] font-bold sm:mb-[4px] mb-[3px] leading-tight">
+          <div className="sm:flex sm:text-[24px] md:text-[36px] sm:text-left text-center text-[18px] font-bold sm:mb-[4px] mb-[3px] leading-tight">
             AT GROCERY STORE PRICES
           </div>
         </div>
       </div>
       <img
         src={justmeatsBoxPart}
-        className="absolute sm:w-auto w-[100px] sm:top-[-180px] top-[-4px] sm:left-0 left-[-25px]"
+        className="absolute w-[100px] top-[-4px] left-[-25px] sm:w-[150px] sm:top-[-8px]  sm:left-[-25px] lg:w-auto lg:top-[-180px] lg:left-[-50px] xl:left-0"
       />
       <div className="container-small sm:pt-[104px] pt-[62px]">
         <div className="grid sm:grid-cols-2 grid-cols-1 sm:gap-[55px] gap-[70px] items-end">
