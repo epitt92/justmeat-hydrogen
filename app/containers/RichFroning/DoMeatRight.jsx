@@ -9,7 +9,7 @@ export const DoMeatRight = () => {
     <section className="bg-[#efeeed] sm:pt-[10px]  sm:pb-[25px]  pb-[32px] relative">
       <div className="container-1120 z-50 relative w-[90%] sm:w-[80%] mx-auto">
         <div
-          className="flex flex-col items-center bg-brown-pattern z-50 text-white sm:py-[45px] py-[22px] sm:rounded-[8px] rounded-[6px]"
+          className="flex flex-col items-center bg-brown-pattern z-50 text-white sm:py-[45px] py-[22px] rounded-[8px]"
           style={{ boxShadow: '0px 32px 43px -8px rgba(0, 0, 0, 0.20)' }}
         >
           <div className="font-dunbar text-[14px] font-medium text-center sm:text-left tracking-[2.8px] leading-[23px] uppercase text-[#CCBDB1]">
@@ -28,14 +28,14 @@ export const DoMeatRight = () => {
       </div>
       <img
         src={BuffaloIllustration}
-        className="absolute z-10 sm:w-auto w-[100px] top-[-427px]  left-0 "
+        className="absolute top-[30%] scale-150 -left-[50px] sm:scale-100 z-10 sm:w-auto w-2/5 sm:top-[-427px]  sm:left-0 "
       />
       <img
         src={TrayPhoto}
-        className="absolute z-10 sm:w-auto w-[250px] sm:top-[-122px] top-[-150px] right-0 "
+        className="absolute z-10 sm:w-auto w-[250px] sm:top-[-122px] top-[-150px] sm:scale-100 sm:right-0 -right-[15%] scale-125 "
       />
     <div className='relative z-50 pt-12'>
-        <div className='font-dunbar uppercase mt-8 pb-8 text-[24px] sm:text-[36px] text-center  font-bold sm:mb-[4px] mb-[3px] leading-normal tracking-[1.8px]'>YOU ASK. WE ANSWER.</div>
+        <div className='font-dunbar uppercase sm:mt-8 mt-2 pb-8 text-[24px] sm:text-[36px] text-center  font-bold sm:mb-[4px] mb-[3px] leading-normal tracking-[1.8px]'>YOU ASK. WE ANSWER.</div>
         <div className="relative z-50 w-[90%] sm:w-[50%] mx-auto pb-4  sm:pb-20">
               <FaqAccordion />
 
