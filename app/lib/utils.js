@@ -13,6 +13,18 @@ export function formatPrice(price) {
   }
 }
 
+export function formatPriceWithRoundOf(price) {
+  if (Number.isInteger(price)) {
+    return price.toString();
+  } else {
+    const roundedPrice = Math.ceil(price * 100) / 100;
+    const roundedInteger = Math.round(roundedPrice);
+    return roundedInteger.toString();
+  }
+}
+
+
+
 export function addScriptToHead(src) {
   const script = document.createElement('script')
   script.async = true

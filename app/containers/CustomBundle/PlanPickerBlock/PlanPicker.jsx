@@ -1,6 +1,6 @@
 import { useLoaderData } from '@remix-run/react'
 import React, { useContext, useEffect } from 'react'
-import { cn, formatPrice } from '~/lib/utils'
+import { cn, formatPrice, formatPriceWithRoundOf } from '~/lib/utils'
 import { CustomBundleContext, RootContext } from '~/contexts'
 import { CheckBox } from '~/icons/CheckBox'
 import { PROMO_CODES } from '../../../promo-codes'
@@ -34,8 +34,8 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
     let planCheck = localStorage.getItem("_cartSellingPlan");
     let cartData = localStorage.getItem("_cartProducts");
     if (planCheck && cartData) {
+      // eslint-disable-next-line no-empty
       if (planCheck === `"Delivery every 15 Days"` || planCheck === `"Delivery every 30 Days"`) {
-        console.log("on plan");
       } else if (planCheck === `""`) {
         cartData = JSON.parse(localStorage.getItem("_cartProducts"));
         const filteredProducts = cartData.filter(product => 
@@ -272,7 +272,7 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
               {total > freeTag ? `$${formatPrice(total)}` : ''}
             </span>
             <span className="sm:hidden">
-              {totalCostForPlan ? `$${parseInt(totalCostForPlan)}` : ''} One
+              {totalCostForPlan ? `$${formatPriceWithRoundOf(totalCostForPlan)}` : ''} One
               Time
             </span>
             <span className="hidden sm:inline">

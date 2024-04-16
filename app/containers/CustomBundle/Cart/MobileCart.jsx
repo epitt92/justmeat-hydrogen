@@ -4,7 +4,7 @@ import { useLoaderData } from '@remix-run/react'
 
 import { Button } from '~/components/Button'
 import { CustomBundleContext } from '~/contexts'
-import { cn, formatPrice } from '~/lib/utils'
+import { cn, formatPrice, formatPriceWithRoundOf } from '~/lib/utils'
 
 import { PlanPicker } from '../PlanPickerBlock/PlanPicker'
 import { CartLines } from './CartLines'
@@ -100,7 +100,7 @@ const firstOrderSavingFormatted = (firstOrderSavingNumber / 100) * totalCost;
           >
             {isCheckoutable
               ? isCartPage
-                ? sellingPlan ? `Checkout - $${parseInt(totalCost - firstOrderSavingFormatted)} `:`Checkout - $${parseInt(totalCost)} `
+                ? sellingPlan ? `Checkout - $${formatPriceWithRoundOf(totalCost - firstOrderSavingFormatted)} `:`Checkout - $${formatPriceWithRoundOf(totalCost)} `
                 : 'Update Changes'
               : `Checkout - $${parseInt(totalCost)} (Add $75 to Unlock)`}
           </Button>
