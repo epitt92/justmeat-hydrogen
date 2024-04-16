@@ -10,7 +10,6 @@ import {
   updateSubscriptionChargeDate,
 } from '@rechargeapps/storefront-client'
 import { useLoaderData } from '@remix-run/react'
-import { getPaginationVariables } from '@shopify/hydrogen'
 import { json, redirect } from '@shopify/remix-oxygen'
 
 import { SubscriptionEditLayout } from '~/containers/Account/Subscriptions/Edit/Layout'
@@ -168,7 +167,6 @@ export async function action({ request, context, params }) {
       const bundleId = data.bundleId
       const purchase_item_id = data.purchase_item_id
       const products = data.products
-      const variables = getPaginationVariables(request, { pageBy: 1 })
 
       const { collection } = await getBundle({ storefront, request })
 
