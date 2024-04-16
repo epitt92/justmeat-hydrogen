@@ -60,7 +60,7 @@ const mobileImage =
         src={mobileImage}
         height={100}
         loading="lazy"
-        className={`block sm:hidden w-full sm:w-[72px] ${lineType === 'locked' ? 'opacity-[.22]' : 'opacity-[1]'}`}
+        className={`block sm:hidden w-[111px] h-[169px] mb-3 sm:w-[72px] ${lineType === 'locked' ? 'opacity-[.22]' : 'opacity-[1]'}`}
       />
 
       <div className="flex flex-1 flex-col sm:flex-row pr-[0px] justify-between items-center">
@@ -110,17 +110,17 @@ const mobileImage =
           {lineType === 'bonus' && <LockedItem />}
           {lineType === 'free' && (
             <>
-              <span className="sm:hidden text-black text-sm -mt-15 pb-10 font-roboto font-semibold absolute -top-[15px]">
+              <span className="sm:hidden text-black text-sm -mt-15 pb-10 font-roboto font-semibold absolute -top-[24px]">
                 Free
               </span>
-              <button className="sm:hidden w-full bg-[#1b7084] mt-[6px] text-white px-[10px] py-[9px] text-[12px] font-['Roboto']">
+              <button className="sm:hidden w-full bg-[#1b7084] mt-[0px] text-white px-[10px] pt-[4px] min-h-[36px] text-[12px] font-['Roboto']">
                 First Order Gift
               </button>
             </>
           )}
           {lineType === 'locked' && (
             <>
-              <button className="sm:hidden w-full bg-[#EEEDED] mt-[6px] text-black px-[0px] py-[0px] text-[11px] font-['Roboto'] font-bold">
+              <button className="sm:hidden w-full bg-[#EEEDED] mt-[3px] text-black px-[0px] py-[0px] text-[11px] font-['Roboto'] font-bold">
                 Free Bonus Meat (unlocked at $125)
               </button>
             </>
