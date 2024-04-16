@@ -1,17 +1,10 @@
 import { getDynamicBundleItems } from '@rechargeapps/storefront-client'
-import { getPaginationVariables } from '@shopify/hydrogen'
 import { json } from '@shopify/remix-oxygen'
 
 import Notification from '~/components/Notification'
 import { CustomBundle } from '~/containers/CustomBundle'
-import { COLLECTION_QUERY } from '~/graphql/Collection'
-import { ALL_PRODUCTS_QUERY, PRODUCT_BY_HANDLER_QUERY } from '~/graphql/Product'
+import { getBundle } from '~/lib/storefront'
 import { getFullId, getPureId } from '~/lib/utils'
-
-const bundleCollectionHandler = 'all-products'
-const freeProductHandler = 'raspberry-bbq-chicken-breast'
-const bonusProductHandler = 'free-meat-unlocked-at-125'
-const bundleProductHandler = 'custom-bundle'
 
 export async function loader({ request, context }) {
   const { storefront } = context
@@ -19,34 +12,10 @@ export async function loader({ request, context }) {
   const discountCode = context.session.get('discountCode')
   const discountCodes = discountCode ? [discountCode] : []
 
-  const variables = getPaginationVariables(request, { pageBy: 50 })
-
-  const {
-    products: { nodes: allProducts },
-  } = await storefront.query(ALL_PRODUCTS_QUERY, {
-    variables: {
-      ...variables,
-      country: storefront.i18n.country,
-      language: storefront.i18n.language,
-    },
+  const { products, freeProduct, bonusProduct } = await getBundle({
+    storefront,
+    request,
   })
-
-  const freeProduct = allProducts.find(
-    (product) => product.handle === freeProductHandler,
-  )
-  const bonusProduct = allProducts.find(
-    (product) => product.handle === bonusProductHandler,
-  )
-
-  const products = allProducts
-    .filter((product) =>
-      product.collections.edges.some(
-        (collection) => collection.node.handle === bundleCollectionHandler,
-      ),
-    )
-    .filter(
-      (product) => Number(product.priceRange.minVariantPrice.amount) !== 0,
-    )
 
   return json({
     products,
@@ -57,41 +26,18 @@ export async function loader({ request, context }) {
 }
 
 export async function action({ request, context }) {
-  let _cart = context.cart
+  const _cart = context.cart
   const storefront = context.storefront
   const discountCode = context.session.get('discountCode')
-  const variables = getPaginationVariables(request, { pageBy: 1 })
 
-  const { collection: bundleCollection } = await storefront.query(
-    COLLECTION_QUERY,
-    {
-      variables: {
-        ...variables,
-        handle: bundleCollectionHandler,
-        country: storefront.i18n.country,
-        language: storefront.i18n.language,
-      },
-    },
-  )
-
-  const { product: bundleProduct } = await storefront.query(
-    PRODUCT_BY_HANDLER_QUERY,
-    {
-      variables: {
-        ...variables,
-        handle: bundleProductHandler,
-        country: storefront.i18n.country,
-        language: storefront.i18n.language,
-      },
-    },
-  )
+  const { collection, bundleProduct } = await getBundle({ storefront, request })
 
   const form = await request.formData()
   const data = JSON.parse(form.get('body'))
   const products = data.products
   const sellingPlanName = data.sellingPlanName
 
-  const bundleCollectionId = getPureId(bundleCollection.id, 'Collection')
+  const bundleCollectionId = getPureId(collection.id, 'Collection')
   const bundleProductExternalProductId = getPureId(bundleProduct.id, 'Product')
   const bundleProductExternalVariantId = getPureId(
     bundleProduct.variants.nodes[0].id,
