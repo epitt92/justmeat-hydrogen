@@ -59,11 +59,14 @@ export async function action({ request, context }) {
           'ProductVariant',
         )
         const quantity = product.quantity
+
+        let sellingPlans = []
+        for (const el of product.sellingPlanGroups.nodes) {
+          sellingPlans = [...sellingPlans, ...el.sellingPlans.nodes]
+        }
         const sellingPlan = Number(
           getPureId(
-            product.sellingPlanGroups.edges.find(
-              (edge) => edge.node.name === sellingPlanName,
-            ).node.sellingPlans.edges[0].node.id,
+            sellingPlans.find((el) => el.name === sellingPlanName).id,
             'SellingPlan',
           ),
         )
