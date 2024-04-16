@@ -20,6 +20,13 @@ import { ALL_PRODUCTS_QUERY } from '~/graphql/Product'
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
 import { getFullId } from '~/lib/utils'
 
+const bundleCollectionHandle = 'all-products'
+const freeProductHandle = 'raspberry-bbq-chicken-breast'
+const bonusProductHandle = 'free-meat-unlocked-at-125'
+const bundleProductHandle = 'custom-bundle'
+
+const filterProductHandles = ['shipping-insurance']
+
 export const meta = ({ data }) => {
   return [
     {
@@ -37,10 +44,6 @@ export async function loader({ request, context, params }) {
   const discountCode = context.session.get('discountCode')
   const discountCodes = discountCode ? [discountCode] : []
 
-  const allProductsHandler = 'all-products'
-  const freeProductHandler = 'raspberry-bbq-chicken-breast'
-  const bonusProductHandler = 'free-meat-unlocked-at-125'
-
   const variables = getPaginationVariables(request, { pageBy: 50 })
 
   const {
@@ -54,21 +57,22 @@ export async function loader({ request, context, params }) {
   })
 
   const freeProduct = allProducts.find(
-    (product) => product.handle === freeProductHandler,
+    (product) => product.handle === freeProductHandle,
   )
   const bonusProduct = allProducts.find(
-    (product) => product.handle === bonusProductHandler,
+    (product) => product.handle === bonusProductHandle,
   )
 
   const products = allProducts
     .filter((product) =>
       product.collections.edges.some(
-        (collection) => collection.node.handle === allProductsHandler,
+        (collection) => collection.node.handle === bundleCollectionHandle,
       ),
     )
     .filter(
       (product) => Number(product.priceRange.minVariantPrice.amount) !== 0,
     )
+    .filter((product) => !filterProductHandles.includes(product.handle))
 
   if (!params.id) {
     return redirect(params?.locale ? `${params.locale}/account` : '/account')
@@ -123,10 +127,7 @@ export async function loader({ request, context, params }) {
 
   for (const el of allProducts) {
     if (idsSubscriptions.includes(el.id)) {
-      if (
-        el.handle !== freeProductHandler &&
-        el.handle !== bonusProductHandler
-      ) {
+      if (el.handle !== freeProductHandle && el.handle !== bonusProductHandle) {
         const quantity = subscriptionData[el.id]
 
         const amount = el.priceRange?.maxVariantPrice?.amount

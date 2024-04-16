@@ -208,7 +208,7 @@ export const PRODUCT_FRAGMENT = `#graphql
   ${PRODUCT_VARIANT_FRAGMENT}
 `
 
-export const PRODUCT_BY_HANDLER_QUERY = `#graphql
+export const PRODUCT_BY_HANDLE_QUERY = `#graphql
   query Product(
     $country: CountryCode
     $handle: String!
