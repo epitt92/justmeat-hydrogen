@@ -9,8 +9,8 @@ export const Banner = () => {
         <div className="relative h-full container-small">
           <div className="relative h-full">
             <div className="sm:h-[40px] h-[15px]"></div>
-            <div className="flex flex-col-reverse sm:flex-col sm:gap-[66px] gap-0">
-              <div className="w-[340px] sm:w-[663px] lg:w-[550px] h-[240px]">
+            <div className="flex flex-col-reverse sm:flex-col-reverse gap-0">
+              <div className="w-[340px] sm:w-[663px] lg:w-[550px] h-[240px] mx-auto">
                 <MayhemNation />
               </div>
               <div className="">
@@ -24,8 +24,17 @@ export const Banner = () => {
                 </div>
               </div>
             </div>
-            <div className="absolute sm:w-auto w-[400px] sm:right-[100px] sm:translate-x-0 -translate-x-1/2 left-1/2 sm:bottom-[60px] bottom-[120px]">
-              <img src={BannerCharacter} />
+            {/*<div className="absolute sm:w-auto w-[400px] sm:right-[100px] sm:translate-x-0 -translate-x-1/2 left-1/2 sm:bottom-[60px] bottom-[120px]">*/}
+            {/*  <img src={BannerCharacter} />*/}
+            {/*</div>*/}
+
+            <div className="flex justify-center items-center">
+              <div className="flex justify-center items-center">
+                <img
+                  src={BannerCharacter}
+                  className="w-[90%] sm:w-auto max-w-[400px] h-auto"
+                />
+              </div>
             </div>
             <div
               className="flex flex-col items-center bg-brown-pattern absolute w-full sm:bottom-[-84px] left-0 text-white bottom-[-120px] sm:pt-[28px] pt-[21px] sm:pb-[24px] pb-[18px] sm:rounded-[8px] rounded-[6px]"
