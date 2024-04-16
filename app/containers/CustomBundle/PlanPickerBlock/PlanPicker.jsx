@@ -51,24 +51,24 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
             }  leading-[100%] flex-1 text-[18px] sm:text-[20px] text-center sm:text-left font-bold`}
           >
             <span className="sm:hidden line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
-              {total && `$${parseInt(total)}`}
+              {total ? `$${parseInt(total)}`:''}
             </span>
             <span className="hidden sm:inline line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
-              {total && `$${formatPrice(total)}`}
+              {total ? `$${formatPrice(total)}`:''}
             </span>
 
             <span className="sm:hidden">
-              {totalCostForPlan &&
+              {totalCostForPlan ?
                 `$${parseInt(
                   totalCostForPlan - firstOrderSavingFormatted,
-                )}`}{' '}
+                )}` :'' }{' '}
               Subscribe & Save
             </span>
             <span className={`hidden sm:inline sm:hover:text-[#fff]`}>
-              {totalCostForPlan &&
+              {totalCostForPlan ?
                 `$${formatPrice(
                   totalCostForPlan - firstOrderSavingFormatted,
-                )}`}{' '}
+                )}`:''}{' '}
               Subscribe & Save
             </span>
           </div>
@@ -238,16 +238,16 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
             } sm:hover:bg-[#862E1B] sm:hover:text-[#fff] text-[18px] sm:text-[20px] p-[7px] sm:p-[10px] w-full font-bold text-center sm:text-left leading-[100%] sm:leading-[24px]`}
           >
             <span className="sm:hidden line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
-              {total && `$${parseInt(total)}`}
+              {total ? `$${parseInt(total)}`:''}
             </span>
             <span className="hidden sm:inline line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
-              {total && `$${formatPrice(total)}`}
+              {total ? `$${formatPrice(total)}`:''}
             </span>
             <span className="sm:hidden">
-              {totalCostForPlan && `$${parseInt(totalCostForPlan)}`} One Time
+              {totalCostForPlan ? `$${parseInt(totalCostForPlan)}`:''} One Time
             </span>
             <span className="hidden sm:inline">
-              {totalCostForPlan && `$${formatPrice(totalCostForPlan)}`} One Time
+              {totalCostForPlan ? `$${formatPrice(totalCostForPlan)}`:''} One Time
             </span>
           </div>
         </div>
