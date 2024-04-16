@@ -40,6 +40,7 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
         cartData = JSON.parse(localStorage.getItem("_cartProducts"));
         const filteredProducts = cartData.filter(product => 
           product.id !== "gid://shopify/Product/8249959186658" &&
+          product.id !== "gid://shopify/Product/8380896706786" &&
           product.id !== "gid://shopify/Product/8380892872930"
         );
         setCartProducts(filteredProducts);
@@ -66,8 +67,8 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
         </p>
         <div
           className={`${
-            sellingPlan ? 'bg-white sm:bg-[#862E1B]' : 'border-[#eaeaea]'
-          } p-[7px] sm:p-[10px] border-[3px] border-solid flex gap-6 border-[#425B34] sm:border-[#862E1B] sm:hover:bg-[#862E1B] sm:hover:!text-[#fff] cursor-pointer rounded-[14px] sm:rounded-[0px] plan-change-button`}
+            sellingPlan ? 'bg-white sm:bg-[#862E1B] text-black sm:text-[#fff]' : 'border-[#eaeaea] text-[#1d1d1d] sm:hover:text-[#fff]'
+          } p-[7px] sm:p-[10px] border-[3px] border-solid flex gap-6 border-[#425B34] sm:border-[#862E1B] sm:hover:bg-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px]`}
           onClick={() => {
             setSellingPlan(sellingPlanFrequency);
             planCartUpdate();
