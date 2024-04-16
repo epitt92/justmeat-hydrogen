@@ -25,7 +25,7 @@ export function CartDetails({ layout, onCheckout }) {
             </div>
             <div className="flex justify-end gap-3 pt-0 ">
               <div className="flex flex-col items-end justify-end flex-1 gap-1">
-                <p className="text-[14px] font-semibold text-black">
+                <p className="text-[14px] font-semibold text-black uppercase">
                   Free Bonus Meat (unlocked at $125)
                 </p>
                 <LockedItem />

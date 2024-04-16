@@ -24,7 +24,6 @@ export const PlanPicker = ({ total, totalCostForPlan,freeTag }) => {
   const firstOrderSavingNumber =
     influencerCode.length > 0 ? parseFloat(influencerCode[0].percentage) : 25
   const firstOrderSavingFormatted = (firstOrderSavingNumber / 100) * totalCostForPlan;
-  console.log('freeTag',freeTag);
   return (
     <div className="flex gap-2 flex-col lg:flex-row w-[100%] lg:!max-w-[760px]">
       <div className="flex-1 w-full lg:w-6/12 xl:w-4/12">
