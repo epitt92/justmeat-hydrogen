@@ -35,7 +35,6 @@ export async function action({ request, context }) {
   const form = await request.formData()
   const data = JSON.parse(form.get('body'))
   const products = data.products
-  console.log('🚀 ~ action ~ products:', JSON.stringify(products))
   const sellingPlanName = data.sellingPlanName
 
   const bundleCollectionId = getPureId(collection.id, 'Collection')
@@ -60,11 +59,14 @@ export async function action({ request, context }) {
           'ProductVariant',
         )
         const quantity = product.quantity
+
+        let sellingPlans = []
+        for (const el of product.sellingPlanGroups.nodes) {
+          sellingPlans = [...sellingPlans, ...el.sellingPlans.nodes]
+        }
         const sellingPlan = Number(
           getPureId(
-            product.sellingPlanGroups.edges.find(
-              (edge) => edge.node.name === sellingPlanName,
-            ).node.sellingPlans.edges[0].node.id,
+            sellingPlans.find((el) => el.name === sellingPlanName).id,
             'SellingPlan',
           ),
         )
