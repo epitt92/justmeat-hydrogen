@@ -17,7 +17,7 @@ export const ProductCard = ({ product, onClick }) => {
       </div>
       <div className="pt-6 text-center price">
         <span className="p-6 text-2xl font-bold font-roboto_bold">
-          $ {product.priceRange.minVariantPrice.amount}
+          ${product.priceRange.minVariantPrice.amount}
         </span>
       </div>
       <div className="mx-auto my-5 text-center">
