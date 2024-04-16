@@ -4,8 +4,8 @@ const PrivacyPolicy = () => {
   return (
     <section className="bg- bg-white text-[#1D1D1D] py-8">
       <div className="max-w-[1150px] w-[100%] mx-auto">
-        <div>
-          <h1 className="font-Roboto text-[42px] md:text-[58px] font-medium  mb-3">
+        <div className="text-[16px] md:text-[19px] px-5">
+          <h1 className="font-Roboto text-[42px] font-normal md:text-[58px]  mb-3">
             Privacy policy
           </h1>
           <p>Last updated: 9/1/2023</p>
@@ -29,7 +29,7 @@ const PrivacyPolicy = () => {
             If you do not agree to this Privacy Policy, please do not use or
             access any of the Services.
           </p>
-          <h2 className="font-Roboto text-[42px]  font-medium  mb-3">
+          <h2 className="font-Roboto text-[42px]  mb-3">
             Changes to This Privacy Policy
           </h2>
           <p className="my-3">
@@ -39,7 +39,7 @@ const PrivacyPolicy = () => {
             Site, update the "Last updated" date and take any other steps
             required by applicable law.
           </p>
-          <h2 className="font-Roboto text-[42px]  font-medium  mb-3">
+          <h2 className="font-Roboto text-[42px]  mb-3">
             How We Collect and Use Your Personal Information
           </h2>
           <p className="my-3">
@@ -55,7 +55,7 @@ const PrivacyPolicy = () => {
             any applicable terms of service, and to protect or defend the
             Services, our rights, and the rights of our users or others.
           </p>
-          <h2 className="font-Roboto text-[42px]  font-medium  mb-3">
+          <h2 className="font-Roboto text-[42px]  mb-3">
             What Personal Information We Collect
           </h2>
           <p className="my-3">
@@ -66,7 +66,7 @@ const PrivacyPolicy = () => {
             following sections describe the categories and specific types of
             personal information we collect.
           </p>
-          <h2 className="font-Roboto text-[42px]  font-medium  mb-3">
+          <h2 className="font-Roboto text-[42px]  mb-3">
             Information We Collect Directly from You
           </h2>
           <p className="my-3">
@@ -103,7 +103,7 @@ const PrivacyPolicy = () => {
               </li>
             </ul>
           </p>
-          <h2 className="font-Roboto text-[42px]  font-medium  mb-3">
+          <h2 className="font-Roboto text-[42px]  mb-3">
             Information We Collect through Cookies
           </h2>
           <p className="my-3">
@@ -116,7 +116,7 @@ const PrivacyPolicy = () => {
             connection, your IP address and other information regarding your
             interaction with the Services.
           </p>
-          <h2 className="font-Roboto text-[42px]  font-medium  mb-3">
+          <h2 className="font-Roboto text-[42px]  mb-3">
             Information We Obtain from Third Parties
           </h2>
           <p className="my-3">
@@ -151,7 +151,7 @@ const PrivacyPolicy = () => {
               </li>
             </ul>
           </p>
-          <h2 className="font-Roboto text-[42px]  font-medium  mb-3">
+          <h2 className="font-Roboto text-[42px]  mb-3">
             How We Use Your Personal Information
           </h2>
           <p>
@@ -194,9 +194,7 @@ const PrivacyPolicy = () => {
               </li>
             </ul>
           </p>
-          <h2 className="font-Roboto text-[42px]  font-medium  mb-3">
-            Cookies
-          </h2>
+          <h2 className="font-Roboto text-[42px]  mb-3">Cookies</h2>
           <p className="my-3">
             Like many websites, we use Cookies on our Site. For specific
             information about the Cookies that we use related to powering our
@@ -220,7 +218,7 @@ const PrivacyPolicy = () => {
             share information with third parties such as our advertising
             partners.
           </p>
-          <h2 className="font-Roboto text-[42px]  font-medium  mb-3">
+          <h2 className="font-Roboto text-[42px]  mb-3">
             How We Disclose Personal Information
           </h2>
           <p className="my-3">
@@ -356,7 +354,7 @@ const PrivacyPolicy = () => {
               </tr>
             </tbody>
           </table>
-          <h2 className="font-Roboto text-[42px]  font-medium  mb-3">
+          <h2 className="font-Roboto text-[42px]  mb-3">
             User Generated Content
           </h2>
           <p className="my-3">
@@ -374,7 +372,7 @@ const PrivacyPolicy = () => {
             accuracy, use or misuse of any information that you disclose or
             receive from third parties.
           </p>
-          <h2 className="font-Roboto text-[42px]  font-medium  mb-3">
+          <h2 className="font-Roboto text-[42px]  mb-3">
             Third Party Websites and Links
           </h2>
           <p className="my-3">
@@ -393,9 +391,7 @@ const PrivacyPolicy = () => {
             endorsement of the content on such platforms or of their owners or
             operators, except as disclosed on the Services.
           </p>
-          <h2 className="font-Roboto text-[42px]  font-medium  mb-3">
-            Children’s Data
-          </h2>
+          <h2 className="font-Roboto text-[42px]  mb-3">Children’s Data</h2>
           <p className="my-3">
             The Services are not intended to be used by children, and we do not
             knowingly collect any personal information about children. If you
@@ -409,7 +405,7 @@ const PrivacyPolicy = () => {
             defined in applicable law) personal information of individuals under
             16 years of age.
           </p>
-          <h2 className="font-Roboto text-[42px]  font-medium  mb-3">
+          <h2 className="font-Roboto text-[42px]  mb-3">
             Security and Retention of Your Information
           </h2>
           <p className="my-3">
@@ -425,7 +421,7 @@ const PrivacyPolicy = () => {
             account, to provide the Services, comply with legal obligations,
             resolve disputes or enforce other applicable contracts and policies.
           </p>
-          <h2 className="font-Roboto text-[42px]  font-medium  mb-3">
+          <h2 className="font-Roboto text-[42px]  mb-3">
             Your Rights and Choices
           </h2>
           <p className="my-3">
@@ -534,9 +530,7 @@ const PrivacyPolicy = () => {
               https://privacy.shopify.com/en
             </a>
           </p>
-          <h2 className="font-Roboto text-[42px]  font-medium  mb-3">
-            Complaints
-          </h2>
+          <h2 className="font-Roboto text-[42px]  mb-3">Complaints</h2>
           <p className="my-3">
             If you have complaints about how we process your personal
             information, please contact us using the contact details provided
@@ -545,9 +539,7 @@ const PrivacyPolicy = () => {
             decision by contacting us using the contact details set out below,
             or lodge your complaint with your local data protection authority.
           </p>
-          <h2 className="font-Roboto text-[42px]  font-medium  mb-3">
-            International Users
-          </h2>
+          <h2 className="font-Roboto text-[42px]  mb-3">International Users</h2>
           <p className="my-3">
             Please note that we may transfer, store and process your personal
             information outside the country you live in, including the United
@@ -562,9 +554,7 @@ const PrivacyPolicy = () => {
             data transfer is to a country that has been determined to provide an
             adequate level of protection.
           </p>
-          <h2 className="font-Roboto text-[42px]  font-medium  mb-3">
-            Contact
-          </h2>
+          <h2 className="font-Roboto text-[42px]  mb-3">Contact</h2>
           <p className="my-3">
             Should you have any questions about our privacy practices or this
             Privacy Policy, or if you would like to exercise any of the rights
