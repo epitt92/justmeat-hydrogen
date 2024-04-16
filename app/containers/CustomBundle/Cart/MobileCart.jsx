@@ -81,7 +81,7 @@ export const MobileCart = () => {
         </div>
         <div className="p-[5px] flex flex-col gap-[10px] [box-shadow:0_-3px_15px_-5px_#333]">
           {isCartPage && (
-            <PlanPicker total={total} totalCostForPlan={totalCost} />
+            <PlanPicker total={total} totalCostForPlan={totalCost} freeTag={freeTag}/>
           )}
           <Button
             loading={submitting}
