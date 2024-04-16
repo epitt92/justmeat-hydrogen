@@ -1,11 +1,14 @@
 import React, { useContext } from 'react'
-import { cn, formatPrice } from '~/lib/utils'
+
+import { useLoaderData } from '@remix-run/react'
+
 import { CustomBundleContext } from '~/contexts'
 import { CheckBox } from '~/icons/CheckBox'
-import { useLoaderData } from '@remix-run/react'
+import { cn, formatPrice } from '~/lib/utils'
+
 import { PROMO_CODES } from '../../../promo-codes'
 
-export const PlanPicker = ({ total, totalCostForPlan,freeTag }) => {
+export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
   const {
     sellingPlan,
     setSellingPlan,
@@ -23,8 +26,9 @@ export const PlanPicker = ({ total, totalCostForPlan,freeTag }) => {
 
   const firstOrderSavingNumber =
     influencerCode.length > 0 ? parseFloat(influencerCode[0].percentage) : 25
-  const firstOrderSavingFormatted = (firstOrderSavingNumber / 100) * totalCostForPlan;
-  console.log('freeTag',freeTag);
+  const firstOrderSavingFormatted =
+    (firstOrderSavingNumber / 100) * totalCostForPlan
+  console.log('freeTag', freeTag)
   return (
     <div className="flex gap-2 flex-col lg:flex-row w-[100%] lg:!max-w-[760px]">
       <div className="flex-1 w-full lg:w-6/12 xl:w-4/12">
@@ -40,36 +44,36 @@ export const PlanPicker = ({ total, totalCostForPlan,freeTag }) => {
         </p>
         <div
           className={`${
-            sellingPlan ? 'bg-white sm:bg-[#862E1B]' : 'border-[#eaeaea]'
-          } p-[7px] sm:p-[10px] border-[3px] border-solid flex gap-6 border-[#425B34] sm:border-[#862E1B] sm:hover:bg-[#862E1B] sm:hover:!text-[#fff] cursor-pointer rounded-[14px] sm:rounded-[0px]`}
+            sellingPlan
+              ? 'bg-white sm:bg-[#862E1B] text-black sm:text-[#fff]'
+              : 'border-[#eaeaea] text-[#1d1d1d] sm:hover:text-[#fff]'
+          } p-[7px] sm:p-[10px] border-[3px] border-solid flex gap-6 border-[#425B34] sm:border-[#862E1B] sm:hover:bg-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px]`}
           onClick={() => {
             setSellingPlan(sellingPlanFrequency)
           }}
         >
           <div
-            className={`${
-              sellingPlan ? 'text-black sm:text-[#fff]' : 'text-[#1d1d1d]'
-            }  leading-[100%] flex-1 text-[18px] sm:text-[20px] text-center sm:text-left font-bold`}
+            className={`leading-[100%] flex-1 text-[18px] sm:text-[20px] text-center sm:text-left font-bold`}
           >
             <span className="sm:hidden line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
-              {total > freeTag ? `$${parseInt(total)}`:''}
+              {total > freeTag ? `$${parseInt(total)}` : ''}
             </span>
             <span className="hidden sm:inline line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
-              {total > freeTag ? `$${formatPrice(total)}`:''}
+              {total > freeTag ? `$${formatPrice(total)}` : ''}
             </span>
 
             <span className="sm:hidden">
-              {totalCostForPlan ?
-                `$${parseInt(
-                  totalCostForPlan - firstOrderSavingFormatted,
-                )}` :'' }{' '}
+              {totalCostForPlan
+                ? `$${parseInt(totalCostForPlan - firstOrderSavingFormatted)}`
+                : ''}{' '}
               Subscribe & Save
             </span>
             <span className={`hidden sm:inline sm:hover:text-[#fff]`}>
-              {totalCostForPlan ?
-                `$${formatPrice(
-                  totalCostForPlan - firstOrderSavingFormatted,
-                )}`:''}{' '}
+              {totalCostForPlan
+                ? `$${formatPrice(
+                    totalCostForPlan - firstOrderSavingFormatted,
+                  )}`
+                : ''}{' '}
               Subscribe & Save
             </span>
           </div>
@@ -77,7 +81,7 @@ export const PlanPicker = ({ total, totalCostForPlan,freeTag }) => {
           <select
             name=""
             className={`${
-              sellingPlan ? 'text-[#fff] brightness-0 invert' : 'text-[#1d1d1d]'
+              sellingPlan ? 'brightness-0 invert' : ''
             } sm:hover:text-[#fff] max-w-[142px] hidden sm:block text-[12px] pl-[10px] py-0 pr-0 w-full bg-transparent bg-auto bg-[url('https://cdn.shopify.com/s/files/1/0672/4776/7778/files/select_svg.svg')]
             outline-none border-none focus:shadow-none shadow-none focus:outline-none focus:border-none webkit-box-shadow-none 
             `}
@@ -105,7 +109,7 @@ export const PlanPicker = ({ total, totalCostForPlan,freeTag }) => {
               Select Frequency
             </p>
             <p className="lg:hidden block text-black font-semibold text-[14px]">
-            Select Frequency
+              Select Frequency
             </p>
             <div className="flex gap-2">
               <div
@@ -179,7 +183,7 @@ export const PlanPicker = ({ total, totalCostForPlan,freeTag }) => {
               </span>{' '}
               10% Off Future Orders
             </li>
-         
+
             <li className="flex items-center text-[11px] sm:text-[12px] font-normal sm:font-bold m-0 hidden md:flex lg:flex">
               <span className="text-[#425B34] sm:text-black">
                 <CheckBox
@@ -239,16 +243,18 @@ export const PlanPicker = ({ total, totalCostForPlan,freeTag }) => {
             } sm:hover:bg-[#862E1B] sm:hover:text-[#fff] text-[18px] sm:text-[20px] p-[7px] sm:p-[10px] w-full font-bold text-center sm:text-left leading-[100%] sm:leading-[24px]`}
           >
             <span className="sm:hidden line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
-              {total > freeTag ? `$${parseInt(total)}`:''}
+              {total > freeTag ? `$${parseInt(total)}` : ''}
             </span>
             <span className="hidden sm:inline line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
-              {total > freeTag ? `$${formatPrice(total)}`:''}
+              {total > freeTag ? `$${formatPrice(total)}` : ''}
             </span>
             <span className="sm:hidden">
-              {totalCostForPlan ? `$${parseInt(totalCostForPlan)}`:''} One Time
+              {totalCostForPlan ? `$${parseInt(totalCostForPlan)}` : ''} One
+              Time
             </span>
             <span className="hidden sm:inline">
-              {totalCostForPlan ? `$${formatPrice(totalCostForPlan)}`:''} One Time
+              {totalCostForPlan ? `$${formatPrice(totalCostForPlan)}` : ''} One
+              Time
             </span>
           </div>
         </div>
