@@ -186,7 +186,7 @@ export const CustomBundle = () => {
                     !sellingPlan &&
                     (product.handle === 'sweet-chili-thai-chicken' ||
                       product.handle === 'chimichurri-steak')
-                  return shouldSkip
+                  return shouldSkip || product.id.includes('8439947002082')
                     ? null
                     : product.handle !== 'free-meat-unlocked-at-125' && (
                         <ProductCard
