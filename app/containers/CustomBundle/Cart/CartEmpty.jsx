@@ -31,7 +31,7 @@ export function CartEmpty() {
         </div>
         <div className="flex justify-end gap-3 pt-6 ">
           <div className="flex flex-col items-end justify-end gap-1">
-            <p className="text-[14px] font-semibold text-black">
+            <p className="text-[14px] font-semibold text-black uppercase">
               Free Bonus Meat (unlocked at $125)
             </p>
             <span className="text-[12px] font-semibold uppercase mb-1 py-2 w-fit bg-[#E4E4E4] px-5 border border-[#949494]  ">
