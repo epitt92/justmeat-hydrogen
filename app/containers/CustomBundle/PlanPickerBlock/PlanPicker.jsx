@@ -5,7 +5,7 @@ import { CheckBox } from '~/icons/CheckBox'
 import { useLoaderData } from '@remix-run/react'
 import { PROMO_CODES } from '../../../promo-codes'
 
-export const PlanPicker = ({ total, totalCostForPlan }) => {
+export const PlanPicker = ({ total, totalCostForPlan,freeTag }) => {
   const {
     sellingPlan,
     setSellingPlan,
@@ -23,7 +23,8 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
 
   const firstOrderSavingNumber =
     influencerCode.length > 0 ? parseFloat(influencerCode[0].percentage) : 25
-  const firstOrderSavingFormatted = (firstOrderSavingNumber / 100) * totalCostForPlan
+  const firstOrderSavingFormatted = (firstOrderSavingNumber / 100) * totalCostForPlan;
+  console.log('freeTag',freeTag);
   return (
     <div className="flex gap-2 flex-col lg:flex-row w-[100%] lg:!max-w-[760px]">
       <div className="flex-1 w-full lg:w-6/12 xl:w-4/12">
@@ -51,10 +52,10 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
             }  leading-[100%] flex-1 text-[18px] sm:text-[20px] text-center sm:text-left font-bold`}
           >
             <span className="sm:hidden line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
-              {total ? `$${parseInt(total)}`:''}
+              {total > freeTag ? `$${parseInt(total)}`:''}
             </span>
             <span className="hidden sm:inline line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
-              {total ? `$${formatPrice(total)}`:''}
+              {total > freeTag ? `$${formatPrice(total)}`:''}
             </span>
 
             <span className="sm:hidden">
@@ -238,10 +239,10 @@ export const PlanPicker = ({ total, totalCostForPlan }) => {
             } sm:hover:bg-[#862E1B] sm:hover:text-[#fff] text-[18px] sm:text-[20px] p-[7px] sm:p-[10px] w-full font-bold text-center sm:text-left leading-[100%] sm:leading-[24px]`}
           >
             <span className="sm:hidden line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
-              {total ? `$${parseInt(total)}`:''}
+              {total > freeTag ? `$${parseInt(total)}`:''}
             </span>
             <span className="hidden sm:inline line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
-              {total ? `$${formatPrice(total)}`:''}
+              {total > freeTag ? `$${formatPrice(total)}`:''}
             </span>
             <span className="sm:hidden">
               {totalCostForPlan ? `$${parseInt(totalCostForPlan)}`:''} One Time
