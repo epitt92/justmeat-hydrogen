@@ -16,16 +16,15 @@ import { json, redirect } from '@shopify/remix-oxygen'
 import { SubscriptionEditLayout } from '~/containers/Account/Subscriptions/Edit/Layout'
 import { CustomBundle } from '~/containers/CustomBundle'
 import { RootContext } from '~/contexts'
-import { ALL_PRODUCTS_QUERY } from '~/graphql/Product'
+import { COLLECTION_QUERY } from '~/graphql/Collection'
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
-import { getFullId } from '~/lib/utils'
-
-const bundleCollectionHandle = 'all-products'
-const freeProductHandle = 'raspberry-bbq-chicken-breast'
-const bonusProductHandle = 'free-meat-unlocked-at-125'
-const bundleProductHandle = 'custom-bundle'
-
-const filterProductHandles = ['shipping-insurance']
+import {
+  bonusProductHandle,
+  bundleCollectionHandle,
+  freeProductHandle,
+  getBundle,
+} from '~/lib/storefront'
+import { getFullId, getPureId } from '~/lib/utils'
 
 export const meta = ({ data }) => {
   return [
@@ -44,35 +43,10 @@ export async function loader({ request, context, params }) {
   const discountCode = context.session.get('discountCode')
   const discountCodes = discountCode ? [discountCode] : []
 
-  const variables = getPaginationVariables(request, { pageBy: 50 })
-
-  const {
-    products: { nodes: allProducts },
-  } = await storefront.query(ALL_PRODUCTS_QUERY, {
-    variables: {
-      ...variables,
-      country: storefront.i18n.country,
-      language: storefront.i18n.language,
-    },
+  const { products, allProducts, freeProduct, bonusProduct } = await getBundle({
+    storefront,
+    request,
   })
-
-  const freeProduct = allProducts.find(
-    (product) => product.handle === freeProductHandle,
-  )
-  const bonusProduct = allProducts.find(
-    (product) => product.handle === bonusProductHandle,
-  )
-
-  const products = allProducts
-    .filter((product) =>
-      product.collections.edges.some(
-        (collection) => collection.node.handle === bundleCollectionHandle,
-      ),
-    )
-    .filter(
-      (product) => Number(product.priceRange.minVariantPrice.amount) !== 0,
-    )
-    .filter((product) => !filterProductHandles.includes(product.handle))
 
   if (!params.id) {
     return redirect(params?.locale ? `${params.locale}/account` : '/account')
@@ -185,6 +159,7 @@ export async function loader({ request, context, params }) {
 }
 
 export async function action({ request, context, params }) {
+  const storefront = context.storefront
   const form = await request.formData()
   const data = JSON.parse(form.get('body'))
 
@@ -195,14 +170,30 @@ export async function action({ request, context, params }) {
       const bundleId = data.bundleId
       const purchase_item_id = data.purchase_item_id
       const products = data.products
+      const variables = getPaginationVariables(request, { pageBy: 1 })
+
+      const { collection: bundleCollection } = await storefront.query(
+        COLLECTION_QUERY,
+        {
+          variables: {
+            ...variables,
+            handle: bundleCollectionHandle,
+            country: storefront.i18n.country,
+            language: storefront.i18n.language,
+          },
+        },
+      )
+
+      const bundleCollectionId = getPureId(bundleCollection.id, 'Collection')
 
       const items = products.map((product) => ({
-        collection_id: '424769257698',
+        collection_id: bundleCollectionId,
         collection_source: 'shopify',
-        external_product_id: product.id.split('gid://shopify/Product/')[1],
-        external_variant_id: product.variants.nodes[0].id.split(
-          'gid://shopify/ProductVariant/',
-        )[1],
+        external_product_id: getPureId(product.id, 'Product'),
+        external_variant_id: getPureId(
+          product.variants.nodes[0].id,
+          'ProductVariant',
+        ),
         quantity: product.quantity,
       }))
 

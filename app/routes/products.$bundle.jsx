@@ -5,15 +5,13 @@ import { json } from '@shopify/remix-oxygen'
 import Notification from '~/components/Notification'
 import { CustomBundle } from '~/containers/CustomBundle'
 import { COLLECTION_QUERY } from '~/graphql/Collection'
-import { ALL_PRODUCTS_QUERY, PRODUCT_BY_HANDLE_QUERY } from '~/graphql/Product'
+import { PRODUCT_BY_HANDLE_QUERY } from '~/graphql/Product'
+import {
+  bundleCollectionHandle,
+  bundleProductHandle,
+  getBundle,
+} from '~/lib/storefront'
 import { getFullId, getPureId } from '~/lib/utils'
-
-const bundleCollectionHandle = 'all-products'
-const freeProductHandle = 'raspberry-bbq-chicken-breast'
-const bonusProductHandle = 'free-meat-unlocked-at-125'
-const bundleProductHandle = 'custom-bundle'
-
-const filterProductHandles = ['shipping-insurance']
 
 export async function loader({ request, context }) {
   const { storefront } = context
@@ -21,35 +19,10 @@ export async function loader({ request, context }) {
   const discountCode = context.session.get('discountCode')
   const discountCodes = discountCode ? [discountCode] : []
 
-  const variables = getPaginationVariables(request, { pageBy: 50 })
-
-  const {
-    products: { nodes: allProducts },
-  } = await storefront.query(ALL_PRODUCTS_QUERY, {
-    variables: {
-      ...variables,
-      country: storefront.i18n.country,
-      language: storefront.i18n.language,
-    },
+  const { products, freeProduct, bonusProduct } = await getBundle({
+    storefront,
+    request,
   })
-
-  const freeProduct = allProducts.find(
-    (product) => product.handle === freeProductHandle,
-  )
-  const bonusProduct = allProducts.find(
-    (product) => product.handle === bonusProductHandle,
-  )
-
-  const products = allProducts
-    .filter((product) =>
-      product.collections.edges.some(
-        (collection) => collection.node.handle === bundleCollectionHandle,
-      ),
-    )
-    .filter(
-      (product) => Number(product.priceRange.minVariantPrice.amount) !== 0,
-    )
-    .filter((product) => !filterProductHandles.includes(product.handle))
 
   return json({
     products,
