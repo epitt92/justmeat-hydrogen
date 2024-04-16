@@ -3,12 +3,12 @@ import React from 'react'
 const TermServices = () => {
   return (
     <section className="bg- bg-white text-[#1D1D1D] py-8">
-      <div className="max-w-[1150px] w-[100%] mx-auto ">
+      <div className="max-w-[1150px] w-[100%] mx-auto px-5">
         <div>
-          <h1 className="font-Roboto text-[52px] md:text-[68px] font-medium  mb-3">
+          <h1 className="font-Roboto text-[42px] font-normal md:text-[58px]  mb-3">
             Terms of service
           </h1>
-          <div className="font-Roboto text-[19px]">
+          <div className="font-Roboto text-[16px] md:text-[19px]">
             <strong>OVERVIEW</strong>
             <p className="my-6">
               This website is operated by Just Meats. Throughout the site, the
@@ -54,7 +54,7 @@ const TermServices = () => {
               Services to you.
             </p>
           </div>
-          <div className="font-Roboto text-[19px] my-6">
+          <div className="font-Roboto text-[16px] md:text-[19px] my-6">
             <strong>SECTION 1 - ONLINE STORE TERMS</strong>
             <p className="my-6">
               By agreeing to these Terms of Service, you represent that you are
@@ -75,7 +75,7 @@ const TermServices = () => {
               immediate termination of your Services.
             </p>
           </div>
-          <div className="font-Roboto text-[19px] my-6">
+          <div className="font-Roboto text-[16px] md:text-[19px] my-6">
             <strong>SECTION 2 - GENERAL CONDITIONS</strong>
             <p>
               We reserve the right to refuse Service to anyone for any reason at
@@ -98,7 +98,7 @@ const TermServices = () => {
               only and will not limit or otherwise affect these Terms.
             </p>
           </div>
-          <div className="font-Roboto text-[19px] my-6">
+          <div className="font-Roboto text-[16px] md:text-[19px] my-6">
             <strong>
               SECTION 3 - ACCURACY, COMPLETENESS AND TIMELINESS OF INFORMATION
             </strong>
@@ -120,7 +120,7 @@ const TermServices = () => {
               to monitor changes to our site.
             </p>
           </div>
-          <div className="font-Roboto text-[19px] my-6">
+          <div className="font-Roboto text-[16px] md:text-[19px] my-6">
             <strong>SECTION 4 - MODIFICATIONS TO THE SERVICE AND PRICES</strong>
             <p>Prices for our products are subject to change without notice.</p>
             <p>
@@ -134,7 +134,7 @@ const TermServices = () => {
               Service.
             </p>
           </div>
-          <div className="font-Roboto text-[19px] my-6">
+          <div className="font-Roboto text-[16px] md:text-[19px] my-6">
             <strong>SECTION 5 - PRODUCTS OR SERVICES (if applicable)</strong>
             <p>
               Certain products or Services may be available exclusively online
@@ -166,7 +166,7 @@ const TermServices = () => {
               corrected.
             </p>
           </div>
-          <div className="font-Roboto text-[19px] my-6">
+          <div className="font-Roboto text-[16px] md:text-[19px] my-6">
             <strong>
               SECTION 6 - ACCURACY OF BILLING AND ACCOUNT INFORMATION
             </strong>
@@ -198,7 +198,7 @@ const TermServices = () => {
               POLICY]
             </p>
           </div>
-          <div className="font-Roboto text-[19px] my-6">
+          <div className="font-Roboto text-[16px] md:text-[19px] my-6">
             <strong>SECTION 7 - OPTIONAL TOOLS</strong>
             <p>
               We may provide you with access to third-party tools over which we
@@ -224,7 +224,7 @@ const TermServices = () => {
               subject to these Terms of Service.
             </p>
           </div>
-          <div className="font-Roboto text-[19px] my-6">
+          <div className="font-Roboto text-[16px] md:text-[19px] my-6">
             <strong>SECTION 8 - THIRD-PARTY LINKS</strong>
             <p>
               Certain content, products and Services available via our Service
@@ -249,7 +249,7 @@ const TermServices = () => {
               third-party.
             </p>
           </div>
-          <div className="font-Roboto text-[19px] my-6">
+          <div className="font-Roboto text-[16px] md:text-[19px] my-6">
             <strong>
               SECTION 9 - USER COMMENTS, FEEDBACK AND OTHER SUBMISSIONS
             </strong>
@@ -287,7 +287,7 @@ const TermServices = () => {
               any comments posted by you or any third-party.
             </p>
           </div>
-          <div className="font-Roboto text-[19px] my-6">
+          <div className="font-Roboto text-[16px] md:text-[19px] my-6">
             <strong>SECTION 10 - PERSONAL INFORMATION</strong>
             <p>
               Your submission of personal information through the store is
@@ -295,7 +295,7 @@ const TermServices = () => {
               PRIVACY POLICY]
             </p>
           </div>
-          <div className="font-Roboto text-[19px] my-6">
+          <div className="font-Roboto text-[16px] md:text-[19px] my-6">
             <strong>SECTION 11 - ERRORS, INACCURACIES AND OMISSIONS</strong>
             <p>
               Occasionally there may be information on our site or in the
@@ -318,7 +318,7 @@ const TermServices = () => {
               updated.
             </p>
           </div>
-          <div className="font-Roboto text-[19px] my-6">
+          <div className="font-Roboto text-[16px] md:text-[19px] my-6">
             <strong>SECTION 12 - PROHIBITED USES</strong>
             <p>
               In addition to other prohibitions as set forth in the Terms of
@@ -345,7 +345,7 @@ const TermServices = () => {
               uses.
             </p>
           </div>
-          <div className="font-Roboto text-[19px] my-6">
+          <div className="font-Roboto text-[16px] md:text-[19px] my-6">
             <strong>
               SECTION 13 - DISCLAIMER OF WARRANTIES; LIMITATION OF LIABILITY
             </strong>
@@ -396,7 +396,7 @@ const TermServices = () => {
               extent permitted by law.
             </p>
           </div>
-          <div className="font-Roboto text-[19px] my-6">
+          <div className="font-Roboto text-[16px] md:text-[19px] my-6">
             <strong>SECTION 14 - INDEMNIFICATION</strong>
             <p>
               You agree to indemnify, defend and hold harmless Just Meats and
@@ -409,7 +409,7 @@ const TermServices = () => {
               or your violation of any law or the rights of a third-party.
             </p>
           </div>
-          <div className="font-Roboto text-[19px] my-6">
+          <div className="font-Roboto text-[16px] md:text-[19px] my-6">
             <strong>SECTION 15 - SEVERABILITY</strong>
             <p>
               In the event that any provision of these Terms of Service is
@@ -421,7 +421,7 @@ const TermServices = () => {
               remaining provisions.
             </p>
           </div>
-          <div className="font-Roboto text-[19px] my-6">
+          <div className="font-Roboto text-[16px] md:text-[19px] my-6">
             <strong>SECTION 16 - TERMINATION</strong>
             <p>
               The obligations and liabilities of the parties incurred prior to
@@ -443,7 +443,7 @@ const TermServices = () => {
               access to our Services (or any part thereof).
             </p>
           </div>
-          <div className="font-Roboto text-[19px] my-6">
+          <div className="font-Roboto text-[16px] md:text-[19px] my-6">
             <strong>SECTION 17 - ENTIRE AGREEMENT</strong>
             <p>
               The failure of us to exercise or enforce any right or provision of
@@ -464,7 +464,7 @@ const TermServices = () => {
               shall not be construed against the drafting party.
             </p>
           </div>
-          <div className="font-Roboto text-[19px] my-6">
+          <div className="font-Roboto text-[16px] md:text-[19px] my-6">
             <strong>SECTION 18 - GOVERNING LAW</strong>
             <p>
               These Terms of Service and any separate agreements whereby we
@@ -472,7 +472,7 @@ const TermServices = () => {
               accordance with the laws of United States.
             </p>
           </div>
-          <div className="font-Roboto text-[19px] my-6">
+          <div className="font-Roboto text-[16px] md:text-[19px] my-6">
             <strong>SECTION 19 - CHANGES TO TERMS OF SERVICE</strong>
             <p>
               You can review the most current version of the Terms of Service at
@@ -487,7 +487,7 @@ const TermServices = () => {
               to these Terms of Service constitutes acceptance of those changes.
             </p>
           </div>
-          <div className="font-Roboto text-[19px] my-6">
+          <div className="font-Roboto text-[16px] md:text-[19px] my-6">
             <strong>SECTION 20 - CONTACT INFORMATION</strong>
             <p>
               Questions about the Terms of Service should be sent to us at
