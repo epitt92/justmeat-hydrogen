@@ -18,7 +18,7 @@ function Icon({ id, open }) {
 export function FaqAccordion() {
   const [open, setOpen] = React.useState(0);
  
-  const handleOpen = (value) => setOpen(open === value ? 1 : value);
+  const handleOpen = (value) => setOpen(open === value ? 0 : value);
  
   return (
     <>

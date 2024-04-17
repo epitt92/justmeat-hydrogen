@@ -55,20 +55,16 @@ export const PRODUCT_ITEM_FRAGMENT = `#graphql
       }
     }
     sellingPlanGroups(first:2) {
-      edges {
-        node {
+      nodes {
+        name
+        options {
           name
-          options {
+          values
+        }
+        sellingPlans(first: 2) {
+          nodes {
+            id
             name
-            values
-          }
-          sellingPlans(first: 1) {
-            edges {
-              node {
-                id
-                name
-              }
-            }
           }
         }
       }
@@ -208,7 +204,7 @@ export const PRODUCT_FRAGMENT = `#graphql
   ${PRODUCT_VARIANT_FRAGMENT}
 `
 
-export const PRODUCT_BY_HANDLER_QUERY = `#graphql
+export const PRODUCT_BY_HANDLE_QUERY = `#graphql
   query Product(
     $country: CountryCode
     $handle: String!

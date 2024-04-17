@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react'
 import sliderStyles from 'swiper/css'
 import sliderNavigation from 'swiper/css/navigation'
 import sliderPagination from 'swiper/css/pagination'
-
+import slickCarousel from "slick-carousel/slick/slick.css";
+import  slickCarouselTheme from  "slick-carousel/slick/slick-theme.css";
 import {
   Links,
   LiveReload,
@@ -28,6 +29,9 @@ import { addScriptToHead } from '~/lib/utils'
 import appStyles from '~/styles/app.css'
 import tailwindStyles from '~/styles/tailwind.css'
 
+import { configChatJS } from './lib/configChatJS'
+import { configTwitterPixel } from './lib/configTwitterPixel'
+
 export const shouldRevalidate = ({ formMethod, currentUrl, nextUrl }) => {
   // revalidate when a mutation is performed e.g add to cart, login...
   if (formMethod && formMethod !== 'GET') {
@@ -47,6 +51,8 @@ export function links() {
     // {rel: 'stylesheet', href: resetStyles},
     { rel: 'stylesheet', href: appStyles },
     { rel: 'stylesheet', href: sliderStyles },
+    { rel: 'stylesheet', href: slickCarousel },
+    { rel: 'stylesheet', href: slickCarouselTheme },
     { rel: 'stylesheet', href: sliderNavigation },
     { rel: 'stylesheet', href: sliderPagination },
     { rel: 'stylesheet', href: tailwindStyles },
@@ -176,6 +182,9 @@ export default function App() {
     for (const script of externalScripts) {
       addScriptToHead(script)
     }
+
+    configChatJS()
+    configTwitterPixel()
   }, [])
 
   const setCartSellingPlan = (value) => {
