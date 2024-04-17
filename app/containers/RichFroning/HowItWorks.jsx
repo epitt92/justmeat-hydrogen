@@ -1,11 +1,16 @@
 import { NavLink } from '@remix-run/react'
-
 import { HowItWorksStepsSlider } from '~/components/HowItWorksStepsSlider'
 import { QualitySeal } from '~/icons/QualitySeal'
 
 export const HowItWorks = () => {
   return (
-    <section className="relative bg-[#efeeed] sm:py-[110px] py-[70px]">
+      <section
+        className="relative bg-[#efeeed] sm:py-[110px] py-[70px] bg-no-repeat sm:bg-[url(https://cdn.shopify.com/s/files/1/0672/4776/7778/files/richs-photo.png?v=1713377936)] bg-none"
+        style={{
+          backgroundSize: '32%',
+          backgroundPositionY: '-175px'
+        }}
+      >
       <div className="relative w-full max-w-[1120px] mx-auto my-0 sm:px-[20px] py-0">
         <div className="w-[133px] absolute top-[60px] right-[-20px] z-10 sm:block hidden">
           <QualitySeal />

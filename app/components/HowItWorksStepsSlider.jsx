@@ -7,8 +7,8 @@ import stepImage3 from '~/assets/images/how-it-works-step-3.png'
 
 const swiperBreakpoints = {
   360: {
-    slidesPerView: 1,
-    spaceBetween: 24,
+    slidesPerView: 1.5,
+    spaceBetween: 20,
   },
   768: {
     slidesPerView: 3,
@@ -20,7 +20,7 @@ const swiperBreakpoints = {
   },
   1440: {
     slidesPerView: 3,
-    spaceBetween: 48,
+    spaceBetween: 40,
   },
 }
 
@@ -41,8 +41,8 @@ const steps = [
 
 export const HowItWorksStepsSlider = () => {
   return (
-    <div className="relative flex justify-center overflow-x-hidden sm:mb-[56px] mb-[10px]">
-      <div className="md:w-[600px] lg:w-[891px] w-[350px] mx-auto">
+    <div className="relative flex justify-center overflow-x-hidden sm:mb-[56px] mb-[10px] sm:max-w-full max-w-[425px]">
+      <div className="md:w-[600px] lg:w-[891px] w-full mx-auto">
         <Swiper
           loop
           autoplay
@@ -50,6 +50,8 @@ export const HowItWorksStepsSlider = () => {
           slidesPerView={3}
           modules={[Pagination]}
           breakpoints={swiperBreakpoints}
+          centeredSlides
+          initialSlide={1}
           className="how-it-works-slider"
         >
           {steps.map((step, index) => (

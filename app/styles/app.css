@@ -469,3 +469,11 @@ button.free-gift-label {
 .slick-dots {
   bottom: -39px !important;
 }
+
+section.product-list-slider button.slick-arrow.slick-prev {
+  @apply sm:left-[-45px] left-[-15px] z-10;
+}
+
+section.product-list-slider button.slick-arrow.slick-next {
+  @apply sm:right-[-25px] z-10 right-[5px];
+}

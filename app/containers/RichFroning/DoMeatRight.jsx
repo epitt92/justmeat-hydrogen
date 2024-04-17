@@ -6,7 +6,7 @@ import {FaqAccordion} from './FaqAccordion'
 import OrderButton from 'app/components/OrderButton'
 export const DoMeatRight = () => {
   return (
-    <section className="bg-[#efeeed] sm:pt-[10px]  sm:pb-[25px]  pb-[32px] relative">
+    <section className="bg-[#efeeed] sm:pt-[10px]  sm:pb-[25px]  pb-[32px] relative" style={{ overflowX: "clip" }}>
       <div className="container-1120 z-50 relative w-[90%] sm:w-[80%] mx-auto">
         <div
           className="flex flex-col items-center bg-brown-pattern z-50 text-white sm:py-[45px] py-[22px] rounded-[8px]"
