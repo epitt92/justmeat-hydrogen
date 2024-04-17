@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 
 import { NavLink, useMatches } from '@remix-run/react'
 
@@ -18,7 +18,18 @@ export function Header() {
   // const { setMenuToggle } = useContext(LayoutContext)
   const { menuOpen, setMenuToggle } = useContext(LayoutContext)
   const isRoute = matches[1].params.bundle === 'custom-bundle'
+  const [isMobile, setIsMobile] = useState(false)
 
+  useEffect(() => {
+    // Function to update our state
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 800)
+    }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    // Clean up event listener
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
   const HoverUnderNavLink = (to, text) => {
     const spanRef = useRef(null)
 
@@ -65,7 +76,6 @@ export function Header() {
       </li>
     )
   }
-
   const navLinks = [
     ['/products/custom-bundle', 'Menu'],
     ['/about', 'About Us'],
@@ -74,105 +84,73 @@ export function Header() {
   ]
 
   const Mainheader = () => {
-    return (
-      // <div className="container-small relative h-[88px] sm:h-[120px] flex items-center justify-between py-4 mainheader">
-      //   <div className="flex items-center justify-between gap-10 navBar">
-      //     <div className="hidden navLinks sm:flex sm:gap-[32px]">
-      //       {navLinks.map(([to, text], index) => (
-      //         <NavLinkItem to={to} text={text} key={index} />
-      //       ))}
-      //     </div>
-      //     <Button
-      //       className="block sm:hidden"
-      //       onClick={() => setMenuToggle(true)}
-      //     >
-      //       <HamburgerOpen />
-      //     </Button>
-      //   </div>
-      //   <div className="absolute-center">
-      //     <NavLink to="/" end prefetch="intent">
-      //       <div className="w-[148px] sm:w-[214px]">
-      //         <Logo />
-      //       </div>
-      //     </NavLink>
-      //   </div>
-      //   <div className="flex items-center gap-[32px]">
-      //     <div className="flex items-center gap-[10px] sm:gap-[18px]">
-      //       <NavLink end prefetch="intent" to="/account">
-      //         <span className="cursor-pointer loginIcon">
-      //           <AccountIcon />
-      //         </span>
-      //       </NavLink>
-      //       <CartButton />
-      //     </div>
-      //     <div className="hidden lg:block">
-      //       <OrderButton />
-      //     </div>
-      //   </div>
-      // </div>
-
-      <div className="container flex items-center justify-between py-4 mainheader">
-        <NavLink end prefetch="intent" to="/">
-          <img
-            src={logo}
-            className="object-cover h-16 w-30 sm:h-24"
-            alt=""
-            style={{ height: 'revert-layer' }}
-          />
-        </NavLink>
+    return !isMobile ? (
+      <div className="container-small relative h-[88px] sm:h-[120px] flex items-center justify-between py-4 mainheader">
         <div className="flex items-center justify-between gap-10 navBar">
-          <ul className="hidden navLinks lg:flex">
-            {HoverUnderNavLink('/products/custom-bundle', 'Menu')}
-            {HoverUnderNavLink('/about', 'About Us')}
-            {HoverUnderNavLink('/recipes', 'Recipes')}
-          </ul>
+          <div className="navLinks sm:flex sm:gap-[32px]">
+            {navLinks.map(([to, text], index) => (
+              <NavLinkItem to={to} text={text} key={index} />
+            ))}
+          </div>
+          <Button
+            className="block sm:hidden"
+            onClick={() => setMenuToggle(true)}
+          >
+            <HamburgerOpen />
+          </Button>
+        </div>
+        <div className="absolute-center">
+          <NavLink to="/" end prefetch="intent">
+            <div className="w-[148px] sm:w-[214px]">
+              <Logo />
+            </div>
+          </NavLink>
+        </div>
+        <div className="flex items-center gap-[32px]">
+          <div className="flex items-center gap-[10px] sm:gap-[18px]">
+            <NavLink end prefetch="intent" to="/account">
+              <span className="cursor-pointer loginIcon">
+                <AccountIcon />
+              </span>
+            </NavLink>
+            <CartButton />
+          </div>
           <div className="hidden lg:block">
             <OrderButton />
           </div>
+        </div>
+      </div>
+    ) : (
+      <div className="container-small relative h-[88px] sm:h-[120px] flex items-center justify-between py-4 mainheader">
+        <div className="flex items-center justify-between gap-10 navBar">
           <div className="flex items-center justify-between gap-4 headerIcons sm:gap-10">
-            <NavLink end prefetch="intent" to="/account">
-              <span className="hidden w-5 cursor-pointer loginIcon lg:flex">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  id="Group_4154"
-                  data-name="Group 4154"
-                  width="27.473"
-                  height="33.937"
-                  viewBox="0 0 27.473 33.937"
-                  className="icon-account"
-                >
-                  <path
-                    id="Path_1"
-                    data-name="Path 1"
-                    d="M259.545,42.272A7.272,7.272,0,1,1,252.272,35a7.272,7.272,0,0,1,7.272,7.272"
-                    transform="translate(-238.536 -35)"
-                    fill="#030303"
-                    fillRule="evenodd"
-                  ></path>
-                  <path
-                    id="Path_2"
-                    data-name="Path 2"
-                    d="M177.528,286.105a1.616,1.616,0,0,0,1.616-1.616v-2.424a13.736,13.736,0,1,0-27.473,0v2.424a1.616,1.616,0,0,0,1.616,1.616h24.241Z"
-                    transform="translate(-151.672 -252.168)"
-                    fill="#030303"
-                    fillRule="evenodd"
-                  ></path>
-                </svg>
-              </span>
-            </NavLink>
             <Button
               className="block lg:hidden"
               onClick={() => setMenuToggle(true)}
             >
               <HamburgerOpen />
             </Button>
+          </div>
+        </div>
+
+        <div className="absolute-center">
+          <NavLink to="/" end prefetch="intent">
+            <div className="w-[148px] sm:w-[214px]">
+              <Logo />
+            </div>
+          </NavLink>
+        </div>
+        <div className="flex items-center gap-[32px]">
+          <div className="flex items-center gap-[10px] sm:gap-[18px]">
             <CartButton />
+          </div>
+          <div className="hidden lg:block">
+            <OrderButton />
           </div>
         </div>
       </div>
     )
   }
-
   const NavLinkItem = ({ to, text }) => (
     <NavLink end prefetch="intent" to={to}>
       <div className="text-xs font-medium uppercase transition cursor-pointer hover:text-primary text-primary-dark">

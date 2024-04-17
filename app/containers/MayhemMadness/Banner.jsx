@@ -9,8 +9,8 @@ export const Banner = () => {
         <div className="relative h-full container-small">
           <div className="relative h-full">
             <div className="sm:h-[40px] h-[15px]"></div>
-            <div className="flex flex-col-reverse sm:flex-col-reverse gap-0">
-              <div className="w-[340px] sm:w-[663px] lg:w-[550px] h-[240px] mx-auto">
+            <div className="flex flex-col-reverse sm:flex-col-reverse lg:flex-col sm:gap-[0] lg:gap-[66px] ">
+              <div className="w-[340px] sm:w-[663px] lg:w-[550px] h-[240px] sm:mx-auto lg:mx-0">
                 <MayhemNation />
               </div>
               <div className="">
@@ -24,33 +24,29 @@ export const Banner = () => {
                 </div>
               </div>
             </div>
-            {/*<div className="absolute sm:w-auto w-[400px] sm:right-[100px] sm:translate-x-0 -translate-x-1/2 left-1/2 sm:bottom-[60px] bottom-[120px]">*/}
-            {/*  <img src={BannerCharacter} />*/}
-            {/*</div>*/}
-
-            <div className="flex justify-center items-center">
-              <div className="flex justify-center items-center">
-                <img
-                  src={BannerCharacter}
-                  className="w-[90%] sm:w-auto max-w-[400px] h-auto"
-                />
-              </div>
+            <div className="relative w-full sm:flex sm:justify-center sm:items-center lg:absolute lg:w-auto lg:right-[100px] lg:translate-x-0 lg:bottom-[60px] flex justify-center items-center">
+              <img
+                src={BannerCharacter}
+                className="w-[90%] sm:w-auto sm:max-w-[400px] h-auto"
+                style={{ maxWidth: '400px' }} // Ensures max-width is respected on all screen sizes
+              />
             </div>
+
             <div
-              className="flex flex-col items-center bg-brown-pattern absolute w-full sm:bottom-[-84px] left-0 text-white bottom-[-120px] sm:pt-[28px] pt-[21px] sm:pb-[24px] pb-[18px] sm:rounded-[8px] rounded-[6px]"
+              className="flex flex-col items-center bg-brown-pattern relative lg:absolute w-full sm:bottom-[100px] lg:bottom-[-84px] left-0 text-white bottom-[-120px] sm:pt-[28px] pt-[21px] sm:pb-[24px] pb-[18px] sm:rounded-[8px] rounded-[6px]"
               style={{ boxShadow: '0px 32px 43px -8px rgba(0, 0, 0, 0.20)' }}
             >
-              <div className="sm:flex sm:text-[48px] sm:text-left text-center text-[36px] font-bold sm:mb-[4px] mb-[3px] leading-tight">
+              <div className="text-center text-[36px] font-bold mb-[3px] leading-tight px-4 sm:text-[66px] lg:text-[48px] sm:mb-[4px]">
                 EARN ANYWHERE FROM
                 <span className="text-yellow ml-[6px] sm:ml-[8px]">
                   $5K - $10K
                 </span>
               </div>
-              <div className="sm:text-[28px] text-[21px] text-center sm:text-left font-bold tracking-[3px] sm:mb-[16px] mb-[12px] leading-tight">
+              <div className="text-center sm:text-[32px] lg:text-[28px] text-[21px] font-bold px-16 sm:px-16 md:px-16 lg:px-0 tracking-[3px] sm:mb-[16px] mb-[12px] leading-tight">
                 IN ADDITIONAL REVENUE <br className="block sm:hidden" />
                 IN AS LITTLE AS 3 MONTHS!
               </div>
-              <div className="text-[14px] text-center sm:text-left tracking-[3px] leading-[23px] text-[#ccbdb1]">
+              <div className="text-[14px] sm:text-[20px] lg:text-[14px] text-center tracking-[3px] px-20 sm:px-20 md:px-20 lg:px-0 leading-[23px] text-[#ccbdb1]">
                 CLAIM YOUR 6 FREE MEATS, <br className="block sm:hidden" />
                 AND WE WILL SHOW YOU HOW
               </div>
