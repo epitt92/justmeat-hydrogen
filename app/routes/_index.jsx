@@ -83,7 +83,15 @@ export default function Homepage() {
       </section>
 
       <section>
-        <NavLink end prefetch="intent" to="/products/custom-bundle">
+        <div className="flex justify-center sm:px-[35px] sm:py-[35px] px-[20px] py-[65px]">
+          <NavLink end prefetch="intent" to="/rich-froning" className='underline lg:text-[38px] text-[30px] font-bold font-roboto_medium text-center'>
+            Click here to revisit our Rich Froning specials.
+          </NavLink>
+        </div>
+      </section>
+
+      <section>
+        <NavLink className={'w-full'} end prefetch="intent" to="/products/custom-bundle">
           <img
             src={subscriptionBannerImage}
             className="hidden sm:block"
