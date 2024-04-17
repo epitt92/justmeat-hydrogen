@@ -6,7 +6,7 @@ const ProductsSlider = () => {
   var settings = {
     dots: true,
     infinite: true,
-    autoplay: false,
+    autoplay: true,
     speed: 1000,
     autoplaySpeed: 3000,
     slidesToShow: 3,
@@ -16,7 +16,7 @@ const ProductsSlider = () => {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 4,
           slidesToScroll: 3,
           infinite: true,
           dots: true
