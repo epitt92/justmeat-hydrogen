@@ -28,6 +28,9 @@ import { addScriptToHead } from '~/lib/utils'
 import appStyles from '~/styles/app.css'
 import tailwindStyles from '~/styles/tailwind.css'
 
+import { configChatJS } from './lib/configChatJS'
+import { configTwitterPixel } from './lib/configTwitterPixel'
+
 export const shouldRevalidate = ({ formMethod, currentUrl, nextUrl }) => {
   // revalidate when a mutation is performed e.g add to cart, login...
   if (formMethod && formMethod !== 'GET') {
@@ -176,6 +179,9 @@ export default function App() {
     for (const script of externalScripts) {
       addScriptToHead(script)
     }
+
+    configChatJS()
+    configTwitterPixel()
   }, [])
 
   const setCartSellingPlan = (value) => {
