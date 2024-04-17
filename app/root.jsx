@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react'
 import sliderStyles from 'swiper/css'
 import sliderNavigation from 'swiper/css/navigation'
 import sliderPagination from 'swiper/css/pagination'
-
+import slickCarousel from "slick-carousel/slick/slick.css";
+import  slickCarouselTheme from  "slick-carousel/slick/slick-theme.css";
 import {
   Links,
   LiveReload,
@@ -50,6 +51,8 @@ export function links() {
     // {rel: 'stylesheet', href: resetStyles},
     { rel: 'stylesheet', href: appStyles },
     { rel: 'stylesheet', href: sliderStyles },
+    { rel: 'stylesheet', href: slickCarousel },
+    { rel: 'stylesheet', href: slickCarouselTheme },
     { rel: 'stylesheet', href: sliderNavigation },
     { rel: 'stylesheet', href: sliderPagination },
     { rel: 'stylesheet', href: tailwindStyles },
