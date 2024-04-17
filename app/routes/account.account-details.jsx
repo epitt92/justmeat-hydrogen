@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 
-import { listPaymentMethods } from '@rechargeapps/storefront-client'
+import {
+  listPaymentMethods,
+  sendCustomerNotification,
+} from '@rechargeapps/storefront-client'
 import {
   Form,
   NavLink,
@@ -11,7 +14,8 @@ import {
 } from '@remix-run/react'
 import { json } from '@shopify/remix-oxygen'
 
-import PaymentDetails from '~/containers/Account/AccountDetails/PaymentDetails'
+import { AccountDetailsEdit } from '~/containers/Account/AccountDetails/AccountDetailsEdit'
+import { PaymentDetails } from '~/containers/Account/AccountDetails/PaymentDetails'
 import { CUSTOMER_UPDATE_MUTATION } from '~/graphql/customer-account/CustomerUpdateMutation'
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
 
@@ -35,77 +39,64 @@ export async function loader({ context }) {
 export async function action({ request, context }) {
   const { customerAccount } = context
 
-  if (request.method !== 'PUT') {
-    return json({ error: 'Method not allowed' }, { status: 405 })
-  }
-
   const form = await request.formData()
+  const body = JSON.parse(form.get('body'))
 
-  try {
-    const customer = {}
-    const validInputKeys = ['firstName', 'lastName']
-    for (const [key, value] of form.entries()) {
-      if (!validInputKeys.includes(key)) {
-        continue
+  const { api, ...data } = body
+
+  switch (api) {
+    case 'update-account-details':
+      const customer = data
+
+      // update customer and possibly password
+      const { data: res, errors } = await customerAccount.mutate(
+        CUSTOMER_UPDATE_MUTATION,
+        {
+          variables: {
+            customer,
+          },
+        },
+      )
+
+      if (errors?.length) {
+        throw new Error(errors[0].message)
       }
-      if (typeof value === 'string' && value.length) {
-        customer[key] = value
+
+      if (!res?.customerUpdate?.customer) {
+        throw new Error('Customer profile update failed.')
       }
-    }
 
-    // update customer and possibly password
-    const { data, errors } = await customerAccount.mutate(
-      CUSTOMER_UPDATE_MUTATION,
-      {
-        variables: {
-          customer,
-        },
-      },
-    )
+      return json({ msg: 'ok' })
 
-    if (errors?.length) {
-      throw new Error(errors[0].message)
-    }
+    case 'send-update-payment-email':
+      await rechargeQueryWrapper(
+        (session) =>
+          sendCustomerNotification(session, 'SHOPIFY_UPDATE_PAYMENT_INFO', {
+            ...data,
+          }),
+        context,
+      )
 
-    if (!data?.customerUpdate?.customer) {
-      throw new Error('Customer profile update failed.')
-    }
+      return json({ msg: 'ok' })
 
-    return json(
-      {
-        error: null,
-        customer: data?.customerUpdate?.customer,
-      },
-      {
-        headers: {
-          'Set-Cookie': await context.session.commit(),
-        },
-      },
-    )
-  } catch (error) {
-    return json(
-      { error: error.message, customer: null },
-      {
-        status: 400,
-        headers: {
-          'Set-Cookie': await context.session.commit(),
-        },
-      },
-    )
+    default:
+      break
   }
 }
 
 const AccountDetails = () => {
+  const account = useOutletContext()
+  const action = useActionData()
+
   const [showAccountDetails, setShowAccountDetails] = useState(true)
   const { listPaymentResponse } = useLoaderData()
-  const account = useOutletContext()
-  const { state, formAction } = useNavigation()
-  /** @type {ActionReturnData} */
-  const action = useActionData()
+
   const customer = action?.customer ?? account?.customer
+
   const toggleView = () => {
     setShowAccountDetails(!showAccountDetails)
   }
+
   return (
     <div className="py-6 bg-sublistbgGray">
       <div className="container">
@@ -142,71 +133,7 @@ const AccountDetails = () => {
                 Account Details
               </h3>
             </div>
-            <Form method="PUT">
-              <div className="grid grid-cols-1  gap-x-16 gap-y-8 sm:grid-cols-6">
-                <div className="sm:col-span-3">
-                  <label
-                    htmlFor="firstName"
-                    className="block text-lg font-medium leading-6 text-gray-900"
-                  >
-                    First name
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="firstName"
-                      name="firstName"
-                      className="block w-full text-lg rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-500 "
-                      type="text"
-                      autoComplete="given-name"
-                      placeholder="First name"
-                      aria-label="First name"
-                      defaultValue={customer.firstName ?? ''}
-                      minLength={2}
-                    />
-                  </div>
-                </div>
-
-                <div className="sm:col-span-3">
-                  <label
-                    htmlFor="lastName"
-                    className="block text-lg font-medium leading-6 text-gray-900"
-                  >
-                    Last name
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="lastName"
-                      name="lastName"
-                      className="block w-full text-lg rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-500 "
-                      type="text"
-                      autoComplete="family-name"
-                      placeholder="Last name"
-                      aria-label="Last name"
-                      defaultValue={customer.lastName ?? ''}
-                      minLength={2}
-                    />
-                  </div>
-                </div>
-                <div className="sm:col-span-3">
-                  {action?.error ? (
-                    <p>
-                      <mark>
-                        <small>{action.error}</small>
-                      </mark>
-                    </p>
-                  ) : (
-                    <br />
-                  )}
-                  <button
-                    type="submit"
-                    disabled={state !== 'idle'}
-                    className="px-8 py-1 text-lg font-bold text-black border-2 border-black rounded-sm shadow-sm"
-                  >
-                    {state !== 'idle' && formAction ? 'Saving....' : 'Save'}
-                  </button>
-                </div>
-              </div>
-            </Form>
+            <AccountDetailsEdit customer={customer} />
           </div>
         )}
 
@@ -225,6 +152,7 @@ const AccountDetails = () => {
 }
 
 export default AccountDetails
+
 function PaymentMethods({ paymentMethods }) {
   return (
     <div className="">

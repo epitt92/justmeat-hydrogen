@@ -6,6 +6,7 @@ import {
   listBundleSelections,
   listCharges,
   processCharge,
+  sendCustomerNotification,
   updateBundleSelection,
   updateSubscriptionChargeDate,
 } from '@rechargeapps/storefront-client'
@@ -158,9 +159,9 @@ export async function loader({ request, context, params }) {
 export async function action({ request, context, params }) {
   const storefront = context.storefront
   const form = await request.formData()
-  const data = JSON.parse(form.get('body'))
+  const body = JSON.parse(form.get('body'))
 
-  const api = data.api
+  const { api, ...data } = body
 
   switch (api) {
     case 'update-bundle':
@@ -224,6 +225,21 @@ export async function action({ request, context, params }) {
           }),
         context,
       )
+
+      return json({ msg: 'ok' })
+
+    case 'send-update-payment-email':
+      const { address_id, payment_method_id } = data
+
+      await rechargeQueryWrapper(
+        (session) =>
+          sendCustomerNotification(session, 'SHOPIFY_UPDATE_PAYMENT_INFO', {
+            address_id,
+            payment_method_id,
+          }),
+        context,
+      )
+      console.log('🚀 ~ action ~ data:', JSON.stringify(data))
 
       return json({ msg: 'ok' })
 

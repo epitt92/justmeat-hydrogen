@@ -1,8 +1,44 @@
 import React, { useState } from 'react'
 
-const PaymentDetails = ({ paymentMethod }) => {
-  const { payment_details, billing_address } = paymentMethod
+import { Button } from '~/components/Button'
+import { useSubmitPromise } from '~/hooks/useSubmitPromise'
+
+export const PaymentDetails = ({ paymentMethod }) => {
+  const submit = useSubmitPromise()
+
+  const {
+    id: payment_method_id,
+    payment_details,
+    billing_address,
+  } = paymentMethod
+
   const [isNavOpen, setIsNavOpen] = useState(false)
+  const [sendingEmail, setSendingEmail] = useState(false)
+
+  const handleSendUpdateEmail = async () => {
+    setSendingEmail(true)
+
+    const res = await submit(
+      {
+        body: JSON.stringify({
+          api: 'send-update-payment-email',
+          payment_method_id,
+        }),
+      },
+      {
+        method: 'post',
+        action: `/account/account-details`,
+      },
+    )
+
+    setSendingEmail(false)
+    setIsNavOpen(false)
+
+    if (res.msg === 'ok') {
+      console.debug('ok')
+    }
+  }
+
   return (
     <>
       <div className="border border-black px-5 py-4 my-5">
@@ -74,13 +110,17 @@ const PaymentDetails = ({ paymentMethod }) => {
             {payment_details.brand}
           </h5>
           <p className="italic mt-4 text-[16px]">
-            Any updates to this payment method must be completed via{' '}
-            {payment_details.brand}
+            Any updates to this payment method must be completed via Shopify.
           </p>
+          <Button
+            loading={sendingEmail}
+            onClick={handleSendUpdateEmail}
+            className="bg-black text-[15px] py-[8px] text-white px-[16px] mt-4"
+          >
+            SEND UPDATE EMAIL
+          </Button>
         </div>
       </div>
     </>
   )
 }
-
-export default PaymentDetails
