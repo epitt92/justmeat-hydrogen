@@ -39,6 +39,7 @@ const steps = [
   },
 ]
 
+
 export const HowItWorksStepsSlider = () => {
   return (
     <div className="relative flex justify-center overflow-x-hidden sm:mb-[56px] mb-[10px] sm:max-w-full max-w-[425px]">
