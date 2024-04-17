@@ -85,20 +85,7 @@ export function Header() {
 
   const Mainheader = () => {
     return !isMobile ? (
-      <div className="container-small relative h-[88px] sm:h-[120px] flex items-center justify-between py-4 mainheader">
-        <div className="flex items-center justify-between gap-10 navBar">
-          <div className="navLinks sm:flex sm:gap-[32px]">
-            {navLinks.map(([to, text], index) => (
-              <NavLinkItem to={to} text={text} key={index} />
-            ))}
-          </div>
-          <Button
-            className="block sm:hidden"
-            onClick={() => setMenuToggle(true)}
-          >
-            <HamburgerOpen />
-          </Button>
-        </div>
+      <header className="container-small relative h-[88px] sm:h-[120px] flex items-center justify-between py-4">
         <div className="absolute-center">
           <NavLink to="/" end prefetch="intent">
             <div className="w-[148px] sm:w-[214px]">
@@ -106,20 +93,7 @@ export function Header() {
             </div>
           </NavLink>
         </div>
-        <div className="flex items-center gap-[32px]">
-          <div className="flex items-center gap-[10px] sm:gap-[18px]">
-            <NavLink end prefetch="intent" to="/account">
-              <span className="cursor-pointer loginIcon">
-                <AccountIcon />
-              </span>
-            </NavLink>
-            <CartButton />
-          </div>
-          <div className="hidden lg:block">
-            <OrderButton />
-          </div>
-        </div>
-      </div>
+      </header>
     ) : (
       <div className="container-small relative h-[88px] sm:h-[120px] flex items-center justify-between py-4 mainheader">
         <div className="flex items-center justify-between gap-10 navBar">
@@ -139,14 +113,6 @@ export function Header() {
               <Logo />
             </div>
           </NavLink>
-        </div>
-        <div className="flex items-center gap-[32px]">
-          <div className="flex items-center gap-[10px] sm:gap-[18px]">
-            <CartButton />
-          </div>
-          <div className="hidden lg:block">
-            <OrderButton />
-          </div>
         </div>
       </div>
     )
