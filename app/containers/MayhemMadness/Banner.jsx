@@ -10,7 +10,7 @@ export const Banner = () => {
           <div className="relative h-full">
             <div className="sm:h-[40px] h-[15px]"></div>
             <div className="flex flex-col-reverse sm:flex-col-reverse lg:flex-col sm:gap-[0] lg:gap-[66px] ">
-              <div className="w-[340px] sm:w-[663px] lg:w-[550px] h-[240px] sm:mx-auto lg:mx-0">
+              <div className="w-[340px] sm:w-[520px] md:w-[663px] lg:w-[550px] h-[150px] sm:h-[200px] md:h-[240px] sm:mx-auto lg:mx-0">
                 <MayhemNation />
               </div>
               <div className="">

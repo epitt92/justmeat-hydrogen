@@ -42,7 +42,7 @@ const steps = [
 export const HowItWorksStepsSlider = () => {
   return (
     <div className="relative flex justify-center overflow-x-hidden sm:mb-[56px] mb-[10px]">
-      <div className="sm:w-[891px] w-[350px] mx-auto">
+      <div className="md:w-[600px] lg:w-[891px] w-[350px] mx-auto">
         <Swiper
           loop
           autoplay

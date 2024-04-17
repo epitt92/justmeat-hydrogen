@@ -5,7 +5,7 @@ export const ChefCook = () => {
     <section className="relative bg-[#efeeed] text-white">
       <div className="relative">
         <div className="absolute w-full h-[87.6%] bottom-0 bg-[#222222]"></div>
-        <div className="relative grid sm:grid-cols-2 grid-cols-1 gap-[62px] sm:gap-0">
+        <div className="relative grid lg:grid-cols-2 grid-cols-1 gap-[62px] sm:gap-0">
           <div className="relative sm:px-0 px-[20px]">
             <div className="absolute sm:hidden block left-0 w-full h-[87.6%] bottom-0 bg-[#222222]"></div>
             <img
@@ -14,8 +14,8 @@ export const ChefCook = () => {
             />
           </div>
           <div className="flex items-end">
-            <div className="relative w-full sm:h-[87.5%]">
-              <div className="sm:absolute max-w-[532px] w-full h-full sm:px-0 px-[20px] 2xl:pt-[53px] xl:pt-[30px] sm:pt-[30px] sm:pl-[64px] flex flex-col 2xl:gap-[26px] gap-[20px]">
+            <div className="relative w-full sm:h-[87.5%] flex justify-center lg:block">
+              <div className="lg:absolute max-w-[532px] w-full h-full lg:px-0 px-[20px] 2xl:pt-[53px] xl:pt-[30px] lg:pt-[30px] lg:pl-[64px] flex flex-col 2xl:gap-[26px] gap-[20px]">
                 <div className="sm:text-[36px] text-[24px] font-bold tracking-[2px]">
                   FARM - TO - TABLE FRESH
                 </div>
