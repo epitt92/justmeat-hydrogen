@@ -11,10 +11,13 @@ export const HowItWorks = () => {
         <PremiumSeal />
       </div>
       <div className="container text-center">
-        <div className=" font-dunbar sm:text-[14px] text-[12px] font-normal tracking-[3px] mt-8 sm:mb-[6px] pb-12">
+        <div className=" font-nunito sm:text-[18px] text-[12px] font-semibold uppercase leading-[26px] mt-8">
           How JUST MEATS WORKS
         </div>
-        <div className="sm:text-[18px] text-[16px] sm:leading-[26px] leading-[25px] font-nunito max-w-[710px] w-full mx-auto sm:mb-[43px] mb-[35px]">
+        <div className=" font-nunito text-[28px] sm:text-[36px]  font-bold uppercase leading-normal tracking-[1.8px] mt-2 sm:mb-[6px]">
+        THE ULTI-MEAT EXPERIENCE
+        </div>
+        <div className=" font-nunito font-normal text-[16px] sm:text-[18px]  sm:leading-[26px] leading-[25px] max-w-[710px] w-full mx-auto sm:mb-[43px] mb-[35px]">
           Here&rsquo;s how having <span className="font-bold">JUST MEATS</span>{' '}
           delivered to your door changes the game.
           <br />
