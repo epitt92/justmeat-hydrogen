@@ -6,7 +6,7 @@ import { Cooking } from '~/icons/Cooking'
 import { MeatRecycle } from '~/icons/MeatRecycle'
 import { SmilingSun } from '~/icons/SmilingSun'
 import { Weighter } from '~/icons/Weighter'
-
+import Marquee from "react-fast-marquee";
 export const FirstInfo = () => {
   return (
     <section className="bg-[#efeeed] overflow-x-hidden">
@@ -145,7 +145,16 @@ export const FirstInfo = () => {
       </div>
       <div className="sm:py-[104px] py-[64px] overflow-x-hidden relative">
         <div className="w-[2520px] ml-[-880px]">
-          <img src={traningCommunityNutrition} />
+        <Marquee 
+          pauseOnHover={false}
+          direction={'left'}
+          speed={150}
+          gradient={false}
+          pauseOnClick={true}
+          loop={100}
+        >
+        <img src={traningCommunityNutrition} />
+        </Marquee>
         </div>
       </div>
     </section>
