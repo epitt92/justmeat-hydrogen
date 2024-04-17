@@ -87,11 +87,11 @@ export function Header() {
     return !isMobile ? (
       <header className="container-small relative h-[88px] sm:h-[120px] flex items-center justify-between py-4">
         <div className="absolute-center">
-          <NavLink to="/" end prefetch="intent">
+          <a href="/" target="_blank">
             <div className="w-[148px] sm:w-[214px]">
               <Logo />
             </div>
-          </NavLink>
+          </a>
         </div>
       </header>
     ) : (
@@ -108,11 +108,11 @@ export function Header() {
         </div>
 
         <div className="absolute-center">
-          <NavLink to="/" end prefetch="intent">
+          <a href="/" target="_blank">
             <div className="w-[148px] sm:w-[214px]">
               <Logo />
             </div>
-          </NavLink>
+          </a>
         </div>
       </div>
     )

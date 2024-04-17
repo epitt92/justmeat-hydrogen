@@ -24,7 +24,7 @@ export const ContactForm = ({ formName }) => {
     try {
       const response = await fetch(zapierHook, {
         method: 'POST',
-        body: data,
+        body: JSON.stringify(data),
       })
       const result = await response.json()
 
@@ -74,6 +74,29 @@ export const ContactForm = ({ formName }) => {
             }
           >
             {errors.name.message}
+          </p>
+        )}
+      </div>
+      <div className="w-full">
+        <input
+          {...register('email', { required: 'Email is required' })}
+          placeholder="Enter your email"
+          type="email"
+          className={
+            formName === 'first'
+              ? 'bg-[#222] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
+              : 'bg-[#efeeed] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
+          }
+        />
+        {errors.email && (
+          <p
+            className={
+              formName === 'first'
+                ? 'text-white uppercase text-[12px]'
+                : 'text-black uppercase text-[12px]'
+            }
+          >
+            {errors.email.message}
           </p>
         )}
       </div>
