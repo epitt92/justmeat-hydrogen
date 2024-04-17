@@ -4,21 +4,20 @@ import { useLoaderData } from '@remix-run/react'
 
 import { Button } from '~/components/Button'
 import { CustomBundleContext } from '~/contexts'
-import { cn, formatPrice } from '~/lib/utils'
+import { cn, formatPrice, formatPriceWithRoundOf } from '~/lib/utils'
 
 import { PlanPicker } from '../PlanPickerBlock/PlanPicker'
 import { CartLines } from './CartLines'
 import { ProgressBar } from './ProgressBar'
-
+import { PROMO_CODES } from '../../../promo-codes'
 export const MobileCart = () => {
-  const { freeProduct } = useLoaderData()
-  const { totalCost, submitting, handleSubmit, isCartPage } =
+  const { freeProduct,discountCodes } = useLoaderData()
+  const { totalCost, submitting, handleSubmit, isCartPage ,sellingPlan } =
     useContext(CustomBundleContext)
 
   const [cartOpen, setCartOpen] = useState(false)
 
   const [freeTag, setFreeTag] = useState(0)
-
   useEffect(() => {
     let tags = freeProduct.tags
     if (tags && tags.length > 0) {
@@ -34,7 +33,14 @@ export const MobileCart = () => {
 
   const isCheckoutable = totalCost >= 75
   const total = totalCost + freeTag
+// Get influencer discount codes
+const influencerCode = PROMO_CODES.filter((code) =>
+discountCodes.includes(code.code),
+)
 
+const firstOrderSavingNumber =
+influencerCode.length > 0 ? parseFloat(influencerCode[0].percentage) : 25
+const firstOrderSavingFormatted = (firstOrderSavingNumber / 100) * totalCost;
   return (
     <div className="mobile-cart">
       <Button
@@ -94,7 +100,7 @@ export const MobileCart = () => {
           >
             {isCheckoutable
               ? isCartPage
-                ? 'Checkout'
+                ? sellingPlan ? `Checkout - $${formatPriceWithRoundOf(totalCost - firstOrderSavingFormatted)} `:`Checkout - $${formatPriceWithRoundOf(totalCost)} `
                 : 'Update Changes'
               : `Checkout - $${parseInt(totalCost)} (Add $75 to Unlock)`}
           </Button>

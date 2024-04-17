@@ -13,13 +13,13 @@ export const FirstInfo = () => {
       <div className="bg-[#222222] sm:pb-[100px] pb-[66px]">
         <div className="relative container-small">
           <div className="flex justify-center sm:mb-[6px]">
-            <div className="sm:w-[512px] sm:text-[14px] pt-5 text-[12px] font-normal text-[#E47A0F] tracking-[3px]">
+            <div className="sm:w-[512px] sm:text-[14px] pt-5 text-[12px] font-normal text-[#E47A0F] sm:tracking-[3px] tracking-[2.5px] text-center sm:text-left">
               LEARN HOW YOU CAN EARN ANYWHERE FROM{' '}
               <span className="text-white">$5K - $10K</span> IN ADDITIONAL
               REVENUE IN AS LITTLE AS 3 MONTHS!
             </div>
           </div>
-          <div className="sm:text-[36px] text-[24px] font-bold text-center text-white">
+          <div className="sm:text-[36px] text-[24px] font-bold text-center text-white z-10 relative">
             CLAIM YOUR 6 FREE MEATS, AND WE WILL SHOW YOU HOW
           </div>
         </div>

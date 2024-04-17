@@ -17,6 +17,7 @@ import subscriptionBannerMobileImage from '~/assets/images/april_banner_Mobile.j
 import video1 from '~/assets/videos/32c027bc585340199844575c5e85cf42.mp4'
 import FaqAccordion from '~/components/FaqAccordion'
 import ProductSlider from '~/components/ProductSlider'
+import ProductsSlider from '~/components/ProductsSlider'
 import { FEATURED_COLLECTION_QUERY } from '~/graphql/Collection'
 import { RECOMMENDED_PRODUCTS_QUERY } from '~/graphql/Product'
 
@@ -116,8 +117,8 @@ export default function Homepage() {
       </section>
 
       <section className="flex items-center justify-center bg-cover bg-pnser">
-        <div className="w-[100%] py-10 sm:py-20 px-5 sm:px-20 max-w-[1440px]">
-          <ProductSlider />
+        <div className="w-[100%] py-10 sm:py-20 px-5 sm:px-20 max-w-[1440px] relative">
+          <ProductsSlider/>
           <div className="mt-[64px] flex flex-col lg:flex-row justify-between items-start gap-[24px]">
             <div className="flex flex-col">
               <h2 className="text-[30px] md:text-[48px] xl:text-[70px] leading-[100%] font-semibold text-white">

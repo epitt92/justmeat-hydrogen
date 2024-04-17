@@ -183,9 +183,11 @@ export const CustomBundle = () => {
               <div className="grid grid-cols-2 product-grid md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12 xl:mb-[0px] mb-[50px]">
                 {products.map((product, key) => {
                   const shouldSkip =
-                    !sellingPlan &&
-                    (product.handle === 'sweet-chili-thai-chicken' ||
-                      product.handle === 'chimichurri-steak')
+                  (!sellingPlan || sellingPlan.trim() === '') &&
+                  (product.handle === 'sweet-chili-thai-chicken' ||
+                    product.handle === 'chimichurri-steak' ||
+                    product.handle === 'braised-shredded-beef' ||
+                    product.handle === 'smoked-turkey-breast');
                   return shouldSkip || product.id.includes('8439947002082')
                     ? null
                     : product.handle !== 'free-meat-unlocked-at-125' && (
