@@ -32,21 +32,28 @@ export const Banner = () => {
               />
             </div>
 
+            {/*<div*/}
+            {/*  className="flex flex-col items-center bg-brown-pattern relative lg:absolute w-full sm:bottom-[100px] lg:bottom-[-84px] left-0 text-white bottom-[-120px]  sm:pt-[28px] pt-[21px] sm:pb-[24px] pb-[18px] sm:rounded-[8px] rounded-[6px]"*/}
+            {/*  style={{ boxShadow: '0px 32px 43px -8px rgba(0, 0, 0, 0.20)' }}*/}
+            {/*>*/}
             <div
-              className="flex flex-col items-center bg-brown-pattern relative lg:absolute w-full sm:bottom-[100px] lg:bottom-[-84px] left-0 text-white bottom-[-120px] sm:pt-[28px] pt-[21px] sm:pb-[24px] pb-[18px] sm:rounded-[8px] rounded-[6px]"
+              className="flex flex-col items-center bg-brown-pattern relative w-full text-white left-0
+    pt-[21px] pb-[18px] rounded-[6px]
+    sm:(pt-[28px] pb-[24px] rounded-[8px] bottom-[100px])
+    lg:absolute lg:bottom-[-84px] lg:left-0 lg:w-full lg:pt-[21px] lg:pb-[18px] lg:rounded-[6px]"
               style={{ boxShadow: '0px 32px 43px -8px rgba(0, 0, 0, 0.20)' }}
             >
-              <div className="text-center text-[36px] font-bold mb-[3px] leading-tight px-4 sm:text-[66px] lg:text-[48px] sm:mb-[4px]">
+              <div className="text-center text-[30px]  lg:text-[48px] font-bold mb-[3px] leading-tight px-4 sm:mb-[4px]">
                 EARN ANYWHERE FROM
                 <span className="text-yellow ml-[6px] sm:ml-[8px]">
                   $5K - $10K
                 </span>
               </div>
-              <div className="text-center sm:text-[32px] lg:text-[28px] text-[21px] font-bold px-16 sm:px-16 md:px-16 lg:px-0 tracking-[3px] sm:mb-[16px] mb-[12px] leading-tight">
+              <div className="text-center lg:text-[28px] text-[18px] font-bold px-4 lg:px-0 tracking-[3px] sm:mb-[16px] mb-[12px] leading-tight">
                 IN ADDITIONAL REVENUE <br className="block sm:hidden" />
                 IN AS LITTLE AS 3 MONTHS!
               </div>
-              <div className="text-[14px] sm:text-[20px] lg:text-[14px] text-center tracking-[3px] px-20 sm:px-20 md:px-20 lg:px-0 leading-[23px] text-[#ccbdb1]">
+              <div className="text-[14px] lg:text-[14px] text-center tracking-[3px] leading-[23px] text-[#ccbdb1]">
                 CLAIM YOUR 6 FREE MEATS, <br className="block sm:hidden" />
                 AND WE WILL SHOW YOU HOW
               </div>

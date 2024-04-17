@@ -32,68 +32,69 @@ export const FirstInfo = () => {
           />
         </div>
         <div className="relative container-small">
-          <div className="w-full grid sm:grid-cols-4 grid-cols-2 sm:gap-[20px] gap-[12px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 justify-items-center mx-auto px-4">
             <div
-              className="aspect-[23/25] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[18px] pt-[12px] sm:pb-[50px] pb-[30px]"
+              className="flex flex-col items-center justify-end aspect-[23/25] sm:aspect-[23/25] lg:aspect-[20/25] rounded-[8px] bg-white pt-[12px] sm:pt-[18px] pb-[30px] sm:pb-[50px] min-h-[300px] max-h-[350px]"
               style={{ boxShadow: '0px 40px 45px -14px rgba(0, 0, 0, 0.15)' }}
             >
               <div className="flex items-center flex-1">
-                <div className="sm:w-[112px] w-[72px]">
+                <div className=" sm:w-[112px] w-[72px]  mx-auto">
                   <Cooking />
                 </div>
               </div>
-              <div className="sm:text-[36px] text-[23px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
+              <div className="text-[23px] sm:text-[36px] font-bold tracking-[2px] mb-[14px] sm:mb-[22px] text-center">
                 1,006,928
               </div>
-              <div className="sm:text-[14px] text-[12px] text-[#7A392D] font-bold tracking-[3px]">
+              <div className="text-[12px] sm:text-[14px] text-[#7A392D] font-bold tracking-[3px] text-center">
                 MEATS SOLD
               </div>
             </div>
+
             <div
-              className="aspect-[23/25] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[18px] pt-[12px] sm:pb-[50px] pb-[30px]"
+              className="flex flex-col items-center justify-end aspect-[23/25] sm:aspect-[23/25] lg:aspect-[20/25] rounded-[8px] bg-white pt-[12px] sm:pt-[18px] pb-[30px] sm:pb-[50px] min-h-[300px] max-h-[350px]"
               style={{ boxShadow: '0px 40px 45px -14px rgba(0, 0, 0, 0.15)' }}
             >
               <div className="flex items-center flex-1">
-                <div className="sm:w-[76px] w-[50px]">
+                <div className=" sm:w-[112px] w-[72px]  mx-auto">
                   <SmilingSun />
                 </div>
               </div>
-              <div className="sm:text-[36px] text-[23px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
+              <div className="text-[23px] sm:text-[36px] font-bold tracking-[2px] mb-[14px] sm:mb-[22px] text-center">
                 84,097
               </div>
-              <div className="sm:text-[14px] text-[12px] text-[#7A392D] font-bold tracking-[3px]">
+              <div className="text-[12px] sm:text-[14px] text-[#7A392D] font-bold tracking-[3px] text-center">
                 CUSTOMERS
               </div>
             </div>
             <div
-              className="aspect-[23/25] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[18px] pt-[12px] sm:pb-[50px] pb-[30px]"
+              className="flex flex-col items-center justify-end aspect-[23/25] sm:aspect-[23/25] lg:aspect-[20/25] rounded-[8px] bg-white pt-[12px] sm:pt-[18px] pb-[30px] sm:pb-[50px] min-h-[300px] max-h-[350px]"
               style={{ boxShadow: '0px 40px 45px -14px rgba(0, 0, 0, 0.15)' }}
             >
               <div className="flex items-center flex-1">
-                <div className="sm:w-[68px] w-[43px]">
+                <div className=" sm:w-[112px] w-[72px]  mx-auto">
                   <Weighter />
                 </div>
               </div>
-              <div className="sm:text-[36px] text-[23px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
+              <div className="text-[23px] sm:text-[36px] font-bold tracking-[2px] mb-[14px] sm:mb-[22px] text-center">
                 345,431 LBS
               </div>
-              <div className="sm:text-[14px] text-[12px] text-[#7A392D] font-bold tracking-[3px]">
+              <div className="text-[12px] sm:text-[14px] text-[#7A392D] font-bold tracking-[3px] text-center">
                 COOKED MEATS
               </div>
             </div>
             <div
-              className="aspect-[23/25] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[18px] pt-[12px] sm:pb-[50px] pb-[30px]"
+              className="flex flex-col items-center justify-end aspect-[23/25] sm:aspect-[23/25] lg:aspect-[20/25] rounded-[8px] bg-white pt-[12px] sm:pt-[18px] pb-[30px] sm:pb-[50px] min-h-[300px] max-h-[350px]"
               style={{ boxShadow: '0px 40px 45px -14px rgba(0, 0, 0, 0.15)' }}
             >
               <div className="flex items-center flex-1">
-                <div className="sm:w-[66px] w-[42px]">
+                <div className=" sm:w-[112px] w-[72px]  mx-auto">
                   <MeatRecycle />
                 </div>
               </div>
-              <div className="sm:text-[36px] text-[23px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
+              <div className="text-[23px] sm:text-[36px] font-bold tracking-[2px] mb-[14px] sm:mb-[22px] text-center">
                 14,000+
               </div>
-              <div className="sm:text-[14px] text-[12px] text-[#7A392D] font-bold tracking-[3px]">
+              <div className="text-[12px] sm:text-[14px] text-[#7A392D] font-bold tracking-[3px] text-center">
                 SUBSCRIPTIONS
               </div>
             </div>
@@ -106,7 +107,7 @@ export const FirstInfo = () => {
             <div>A SUCCESFUL GYM...</div>
             <div>IS DETERMINED BY THE RESULTS IT DELIVERS ITS MEMBERS</div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3">
+          <div className="grid grid-cols-1 lg:grid-cols-3">
             <div className="sm:h-[225px] h-[260px] flex flex-col justify-end items-center">
               <div className="flex-1 sm:mb-[15px] mb-[27px] flex justify-center items-center">
                 <div className="w-[260px]">
@@ -119,11 +120,11 @@ export const FirstInfo = () => {
                 INSIDE THE GYM{' '}
               </div>
             </div>
-            <div className="sm:h-[225px] h-[260px] flex flex-col justify-end items-center">
+            <div className="sm:h-[225px] h-[260px] flex flex-col justify-end  items-center">
               <div className="flex-1 sm:mb-[15px] mb-[27px] flex justify-center items-center">
                 <div className="text-[60px] tracking-[2px] font-bold">YOU</div>
               </div>
-              <div className="text-[14px] leading-[24px] tracking-[2px] font-normal text-center max-w-[300px]">
+              <div className="text-[14px] leading-[24px] tracking-[2px] font-normal text-center max-w-[300px] sm:mb-[15px] lg:mb-0">
                 YOUR COACHING, YOUR PERSONALITY, YOUR GROUP OF MEMBERS BUILD THE
                 COMMUNITY YOUR MEMBERS NEED
               </div>

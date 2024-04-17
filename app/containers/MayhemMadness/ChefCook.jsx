@@ -5,7 +5,7 @@ export const ChefCook = () => {
     <section className="relative bg-[#efeeed] text-white">
       <div className="relative">
         <div className="absolute w-full h-[87.6%] bottom-0 bg-[#222222]"></div>
-        <div className="relative grid sm:grid-cols-2 grid-cols-1 sm:gap-0 gap-[62px]">
+        <div className="relative grid sm:grid-cols-2 grid-cols-1 gap-[62px] sm:gap-0">
           <div className="relative sm:px-0 px-[20px]">
             <div className="absolute sm:hidden block left-0 w-full h-[87.6%] bottom-0 bg-[#222222]"></div>
             <img

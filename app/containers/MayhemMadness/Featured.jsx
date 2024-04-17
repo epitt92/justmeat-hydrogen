@@ -57,9 +57,9 @@ export const Featured = () => {
   }
 
   return (
-    <section className="bg-[#222222]  pt-[120px] sm:pt-[150px]  pb-[45px] sm:pb-[40px] font-nunito">
+    <section className="bg-[#222222]  pt-[250px] sm:pt-[250px] lg:pt-[120px]  pb-[45px] sm:pb-[40px] font-nunito">
       <div className="flex flex-col items-center overflow-hidden container-small sm:block">
-        <div className="sm:w-auto w-[835px] sm:mt-[200px] lg:mt-0">
+        <div className="w-[835px] sm:w-auto sm:mt-[200px] lg:mt-0">
           <Swiper
             loop
             autoplay
