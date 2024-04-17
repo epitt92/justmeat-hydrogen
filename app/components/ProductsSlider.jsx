@@ -10,16 +10,24 @@ const ProductsSlider = () => {
     speed: 1000,
     autoplaySpeed: 3000,
     slidesToShow: 4,
-    slidesToScroll: 1,
+    slidesToScroll: 4,
     initialSlide: 0,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 4,
-          slidesToScroll: 3,
+          slidesToShow: 3,
+          slidesToScroll: 1,
           infinite: true,
           dots: true
+        }
+      },
+      {
+        breakpoint: 678,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          initialSlide: 2
         }
       },
       {
@@ -44,7 +52,7 @@ const ProductsSlider = () => {
     <Slider {...settings}>
       <div>
         <NavLink end prefetch="intent" to="/products/custom-bundle">
-            <img className="w-full max-h-[533px]"
+            <img className="w-full h-full sm:h-[320px] lg:h-[430px]"
               src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/chicken_thigh.webp"
               alt=""
             />
@@ -52,7 +60,7 @@ const ProductsSlider = () => {
       </div>
       <div>
       <NavLink end prefetch="intent" to="/products/custom-bundle">
-      <img className="w-full max-h-[533px]"
+      <img className="w-full h-full sm:h-[320px] lg:h-[430px]"
               src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/pulled_pork.webp"
               alt=""
             />
@@ -60,7 +68,7 @@ const ProductsSlider = () => {
       </div>
       <div>
       <NavLink end prefetch="intent" to="/products/custom-bundle">
-      <img className="w-full max-h-[533px]"
+      <img className="w-full h-full sm:h-[320px] lg:h-[430px]"
               src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/texas_brisket.webp"
               alt=""
             />
@@ -68,7 +76,7 @@ const ProductsSlider = () => {
       </div>
       <div>
       <NavLink end prefetch="intent" to="/products/custom-bundle">
-      <img className="w-full max-h-[533px]"
+      <img className="w-full h-full sm:h-[320px] lg:h-[430px]"
               src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/chicken_breast.webp"
               alt=""
             />
@@ -76,7 +84,7 @@ const ProductsSlider = () => {
       </div>
       <div>
       <NavLink end prefetch="intent" to="/products/custom-bundle">
-      <img className="w-full max-h-[533px]"
+      <img className="w-full h-full sm:h-[320px] lg:h-[430px]"
               src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/beef_tritip.webp"
               alt=""
             />

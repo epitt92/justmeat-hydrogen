@@ -81,7 +81,11 @@ export default function Homepage() {
           </div>
         </div>
       </section>
-
+      <section className='flex justify-center items-center text-[28px] font-Roboto font-bold py-8 px-[15px] underline text-center'>
+        <NavLink end prefetch="intent" to="/rich-froning">
+            Click here to revisit our Rich Froning specials.
+        </NavLink>
+      </section>
       <section>
         <div className="flex justify-center sm:px-[35px] sm:py-[35px] px-[20px] py-[65px]">
           <NavLink end prefetch="intent" to="/rich-froning" className='underline lg:text-[38px] text-[30px] font-bold font-roboto_medium text-center'>
