@@ -6,7 +6,7 @@ export const bundleCollectionHandle = 'all-products'
 export const freeProductHandle = 'raspberry-bbq-chicken-breast'
 export const bonusProductHandle = 'free-meat-unlocked-at-125'
 export const bundleProductHandle = 'custom-bundle'
-export const filterProductHandles = ['shipping-insurance']
+export const shippingInsuranceProductHandle = 'shipping-insurance'
 
 export const getBundle = async ({ storefront, request }) => {
   const variables = getPaginationVariables(request, { pageBy: 50 })
@@ -39,7 +39,7 @@ export const getBundle = async ({ storefront, request }) => {
     .filter(
       (product) => Number(product.priceRange.minVariantPrice.amount) !== 0,
     )
-    .filter((product) => !filterProductHandles.includes(product.handle))
+    .filter((product) => product.handle !== shippingInsuranceProductHandle)
 
   return {
     collection,
