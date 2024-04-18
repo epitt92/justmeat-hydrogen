@@ -9,6 +9,7 @@ export const PRODUCT_ITEM_FRAGMENT = `#graphql
     handle
     title
     description
+    requiresSellingPlan
     images(first: 100) {
       nodes {
         altText

@@ -121,7 +121,7 @@ export default function Homepage() {
       </section>
 
       <section className="flex items-center justify-center bg-cover bg-pnser product-list-slider">
-        <div className="w-[100%] py-10 sm:py-20 px-5 sm:px-20 max-w-[1440px] relative">
+        <div className="w-[100%] py-10 sm:py-20 px-4 sm:px-20 max-w-[1440px] relative">
           <ProductsSlider/>
           <div className="mt-[64px] flex flex-col lg:flex-row justify-between items-start gap-[24px]">
             <div className="flex flex-col">
@@ -152,14 +152,14 @@ export default function Homepage() {
               })}
             </div>
             <Carousel
-              className="rounded-xl md:hidden"
+              className="rounded-xl md:hidden order-now-carousel"
               prevArrow={({ handlePrev }) => (
                 <IconButton
                   variant="text"
                   color="white"
                   size="lg"
                   onClick={handlePrev}
-                  className="!absolute top-2/4 left-4 -translate-y-2/4 bg-[#425B35] rounded-full"
+                  className="!absolute top-2/4 left-4 -translate-y-2/4 bg-[rgba(0,_0,_0,_.4)] rounded-full w-[40px] h-[40px]"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -167,7 +167,7 @@ export default function Homepage() {
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                     strokeWidth="3"
-                    className="-ml-1 h-7 w-7"
+                    className="-ml-1 h-7 w-[18px]"
                   >
                     <path
                       strokeLinecap="round"
@@ -183,7 +183,7 @@ export default function Homepage() {
                   color="white"
                   size="lg"
                   onClick={handleNext}
-                  className="!absolute top-2/4 !right-4 -translate-y-2/4 bg-[#425B35] rounded-full"
+                  className="!absolute top-2/4 !right-4 -translate-y-2/4 bg-[rgba(0,_0,_0,_.4)] rounded-full w-[40px] h-[40px]"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -191,7 +191,7 @@ export default function Homepage() {
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                     strokeWidth="3"
-                    className="ml-1 h-7 w-7"
+                    className="ml-1 h-7 w-[18px]"
                   >
                     <path
                       strokeLinecap="round"
@@ -260,7 +260,7 @@ export default function Homepage() {
       </section>
       <section className="w-full px-2 py-10 bg-white border md:px-20 ">
         <div>
-          <h1 className="font-Roboto text-[40px] font-bold text-center mb-3">
+          <h1 className="font-Roboto sm:text-[40px] text-[31px] font-bold text-center mb-3">
             Customers Say:
           </h1>
         </div>

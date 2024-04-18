@@ -5,7 +5,7 @@ import { QualitySeal } from '~/icons/QualitySeal'
 export const HowItWorks = () => {
   return (
       <section
-        className="relative bg-[#efeeed] sm:py-[110px] py-[70px] bg-no-repeat sm:bg-[url(https://cdn.shopify.com/s/files/1/0672/4776/7778/files/richs-photo.png?v=1713377936)] bg-none"
+        className="relative bg-[#efeeed] sm:py-[110px] py-[70px] bg-no-repeat sm:bg-[url(https://cdn.shopify.com/s/files/1/0672/4776/7778/files/richs-photo.png?v=1713377936)] bg-none overflow-hidden"
         style={{
           backgroundSize: '32%',
           backgroundPositionY: '-175px'
