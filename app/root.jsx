@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 
+import slickCarouselTheme from 'slick-carousel/slick/slick-theme.css'
+import slickCarousel from 'slick-carousel/slick/slick.css'
 import sliderStyles from 'swiper/css'
 import sliderNavigation from 'swiper/css/navigation'
 import sliderPagination from 'swiper/css/pagination'
-import slickCarousel from "slick-carousel/slick/slick.css";
-import  slickCarouselTheme from  "slick-carousel/slick/slick-theme.css";
+
 import {
   Links,
   LiveReload,
@@ -204,7 +205,7 @@ export default function App() {
     _setCartProducts(value)
     window.localStorage.setItem('_cartProducts', JSON.stringify(value))
 
-    triggerKlaviyo({ products: cartProducts })
+    triggerKlaviyo({ products: value })
   }
 
   const setCartBonusVariant = (value) => {
