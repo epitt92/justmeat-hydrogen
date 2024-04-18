@@ -8,7 +8,9 @@ export const bonusProductHandle = 'free-meat-unlocked-at-125'
 export const bundleProductHandle = 'custom-bundle'
 export const shippingInsuranceProductHandle = 'shipping-insurance'
 
-export const getBundle = async ({ storefront, request }) => {
+export const getBundle = async ({ request, context }) => {
+  const { storefront } = context
+
   const variables = getPaginationVariables(request, { pageBy: 50 })
 
   const {

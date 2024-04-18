@@ -37,13 +37,12 @@ export const meta = ({ data }) => {
 }
 
 export async function loader({ request, context, params }) {
-  const { storefront } = context
   const discountCode = context.session.get('discountCode')
   const discountCodes = discountCode ? [discountCode] : []
 
   const { products, allProducts, freeProduct, bonusProduct } = await getBundle({
-    storefront,
     request,
+    context,
   })
 
   if (!params.id) {
@@ -157,7 +156,6 @@ export async function loader({ request, context, params }) {
 }
 
 export async function action({ request, context, params }) {
-  const storefront = context.storefront
   const form = await request.formData()
   const body = JSON.parse(form.get('body'))
 
@@ -169,7 +167,7 @@ export async function action({ request, context, params }) {
       const purchase_item_id = data.purchase_item_id
       const products = data.products
 
-      const { collection } = await getBundle({ storefront, request })
+      const { collection } = await getBundle({ request, context })
 
       const bundleCollectionId = getPureId(collection.id, 'Collection')
 
