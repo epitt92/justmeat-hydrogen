@@ -7,14 +7,12 @@ import { getBundle } from '~/lib/storefront'
 import { getFullId, getPureId } from '~/lib/utils'
 
 export async function loader({ request, context }) {
-  const { storefront } = context
-
   const discountCode = context.session.get('discountCode')
   const discountCodes = discountCode ? [discountCode] : []
 
   const { products, freeProduct, bonusProduct } = await getBundle({
-    storefront,
     request,
+    context,
   })
 
   return json({
@@ -27,10 +25,9 @@ export async function loader({ request, context }) {
 
 export async function action({ request, context }) {
   const _cart = context.cart
-  const storefront = context.storefront
   const discountCode = context.session.get('discountCode')
 
-  const { collection, bundleProduct } = await getBundle({ storefront, request })
+  const { collection, bundleProduct } = await getBundle({ request, context })
 
   const form = await request.formData()
   const data = JSON.parse(form.get('body'))
