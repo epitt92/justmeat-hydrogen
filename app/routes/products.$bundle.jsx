@@ -25,7 +25,6 @@ export async function loader({ request, context }) {
 
 export async function action({ request, context }) {
   const _cart = context.cart
-  const storefront = context.storefront
   const discountCode = context.session.get('discountCode')
 
   const { collection, bundleProduct } = await getBundle({ request, context })
