@@ -17,11 +17,7 @@ import { SubscriptionEditLayout } from '~/containers/Account/Subscriptions/Edit/
 import { CustomBundle } from '~/containers/CustomBundle'
 import { RootContext } from '~/contexts'
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
-import {
-  bonusProductHandle,
-  freeProductHandle,
-  getBundle,
-} from '~/lib/storefront'
+import { freeProductHandle, getBundle } from '~/lib/storefront'
 import { getFullId, getPureId } from '~/lib/utils'
 
 export const meta = ({ data }) => {
@@ -37,13 +33,12 @@ export const meta = ({ data }) => {
 }
 
 export async function loader({ request, context, params }) {
-  const { storefront } = context
   const discountCode = context.session.get('discountCode')
   const discountCodes = discountCode ? [discountCode] : []
 
   const { products, allProducts, freeProduct, bonusProduct } = await getBundle({
-    storefront,
     request,
+    context,
   })
 
   if (!params.id) {
@@ -99,7 +94,10 @@ export async function loader({ request, context, params }) {
 
   for (const el of allProducts) {
     if (idsSubscriptions.includes(el.id)) {
-      if (el.handle !== freeProductHandle && el.handle !== bonusProductHandle) {
+      if (
+        el.handle !== context.env.PUBLIC_FREE_PRODUCT_HANDLE &&
+        el.handle !== context.env.PUBLIC_BONUS_PRODUCT_HANDLE
+      ) {
         const quantity = subscriptionData[el.id]
 
         const amount = el.priceRange?.maxVariantPrice?.amount
@@ -157,7 +155,6 @@ export async function loader({ request, context, params }) {
 }
 
 export async function action({ request, context, params }) {
-  const storefront = context.storefront
   const form = await request.formData()
   const body = JSON.parse(form.get('body'))
 
@@ -169,7 +166,7 @@ export async function action({ request, context, params }) {
       const purchase_item_id = data.purchase_item_id
       const products = data.products
 
-      const { collection } = await getBundle({ storefront, request })
+      const { collection } = await getBundle({ request, context })
 
       const bundleCollectionId = getPureId(collection.id, 'Collection')
 

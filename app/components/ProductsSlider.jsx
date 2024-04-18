@@ -17,6 +17,7 @@ const ProductsSlider = () => {
     slidesToScroll: 1,
     initialSlide: 0,
     adaptiveHeight:true,
+    arrows: true,
     responsive: [
       {
         breakpoint: 1024,
@@ -41,7 +42,7 @@ const ProductsSlider = () => {
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
          
         }
       }

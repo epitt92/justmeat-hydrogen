@@ -2,13 +2,16 @@ import { getPaginationVariables } from '@shopify/hydrogen'
 
 import { COLLECTION_QUERY } from '~/graphql/Collection'
 
-export const bundleCollectionHandle = 'all-products'
-export const freeProductHandle = 'raspberry-bbq-chicken-breast'
-export const bonusProductHandle = 'free-meat-unlocked-at-125'
-export const bundleProductHandle = 'custom-bundle'
-export const filterProductHandles = ['shipping-insurance']
+export const getBundle = async ({ request, context }) => {
+  const { storefront } = context
 
-export const getBundle = async ({ storefront, request }) => {
+  const bundleCollectionHandle = context.env.PUBLIC_BUNDLE_COLLECTION_HANDLE
+  const freeProductHandle = context.env.PUBLIC_FREE_PRODUCT_HANDLE
+  const bonusProductHandle = context.env.PUBLIC_BONUS_PRODUCT_HANDLE
+  const bundleProductHandle = context.env.PUBLIC_BUNDLE_PRODUCT_HANDLE
+  const shippingInsuranceProductHandle =
+    context.env.PUBLIC_SHIPPING_INSURANCE_PRODUCT_HANDLE
+
   const variables = getPaginationVariables(request, { pageBy: 50 })
 
   const {
@@ -39,7 +42,7 @@ export const getBundle = async ({ storefront, request }) => {
     .filter(
       (product) => Number(product.priceRange.minVariantPrice.amount) !== 0,
     )
-    .filter((product) => !filterProductHandles.includes(product.handle))
+    .filter((product) => product.handle !== shippingInsuranceProductHandle)
 
   return {
     collection,
