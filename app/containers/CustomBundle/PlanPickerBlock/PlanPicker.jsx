@@ -68,7 +68,7 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
         <div
           className={`${
             sellingPlan ? 'bg-white sm:bg-[#862E1B] text-black sm:text-[#fff]' : 'border-[#eaeaea] text-[#1d1d1d] sm:hover:text-[#fff]'
-          } p-[7px] sm:p-[10px] border-[3px] border-solid flex gap-6 border-[#425B34] sm:border-[#862E1B] sm:hover:bg-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px]`}
+          } p-[7px] sm:p-[10px] border-[3px] border-solid flex gap-6 border-[#425B34] sm:border-[#862E1B] sm:hover:bg-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px] select-hover`}
           onClick={() => {
             setSellingPlan(sellingPlanFrequency);
             planCartUpdate();
