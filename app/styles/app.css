@@ -450,9 +450,20 @@ button.free-gift-label {
 .bg-lower-footer {
   background-image: url('../assets/images/lower-footer1.png');
 }
-.slick-prev:before, .slick-next:before {
+.productsSlider .slick-track{
+  display: flex !important;
+  gap: 22px !important;
+}
+.productsSlider .slick-prev:before, .slick-next:before {
   font-size: 41px !important;
-  color: #908F8E !important;
+  color: #908f8e !important;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 29px;
+  height: 29px;
 }
 .slick-dots li button{
   background-color: transparent !important;
