@@ -491,6 +491,12 @@ section.product-list-slider button.slick-arrow.slick-next {
 .select-hover:hover select {
   @apply bg-[url(https://cdn.shopify.com/s/files/1/0672/4776/7778/files/icon-select.svg?v=1713469358)];
 }
+
 .bg-white.select-hover select {
   @apply bg-[url(https://cdn.shopify.com/s/files/1/0672/4776/7778/files/icon-select.svg?v=1713469358)];
+
+}
+
+.slider-container.productsSlider ul.slick-dots button {
+  @apply w-4 h-4;
 }
