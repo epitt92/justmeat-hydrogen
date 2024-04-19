@@ -56,7 +56,7 @@ export const HowItWorksStepsSlider = () => {
           className="how-it-works-slider"
         >
           {steps.map((step, index) => (
-            <SwiperSlide key={index}>
+            <SwiperSlide key={index} className='pb-[30px]'>
               <div
                 className="relative rounded-[8px] overflow-hidden sm:mb-0 mb-[50px] w-full"
                 style={{ boxShadow: '0px 30px 30px -9px rgba(0, 0, 0, 0.14)' }}
