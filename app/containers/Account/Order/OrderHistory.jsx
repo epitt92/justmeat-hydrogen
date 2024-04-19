@@ -38,8 +38,11 @@ const OrderHistory = ({ order }) => {
             </p>
 
             {line_items.length &&
-              line_items.map((item) => (
-                <p className="capitalize text-[#252525] font-normal my-2 leading-[15px] text-[16px]">
+              line_items.map((item, index) => (
+                <p
+                  key={index}
+                  className="capitalize text-[#252525] font-normal my-2 leading-[15px] text-[16px]"
+                >
                   {item.quantity} x {item.title}
                 </p>
               ))}
