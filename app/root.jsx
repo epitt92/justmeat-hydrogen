@@ -98,6 +98,12 @@ export async function loader({ context }) {
     },
   })
 
+  const externalScripts = [
+    context.env.PUBLIC_KLAVIYO_SCRIPT,
+    context.env.PUBLIC_LOOX_SCRIPT,
+    context.env.PUBLIC_REAMAZE_SCRIPT,
+  ]
+
   return defer(
     {
       cart: cartPromise,
@@ -105,6 +111,7 @@ export async function loader({ context }) {
       header: await headerPromise,
       isLoggedIn: isLoggedInPromise,
       publicStoreDomain,
+      externalScripts,
     },
     {
       headers: {
@@ -113,12 +120,6 @@ export async function loader({ context }) {
     },
   )
 }
-
-const externalScripts = [
-  'https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UMcvkS',
-  '//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com',
-  'https://cdn.reamaze.com/assets/reamaze.js',
-]
 
 const newLayoutRoutes = ['mayhem-madness', 'rich-froning']
 
@@ -183,7 +184,7 @@ export default function App() {
     }
 
     // HACK: for react hydration error due to direct external script tag imports in head
-    for (const script of externalScripts) {
+    for (const script of data.externalScripts) {
       addScriptToHead(script)
     }
 
