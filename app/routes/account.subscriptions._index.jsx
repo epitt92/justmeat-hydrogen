@@ -23,7 +23,9 @@ export function shouldRevalidate() {
  * @param {LoaderFunctionArgs}
  */
 export async function loader({ context }) {
+  console.log('🚀 ~ loader ~ context:', context)
   await context.customerAccount.handleAuthStatus()
+
   const { data, errors } = await context.customerAccount.query(
     CUSTOMER_DETAILS_QUERY,
   )
@@ -40,6 +42,7 @@ export async function loader({ context }) {
       }),
     context,
   )
+  console.log('🚀 ~ loader ~ subscriptionsResponse:', subscriptionsResponse)
 
   return json({
     headers: {

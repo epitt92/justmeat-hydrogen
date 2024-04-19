@@ -545,3 +545,13 @@ section.product-list-slider button.slick-arrow.slick-next {
   @apply content-[""] absolute -translate-x-2/4 -translate-y-2/4 w-2 h-2 left-2/4 top-2/4;
   background: white;
 }
+
+@media screen and (max-width: 1190px) {
+  .custom-padding-header li {
+    @apply px-2;
+  }  
+}
+
+.how-it-works-slider .swiper-pagination {
+  @apply sm:hidden block;
+}

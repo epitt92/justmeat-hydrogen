@@ -25,6 +25,7 @@ import { defer } from '@shopify/remix-oxygen'
 import favicon from '~/assets/logo.svg'
 import { Layout } from '~/components/Layout'
 import { SubscriptionCard } from '~/components/SubscriptionCard'
+import { DELIVERY_EVERY_15_DAYS } from '~/consts'
 import { RootContext } from '~/contexts'
 import { FOOTER_QUERY, HEADER_QUERY } from '~/graphql/HeaderMenuFooter'
 import { addScriptToHead } from '~/lib/utils'
@@ -99,6 +100,12 @@ export async function loader({ context }) {
     },
   })
 
+  const externalScripts = [
+    context.env.PUBLIC_KLAVIYO_SCRIPT,
+    context.env.PUBLIC_LOOX_SCRIPT,
+    context.env.PUBLIC_REAMAZE_SCRIPT,
+  ]
+
   return defer(
     {
       cart: cartPromise,
@@ -106,6 +113,7 @@ export async function loader({ context }) {
       header: await headerPromise,
       isLoggedIn: isLoggedInPromise,
       publicStoreDomain,
+      externalScripts,
     },
     {
       headers: {
@@ -115,12 +123,14 @@ export async function loader({ context }) {
   )
 }
 
+
 const externalScripts = [
   'https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UMcvkS',
   '//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com',
   '//loox.io/widget/qZPveP9mjj/loox.1703786131573.js?shop=healthius-store.myshopify.com',
   'https://cdn.reamaze.com/assets/reamaze.js',
 ]
+
 
 const newLayoutRoutes = ['mayhem-madness', 'rich-froning']
 
@@ -135,15 +145,17 @@ export default function App() {
   const isNewLayout = newLayoutRoutes.includes(route)
 
   const [cartSellingPlan, _setCartSellingPlan] = useState(
-    'Delivery every 15 Days',
+    DELIVERY_EVERY_15_DAYS,
   )
   const [cartProducts, _setCartProducts] = useState([])
   const [cartBonusVariant, _setCartBonusVariant] = useState(null)
   const [cartSellingPlanFrequency, _setCartSellingPlanFrequency] = useState(
-    'Delivery every 15 Days',
+    DELIVERY_EVERY_15_DAYS,
   )
 
-  const [subscriptionSellingPlan, setSubscriptionSellingPlan] = useState('')
+  const [subscriptionSellingPlan, setSubscriptionSellingPlan] = useState(
+    DELIVERY_EVERY_15_DAYS,
+  )
   const [subscriptionProducts, setSubscriptionProducts] = useState([])
   const [subscriptionBonusVariant, setSubscriptionBonusVariant] = useState(null)
   const [
@@ -183,7 +195,7 @@ export default function App() {
     }
 
     // HACK: for react hydration error due to direct external script tag imports in head
-    for (const script of externalScripts) {
+    for (const script of data.externalScripts) {
       addScriptToHead(script)
     }
 
@@ -194,6 +206,13 @@ export default function App() {
   const setCartSellingPlan = (value) => {
     _setCartSellingPlan(value)
     window.localStorage.setItem('_cartSellingPlan', JSON.stringify(value))
+
+    // Adjust cart products according to sellingPlan
+    const newCartProducts = value
+      ? cartProducts
+      : cartProducts.filter((product) => !product.requiresSellingPlan)
+
+    setCartProducts(newCartProducts)
   }
 
   const setCartSellingPlanFrequency = (value) => {

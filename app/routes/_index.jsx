@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 import OrderButton from 'app/components/OrderButton'
 // Import Swiper styles
 import 'swiper/css'
@@ -41,9 +43,15 @@ export async function loader({ context }) {
 }
 
 export default function Homepage() {
-  /** @type {LoaderReturnData} */
-  const data = useLoaderData()
+  const [froningVisited, setFroningVisited] = useState(true)
+
   const tutorialImages = [tutorialImage1, tutorialImage2, tutorialImage3]
+
+  useEffect(() => {
+    setFroningVisited(
+      JSON.parse(window.localStorage.getItem('_froning_visited')) === true,
+    )
+  }, [])
 
   return (
     <div className="relative home">
@@ -81,13 +89,20 @@ export default function Homepage() {
           </div>
         </div>
       </section>
-      <section className='flex justify-center items-center text-[28px] sm:text-[35px] font-Roboto font-bold py-8 px-[15px] underline text-center'>
-        <NavLink end prefetch="intent" to="/rich-froning">
+      {!froningVisited && (
+        <section className="flex justify-center items-center text-[28px] sm:text-[35px] font-Roboto font-bold py-8 px-[15px] underline text-center">
+          <NavLink end prefetch="intent" to="/rich-froning">
             Click here to revisit our Rich Froning specials.
-        </NavLink>
-      </section>
+          </NavLink>
+        </section>
+      )}
       <section>
-        <NavLink className={'w-full'} end prefetch="intent" to="/products/custom-bundle">
+        <NavLink
+          className={'w-full'}
+          end
+          prefetch="intent"
+          to="/products/custom-bundle"
+        >
           <img
             src={subscriptionBannerImage}
             className="hidden sm:block"
@@ -122,7 +137,7 @@ export default function Homepage() {
 
       <section className="flex items-center justify-center bg-cover bg-pnser product-list-slider">
         <div className="w-[100%] py-10 sm:py-20 px-4 sm:px-20 max-w-[1440px] relative">
-          <ProductsSlider/>
+          <ProductsSlider />
           <div className="mt-[64px] flex flex-col lg:flex-row justify-between items-start gap-[24px]">
             <div className="flex flex-col">
               <h2 className="text-[30px] md:text-[48px] xl:text-[70px] leading-[100%] font-semibold text-white">
