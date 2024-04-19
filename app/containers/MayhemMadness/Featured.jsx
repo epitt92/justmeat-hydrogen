@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Pagination } from 'swiper/modules'
+import { Pagination,Autoplay } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { useLoaderData } from '@remix-run/react'
@@ -62,11 +62,14 @@ export const Featured = () => {
         <div className="w-[835px] sm:w-auto sm:mt-[200px] lg:mt-0">
           <Swiper
             loop
-            autoplay
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
             pagination={{ clickable: true }}
             slidesPerView={4}
             spaceBetween={30}
-            modules={[Pagination]}
+            modules={[Pagination,Autoplay]}
             breakpoints={swiperBreakpoints}
             className="featured-slider"
           >

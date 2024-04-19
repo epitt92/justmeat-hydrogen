@@ -6,12 +6,12 @@ import { PremiumSeal } from '~/icons/PremiumSeal'
 
 export const HowItWorks = () => {
   return (
-    <section className="bg-[#222222] text-white sm:pt-[100px] sm:pb-[110px] pt-[50px] pb-[60px]">
+    <section className="bg-[#222222] text-white sm:pt-[100px] pt-[50px] pb-[20px]">
       <div className="absolute w-[120px] xl:block hidden 2xl:right-[160px] xl:right-[140px]">
         <PremiumSeal />
       </div>
       <div className="container text-center">
-        <div className=" font-nunito sm:text-[18px] text-[12px] font-semibold uppercase leading-[26px] mt-8">
+        <div className=" font-nunito sm:text-[18px] text-[12px] font-semibold uppercase leading-[26px]">
           How JUST MEATS WORKS
         </div>
         <div className=" font-nunito text-[28px] sm:text-[36px]  font-bold uppercase leading-normal tracking-[1.8px] mt-2 sm:mb-[6px]">
