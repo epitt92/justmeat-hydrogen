@@ -1,6 +1,5 @@
 import BannerCharacter from '~/assets/images/Copy-of-JustMeats_Partnerships_Stills_RichFroning_202MAR25_SethH-7.png'
-import { MayhemNation } from '~/icons/MayhemNation'
-
+import MayhemNationImage from '~/assets/images/Mayhem-Nation-W.png'
 export const Banner = () => {
   return (
     <section className="relative">
@@ -11,7 +10,10 @@ export const Banner = () => {
             <div className="sm:h-[40px] h-[15px]"></div>
             <div className="flex flex-col-reverse sm:flex-col-reverse lg:flex-col sm:gap-[0] lg:gap-[66px] ">
               <div className="w-[340px] sm:w-[520px] md:w-[663px] lg:w-[550px] h-[150px] sm:h-[200px] md:h-[240px] sm:mx-auto lg:mx-0">
-                <MayhemNation />
+                <img
+              className=""
+              src={MayhemNationImage}
+            />
               </div>
               <div className="">
                 <div className="font-nunito font-bold sm:text-[27px] text-[20px] text-yellow">
