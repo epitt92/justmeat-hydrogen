@@ -118,6 +118,7 @@ export async function loader({ context }) {
 const externalScripts = [
   'https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UMcvkS',
   '//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com',
+  '//loox.io/widget/qZPveP9mjj/loox.1703786131573.js?shop=healthius-store.myshopify.com',
   'https://cdn.reamaze.com/assets/reamaze.js',
 ]
 
@@ -320,6 +321,7 @@ export function ErrorBoundary() {
         <LiveReload nonce={nonce} />
 
         <Scripts src="//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com"></Scripts>
+        <Scripts src="//loox.io/widget/loox.js?shop=healthius-store.myshopify.com"></Scripts>
         <script
           async
           type="text/javascript"
