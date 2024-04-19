@@ -1,8 +1,12 @@
-import { useLoaderData } from '@remix-run/react'
 import React, { useContext, useEffect } from 'react'
-import { cn, formatPrice, formatPriceWithRoundOf } from '~/lib/utils'
+
+import { useLoaderData } from '@remix-run/react'
+
+import { DELIVERY_EVERY_15_DAYS, DELIVERY_EVERY_30_DAYS } from '~/consts'
 import { CustomBundleContext, RootContext } from '~/contexts'
 import { CheckBox } from '~/icons/CheckBox'
+import { cn, formatPrice, formatPriceWithRoundOf } from '~/lib/utils'
+
 import { PROMO_CODES } from '../../../promo-codes'
 
 export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
@@ -11,12 +15,10 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
     setSellingPlan,
     sellingPlanFrequency,
     setSellingPlanFrequency,
-    totalCost,
+    cartProducts,
   } = useContext(CustomBundleContext)
 
-  const {
-    setCartProducts
-  } = useContext(RootContext)
+  const { setCartProducts } = useContext(RootContext)
 
   const { discountCodes } = useLoaderData()
 
@@ -28,29 +30,24 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
   const firstOrderSavingNumber =
     influencerCode.length > 0 ? parseFloat(influencerCode[0].percentage) : 25
 
-  const firstOrderSavingFormatted = (firstOrderSavingNumber / 100) * totalCostForPlan;
+  const firstOrderSavingFormatted =
+    (firstOrderSavingNumber / 100) * totalCostForPlan
 
   const planCartUpdate = () => {
-    let planCheck = localStorage.getItem("_cartSellingPlan");
-    let cartData = localStorage.getItem("_cartProducts");
-    if (planCheck && cartData) {
-      // eslint-disable-next-line no-empty
-      if (planCheck === `"Delivery every 15 Days"` || planCheck === `"Delivery every 30 Days"`) {
-      } else if (planCheck === `""`) {
-        cartData = JSON.parse(localStorage.getItem("_cartProducts"));
-        const filteredProducts = cartData.filter(product => 
-          product.id !== "gid://shopify/Product/8249959186658" &&
-          product.id !== "gid://shopify/Product/8380896706786" &&
-          product.id !== "gid://shopify/Product/8380892872930"
-        );
-        setCartProducts(filteredProducts);
-      }
+    if (sellingPlan && cartProducts) {
+      const filteredCartProducts = cartProducts.filter(
+        (product) =>
+          product.id !== 'gid://shopify/Product/8249959186658' &&
+          product.id !== 'gid://shopify/Product/8380896706786' &&
+          product.id !== 'gid://shopify/Product/8380892872930',
+      )
+      setCartProducts(filteredCartProducts)
     }
-  };
+  }
 
   useEffect(() => {
-    planCartUpdate();
-  }, []);
+    planCartUpdate()
+  }, [])
 
   return (
     <div className="flex gap-2 flex-col lg:flex-row w-[100%] lg:!max-w-[760px]">
@@ -67,11 +64,13 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
         </p>
         <div
           className={`${
-            sellingPlan ? 'bg-white sm:bg-[#862E1B] text-black sm:text-[#fff]' : 'border-[#eaeaea] text-[#1d1d1d] sm:hover:text-[#fff]'
+            sellingPlan
+              ? 'bg-white sm:bg-[#862E1B] text-black sm:text-[#fff]'
+              : 'border-[#eaeaea] text-[#1d1d1d] sm:hover:text-[#fff]'
           } p-[7px] sm:p-[10px] border-[3px] border-solid flex gap-6 border-[#425B34] sm:border-[#862E1B] sm:hover:bg-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px] select-hover`}
           onClick={() => {
-            setSellingPlan(sellingPlanFrequency);
-            planCartUpdate();
+            setSellingPlan(sellingPlanFrequency)
+            planCartUpdate()
           }}
         >
           <div
@@ -112,10 +111,10 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
               setSellingPlanFrequency(e.target.value)
             }}
           >
-            <option className="text-[#000]" value="Delivery every 15 Days">
+            <option className="text-[#000]" value={DELIVERY_EVERY_15_DAYS}>
               Every 15 days
             </option>
-            <option className="text-[#000]" value="Delivery every 30 Days">
+            <option className="text-[#000]" value={DELIVERY_EVERY_30_DAYS}>
               Every 30 days
             </option>
           </select>
@@ -137,7 +136,7 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
               <div
                 className={cn(
                   'rounded-full border border-solid  text-center text-[11px] font-semibold min-h-[24px] flex justify-center items-center px-[12px] leading-[100%]',
-                  sellingPlanFrequency === 'Delivery every 15 Days'
+                  sellingPlanFrequency === DELIVERY_EVERY_15_DAYS
                     ? sellingPlan
                       ? 'bg-[#425B34] text-white'
                       : 'bg-[#aaaaaa] text-white'
@@ -145,7 +144,7 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
                   sellingPlan ? 'border-[#425B34]' : 'border-[#aaa]',
                 )}
                 onClick={() => {
-                  setSellingPlanFrequency('Delivery every 15 Days')
+                  setSellingPlanFrequency(DELIVERY_EVERY_15_DAYS)
                 }}
               >
                 Every 15 Days
@@ -153,7 +152,7 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
               <div
                 className={cn(
                   'rounded-full border border-solid  text-center text-[11px] font-semibold min-h-[24px] flex justify-center items-center px-[12px] leading-[100%]',
-                  sellingPlanFrequency === 'Delivery every 30 Days'
+                  sellingPlanFrequency === DELIVERY_EVERY_30_DAYS
                     ? sellingPlan
                       ? 'bg-[#425B34] text-white'
                       : 'bg-[#aaaaaa] text-white'
@@ -161,7 +160,7 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
                   sellingPlan ? 'border-[#425B34]' : 'border-[#aaa]',
                 )}
                 onClick={() => {
-                  setSellingPlanFrequency('Delivery every 30 Days')
+                  setSellingPlanFrequency(DELIVERY_EVERY_30_DAYS)
                 }}
               >
                 Every 30 Days
@@ -256,8 +255,8 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
               : 'border-[#eaeaea]'
           }  border-[3px] border-solid flex justify-center sm:justify-start gap-6 sm:border-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px] subscriptionlabel sm:mt-[28px] mt-0 plan-change-button`}
           onClick={() => {
-            setSellingPlan('');
-            planCartUpdate();
+            setSellingPlan('')
+            planCartUpdate()
           }}
         >
           <div
@@ -272,8 +271,10 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
               {total > freeTag ? `$${formatPrice(total)}` : ''}
             </span>
             <span className="sm:hidden">
-              {totalCostForPlan ? `$${formatPriceWithRoundOf(totalCostForPlan)}` : ''} One
-              Time
+              {totalCostForPlan
+                ? `$${formatPriceWithRoundOf(totalCostForPlan)}`
+                : ''}{' '}
+              One Time
             </span>
             <span className="hidden sm:inline">
               {totalCostForPlan ? `$${formatPrice(totalCostForPlan)}` : ''} One

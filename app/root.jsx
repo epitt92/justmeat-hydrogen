@@ -24,6 +24,7 @@ import { defer } from '@shopify/remix-oxygen'
 import favicon from '~/assets/logo.svg'
 import { Layout } from '~/components/Layout'
 import { SubscriptionCard } from '~/components/SubscriptionCard'
+import { DELIVERY_EVERY_15_DAYS } from '~/consts'
 import { RootContext } from '~/contexts'
 import { FOOTER_QUERY, HEADER_QUERY } from '~/graphql/HeaderMenuFooter'
 import { addScriptToHead } from '~/lib/utils'
@@ -132,15 +133,17 @@ export default function App() {
   const isNewLayout = newLayoutRoutes.includes(route)
 
   const [cartSellingPlan, _setCartSellingPlan] = useState(
-    'Delivery every 15 Days',
+    DELIVERY_EVERY_15_DAYS,
   )
   const [cartProducts, _setCartProducts] = useState([])
   const [cartBonusVariant, _setCartBonusVariant] = useState(null)
   const [cartSellingPlanFrequency, _setCartSellingPlanFrequency] = useState(
-    'Delivery every 15 Days',
+    DELIVERY_EVERY_15_DAYS,
   )
 
-  const [subscriptionSellingPlan, setSubscriptionSellingPlan] = useState('')
+  const [subscriptionSellingPlan, setSubscriptionSellingPlan] = useState(
+    DELIVERY_EVERY_15_DAYS,
+  )
   const [subscriptionProducts, setSubscriptionProducts] = useState([])
   const [subscriptionBonusVariant, setSubscriptionBonusVariant] = useState(null)
   const [
