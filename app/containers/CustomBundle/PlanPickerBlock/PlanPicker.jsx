@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 
 import { useLoaderData } from '@remix-run/react'
 
 import { DELIVERY_EVERY_15_DAYS, DELIVERY_EVERY_30_DAYS } from '~/consts'
-import { CustomBundleContext, RootContext } from '~/contexts'
+import { CustomBundleContext } from '~/contexts'
 import { CheckBox } from '~/icons/CheckBox'
 import { cn, formatPrice, formatPriceWithRoundOf } from '~/lib/utils'
 
@@ -15,10 +15,7 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
     setSellingPlan,
     sellingPlanFrequency,
     setSellingPlanFrequency,
-    cartProducts,
   } = useContext(CustomBundleContext)
-
-  const { setCartProducts } = useContext(RootContext)
 
   const { discountCodes } = useLoaderData()
 
@@ -32,22 +29,6 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
 
   const firstOrderSavingFormatted =
     (firstOrderSavingNumber / 100) * totalCostForPlan
-
-  const planCartUpdate = () => {
-    if (sellingPlan && cartProducts) {
-      const filteredCartProducts = cartProducts.filter(
-        (product) =>
-          product.id !== 'gid://shopify/Product/8249959186658' &&
-          product.id !== 'gid://shopify/Product/8380896706786' &&
-          product.id !== 'gid://shopify/Product/8380892872930',
-      )
-      setCartProducts(filteredCartProducts)
-    }
-  }
-
-  useEffect(() => {
-    planCartUpdate()
-  }, [])
 
   return (
     <div className="flex gap-2 flex-col lg:flex-row w-[100%] lg:!max-w-[760px]">
@@ -70,7 +51,6 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
           } p-[7px] sm:p-[10px] border-[3px] border-solid flex gap-6 border-[#425B34] sm:border-[#862E1B] sm:hover:bg-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px] select-hover`}
           onClick={() => {
             setSellingPlan(sellingPlanFrequency)
-            planCartUpdate()
           }}
         >
           <div
@@ -256,7 +236,6 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
           }  border-[3px] border-solid flex justify-center sm:justify-start gap-6 sm:border-[#862E1B] cursor-pointer rounded-[14px] sm:rounded-[0px] subscriptionlabel sm:mt-[28px] mt-0 plan-change-button`}
           onClick={() => {
             setSellingPlan('')
-            planCartUpdate()
           }}
         >
           <div

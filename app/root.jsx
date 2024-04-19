@@ -194,6 +194,13 @@ export default function App() {
   const setCartSellingPlan = (value) => {
     _setCartSellingPlan(value)
     window.localStorage.setItem('_cartSellingPlan', JSON.stringify(value))
+
+    // Adjust cart products according to sellingPlan
+    const newCartProducts = value
+      ? cartProducts
+      : cartProducts.filter((product) => !product.requiresSellingPlan)
+
+    setCartProducts(newCartProducts)
   }
 
   const setCartSellingPlanFrequency = (value) => {
