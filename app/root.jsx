@@ -5,6 +5,7 @@ import slickCarousel from 'slick-carousel/slick/slick.css'
 import sliderStyles from 'swiper/css'
 import sliderNavigation from 'swiper/css/navigation'
 import sliderPagination from 'swiper/css/pagination'
+import sliderAutoplay from 'swiper/css/autoplay'
 
 import {
   Links,
@@ -56,6 +57,7 @@ export function links() {
     { rel: 'stylesheet', href: slickCarouselTheme },
     { rel: 'stylesheet', href: sliderNavigation },
     { rel: 'stylesheet', href: sliderPagination },
+    { rel: 'stylesheet', href: sliderAutoplay },
     { rel: 'stylesheet', href: tailwindStyles },
     {
       rel: 'preconnect',
