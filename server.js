@@ -42,10 +42,6 @@ export default {
         AppSession.init(request, [env.SESSION_SECRET]),
       ])
 
-      console.log(
-        '🚀 ~ fetch ~ env.PUBLIC_RECHARGE_STOREFRONT_ACCESS_TOKEN:',
-        env.PUBLIC_RECHARGE_STOREFRONT_ACCESS_TOKEN,
-      )
       initRecharge({
         storeIdentifier: env.PUBLIC_STORE_DOMAIN,
         storefrontAccessToken: env.PUBLIC_RECHARGE_STOREFRONT_ACCESS_TOKEN,
