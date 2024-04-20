@@ -22,6 +22,8 @@ import ProductSlider from '~/components/ProductSlider'
 import ProductsSlider from '~/components/ProductsSlider'
 import { FEATURED_COLLECTION_QUERY } from '~/graphql/Collection'
 import { RECOMMENDED_PRODUCTS_QUERY } from '~/graphql/Product'
+import { Pagination, Navigation } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
 /**
  * @type {MetaFunction}
@@ -52,6 +54,17 @@ export default function Homepage() {
       JSON.parse(window.localStorage.getItem('_froning_visited')) === true,
     )
   }, [])
+
+  const swiperBreakpoints = {
+    200: {
+      slidesPerView: 1.4,
+      spaceBetween: 20,
+    },
+    720: {
+      slidesPerView: 3,
+      spaceBetween: 30,
+    },
+  }
 
   return (
     <div className="relative home">
@@ -166,67 +179,32 @@ export default function Homepage() {
                 )
               })}
             </div>
-            <Carousel
-              className="rounded-xl md:hidden order-now-carousel"
-              prevArrow={({ handlePrev }) => (
-                <IconButton
-                  variant="text"
-                  color="white"
-                  size="lg"
-                  onClick={handlePrev}
-                  className="!absolute top-2/4 left-4 -translate-y-2/4 bg-[rgba(0,_0,_0,_.4)] rounded-full w-[40px] h-[40px]"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth="3"
-                    className="-ml-1 h-7 w-[18px]"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M15.75 19.5L8.25 12l7.5-7.5"
-                    ></path>
-                  </svg>
-                </IconButton>
-              )}
-              nextArrow={({ handleNext }) => (
-                <IconButton
-                  variant="text"
-                  color="white"
-                  size="lg"
-                  onClick={handleNext}
-                  className="!absolute top-2/4 !right-4 -translate-y-2/4 bg-[rgba(0,_0,_0,_.4)] rounded-full w-[40px] h-[40px]"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth="3"
-                    className="ml-1 h-7 w-[18px]"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                    ></path>
-                  </svg>
-                </IconButton>
-              )}
+            <Swiper
+              loop
+              navigation={true}
+              centeredSlides
+              spaceBetween={20}
+              pagination={{ clickable: true }}
+              slidesPerView={1.4}
+              modules={[Pagination , Navigation]}
+              breakpoints={swiperBreakpoints}
+              initialSlide={0}
+              className="order-images-slider w-full md:hidden"
             >
-              {tutorialImages.map((item, index) => {
-                return (
+              {tutorialImages.map((item, index) => (
+                <SwiperSlide key={index}>
+                  <div
+                    className="relative overflow-hidden w-full"
+                  >
                   <img
-                    src={item}
-                    key={index}
-                    className="object-cover w-full h-full"
-                  />
-                )
-              })}
-            </Carousel>
+                      src={item}
+                      key={index}
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         </div>
       </section>
