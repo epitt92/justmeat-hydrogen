@@ -14,6 +14,8 @@ import { SubscriptionCard } from '~/components/SubscriptionCard'
 import { UPDATE_ADDRESS_MUTATION } from '~/graphql/customer-account/CustomerAddressMutations'
 import { CUSTOMER_DETAILS_QUERY } from '~/graphql/customer-account/CustomerDetailsQuery'
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
+import { getBundle } from '~/lib/storefront'
+import { getPureId } from '~/lib/utils'
 
 export function shouldRevalidate() {
   return true
@@ -22,7 +24,7 @@ export function shouldRevalidate() {
 /**
  * @param {LoaderFunctionArgs}
  */
-export async function loader({ context }) {
+export async function loader({ request, context }) {
   console.log('🚀 ~ loader ~ context:', context)
   await context.customerAccount.handleAuthStatus()
 
@@ -34,7 +36,15 @@ export async function loader({ context }) {
     throw new Error('Customer not found')
   }
 
-  const subscriptionsResponse = await rechargeQueryWrapper(
+  const { customer } = data
+  console.log('🚀 ~ loader ~ customer:', customer)
+
+  const { bundleProduct } = await getBundle({
+    request,
+    context,
+  })
+
+  const res = await rechargeQueryWrapper(
     (session) =>
       listSubscriptions(session, {
         limit: 25,
@@ -42,15 +52,27 @@ export async function loader({ context }) {
       }),
     context,
   )
-  console.log('🚀 ~ loader ~ subscriptionsResponse:', subscriptionsResponse)
+
+  const bundleProductVariantId = getPureId(
+    bundleProduct.variants.nodes[0].id,
+    'ProductVariant',
+  )
+  console.log(
+    '🚀 ~ loader ~ res.subscriptions:',
+    JSON.stringify(res.subscriptions),
+  )
+  // FIlter only bundle subscriptions
+  const subscriptions = res.subscriptions.filter(
+    (el) => el.external_variant_id.ecommerce === bundleProductVariantId,
+  )
 
   return json({
     headers: {
       'Cache-Control': 'no-cache, no-store, must-revalidate',
       'Set-Cookie': await context.session.commit(),
     },
-    subscriptionsResponse,
-    customer: data.customer,
+    customer,
+    subscriptions,
   })
 }
 
@@ -199,18 +221,18 @@ export async function action({ request, context }) {
 }
 
 export default function AccountSubscriptions() {
-  const { subscriptionsResponse, customer } = useLoaderData()
+  const { subscriptions, customer } = useLoaderData()
 
   return (
     <div className="subscriptions">
-      {subscriptionsResponse.subscriptions.length > 0 ? (
+      {subscriptions.length > 0 ? (
         <AccountSubscription
-          subscriptions={subscriptionsResponse.subscriptions}
           currentcustomer={customer}
+          subscriptions={subscriptions}
         />
       ) : (
         <div className="flex justify-center py-40 text-lg">
-          You don&apos;t have any active subscriptions
+          You don&apos;t have any active bundle subscriptions
         </div>
       )}
     </div>
