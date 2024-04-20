@@ -53,6 +53,10 @@ export async function loader({ request, context, params }) {
     context,
   )
 
+  if (!subscription) {
+    throw new Response('Subscription not found', { status: 404 })
+  }
+
   const { bundle_selections } = await rechargeQueryWrapper(
     (session) => listBundleSelections(session, params.id),
     context,
@@ -129,9 +133,9 @@ export async function loader({ request, context, params }) {
     ? bonusProduct.variants.nodes.find((el) => el.id === bonusItemVariantId)
     : null
 
-  if (!subscription) {
-    throw new Response('Subscription not found', { status: 404 })
-  }
+  subscriptionProducts = subscriptionProducts.filter(
+    (product) => Number(product.priceRange.minVariantPrice.amount) !== 0,
+  )
 
   return json(
     {
