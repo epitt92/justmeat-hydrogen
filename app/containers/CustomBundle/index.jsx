@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { useLoaderData, useMatches } from '@remix-run/react'
 
@@ -59,6 +59,10 @@ export const CustomBundle = () => {
     : subscriptionSellingPlanFrequency
   const bonusVariant = isCartPage ? cartBonusVariant : subscriptionBonusVariant
   const totalCost = isCartPage ? cartCost : subscriptionCost
+
+  const productsBasedOnSellingPlan = sellingPlan
+    ? products
+    : products.filter((product) => !product.requiresSellingPlan)
 
   const setSelectedProducts = isCartPage
     ? setCartProducts
@@ -181,7 +185,7 @@ export const CustomBundle = () => {
 
             <div className="flex product-and-cart mb-[62px] md:mb-0">
               <div className="grid grid-cols-2 product-grid md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12 xl:mb-[0px] mb-[50px]">
-                {products.map((product, key) => (
+                {productsBasedOnSellingPlan.map((product, key) => (
                   <ProductCard
                     key={key}
                     product={product}

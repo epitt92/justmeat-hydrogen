@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import { getPaginationVariables } from '@shopify/hydrogen'
 import { json } from '@shopify/remix-oxygen'
 
@@ -31,6 +33,10 @@ export async function loader({ request, context }) {
 }
 
 export default function RichFroning() {
+  useEffect(() => {
+    window.localStorage.setItem('_froning_visited', true)
+  }, [])
+
   return (
     <main className="relative font-dunbar tracking-[1px] leading-1 text-[#231B19]">
       <Banner />

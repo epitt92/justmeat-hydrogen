@@ -85,14 +85,42 @@ export function Header() {
 
   const Mainheader = () => {
     return !isMobile ? (
-      <header className="container-small relative h-[88px] sm:h-[120px] flex items-center justify-between py-4">
-        <div className="absolute-center">
-          <a href="/" target="_blank">
+      <header className="container relative h-[88px] sm:h-[120px] flex items-center justify-between py-4">
+        <div className="w-full flex items-center justify-between gap-10 navBar">
+          <ul className="hidden navLinks lg:flex w-full max-w-[40%] custom-padding-header">
+            {HoverUnderNavLink('/products/custom-bundle', 'Menu')}
+            {HoverUnderNavLink('/about', 'About Us')}
+            {HoverUnderNavLink('/recipes', 'Recipes')}
+            {HoverUnderNavLink('/', 'Specials')}
+          </ul>
+          <a href="/" target="_blank" className='w-full max-w-[20%] flex justify-center'>
             <div className="w-[148px] sm:w-[214px]">
               <Logo />
             </div>
           </a>
-        </div>
+        <div className='w-full max-w-[40%] flex justify-end'>
+          <div className="flex items-center justify-between gap-4 headerIcons sm:gap-10 w-[fit-content]">
+            <NavLink end prefetch="intent" to="/account">
+              <span className="hidden w-[32px] cursor-pointer loginIcon lg:flex">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <path d="M23.3333 24.5V22.1667C23.3333 20.929 22.8416 19.742 21.9665 18.8668C21.0913 17.9917 19.9043 17.5 18.6666 17.5H9.33329C8.09562 17.5 6.90863 17.9917 6.03346 18.8668C5.15829 19.742 4.66663 20.929 4.66663 22.1667V24.5" stroke="#231B19" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M14 12.8333C16.5774 12.8333 18.6667 10.744 18.6667 8.16667C18.6667 5.58934 16.5774 3.5 14 3.5C11.4227 3.5 9.33337 5.58934 9.33337 8.16667C9.33337 10.744 11.4227 12.8333 14 12.8333Z" stroke="#231B19" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              </span>
+            </NavLink>
+            <Button
+              className="block lg:hidden"
+              onClick={() => setMenuToggle(true)}
+            >
+              <HamburgerOpen />
+            </Button>
+            <CartButton />
+            <div className="hidden lg:block">
+              <OrderButton />
+            </div>
+          </div>
+          </div>
+      </div>
       </header>
     ) : (
       <div className="container-small relative h-[88px] sm:h-[120px] flex items-center justify-between py-4 mainheader">
