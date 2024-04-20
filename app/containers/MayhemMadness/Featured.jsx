@@ -61,9 +61,10 @@ export const Featured = () => {
   }
 
   return (
-    <section className="bg-[#222222]  pt-[150px] sm:pt-[355px] md:pt-[0px] lg:pt-[120px]  pb-[45px] sm:pb-[40px] font-nunito">
+    <section className="bg-[#222222] py-6 font-nunito">
+    {/* <section className="bg-[#222222]  pt-[150px] sm:pt-[355px] md:pt-[0px] lg:pt-[120px]  pb-[45px] sm:pb-[40px] font-nunito"> */}
       <div className="flex flex-col items-center overflow-hidden container-small sm:block">
-        <div className="w-[360px] sm:w-auto sm:mt-[200px] lg:mt-0">
+        <div className="w-[360px] sm:w-auto pt-6">
           <Swiper
             loop
             // autoplay={{
