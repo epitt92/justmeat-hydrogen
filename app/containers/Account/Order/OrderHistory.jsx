@@ -13,7 +13,6 @@ const OrderHistory = ({ order }) => {
     status,
     external_order_id,
   } = order
-  let meatsCount = line_items.length
 
   return (
     <div className="pb-3 mb-8 border-b-2 border-gray-500 Card">
@@ -23,7 +22,6 @@ const OrderHistory = ({ order }) => {
             src="https://cdn.shopify.com/s/files/1/0672/4776/7778/files/logo.svg?v=1709994462"
             width={200}
             height={150}
-            loaderOptions={{ scale: 2 }}
             className="border-2 border-black"
           />
         </div>
