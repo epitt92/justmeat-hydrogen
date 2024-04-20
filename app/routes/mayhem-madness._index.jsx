@@ -2,6 +2,8 @@ import { getPaginationVariables } from '@shopify/hydrogen'
 import { json } from '@shopify/remix-oxygen'
 
 import { Banner } from '~/containers/MayhemMadness/Banner'
+import { BannerHead } from '~/containers/MayhemMadness/BannerHead'
+import { EarnAnywhere } from '~/containers/MayhemMadness/EarnAnywhere'
 import { ChefCook } from '~/containers/MayhemMadness/ChefCook'
 import { Featured } from '~/containers/MayhemMadness/Featured'
 import { FirstContact } from '~/containers/MayhemMadness/FirstContact'
@@ -36,7 +38,8 @@ export async function loader({ request, context }) {
 export default function MayhemMadness() {
   return (
     <main className="relative font-dunbar tracking-[1px] leading-1 text-[#231B19]">
-      <Banner />
+      <BannerHead />
+      <EarnAnywhere />
       <Featured />
       <FirstContact />
       <FirstInfo />
