@@ -36,12 +36,10 @@ export async function rechargeQueryWrapper(rechargeFn, context) {
         return await rechargeFn(rechargeSession)
       }
       // this should match your catch boundary
-      console.log('🚀 1:', e.message)
-      throw json(e.message, { status: e?.status })
+      throw json(`Recharge Error - ${e.message}`, { status: e?.status })
     } catch (error) {
       // this should match your catch boundary
-      console.log('🚀 2:', e.message)
-      throw json(e.message, { status: e?.status })
+      throw json(`Recharge Error - ${e.message}`, { status: e?.status })
     }
   }
 }
