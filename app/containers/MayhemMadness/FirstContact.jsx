@@ -30,7 +30,7 @@ export const FirstContact = () => {
                 6 LBS OF FREE MEAT
               </div>
             </div>
-            <ContactForm formName="first" buttonBgColor="#223661" />
+            <ContactForm formName="first" />
           </div>
         </div>
       </div>
