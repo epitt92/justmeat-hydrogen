@@ -172,7 +172,7 @@ export const ContactForm = ({ formName,buttonBgColor }) => {
         <Button
           type="submit"
           loading={submitting}
-          className={`text-[16px] font-normal px-[24px] py-[12px] rounded-[4px] text-white bg-[${buttonBgColor}]`}
+          className={`text-[16px] font-normal px-[24px] py-[12px] rounded-[4px] text-white !bg-[${buttonBgColor}]`}
         >
           SUBMIT
         </Button>
