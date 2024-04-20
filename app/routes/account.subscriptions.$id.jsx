@@ -17,7 +17,7 @@ import { SubscriptionEditLayout } from '~/containers/Account/Subscriptions/Edit/
 import { CustomBundle } from '~/containers/CustomBundle'
 import { RootContext } from '~/contexts'
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
-import { freeProductHandle, getBundle } from '~/lib/storefront'
+import { getBundle } from '~/lib/storefront'
 import { getFullId, getPureId } from '~/lib/utils'
 
 export const meta = ({ data }) => {
@@ -240,7 +240,6 @@ export async function action({ request, context, params }) {
           }),
         context,
       )
-      console.log('🚀 ~ action ~ data:', JSON.stringify(data))
 
       return json({ msg: 'ok' })
 

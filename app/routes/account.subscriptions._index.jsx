@@ -21,11 +21,7 @@ export function shouldRevalidate() {
   return true
 }
 
-/**
- * @param {LoaderFunctionArgs}
- */
 export async function loader({ request, context }) {
-  console.log('🚀 ~ loader ~ context:', context)
   await context.customerAccount.handleAuthStatus()
 
   const { data, errors } = await context.customerAccount.query(
@@ -37,7 +33,6 @@ export async function loader({ request, context }) {
   }
 
   const { customer } = data
-  console.log('🚀 ~ loader ~ customer:', customer)
 
   const { bundleProduct } = await getBundle({
     request,
@@ -57,11 +52,7 @@ export async function loader({ request, context }) {
     bundleProduct.variants.nodes[0].id,
     'ProductVariant',
   )
-  console.log(
-    '🚀 ~ loader ~ res.subscriptions:',
-    JSON.stringify(res.subscriptions),
-  )
-  // FIlter only bundle subscriptions
+  // Filter only bundle subscriptions
   const subscriptions = res.subscriptions.filter(
     (el) => el.external_variant_id.ecommerce === bundleProductVariantId,
   )
