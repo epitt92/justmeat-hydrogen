@@ -5,7 +5,6 @@ node_modules
 /public/build
 /.mf
 
-
 .shopify
 .env
 .note
