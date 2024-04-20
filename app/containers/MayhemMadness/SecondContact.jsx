@@ -36,7 +36,7 @@ export const SecondContact = () => {
               </div>
             </div>
 
-            <ContactForm formName="second" />
+            <ContactForm formName="second" buttonBgColor="#7A392D" />
           </div>
           <div className="relative flex aspect-square border-[3px] border-solid border-white">
             <iframe

@@ -6,7 +6,7 @@ import { GreenCircleCheck } from '~/icons/GreenCircleCheck'
 
 const zapierHook = 'https://hooks.zapier.com/hooks/catch/18452229/3p52w81/'
 
-export const ContactForm = ({ formName }) => {
+export const ContactForm = ({ formName,buttonBgColor }) => {
   const [submitting, setSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
@@ -172,7 +172,7 @@ export const ContactForm = ({ formName }) => {
         <Button
           type="submit"
           loading={submitting}
-          className="text-[16px] font-normal px-[24px] py-[12px] rounded-[4px] text-white bg-[#223661]"
+          className={`text-[16px] font-normal px-[24px] py-[12px] rounded-[4px] text-white bg-[${buttonBgColor ? buttonBgColor :'#223661'}]`}
         >
           SUBMIT
         </Button>
