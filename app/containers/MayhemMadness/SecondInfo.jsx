@@ -49,9 +49,9 @@ export const SecondInfo = () => (
     </div>
     <div className="sm:h-[614px] grid sm:grid-cols-2 grid-cols-1">
       <div className="flex justify-end">
-        <div className="max-w-[540px] w-full sm:px-0 sm:pr-[73px] sm:pl-[20px] px-[20px] flex justify-center items-center">
+        <div className="max-w-[540px] w-full sm:px-0 sm:pr-[40px] lg:pr-[73px] sm:pl-[20px] px-[20px] flex justify-center items-center">
           <div>
-            <div className="sm:text-[32px] text-[24px] text-center sm:text-left font-bold tracking-[1px] text-[#231B19] sm:mb-[12px] mb-[7px]">
+            <div className="text-[24px] sm:text-[28px] md:text-[24px] lg:text-[32px]  text-center sm:text-left font-bold tracking-[1px] text-[#231B19] sm:py-[12px] py-[7px]">
               THE JUST MEATS SOLUTION
             </div>
             <div className="text-[14px] leading-[23px] tracking-[3px] font-normal text-[#7A392D] sm:mb-[25px] mb-[14px]">
