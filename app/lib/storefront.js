@@ -6,9 +6,9 @@ export const getBundle = async ({ request, context }) => {
   const { storefront } = context
 
   const bundleCollectionHandle = context.env.PUBLIC_BUNDLE_COLLECTION_HANDLE
+  const bundleProductHandle = context.env.PUBLIC_BUNDLE_PRODUCT_HANDLE
   const freeProductHandle = context.env.PUBLIC_FREE_PRODUCT_HANDLE
   const bonusProductHandle = context.env.PUBLIC_BONUS_PRODUCT_HANDLE
-  const bundleProductHandle = context.env.PUBLIC_BUNDLE_PRODUCT_HANDLE
   const shippingInsuranceProductHandle =
     context.env.PUBLIC_SHIPPING_INSURANCE_PRODUCT_HANDLE
 

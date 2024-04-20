@@ -48,13 +48,10 @@ export async function loader({ request, context }) {
     context,
   )
 
-  const bundleProductVariantId = getPureId(
-    bundleProduct.variants.nodes[0].id,
-    'ProductVariant',
-  )
+  const bundleProductId = getPureId(bundleProduct.id, 'Product')
   // Filter only bundle subscriptions
   const subscriptions = res.subscriptions.filter(
-    (el) => el.external_variant_id.ecommerce === bundleProductVariantId,
+    (el) => el.external_product_id.ecommerce === bundleProductId,
   )
 
   return json({
