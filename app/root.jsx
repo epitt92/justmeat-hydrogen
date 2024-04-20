@@ -317,7 +317,7 @@ export function ErrorBoundary() {
         <Links />
       </head>
       <body>
-        <div className="route-error">
+        <div className="route-error h-screen flex flex-col justify-center items-center">
           <h1>Oops</h1>
           <h2>{errorStatus}</h2>
           {errorMessage && (
@@ -329,14 +329,6 @@ export function ErrorBoundary() {
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
         <LiveReload nonce={nonce} />
-
-        <Scripts src="//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com"></Scripts>
-        <Scripts src="//loox.io/widget/loox.js?shop=healthius-store.myshopify.com"></Scripts>
-        <script
-          async
-          type="text/javascript"
-          src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UMcvkS"
-        />
       </body>
     </html>
   )
