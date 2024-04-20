@@ -5,12 +5,12 @@ import BgBannerHead from '~/assets/images/BgBannerHead.png'
 
 export const BannerHead = () => {
   return (
-    <section className="bg-image bg-[url('../assets/images/BgBannerHead.png')]">
+    <section className="bg-image bg-[url('../assets/images/BgBannerHead.png')] bg-contain bg-right">
         <div className='w-[80%] mx-auto'>
             <div className='flex flex-col md:flex-row'>
                 <div className='basis-3/5'>
                     <div className='flex flex-col-reverse md:flex-col md:items-center'>
-                        <div className="w-full md:w-[60%] h-auto pt-0 md:pt-6 md:pb-6 ">
+                        <div className="w-full md:w-[70%] h-auto pt-0 md:pt-6 md:pb-6 ">
                             <img
                                 className=""
                                 src={MayhemNationImage}
