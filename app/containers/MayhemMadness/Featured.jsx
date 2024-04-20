@@ -7,15 +7,19 @@ import { useLoaderData } from '@remix-run/react'
 
 const swiperBreakpoints = {
   360: {
-    slidesPerView: 3,
+    slidesPerView: 1,
+
+  },
+  640: {
+    slidesPerView: 2,
     spaceBetween: 20,
   },
   768: {
-    slidesPerView: 3,
+    slidesPerView: 2,
     spaceBetween: 20,
   },
   1024: {
-    slidesPerView: 4,
+    slidesPerView: 3,
     spaceBetween: 20,
   },
   1440: {
@@ -57,15 +61,15 @@ export const Featured = () => {
   }
 
   return (
-    <section className="bg-[#222222]  pt-[150px] sm:pt-[250px] lg:pt-[120px]  pb-[45px] sm:pb-[40px] font-nunito">
+    <section className="bg-[#222222]  pt-[150px] sm:pt-[355px] md:pt-[0px] lg:pt-[120px]  pb-[45px] sm:pb-[40px] font-nunito">
       <div className="flex flex-col items-center overflow-hidden container-small sm:block">
-        <div className="w-[835px] sm:w-auto sm:mt-[200px] lg:mt-0">
+        <div className="w-[360px] sm:w-auto sm:mt-[200px] lg:mt-0">
           <Swiper
             loop
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-            }}
+            // autoplay={{
+            //   delay: 2500,
+            //   disableOnInteraction: false,
+            // }}
             pagination={{ clickable: true }}
             slidesPerView={4}
             spaceBetween={30}
