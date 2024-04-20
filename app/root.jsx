@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react'
 import slickCarouselTheme from 'slick-carousel/slick/slick-theme.css'
 import slickCarousel from 'slick-carousel/slick/slick.css'
 import sliderStyles from 'swiper/css'
+import sliderAutoplay from 'swiper/css/autoplay'
 import sliderNavigation from 'swiper/css/navigation'
 import sliderPagination from 'swiper/css/pagination'
-import sliderAutoplay from 'swiper/css/autoplay'
 
 import {
   Links,
@@ -122,15 +122,6 @@ export async function loader({ context }) {
     },
   )
 }
-
-
-const externalScripts = [
-  'https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=UMcvkS',
-  '//loox.io/widget/loox.js?shop=just-meats-sandbox.myshopify.com',
-  '//loox.io/widget/qZPveP9mjj/loox.1703786131573.js?shop=healthius-store.myshopify.com',
-  'https://cdn.reamaze.com/assets/reamaze.js',
-]
-
 
 const newLayoutRoutes = ['mayhem-madness', 'rich-froning']
 
