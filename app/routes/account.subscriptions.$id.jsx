@@ -62,6 +62,10 @@ export async function loader({ request, context, params }) {
     (el) => el.purchase_item_id === Number(params.id),
   )
 
+  if (!bundle) {
+    throw new Response('Not a bundle subscription', { status: 404 })
+  }
+
   const bundleId = bundle.id
   const purchase_item_id = bundle.purchase_item_id
   const bundleItems = bundle.items
