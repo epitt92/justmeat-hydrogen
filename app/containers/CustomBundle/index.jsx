@@ -50,8 +50,7 @@ export const CustomBundle = () => {
   const [clickedProduct, setClickedProduct] = useState(null)
   const [submitting, setSubmitting] = useState(false)
 
-  const isCartPage = matches.at(-1).pathname === '/products/custom-bundle/'
-  console.log(matches.at(-1).pathname)
+  const isCartPage = matches.at(-1).pathname.includes('/products/custom-bundle')
 
   const selectedProducts = isCartPage ? cartProducts : subscriptionProducts
   const sellingPlan = isCartPage ? cartSellingPlan : subscriptionSellingPlan
