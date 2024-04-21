@@ -2,22 +2,15 @@ import { useContext, useState } from 'react'
 
 import { Button } from '~/components/Button'
 import { CustomBundleContext } from '~/contexts'
-import { cn, formatPriceWithRoundOf } from '~/lib/utils'
+import { cn } from '~/lib/utils'
 
 import { PlanPicker } from '../PlanPickerBlock/PlanPicker'
 import { CartLines } from './CartLines'
 import { ProgressBar } from './ProgressBar'
 
 export const MobileCart = () => {
-  const {
-    cost,
-    costForOneTime,
-    costForSubscription,
-    submitting,
-    handleSubmit,
-    isCartPage,
-    sellingPlan,
-  } = useContext(CustomBundleContext)
+  const { cost, costForOneTime, submitting, handleSubmit, isCartPage } =
+    useContext(CustomBundleContext)
 
   const [cartOpen, setCartOpen] = useState(false)
 
@@ -76,13 +69,8 @@ export const MobileCart = () => {
               isCheckoutable ? 'bg-[#425b34]' : 'bg-[#AAAAAA]',
             )}
           >
-            {isCheckoutable
-              ? isCartPage
-                ? sellingPlan
-                  ? `Checkout - $${costForSubscription}`
-                  : `Checkout - $${costForOneTime} `
-                : 'Update Changes'
-              : `Checkout - $${cost} (Add $75 to Unlock)`}
+            {isCartPage ? `Checkout` : 'Update Changes'}- ${cost}
+            {!isCheckoutable && `(Add $75 to Unlock)`}
           </Button>
         </div>
       </div>

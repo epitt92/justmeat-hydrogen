@@ -50,7 +50,7 @@ export const CustomBundle = () => {
   const [clickedProduct, setClickedProduct] = useState(null)
   const [submitting, setSubmitting] = useState(false)
 
-  const isCartPage = matches.at(-1).pathname === '/products/custom-bundle'
+  const isCartPage = matches.at(-1).pathname === '/products/custom-bundle/'
 
   const selectedProducts = isCartPage ? cartProducts : subscriptionProducts
   const sellingPlan = isCartPage ? cartSellingPlan : subscriptionSellingPlan
@@ -84,11 +84,8 @@ export const CustomBundle = () => {
   const costForOneTime = isCartPage ? cartCost : subscriptionCost
   const firstSavingPercentage = influencerCode?.percentage ?? 25
 
-  const costForSubscription = Number(
-    (costForOneTime - (costForOneTime / 100) * firstSavingPercentage).toFixed(
-      2,
-    ),
-  )
+  const costForSubscription =
+    costForOneTime - (costForOneTime / 100) * firstSavingPercentage
 
   const cost = isCartPage && sellingPlan ? costForSubscription : costForOneTime
 
@@ -98,25 +95,12 @@ export const CustomBundle = () => {
   if (tags && tags.length > 0) {
     tags.forEach((tag) => {
       if (tag.includes('free-')) {
-        freeProductPrice = Number(parseFloat(tag.split('-')[1]).toFixed(2))
+        freeProductPrice = parseFloat(tag.split('-')[1])
       }
     })
   }
 
-  const originalCost = Number((costForOneTime + freeProductPrice).toFixed(2))
-
-  console.log(
-    'originalCost:',
-    originalCost,
-    'costForOneTime:',
-    costForOneTime,
-    'costForSubscription:',
-    costForSubscription,
-    'cost:',
-    cost,
-    'freeProductPrice:',
-    freeProductPrice,
-  )
+  const originalCost = costForOneTime + freeProductPrice
 
   async function handleSubmit() {
     const products = [...selectedProducts, { ...freeProduct, quantity: 1 }]
@@ -184,11 +168,11 @@ export const CustomBundle = () => {
         sellingPlan,
         sellingPlanFrequency,
         bonusVariant,
-        cost,
-        costForOneTime,
-        costForSubscription,
-        originalCost,
-        freeProductPrice,
+        cost: cost.toFixed(2),
+        costForOneTime: costForOneTime.toFixed(2),
+        costForSubscription: costForSubscription.toFixed(2),
+        originalCost: originalCost.toFixed(2),
+        freeProductPrice: freeProductPrice.toFixed(2),
         firstSavingPercentage,
         submitting,
         setSelectedProducts,
