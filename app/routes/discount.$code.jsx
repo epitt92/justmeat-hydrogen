@@ -9,7 +9,8 @@ export async function loader({ request, context, params }) {
     context.session.set('discountCode', params.code.toUpperCase())
   }
 
-  const redirectPath = params.code === 'FRONING' ? '/rich-froning' : '/'
+  const redirectPath =
+    params.code.toUpperCase() === 'FRONING' ? '/rich-froning' : '/'
 
   const result = await cart.updateDiscountCodes([params.code])
   const headers = cart.setCartId(result.cart.id)
