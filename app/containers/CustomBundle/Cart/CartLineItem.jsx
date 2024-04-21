@@ -29,16 +29,10 @@ export function CartLineItem({ line, lineType = 'paid' }) {
     }
   }, [tags])
 
-  const desktopImage =
-  lineType === 'bonus' || lineType === 'locked'
-    ? nodes[0]?.image.url
-    : featuredImage.url;
+  const desktopImage = featuredImage.url || nodes[0]?.image.url
 
-const mobileImage =
-  lineType === 'bonus' || lineType === 'locked'
-    ? nodes[0]?.image.url
-    : cart_drawer_img?.reference.image.url;
-
+  const mobileImage =
+    cart_drawer_img?.reference.image.url || nodes[0]?.image.url
 
   return (
     <div
@@ -46,7 +40,9 @@ const mobileImage =
         'rounded-t-xl sm:border-none border-solid overflow-hidden gap-4 relative',
         lineType === 'bonus' ? 'sm:hidden block' : 'sm:flex block',
         lineType === 'free' ? 'border-[#1b7084]' : 'border-[#425b34]',
-        lineType === 'locked' ? 'border-[#EEEDED1b7084] lg:hidden' : 'border-[#425b34]',
+        lineType === 'locked'
+          ? 'border-[#EEEDED1b7084] lg:hidden'
+          : 'border-[#425b34]',
         lineType !== 'paid' ? 'border' : 'border-t border-l border-r',
       )}
     >
@@ -54,13 +50,17 @@ const mobileImage =
         src={desktopImage}
         height={100}
         loading="lazy"
-        className={`hidden sm:block w-full sm:w-[72px] ${lineType === 'locked' ? 'opacity-[.22]' : 'opacity-[1]'}`}
+        className={`hidden sm:block w-full sm:w-[72px] ${
+          lineType === 'locked' ? 'opacity-[.22]' : 'opacity-[1]'
+        }`}
       />
       <img
         src={mobileImage}
         height={100}
         loading="lazy"
-        className={`block sm:hidden w-[111px] h-[169px] mb-3 sm:w-[72px] ${lineType === 'locked' ? 'opacity-[.22]' : 'opacity-[1]'}`}
+        className={`block sm:hidden w-[111px] h-[169px] mb-3 sm:w-[72px] ${
+          lineType === 'locked' ? 'opacity-[.22]' : 'opacity-[1]'
+        }`}
       />
 
       <div className="flex flex-1 flex-col sm:flex-row pr-[0px] justify-between items-center">
@@ -103,7 +103,7 @@ const mobileImage =
         <div
           className={cn(
             'relative flex justify-center items-center sm:mt-0',
-            lineType === 'bonus' ? ' -mt-[5px]' : ' -mt-[13px]',
+            lineType === 'bonus' ? ' -mt-[11px]' : ' -mt-[13px]',
           )}
         >
           {lineType === 'paid' && <Quantity isViewingCart={true} line={line} />}
