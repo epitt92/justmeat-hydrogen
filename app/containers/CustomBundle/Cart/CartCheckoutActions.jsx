@@ -4,12 +4,12 @@ import { Button } from '~/components/Button'
 import { CustomBundleContext } from '~/contexts'
 
 export function CartCheckoutActions() {
-  const { isCartPage, totalCost, submitting, handleSubmit } =
+  const { isCartPage, costForOneTime, submitting, handleSubmit } =
     useContext(CustomBundleContext)
 
   return (
     <>
-      {totalCost >= 75 ? (
+      {costForOneTime >= 75 ? (
         <div className="flex justify-center items-center w-1/2 bg-[#425b34]">
           <Button
             loading={submitting}

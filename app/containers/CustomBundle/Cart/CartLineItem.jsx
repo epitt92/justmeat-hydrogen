@@ -120,7 +120,7 @@ export function CartLineItem({ line, lineType = 'paid' }) {
           )}
           {lineType === 'locked' && (
             <>
-              <button className="sm:hidden w-full bg-[#EEEDED] mt-[3px] uppercase text-black px-[0px] py-[0px] text-[11px] font-['Roboto'] font-bold">
+              <button className="sm:hidden w-full bg-[#EEEDED] uppercase text-black px-[0px] py-[1.5px] text-[11px] font-['Roboto'] font-bold">
                 Free Bonus Meat (unlocked at $125)
               </button>
             </>

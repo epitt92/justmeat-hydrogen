@@ -1,34 +1,21 @@
 import React, { useContext } from 'react'
 
-import { useLoaderData } from '@remix-run/react'
-
 import { DELIVERY_EVERY_15_DAYS, DELIVERY_EVERY_30_DAYS } from '~/consts'
 import { CustomBundleContext } from '~/contexts'
 import { CheckBox } from '~/icons/CheckBox'
-import { cn, formatPrice, formatPriceWithRoundOf } from '~/lib/utils'
+import { cn } from '~/lib/utils'
 
-import { PROMO_CODES } from '../../../promo-codes'
-
-export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
+export const PlanPicker = () => {
   const {
+    costForOneTime,
+    costForSubscription,
+    originalCost,
+    firstSavingPercentage,
     sellingPlan,
     setSellingPlan,
     sellingPlanFrequency,
     setSellingPlanFrequency,
   } = useContext(CustomBundleContext)
-
-  const { discountCodes } = useLoaderData()
-
-  // Get influencer discount codes
-  const influencerCode = PROMO_CODES.filter((code) =>
-    discountCodes.includes(code.code),
-  )
-
-  const firstOrderSavingNumber =
-    influencerCode.length > 0 ? parseFloat(influencerCode[0].percentage) : 25
-
-  const firstOrderSavingFormatted =
-    (firstOrderSavingNumber / 100) * totalCostForPlan
 
   return (
     <div className="flex gap-2 flex-col lg:flex-row w-[100%] lg:!max-w-[760px]">
@@ -40,8 +27,7 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
               : 'sm:text-black sm:bg-[#ebeae9] bg-[#aaa] text-white'
           } min-h-[24px] flex justify-center items-center px-[15px] pt-[3px] text-[11px] font-normal rounded-full mx-auto sm:ml-0 sm:rounded-[0px] sm:font-semibold sm:text-[14px] sm:min-h-[28px] w-fit`}
         >
-          SAVE {influencerCode.length > 0 ? influencerCode[0].percentage : 25}%
-          ON YOUR FIRST ORDER
+          SAVE {firstSavingPercentage}% ON YOUR FIRST ORDER
         </p>
         <div
           className={`${
@@ -57,24 +43,13 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
             className={`leading-[100%] flex-1 text-[18px] sm:text-[20px] text-center sm:text-left font-bold`}
           >
             <span className="sm:hidden line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
-              {total > freeTag ? `$${parseInt(total)}` : ''}
-            </span>
-            <span className="hidden sm:inline line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
-              {total > freeTag ? `$${formatPrice(total)}` : ''}
+              ${originalCost}
             </span>
 
             <span className="sm:hidden">
-              {totalCostForPlan
-                ? `$${parseInt(totalCostForPlan - firstOrderSavingFormatted)}`
-                : ''}{' '}
-              Subscribe & Save
+              ${costForSubscription} Subscribe & Save
             </span>
             <span className={`hidden sm:inline sm:hover:text-[#fff]`}>
-              {totalCostForPlan
-                ? `$${formatPrice(
-                    totalCostForPlan - firstOrderSavingFormatted,
-                  )}`
-                : ''}{' '}
               Subscribe & Save
             </span>
           </div>
@@ -195,9 +170,7 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
                   }
                 />
               </span>
-              {influencerCode.length > 0
-                ? `${influencerCode[0].percentage}% Off First Order`
-                : 'Save 10% on Future Orders'}
+              ${firstSavingPercentage}% Off First Order`
             </li>
             <li className="flex items-center text-[11px] sm:text-[12px] font-normal sm:font-bold m-0 hidden md:flex lg:flex">
               <span className="text-[#425B34] sm:text-black">
@@ -244,20 +217,11 @@ export const PlanPicker = ({ total, totalCostForPlan, freeTag }) => {
             } sm:hover:bg-[#862E1B] sm:hover:text-[#fff] text-[18px] sm:text-[20px] p-[7px] sm:p-[10px] w-full font-bold text-center sm:text-left leading-[100%] sm:leading-[24px]`}
           >
             <span className="sm:hidden line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
-              {total > freeTag ? `$${parseInt(total)}` : ''}
+              ${originalCost}
             </span>
-            <span className="hidden sm:inline line-through decoration-[#919191] decoration-[3px] text-[#919191] mr-2">
-              {total > freeTag ? `$${formatPrice(total)}` : ''}
-            </span>
-            <span className="sm:hidden">
-              {totalCostForPlan
-                ? `$${formatPriceWithRoundOf(totalCostForPlan)}`
-                : ''}{' '}
-              One Time
-            </span>
-            <span className="hidden sm:inline">
-              {totalCostForPlan ? `$${formatPrice(totalCostForPlan)}` : ''} One
-              Time
+            <span className="hidden sm:inline-block">One Time</span>
+            <span className="inline-block sm:hidden">
+              ${costForOneTime} One Time
             </span>
           </div>
         </div>
