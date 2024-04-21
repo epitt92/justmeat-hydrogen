@@ -183,8 +183,8 @@ export const CustomBundle = () => {
               </div>
             )}
 
-            <div className="flex product-and-cart mb-[62px] md:mb-0">
-              <div className="grid grid-cols-2 product-grid md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:w-8/12 xl:mb-[0px] mb-[50px]">
+            <div className="xl:grid xl:grid-cols-12 product-and-cart mb-[62px] md:mb-0">
+              <div className="grid grid-cols-2 product-grid md:grid-cols-3 gap-x-5 sm:p-3 xl:pr-5 xl:col-span-8 xl:mb-[0px] mb-[50px]">
                 {productsBasedOnSellingPlan.map((product, key) => (
                   <ProductCard
                     key={key}
@@ -193,7 +193,7 @@ export const CustomBundle = () => {
                   />
                 ))}
               </div>
-              <div className="cart-wrapper sticky top-[10px] h-fit mb-[10px] hidden xl:block w-4/12">
+              <div className="cart-wrapper sticky top-[10px] h-fit mb-[10px] hidden sm:block xl:col-span-4">
                 <div className="h-full border">
                   <div className="py-5 text-center text-white bg-black top-section">
                     <div className="py-2 text-wrapper">
