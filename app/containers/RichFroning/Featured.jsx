@@ -63,7 +63,7 @@ export const Featured = () => {
     <section className="bg-[#EFEEED] text-[#231B19] pt-[62px] sm:pt-[103px] font-dunbar relative overflow-x-hidden">
       <img
         src={JustMeatsBoxPart}
-        className="absolute sm:block hidden left-0 top-[120px]"
+        className="absolute md:block hidden left-0 top-[120px]"
       />
       <img
         src={RichPhoto}
@@ -85,9 +85,9 @@ export const Featured = () => {
           and chicken professionally flavored and pre-cooked to perfection.
         </div>
 
-        <div className="w-full grid sm:grid-cols-4 grid-cols-2 sm:gap-[20px] gap-[12px]">
+        <div className="w-full grid md:grid-cols-4 grid-cols-2 sm:gap-[20px] gap-[12px]">
           <div
-            className="sm:aspect-[23/25] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[30px] pt-[16px] sm:pb-[50px] pb-[28px]"
+            className="md:aspect-[23/25] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[30px] pt-[16px] sm:pb-[50px] pb-[28px]"
             style={{ boxShadow: '0px 40px 45px -14px rgba(0, 0, 0, 0.15)' }}
           >
             <div className="flex items-center flex-1">
@@ -105,7 +105,7 @@ export const Featured = () => {
             </div>
           </div>
           <div
-            className="sm:aspect-[23/25] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[30px] pt-[16px] sm:pb-[50px] pb-[28px]"
+            className="md:aspect-[23/25] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[30px] pt-[16px] sm:pb-[50px] pb-[28px]"
             style={{ boxShadow: '0px 40px 45px -14px rgba(0, 0, 0, 0.15)' }}
           >
             <div className="flex items-center flex-1">
@@ -123,7 +123,7 @@ export const Featured = () => {
             </div>
           </div>
           <div
-            className="sm:aspect-[23/25] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[30px] pt-[16px] sm:pb-[50px] pb-[28px]"
+            className="md:aspect-[23/25] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[30px] pt-[16px] sm:pb-[50px] pb-[28px]"
             style={{ boxShadow: '0px 40px 45px -14px rgba(0, 0, 0, 0.15)' }}
           >
             <div className="flex items-center flex-1">
@@ -141,7 +141,7 @@ export const Featured = () => {
             </div>
           </div>
           <div
-            className="sm:aspect-[23/25] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[30px] pt-[16px] sm:pb-[50px] pb-[28px]"
+            className="md:aspect-[23/25] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[30px] pt-[16px] sm:pb-[50px] pb-[28px]"
             style={{ boxShadow: '0px 40px 45px -14px rgba(0, 0, 0, 0.15)' }}
           >
             <div className="flex items-center flex-1">
@@ -177,7 +177,7 @@ export const Featured = () => {
       </div>
       <div className=""></div>
       <div className="flex flex-col items-center overflow-hidden container-small sm:block pb-[45px] sm:pb-[40px]">
-        <div className="text-center sm:text-[36px] text-[24px] font-bold leading-tight sm:tracking-[1.8px] tracking-[1.2px] sm:mb-[87px] mb-[65px]">
+        <div className="text-center md:text-[36px] text-[24px] font-bold leading-tight sm:tracking-[1.8px] tracking-[1.2px] md:mb-[87px] mb-[65px]">
           NOW SERVING
         </div>
         <div className="sm:w-auto w-[835px] font-nunito">
@@ -195,7 +195,7 @@ export const Featured = () => {
           </Swiper>
         </div>
       </div>
-      <div className="bg-JustMeatsPartnershipsWithRichFroningImage h-[472px] sm:bg-cover 2xl:[background-position-y:-480px] xl:[background-position-y:-360px] lg:[background-position-y:-220px]  [background-position-y:-64px] sm:[background-position-x:0] [background-position-x:-340px] [background-size:834px] relative">
+      <div className="bg-JustMeatsPartnershipsWithRichFroningImage h-[472px] sm:bg-cover  bg-no-repeat 2xl:[background-position-y:-480px] xl:[background-position-y:-360px] lg:[background-position-y:-220px]  [background-position-y:-64px] sm:[background-position-x:0] [background-position-x:-340px] [background-size:834px] relative">
         <div className="h-full bg-[#00000040] [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"></div>
       </div>
     </section>

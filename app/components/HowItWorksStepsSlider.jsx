@@ -39,10 +39,9 @@ const steps = [
   },
 ]
 
-
 export const HowItWorksStepsSlider = () => {
   return (
-    <div className="relative flex justify-center overflow-x-hidden sm:mb-[56px] mb-[10px] sm:max-w-full max-w-[425px]">
+    <div className="relative flex justify-center overflow-x-hidden md:mb-[56px] mb-[10px] md:max-w-full max-w-[525px]">
       <div className="md:w-[600px] lg:w-[891px] w-full mx-auto">
         <Swiper
           loop
@@ -56,13 +55,13 @@ export const HowItWorksStepsSlider = () => {
           className="how-it-works-slider"
         >
           {steps.map((step, index) => (
-            <SwiperSlide key={index} className='pb-[30px]'>
+            <SwiperSlide key={index} className="pb-[30px]">
               <div
                 className="relative rounded-[8px] overflow-hidden sm:mb-0 mb-[50px] w-full"
                 style={{ boxShadow: '0px 30px 30px -9px rgba(0, 0, 0, 0.14)' }}
               >
                 <img className="w-full" src={step.image} alt="" />
-                <div className="relative bg-white font-nunito sm:px-[26px] sm:py-[30px] px-[22px] py-[20px] font-bold tracking-[2px] min-h-[132px]">
+                <div className="relative bg-white font-nunito sm:px-[26px] sm:py-[30px] px-[22px] py-[20px] font-bold tracking-[2px] min-h-[100px]">
                   <span className="absolute -translate-x-1/2 left-1/2 rounded-[4px] bg-[#231B19] px-[13px] py-[5px] text-[14px] font-bold top-[-15px]">
                     STEP {index + 1}
                   </span>
