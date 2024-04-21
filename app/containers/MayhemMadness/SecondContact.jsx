@@ -22,7 +22,7 @@ export const SecondContact = () => {
       </div>
       <img
         src={justmeatsBoxPart}
-        className="absolute w-[100px] top-[-4px] left-[-25px] sm:w-[150px] sm:top-[-8px]  sm:left-[-25px] lg:w-auto lg:top-[-180px] lg:left-[-50px] xl:left-0"
+        className="absolute w-[100px] top-[-4px] left-[-25px] sm:w-[150px] sm:top-[-8px]  sm:left-[-25px] lg:w-auto lg:top-[-122px] lg:left-[-50px] xl:left-0"
       />
       <div className="container-small sm:pt-[104px] pt-[62px]">
         <div className="grid sm:grid-cols-2 grid-cols-1 sm:gap-[55px] gap-[70px] items-end">
