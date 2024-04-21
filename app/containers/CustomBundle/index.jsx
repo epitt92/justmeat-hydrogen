@@ -58,7 +58,6 @@ export const CustomBundle = () => {
     ? cartSellingPlanFrequency
     : subscriptionSellingPlanFrequency
   const bonusVariant = isCartPage ? cartBonusVariant : subscriptionBonusVariant
-  const totalCost = isCartPage ? cartCost : subscriptionCost
 
   const productsBasedOnSellingPlan = sellingPlan
     ? products
@@ -80,12 +79,49 @@ export const CustomBundle = () => {
   // Get influencer discount codes
   const influencerCode = PROMO_CODES.filter((code) =>
     discountCodes.includes(code.code),
+  )[0]
+
+  const costForOneTime = isCartPage ? cartCost : subscriptionCost
+  const firstSavingPercentage = influencerCode?.percentage ?? 25
+
+  const costForSubscription = Number(
+    (costForOneTime - (costForOneTime / 100) * firstSavingPercentage).toFixed(
+      2,
+    ),
+  )
+
+  const cost = isCartPage && sellingPlan ? costForSubscription : costForOneTime
+
+  const tags = freeProduct.tags
+  let freeProductPrice
+
+  if (tags && tags.length > 0) {
+    tags.forEach((tag) => {
+      if (tag.includes('free-')) {
+        freeProductPrice = Number(parseFloat(tag.split('-')[1]).toFixed(2))
+      }
+    })
+  }
+
+  const originalCost = Number((costForOneTime + freeProductPrice).toFixed(2))
+
+  console.log(
+    'originalCost:',
+    originalCost,
+    'costForOneTime:',
+    costForOneTime,
+    'costForSubscription:',
+    costForSubscription,
+    'cost:',
+    cost,
+    'freeProductPrice:',
+    freeProductPrice,
   )
 
   async function handleSubmit() {
     const products = [...selectedProducts, { ...freeProduct, quantity: 1 }]
 
-    if (totalCost > 125) {
+    if (costForOneTime > 125) {
       products.push({
         ...{
           ...bonusProduct,
@@ -148,12 +184,18 @@ export const CustomBundle = () => {
         sellingPlan,
         sellingPlanFrequency,
         bonusVariant,
-        totalCost,
+        cost,
+        costForOneTime,
+        costForSubscription,
+        originalCost,
+        freeProductPrice,
+        firstSavingPercentage,
         submitting,
         setSelectedProducts,
         setSellingPlan,
         setSellingPlanFrequency,
         setBonusVariant,
+
         setSubmitting,
         handleSubmit,
       }}
@@ -200,11 +242,7 @@ export const CustomBundle = () => {
                       {isCartPage ? (
                         <>
                           <h1 className="font-roboto_medium text-[17px] leading-none">
-                            Subscribers Save{' '}
-                            {influencerCode.length > 0
-                              ? influencerCode[0].percentage
-                              : 25}
-                            % on Orders
+                            Subscribers Save {firstSavingPercentage}% on Orders
                           </h1>
                           <p className="text-[14px] leading-none font-roboto_medium mt-3">
                             Applied at checkout
