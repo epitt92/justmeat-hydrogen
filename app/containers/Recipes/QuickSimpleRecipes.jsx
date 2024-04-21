@@ -35,7 +35,7 @@ const QuickSimpleRecipes = () => {
 
   return (
     <section className="py-8 text-black bg-white">
-      <div className="w-[85%] max-w-[1170px] mx-auto bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Mask_Group_161.png')] bg-center text-white py-8">
+      <div className="w-[90%] md:w-[85%] max-w-[1170px] mx-auto bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Mask_Group_161.png')] bg-center text-white py-8">
         <div className="mt-0 md:mt-[170px] text-center mb-0 md:mb-[42px] px-2 md:px-[66px] lg:px-[166px] pt-0 md:pt-[19px] pb-[1px]">
           <p>
             The hardest part of meal prepping has never been easier! Just Meats
@@ -46,8 +46,8 @@ const QuickSimpleRecipes = () => {
           </p>
         </div>
       </div>
-      <div className="w-[85%] max-w-[1170px] mx-auto p-4">
-        <h1 className="mt-2 mb-4 text-3xl font-semibold leading-5 font-Roboto">
+      <div className="w-[90%] md:w-[85%] max-w-[1170px] mx-auto p-4">
+        <h1 className="mt-2 mb-4 text-2xl sm:text-3xl font-semibold leading-5 font-Roboto">
           Quick & Simple Recipes
         </h1>
         <div className="">

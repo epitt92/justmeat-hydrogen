@@ -7,7 +7,7 @@ import Video from './Video'
 const Easydelicious = () => {
   return (
     <section className="bg-[url('https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Group_4677_2x_b4bf7720-0529-4907-b3d6-8ecc83b37a23.png')] text-white pt-2 pb-8">
-      <div className="w-[85%] max-w-[1170px] mx-auto">
+      <div className="w-[90%] md:w-[85%] max-w-[1170px] mx-auto">
         <div className="grid items-center justify-center max-w-lg gap-8 mx-auto mt-4 lg:max-w-none lg:grid-cols-3">
           <div className="text-center md:text-start">
             <h3
@@ -45,7 +45,7 @@ const Easydelicious = () => {
         </div>
         <div className="my-8 bg-[#fff] text-[#141517] p-5">
           <div className="flex flex-col md:flex-row justify-center gap-0 md:gap-[30px] w-full">
-            <div className="justify-start pr-12  md:basis-7/12">
+            <div className="justify-start pr-0 md:pr-12  md:basis-7/12">
               <h1 className="font-Roboto text-3xl sm:text-8 md:text-3xl font-normal leading-[36.415px] md:leading-[40px] lg:leading-[60px] -tracking-[0.6px] md:tracking-[-1.12px]  text-[#061C3D] mb-2">
                 Our Latest Recipe
               </h1>
@@ -73,7 +73,7 @@ const Easydelicious = () => {
                 and heat for 2 minutes. Plate and serve!{' '}
               </p>
             </div>
-            <div className="items-center justify-center py-5 pr-12  md:basis-5/12">
+            <div className="items-center justify-center py-5 pr-0 md:pr-12  md:basis-5/12">
               <Video
                 videoId="videoId1"
                 url="https://cdn.shopify.com/videos/c/o/v/ee592ed8c3f44de6a78ad3fd619433b0.mp4"
