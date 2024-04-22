@@ -27,9 +27,9 @@ export const MobileCart = () => {
       >
         {isCartPage && (
           <>
-            {isCheckoutable
-              ? `View Cart - ($${cost})`
-              : `Add $${75 - costForOneTime} to Unlock Cart ($${cost})`}
+          {isCheckoutable
+            ? `View Cart - ($${cost})`
+            : `Add $${(75 - costForOneTime).toFixed(2)} to Unlock Cart ($${cost})`}
           </>
         )}
         {!isCartPage && (
