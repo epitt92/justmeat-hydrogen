@@ -1,10 +1,9 @@
 import { getPaginationVariables } from '@shopify/hydrogen'
 import { json } from '@shopify/remix-oxygen'
 
-import { Banner } from '~/containers/MayhemMadness/Banner'
 import { BannerHead } from '~/containers/MayhemMadness/BannerHead'
-import { EarnAnywhere } from '~/containers/MayhemMadness/EarnAnywhere'
 import { ChefCook } from '~/containers/MayhemMadness/ChefCook'
+import { EarnAnywhere } from '~/containers/MayhemMadness/EarnAnywhere'
 import { Featured } from '~/containers/MayhemMadness/Featured'
 import { FirstContact } from '~/containers/MayhemMadness/FirstContact'
 import { FirstInfo } from '~/containers/MayhemMadness/FirstInfo'
@@ -13,6 +12,10 @@ import { Reviews } from '~/containers/MayhemMadness/Reviews'
 import { SecondContact } from '~/containers/MayhemMadness/SecondContact'
 import { SecondInfo } from '~/containers/MayhemMadness/SecondInfo'
 import { COLLECTIONS_QUERY } from '~/graphql/Collection'
+
+export const meta = () => {
+  return [{ title: 'Mayhem Madness - Just Meats' }]
+}
 
 export async function loader({ request, context }) {
   const { storefront } = context

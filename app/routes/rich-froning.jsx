@@ -11,6 +11,10 @@ import { HowItWorks } from '~/containers/RichFroning/HowItWorks'
 import { LearnMore } from '~/containers/RichFroning/LearnMore'
 import { COLLECTIONS_QUERY } from '~/graphql/Collection'
 
+export const meta = () => {
+  return [{ title: 'Rich Froning - Just Meats' }]
+}
+
 export async function loader({ request, context }) {
   const { storefront } = context
 

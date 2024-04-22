@@ -19,6 +19,10 @@ import { PaymentDetails } from '~/containers/Account/AccountDetails/PaymentDetai
 import { CUSTOMER_UPDATE_MUTATION } from '~/graphql/customer-account/CustomerUpdateMutation'
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
 
+export const meta = () => {
+  return [{ title: 'Account – Just Meats' }]
+}
+
 export async function loader({ context }) {
   await context.customerAccount.handleAuthStatus()
 

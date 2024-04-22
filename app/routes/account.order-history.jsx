@@ -7,6 +7,10 @@ import { json } from '@shopify/remix-oxygen'
 import OrderHistory from '~/containers/Account/Order/OrderHistory'
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
 
+export const meta = () => {
+  return [{ title: 'Orders – Just Meats' }]
+}
+
 export async function loader({ context }) {
   const listOrdersResponse = await rechargeQueryWrapper((session) => {
     if (session.customerId) {

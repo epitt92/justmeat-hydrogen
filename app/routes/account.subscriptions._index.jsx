@@ -21,6 +21,10 @@ export function shouldRevalidate() {
   return true
 }
 
+export const meta = () => {
+  return [{ title: 'Subscriptions - Just Meats' }]
+}
+
 export const loader = async ({ request, context }) =>
   await rechargeQueryWrapper(async (rechargeSession) => {
     const customerData = context.customerAccount.query(CUSTOMER_DETAILS_QUERY)

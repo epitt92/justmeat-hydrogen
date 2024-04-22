@@ -27,7 +27,7 @@ export const meta = ({ data }) => {
         data?.subscription?.variant_title
           ? ` (${data?.subscription?.variant_title})`
           : ''
-      }`,
+      } - Just Meats`,
     },
   ]
 }
