@@ -33,12 +33,12 @@ export const meta = ({ data }) => {
 }
 
 export const loader = async ({ request, context, params }) =>
-  await rechargeQueryWrapper(async (rechargeSession) => {
+  await rechargeQueryWrapper(async (rechargerechargeSession) => {
     if (!params.id) {
       return redirect(params?.locale ? `${params.locale}/account` : '/account')
     }
 
-    const discountCode = context.session.get('discountCode')
+    const discountCode = context.rechargeSession.get('discountCode')
     const discountCodes = discountCode ? [discountCode] : []
 
     const bundleData = getBundle({
@@ -47,7 +47,7 @@ export const loader = async ({ request, context, params }) =>
     })
 
     const rechargeSubscriptionData = getSubscription(
-      rechargeSession,
+      rechargerechargeSession,
       params.id,
       {
         include: ['address'],
@@ -55,7 +55,7 @@ export const loader = async ({ request, context, params }) =>
     )
 
     const bundleSelectionsData = listBundleSelections(
-      rechargeSession,
+      rechargerechargeSession,
       params.id,
     )
 
@@ -85,10 +85,10 @@ export const loader = async ({ request, context, params }) =>
     const purchase_item_id = bundle.purchase_item_id
     const bundleItems = bundle.items
 
-    const { charges } = await listCharges(rechargeSession, {
+    const { charges } = await listCharges(rechargerechargeSession, {
       limit: 10,
       purchase_item_id,
-      customer_id: rechargeSession.customerId,
+      customer_id: rechargerechargeSession.customerId,
       scheduled_at_min: new Date().toISOString(),
       sort_by: 'scheduled_at-desc',
       status: ['queued', 'skipped', 'error'],
@@ -163,101 +163,91 @@ export const loader = async ({ request, context, params }) =>
       {
         headers: {
           'Cache-Control': 'no-cache, no-store, must-revalidate',
-          'Set-Cookie': await context.rechargeSession.commit(),
+          'Set-Cookie': await context.rechargerechargeSession.commit(),
         },
       },
     )
   }, context)
 
-export async function action({ request, context, params }) {
-  const form = await request.formData()
-  const body = JSON.parse(form.get('body'))
+export const action = async ({ request, context, params }) =>
+  await rechargeQueryWrapper(async (rechargeSession) => {
+    const form = await request.formData()
+    const body = JSON.parse(form.get('body'))
 
-  const { api, ...data } = body
+    const { api, ...data } = body
 
-  switch (api) {
-    case 'update-bundle':
-      const bundleId = data.bundleId
-      const purchase_item_id = data.purchase_item_id
-      const products = data.products
+    switch (api) {
+      case 'update-bundle':
+        const bundleId = data.bundleId
+        const purchase_item_id = data.purchase_item_id
+        const products = data.products
 
-      const { collection } = await getBundle({ request, context })
+        const { collection } = await getBundle({ request, context })
 
-      const bundleCollectionId = getPureId(collection.id, 'Collection')
+        const bundleCollectionId = getPureId(collection.id, 'Collection')
 
-      const items = products.map((product) => ({
-        collection_id: bundleCollectionId,
-        collection_source: 'shopify',
-        external_product_id: getPureId(product.id, 'Product'),
-        external_variant_id: getPureId(
-          product.variants.nodes[0].id,
-          'ProductVariant',
-        ),
-        quantity: product.quantity,
-      }))
+        const items = products.map((product) => ({
+          collection_id: bundleCollectionId,
+          collection_source: 'shopify',
+          external_product_id: getPureId(product.id, 'Product'),
+          external_variant_id: getPureId(
+            product.variants.nodes[0].id,
+            'ProductVariant',
+          ),
+          quantity: product.quantity,
+        }))
 
-      await rechargeQueryWrapper(
-        (session) =>
-          updateBundleSelection(session, bundleId, {
-            purchase_item_id,
-            items,
-          }),
-        context,
-      )
+        await updateBundleSelection(rechargeSession, bundleId, {
+          purchase_item_id,
+          items,
+        })
 
-      return json({ msg: 'ok' })
+        return json({ msg: 'ok' })
 
-    case 'process-charge':
-      const chargeId = data.chargeId
+      case 'process-charge':
+        const chargeId = data.chargeId
 
-      await rechargeQueryWrapper(
-        (session) => processCharge(session, chargeId),
-        context,
-      )
+        await processCharge(rechargeSession, chargeId)
 
-      return json({ msg: 'ok' })
+        return json({ msg: 'ok' })
 
-    case 'delay-subscription':
-      const date = data.date
+      case 'delay-subscription':
+        const date = data.date
 
-      await rechargeQueryWrapper(
-        (session) =>
-          updateSubscriptionChargeDate(session, Number(params.id), date),
-        context,
-      )
+        await updateSubscriptionChargeDate(
+          rechargeSession,
+          Number(params.id),
+          date,
+        )
 
-      return json({ msg: 'ok' })
+        return json({ msg: 'ok' })
 
-    case 'cancel-subscription':
-      await rechargeQueryWrapper(
-        (session) =>
-          cancelSubscription(session, Number(params.id), {
-            cancellation_reason: 'Do not want it anymore.',
-            send_email: true,
-          }),
-        context,
-      )
+      case 'cancel-subscription':
+        await cancelSubscription(rechargeSession, Number(params.id), {
+          cancellation_reason: 'Do not want it anymore.',
+          send_email: true,
+        })
 
-      return json({ msg: 'ok' })
+        return json({ msg: 'ok' })
 
-    case 'send-update-payment-email':
-      const { address_id, payment_method_id } = data
+      case 'send-update-payment-email':
+        const { address_id, payment_method_id } = data
 
-      await rechargeQueryWrapper(
-        (session) =>
-          sendCustomerNotification(session, 'SHOPIFY_UPDATE_PAYMENT_INFO', {
+        await sendCustomerNotification(
+          rechargeSession,
+          'SHOPIFY_UPDATE_PAYMENT_INFO',
+          {
             address_id,
             payment_method_id,
-          }),
-        context,
-      )
+          },
+        )
 
-      return json({ msg: 'ok' })
+        return json({ msg: 'ok' })
 
-    default:
-      break
-  }
-}
+      default:
+        break
+    }
+  }, context)
 
 export default function SubscriptionRoute() {
   const { setSubscriptionProducts, setSubscriptionBonusVariant } =
