@@ -10,7 +10,7 @@ export const BannerHead = () => {
             <div className='flex flex-col md:flex-row pt-3'>
                 <div className='basis-3/5'>
                     <div className='flex flex-col-reverse md:flex-col md:items-left'>
-                        <div className="w-full md:w-[100%] h-auto ">
+                        <div className="w-full md:w-[100%] h-auto  lg:pt-[100px] md:pt-[50px]">
                             <img
                                 className=""
                                 src={MayhemNationImage}
@@ -20,7 +20,7 @@ export const BannerHead = () => {
                             <div className="font-nunito font-bold sm:text-[27px] text-[20px] text-yellow">
                                 6 lbs of meat FOR FREE!
                             </div>
-                            <div className="sm:text-[36px] text-[27px] font-bold text-white leading-tight">
+                            <div className="sm:text-[36px] text-[27px] font-bold text-white leading-tight md:pb-[50px]">
                                 MAYHEM AFFILIATE
                                 <br />
                                 OWNERS ONLY!
