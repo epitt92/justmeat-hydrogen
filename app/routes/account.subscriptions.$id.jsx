@@ -33,6 +33,10 @@ export const meta = ({ data }) => {
 }
 
 export async function loader({ request, context, params }) {
+  if (!params.id) {
+    return redirect(params?.locale ? `${params.locale}/account` : '/account')
+  }
+
   const discountCode = context.session.get('discountCode')
   const discountCodes = discountCode ? [discountCode] : []
 
@@ -40,10 +44,6 @@ export async function loader({ request, context, params }) {
     request,
     context,
   })
-
-  if (!params.id) {
-    return redirect(params?.locale ? `${params.locale}/account` : '/account')
-  }
 
   const subscription = await rechargeQueryWrapper(
     (session) =>
