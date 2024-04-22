@@ -25,13 +25,13 @@ export const SecondContact = () => {
         className="absolute w-[100px] top-[-4px] left-[-25px] sm:w-[150px] sm:top-[-8px]  sm:left-[-25px] lg:w-auto lg:top-[-122px] lg:left-[-50px] xl:left-0"
       />
       <div className="container-small sm:pt-[104px] pt-[62px]">
-        <div className="grid sm:grid-cols-2 grid-cols-1 sm:gap-[55px] gap-[70px] items-end">
-          <div className="flex flex-col justify-between aspect-square">
+        <div className="grid md:grid-cols-2 grid-cols-1 sm:gap-[55px] gap-[70px] items-end">
+          <div className="flex flex-col ">
             <div className="sm:mb-0 mb-[24px]">
               <div className="xl:text-[14px] text-[12px] text-[#7A392D] font-normal text-center sm:mb-[6px] tracking-[3px]">
                 CLAIM YOUR
               </div>
-              <div className="xl:text-[36px] text-[24px] font-bold text-center">
+              <div className="xl:text-[36px] text-[24px] font-bold text-center mb-3">
                 6 LBS OF FREE MEAT
               </div>
             </div>
