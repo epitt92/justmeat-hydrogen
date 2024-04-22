@@ -85,7 +85,6 @@ export const HowItWorksStepsSlider = () => {
     </div>
     <div className='md:hidden mb-8'>
           <div className="w-full mx-auto">
-
           <div className="slider-container howjustmeatSlider">
     <Slider {...settings}>
     {steps.map((step, index) => (
