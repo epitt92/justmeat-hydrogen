@@ -212,6 +212,8 @@ export default function App() {
       '_cartSellingPlanFrequency',
       JSON.stringify(value),
     )
+
+    setCartSellingPlan(value)
   }
 
   const setCartProducts = (value) => {
@@ -317,7 +319,7 @@ export function ErrorBoundary() {
         <Links />
       </head>
       <body>
-        <div className="route-error h-screen flex flex-col justify-center items-center">
+        <div className="flex flex-col items-center justify-center h-screen route-error">
           <h1>Oops</h1>
           <h2>{errorStatus}</h2>
           {errorMessage && (
