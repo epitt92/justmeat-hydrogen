@@ -77,7 +77,7 @@ export const Featured = () => {
         <div className="sm:text-[14px] font-normal leading-[23px] sm:tracking-[2.8px] text-[12px] tracking-[2.8px] text-[#7A392D] text-center">
           STAY LEAN, EAT CLEAN, SAVE GREEN
         </div>
-        <div className="text-center sm:text-[36px] text-[24px] font-bold leading-tight sm:tracking-[1.8px] tracking-[1.2px] sm:mb-[20px] mb-[17px]">
+        <div className="text-center sm:text-[36px] text-[24px] font-bold leading-tight sm:tracking-[1.8px] tracking-[1.2px] sm:mb-[20px] mb-[17px] font-mobile">
           TRADE PROTEIN PROBLEMS
           <br />
           FOR PROTEIN PERFECTION

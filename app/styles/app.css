@@ -581,3 +581,10 @@ section.product-list-slider button.slick-arrow.slick-next {
 .featured-slider .truncate {
   @apply text-base;
 }
+
+@media screen and (max-width: 370px) {
+  .font-mobile {
+    font-size: 20px !important;
+    line-height: 1.75rem !important;
+  } 
+}

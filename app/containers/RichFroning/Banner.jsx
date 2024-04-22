@@ -41,7 +41,7 @@ export const Banner = () => {
             {sliderImages.map((slider, index) => (
               <SwiperSlide key={index}>
                 <div
-                  className="h-full bg-cover sm:bg-center [background-position-x:1120px]"
+                  className="h-full bg-cover sm:bg-top [background-position-x:920px]"
                   style={{ backgroundImage: `url(${slider.image})` }}
                 >
                 <div className='flex items-center h-full'>
