@@ -1,4 +1,5 @@
 import { CartForm } from '@shopify/hydrogen'
+import { NavLink } from '@remix-run/react'
 import { json } from '@shopify/remix-oxygen'
 
 import { useRootLoaderData } from '~/root'
@@ -88,10 +89,16 @@ export default function Cart() {
   const cartPromise = rootData.cart
 
   return (
-    <div className="cart w-[95%] md:w-[80%] max-w-[1170px] mx-auto">
-      <h1 className="font-Roboto text-[32px] md:text-[48px] text-gray-900 pl-8 md:pl-0 font-medium mb-3 mt-8">
+    <div className="cart container mx-auto mb-[100px] px-[15px] py-[0]">
+      <h1 className="font-Roboto text-[32px] md:text-[48px] text-gray-900 pl-0 font-medium mb-3 mt-8 mb-[calc(50px* .8)]">
         Shopping Cart
       </h1>
+      <div className="cart-form__items  gutter--regular ">Your cart is currently empty.
+      <div className="pt-[25px]">
+      <NavLink className='bg-[black] text-[white] lg:text-[21.25px] lg:px-[2.875rem] lg:py-[.9375rem] font-bold rounded-bl-[10px] px-8 py-[.75rem] text-[19.125px]' end prefetch="intent" to="/products/custom-bundle">
+          Continue browsing
+      </NavLink>
+      </div></div>
     </div>
   )
 }
