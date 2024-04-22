@@ -82,7 +82,7 @@ export const Featured = () => {
           <br />
           FOR PROTEIN PERFECTION
         </div>
-        <div className="max-w-[730px] text-[#231b19] sm:text-center text-left sm:text-[18px] text-[16px] font-normal sm:leading-[26px] leading-[25px] tracking-[0.16px] font-nunito sm:mb-[51px] mb-[63px]">
+        <div className="max-w-[730px] text-[#231b19] sm:text-center text-justify [word-spacing:-1px] sm:[word-spacing:0] sm:text-[18px] text-[16px] font-normal sm:leading-[26px] leading-[25px] tracking-[0.16px] font-nunito sm:mb-[51px] mb-[63px]">
           Prepping protein every week can be challenging, expensive, and
           time-consuming - even if you know what you&rsquo;re doing. So, we
           tackled the protein problem head on. We deliver delicious beef, pork,
