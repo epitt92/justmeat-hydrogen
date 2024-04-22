@@ -28,7 +28,7 @@ export const HowItWorks = () => {
           <div className="text-center sm:text-[36px] text-[24px] font-bold leading-tight sm:tracking-[1.8px] tracking-[1.2px] sm:mb-[20px] mb-[17px] font-dunbar">
             THE ULTI-MEAT EXPERIENCE
           </div>
-          <div className="max-w-[645px] text-[#231b19] sm:text-center text-left sm:text-[18px] text-[16px] font-normal sm:leading-[26px] leading-[25px] tracking-[0.16px] font-nunito sm:mb-[43px] mb-[35px] sm:px-0 px-[12px]">
+          <div className="max-w-[645px] text-[#231b19] sm:text-center text-justify [word-spacing:-1px] sm:[word-spacing:0] sm:text-[18px] text-[16px] font-normal sm:leading-[26px] leading-[25px] tracking-[0.16px] font-nunito sm:mb-[43px] mb-[35px] sm:px-0 px-[12px]">
             Here&rsquo;s how having
             <span className="font-bold"> JUST MEATS </span>delivered to your
             door changes the game. Our meats marinate on the way to your door
