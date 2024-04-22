@@ -5,18 +5,18 @@ import BgBannerHead from '~/assets/images/BgBannerHead.png'
 
 export const BannerHead = () => {
   return (
-    <section className="bg-image bg-[url('../assets/images/BgBannerHead.png')] bg-contain bg-right">
+    <section className="bg-image bg-[url('../assets/images/BgBannerHead.png')] bg-cover bg-bottom">
         <div className='w-[80%] mx-auto'>
-            <div className='flex flex-col md:flex-row'>
+            <div className='flex flex-col md:flex-row pt-3'>
                 <div className='basis-3/5'>
                     <div className='flex flex-col-reverse md:flex-col md:items-center'>
-                        <div className="w-full md:w-[70%] h-auto pt-0 md:pt-6 md:pb-6 ">
+                        <div className="w-full md:w-[70%] h-auto ">
                             <img
                                 className=""
                                 src={MayhemNationImage}
                             />
                         </div>
-                        <div className="py-4">
+                        <div className="py-8">
                             <div className="font-nunito font-bold sm:text-[27px] text-[20px] text-yellow">
                                 6 lbs of meat FOR FREE!
                             </div>
@@ -30,11 +30,11 @@ export const BannerHead = () => {
                 </div>
                
                 <div className='basis-2/5'>
-                    <div className=''>
+                    <div className='w-full'>
                         <img
                             src={BannerCharacter}
-                            className="w-full md:w-[90%] h-auto"
-                            style={{ maxWidth: '400px' }} // Ensures max-width is respected on all screen sizes
+                            className="w-full"
+                            
                         />
                     </div>
                 </div>
