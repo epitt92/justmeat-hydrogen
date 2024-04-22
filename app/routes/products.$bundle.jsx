@@ -6,6 +6,10 @@ import { CustomBundle } from '~/containers/CustomBundle'
 import { getBundle } from '~/lib/storefront'
 import { getFullId, getPureId } from '~/lib/utils'
 
+export const meta = () => {
+  return [{ title: 'Custom Bundle - Just Meats' }]
+}
+
 export async function loader({ request, context }) {
   const discountCode = context.session.get('discountCode')
   const discountCodes = discountCode ? [discountCode] : []

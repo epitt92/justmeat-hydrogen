@@ -11,16 +11,20 @@ import { Pig } from '~/icons/Pig'
 import { RunningTruck } from '~/icons/RunningTruck'
 
 const swiperBreakpoints = {
-  360: {
-    slidesPerView: 3,
+  200: {
+    slidesPerView: 1.5,
     spaceBetween: 20,
   },
-  768: {
+  540: {
+    slidesPerView: 2,
+    spaceBetween: 20,
+  },
+  789: {
     slidesPerView: 3,
     spaceBetween: 20,
   },
   1024: {
-    slidesPerView: 4,
+    slidesPerView: 3,
     spaceBetween: 20,
   },
   1440: {
@@ -63,7 +67,7 @@ export const Featured = () => {
     <section className="bg-[#EFEEED] text-[#231B19] pt-[62px] sm:pt-[103px] font-dunbar relative overflow-x-hidden">
       <img
         src={JustMeatsBoxPart}
-        className="absolute sm:block hidden left-0 top-[120px]"
+        className="absolute md:block hidden left-0 xl:top-[120px] top-[14%]"
       />
       <img
         src={RichPhoto}
@@ -73,21 +77,21 @@ export const Featured = () => {
         <div className="sm:text-[14px] font-normal leading-[23px] sm:tracking-[2.8px] text-[12px] tracking-[2.8px] text-[#7A392D] text-center">
           STAY LEAN, EAT CLEAN, SAVE GREEN
         </div>
-        <div className="text-center sm:text-[36px] text-[24px] font-bold leading-tight sm:tracking-[1.8px] tracking-[1.2px] sm:mb-[20px] mb-[17px]">
+        <div className="text-center sm:text-[36px] text-[24px] font-bold leading-tight sm:tracking-[1.8px] tracking-[1.2px] sm:mb-[20px] mb-[17px] font-mobile">
           TRADE PROTEIN PROBLEMS
           <br />
           FOR PROTEIN PERFECTION
         </div>
-        <div className="max-w-[730px] text-[#231b19] sm:text-center text-left sm:text-[18px] text-[16px] font-normal sm:leading-[26px] leading-[25px] tracking-[0.16px] font-nunito sm:mb-[51px] mb-[63px]">
+        <div className="max-w-[730px] text-[#231b19] sm:text-center text-justify [word-spacing:-1px] sm:[word-spacing:0] sm:text-[18px] text-[16px] font-normal sm:leading-[26px] leading-[25px] tracking-[0.16px] font-nunito sm:mb-[51px] mb-[63px]">
           Prepping protein every week can be challenging, expensive, and
           time-consuming - even if you know what you&rsquo;re doing. So, we
           tackled the protein problem head on. We deliver delicious beef, pork,
           and chicken professionally flavored and pre-cooked to perfection.
         </div>
 
-        <div className="w-full grid sm:grid-cols-4 grid-cols-2 sm:gap-[20px] gap-[12px]">
+        <div className="w-full grid xl:grid-cols-4 grid-cols-2 sm:gap-[20px] gap-[12px]">
           <div
-            className="sm:aspect-[23/25] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[30px] pt-[16px] sm:pb-[50px] pb-[28px]"
+            className="xl:aspect-[23/25] [aspect-ratio:auto] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[30px] pt-[16px] sm:pb-[50px] pb-[28px]"
             style={{ boxShadow: '0px 40px 45px -14px rgba(0, 0, 0, 0.15)' }}
           >
             <div className="flex items-center flex-1">
@@ -105,7 +109,7 @@ export const Featured = () => {
             </div>
           </div>
           <div
-            className="sm:aspect-[23/25] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[30px] pt-[16px] sm:pb-[50px] pb-[28px]"
+            className="xl:aspect-[23/25] [aspect-ratio:auto] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[30px] pt-[16px] sm:pb-[50px] pb-[28px]"
             style={{ boxShadow: '0px 40px 45px -14px rgba(0, 0, 0, 0.15)' }}
           >
             <div className="flex items-center flex-1">
@@ -123,7 +127,7 @@ export const Featured = () => {
             </div>
           </div>
           <div
-            className="sm:aspect-[23/25] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[30px] pt-[16px] sm:pb-[50px] pb-[28px]"
+            className="xl:aspect-[23/25] [aspect-ratio:auto] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[30px] pt-[16px] sm:pb-[50px] pb-[28px]"
             style={{ boxShadow: '0px 40px 45px -14px rgba(0, 0, 0, 0.15)' }}
           >
             <div className="flex items-center flex-1">
@@ -141,7 +145,7 @@ export const Featured = () => {
             </div>
           </div>
           <div
-            className="sm:aspect-[23/25] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[30px] pt-[16px] sm:pb-[50px] pb-[28px]"
+            className="xl:aspect-[23/25] [aspect-ratio:auto] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[30px] pt-[16px] sm:pb-[50px] pb-[28px]"
             style={{ boxShadow: '0px 40px 45px -14px rgba(0, 0, 0, 0.15)' }}
           >
             <div className="flex items-center flex-1">
@@ -176,11 +180,11 @@ export const Featured = () => {
         </div>
       </div>
       <div className=""></div>
-      <div className="flex flex-col items-center overflow-hidden container-small sm:block pb-[45px] sm:pb-[40px]">
-        <div className="text-center sm:text-[36px] text-[24px] font-bold leading-tight sm:tracking-[1.8px] tracking-[1.2px] sm:mb-[87px] mb-[65px]">
+      <div className="flex flex-col sm:pl-[20px] sm:pr-[20px] pl-0 pr-0 items-center overflow-hidden container-small sm:block pb-[45px] sm:pb-[40px]">
+        <div className="text-center md:text-[36px] text-[24px] font-bold leading-tight sm:tracking-[1.8px] tracking-[1.2px] md:mb-[87px] mb-[65px]">
           NOW SERVING
         </div>
-        <div className="sm:w-auto w-[835px] font-nunito">
+        <div className="sm:w-auto w-full font-nunito hidden sm:block">
           <Swiper
             loop
             autoplay
@@ -194,8 +198,23 @@ export const Featured = () => {
             {slides[collections[0].id]}
           </Swiper>
         </div>
+        <div className="sm:w-auto w-full font-nunito sm:hidden block">
+          <Swiper
+            loop
+            centeredSlides
+            autoplay
+            pagination={{ clickable: true }}
+            slidesPerView={4}
+            spaceBetween={30}
+            modules={[Pagination]}
+            breakpoints={swiperBreakpoints}
+            className="featured-slider"
+          >
+            {slides[collections[0].id]}
+          </Swiper>
+        </div>
       </div>
-      <div className="bg-JustMeatsPartnershipsWithRichFroningImage h-[472px] sm:bg-cover 2xl:[background-position-y:-480px] xl:[background-position-y:-360px] lg:[background-position-y:-220px]  [background-position-y:-64px] sm:[background-position-x:0] [background-position-x:-340px] [background-size:834px] relative">
+      <div className="bg-JustMeatsPartnershipsWithRichFroningImage h-[472px] sm:bg-cover  bg-no-repeat 2xl:[background-position-y:-480px] xl:[background-position-y:-360px] lg:[background-position-y:-220px]  [background-position-y:-64px] sm:[background-position-x:0] [background-position-x:-340px] [background-size:834px] relative">
         <div className="h-full bg-[#00000040] [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"></div>
       </div>
     </section>

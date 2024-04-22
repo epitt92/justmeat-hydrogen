@@ -590,3 +590,20 @@ section.product-list-slider button.slick-arrow.slick-next {
   --tw-content: "";
   background: white;
 }
+
+.sticky-header {
+  @apply visible opacity-100 translate-y-0 transition-transform duration-[0.2s] ease-linear shadow-[0_2px_10px_2px_#0000000f] fixed z-[99] border-b-[rgba(29,29,29,0.1)] border-b border-solid left-0 top-0;
+  background: white;
+  position: fixed !important;
+}
+
+.featured-slider .truncate {
+  @apply text-base;
+}
+
+@media screen and (max-width: 370px) {
+  .font-mobile {
+    font-size: 20px !important;
+    line-height: 1.75rem !important;
+  } 
+}

@@ -1,42 +1,39 @@
 import React from 'react'
 
-import { listOrders, listSubscriptions } from '@rechargeapps/storefront-client'
+import { listOrders } from '@rechargeapps/storefront-client'
 import { NavLink, useLoaderData } from '@remix-run/react'
 import { json } from '@shopify/remix-oxygen'
 
-import { SubscriptionCard } from '~/components/SubscriptionCard'
 import OrderHistory from '~/containers/Account/Order/OrderHistory'
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
 
+export const meta = () => {
+  return [{ title: 'Orders – Just Meats' }]
+}
+
 export async function loader({ context }) {
-  const subscriptionsResponse = await rechargeQueryWrapper(
-    (session) =>
-      listSubscriptions(session, {
-        limit: 25,
-        status: 'active',
-      }),
-    context,
-  )
-  const listOrdersResponse = await rechargeQueryWrapper(
-    (session) =>
-      listOrders(session, {
+  const listOrdersResponse = await rechargeQueryWrapper((session) => {
+    if (session.customerId) {
+      return listOrders(session, {
         limit: 25,
         sort_by: 'id-asc',
-      }),
-    context,
-  )
+      })
+    }
+    return { orders: [] }
+  }, context)
+
   return json({
     headers: {
       'Cache-Control': 'no-cache, no-store, must-revalidate',
       'Set-Cookie': await context.session.commit(),
     },
-    subscriptionsResponse,
     listOrdersResponse,
   })
 }
 
-const AccountOrderHistory = () => {
-  const { subscriptionsResponse, listOrdersResponse } = useLoaderData()
+export default function AccountOrderHistory() {
+  const { listOrdersResponse } = useLoaderData()
+
   return (
     <div className="bg-sublistbgGray py-0 md:py-8">
       <div className="container">
@@ -61,7 +58,6 @@ const AccountOrderHistory = () => {
   )
 }
 
-export default AccountOrderHistory
 function AccountOrders({ orders }) {
   return (
     <div className="">

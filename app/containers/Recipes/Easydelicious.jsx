@@ -21,7 +21,7 @@ const Easydelicious = () => {
               Easy Delicious.
             </h3>
           </div>
-          <div className="text-center md:text-start">
+          <div className="text-center md:text-start flex flex-col items-end">
             <p className="mb-8 font-normal font-Roboto">
               Leave the protein to the chef’s & choose from our lineup of 12
               different meats with new flavors releasing regularly.
@@ -29,10 +29,10 @@ const Easydelicious = () => {
             <NavLink
               end
               prefetch="intent"
-              className="py-[12px] px-[20px] bg-[#862e1b]"
+              className="py-[12px] px-[20px] bg-[#862e1b] leading-none"
               to="/products/custom-bundle"
             >
-              ORDER NOW
+              Order Now
             </NavLink>
           </div>
           <div className="flex items-center justify-center">

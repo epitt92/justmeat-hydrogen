@@ -6,9 +6,13 @@ import { Account as AccountIcon } from '~/icons/Account'
 import { HamburgerClose } from '~/icons/HamburgerClose'
 
 import { MenuNavLink } from './MenuNavLink'
+import { useLocation } from 'react-router-dom';
 
 export function MobileMenuAside() {
   const { menuToggle, setMenuToggle } = useContext(LayoutContext)
+  const location = useLocation();
+  const isSpecialsPage = location.pathname === '/rich-froning';
+
 
   return (
     <>
@@ -42,6 +46,11 @@ export function MobileMenuAside() {
             {' '}
             <MenuNavLink to="/recipes">Recipes</MenuNavLink>{' '}
           </li>
+          {isSpecialsPage && (
+            <li className="text-[16px] px-10 py-4 text-black border-b border-[#1d1d1d26] uppercase">
+              <MenuNavLink to="/">Specials</MenuNavLink>
+            </li>
+          )}
           <li className=" text-[16px] px-10 py-4 text-black border-b border-[#1d1d1d26] uppercase">
             <MenuNavLink to="/account">
               <div className="flex items-center gap-[5px]">

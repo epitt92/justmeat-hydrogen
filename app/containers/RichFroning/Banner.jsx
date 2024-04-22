@@ -41,10 +41,11 @@ export const Banner = () => {
             {sliderImages.map((slider, index) => (
               <SwiperSlide key={index}>
                 <div
-                  className="h-full bg-cover sm:[background-position-x:0] [background-position-x:1120px]"
+                  className="h-full bg-cover sm:bg-top [background-position-x:920px]"
                   style={{ backgroundImage: `url(${slider.image})` }}
                 >
-                  <div className="relative container-small sm:pt-[251px] pt-[270px] sm:text-center text-white tracking-[2px] sm:pb-0 pb-[156px] leading-normal">
+                <div className='flex items-center h-full'>
+                  <div className="relative container-small pt-[100px] sm:text-center text-white tracking-[2px] sm:pb-0 pb-[156px] leading-normal">
                     <div className="font-bold sm:text-[36px] text-[30px] cursor-default">
                       ELITE FITNESS + <br className="block sm:hidden" />
                       ELITE NUTRITION
@@ -60,6 +61,7 @@ export const Banner = () => {
                         GET MEAT
                       </button>
                     </NavLink>
+                  </div>
                   </div>
                 </div>
               </SwiperSlide>
@@ -99,7 +101,7 @@ export const Banner = () => {
         className="bg-[#7A392D] relative z-10"
         style={{ boxShadow: '0px 30px 50px -10px rgba(0, 0, 0, 0.20)' }}
       >
-        <div className="container-small sm:pt-[50px] sm:pb-[50px] pt-[44px] pb-[55px] grid sm:grid-cols-3 grid-cols-1 sm:gap-0 gap-[38px]">
+        <div className="container-small sm:pt-[50px] sm:pb-[50px] pt-[44px] pb-[55px] grid md:grid-cols-3 grid-cols-1  md:gap-0 gap-[38px]">
           <div className="flex justify-center">
             <div className="flex items-center sm:gap-[26px] gap-[17px]">
               <div className="sm:w-[54px] w-[52px]">

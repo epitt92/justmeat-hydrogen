@@ -8,7 +8,7 @@ import { CUSTOMER_ORDER_QUERY } from '~/graphql/customer-account/CustomerOrderQu
  * @type {MetaFunction<typeof loader>}
  */
 export const meta = ({ data }) => {
-  return [{ title: `Order ${data?.order?.name}` }]
+  return [{ title: `Order ${data?.order?.name} - Just Meats` }]
 }
 
 /**

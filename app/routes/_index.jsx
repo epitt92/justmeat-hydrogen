@@ -4,9 +4,10 @@ import OrderButton from 'app/components/OrderButton'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
+import { Navigation, Pagination } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
-import { Carousel, IconButton } from '@material-tailwind/react'
-import { Link, NavLink, useLoaderData } from '@remix-run/react'
+import { NavLink } from '@remix-run/react'
 import { defer } from '@shopify/remix-oxygen'
 
 import carneAsasaImage from '~/assets/images/BodyBulding_Recipie_CarneAsasa.webp'
@@ -18,23 +19,14 @@ import subscriptionBannerImage from '~/assets/images/april_banner_Desktop.jpg'
 import subscriptionBannerMobileImage from '~/assets/images/april_banner_Mobile.jpg'
 import video1 from '~/assets/videos/32c027bc585340199844575c5e85cf42.mp4'
 import FaqAccordion from '~/components/FaqAccordion'
-import ProductSlider from '~/components/ProductSlider'
 import ProductsSlider from '~/components/ProductsSlider'
 import { FEATURED_COLLECTION_QUERY } from '~/graphql/Collection'
 import { RECOMMENDED_PRODUCTS_QUERY } from '~/graphql/Product'
-import { Pagination, Navigation } from 'swiper/modules'
-import { Swiper, SwiperSlide } from 'swiper/react'
 
-/**
- * @type {MetaFunction}
- */
 export const meta = () => {
-  return [{ title: 'Hydrogen | Home' }]
+  return [{ title: 'Just Meats | No Fuss, All Flavor – Ready & Delivered!' }]
 }
 
-/**
- * @param {LoaderFunctionArgs}
- */
 export async function loader({ context }) {
   const { storefront } = context
   const { collections } = await storefront.query(FEATURED_COLLECTION_QUERY)
@@ -186,17 +178,15 @@ export default function Homepage() {
               spaceBetween={20}
               pagination={{ clickable: true }}
               slidesPerView={1.4}
-              modules={[Pagination , Navigation]}
+              modules={[Pagination, Navigation]}
               breakpoints={swiperBreakpoints}
               initialSlide={0}
               className="order-images-slider w-full md:hidden"
             >
               {tutorialImages.map((item, index) => (
                 <SwiperSlide key={index}>
-                  <div
-                    className="relative overflow-hidden w-full"
-                  >
-                  <img
+                  <div className="relative overflow-hidden w-full">
+                    <img
                       src={item}
                       key={index}
                       className="object-cover w-full h-full"

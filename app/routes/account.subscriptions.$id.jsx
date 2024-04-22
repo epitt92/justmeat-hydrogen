@@ -27,230 +27,227 @@ export const meta = ({ data }) => {
         data?.subscription?.variant_title
           ? ` (${data?.subscription?.variant_title})`
           : ''
-      }`,
+      } - Just Meats`,
     },
   ]
 }
 
-export async function loader({ request, context, params }) {
-  const discountCode = context.session.get('discountCode')
-  const discountCodes = discountCode ? [discountCode] : []
+export const loader = async ({ request, context, params }) =>
+  await rechargeQueryWrapper(async (rechargeSession) => {
+    if (!params.id) {
+      return redirect(params?.locale ? `${params.locale}/account` : '/account')
+    }
 
-  const { products, allProducts, freeProduct, bonusProduct } = await getBundle({
-    request,
-    context,
-  })
+    const discountCode = context.session.get('discountCode')
+    const discountCodes = discountCode ? [discountCode] : []
 
-  if (!params.id) {
-    return redirect(params?.locale ? `${params.locale}/account` : '/account')
-  }
+    const bundleData = getBundle({
+      request,
+      context,
+    })
 
-  const subscription = await rechargeQueryWrapper(
-    (session) =>
-      getSubscription(session, params.id, {
+    const rechargeSubscriptionData = getSubscription(
+      rechargeSession,
+      params.id,
+      {
         include: ['address'],
-      }),
-    context,
-  )
+      },
+    )
 
-  if (!subscription) {
-    throw new Response('Subscription not found', { status: 404 })
-  }
+    const bundleSelectionsData = listBundleSelections(
+      rechargeSession,
+      params.id,
+    )
 
-  const { bundle_selections } = await rechargeQueryWrapper(
-    (session) => listBundleSelections(session, params.id),
-    context,
-  )
+    const [
+      { products, allProducts, freeProduct, bonusProduct },
+      subscription,
+      { bundle_selections },
+    ] = await Promise.all([
+      bundleData,
+      rechargeSubscriptionData,
+      bundleSelectionsData,
+    ])
 
-  const bundle = bundle_selections.find(
-    (el) => el.purchase_item_id === Number(params.id),
-  )
+    const bundle = bundle_selections.find(
+      (el) => el.purchase_item_id === Number(params.id),
+    )
 
-  if (!bundle) {
-    throw new Response('Not a bundle subscription', { status: 404 })
-  }
+    if (!bundle) {
+      throw new Response('Not a bundle subscription', { status: 404 })
+    }
 
-  const bundleId = bundle.id
-  const purchase_item_id = bundle.purchase_item_id
-  const bundleItems = bundle.items
+    if (!subscription) {
+      throw new Response('Subscription not found', { status: 404 })
+    }
 
-  const { charges } = await rechargeQueryWrapper(
-    (session) =>
-      listCharges(session, {
-        limit: 10,
-        purchase_item_id,
-        customer_id: subscription.customer_id,
-        scheduled_at_min: new Date().toISOString(),
-        sort_by: 'scheduled_at-desc',
-        status: ['queued', 'skipped', 'error'],
-      }),
-    context,
-  )
+    const bundleId = bundle.id
+    const purchase_item_id = bundle.purchase_item_id
+    const bundleItems = bundle.items
 
-  const upcomingChargeId = charges[0]?.id
+    const { charges } = await listCharges(rechargeSession, {
+      limit: 10,
+      purchase_item_id,
+      customer_id: rechargeSession.customerId,
+      scheduled_at_min: new Date().toISOString(),
+      sort_by: 'scheduled_at-desc',
+      status: ['queued', 'skipped', 'error'],
+    })
 
-  const idsSubscriptions = []
-  const subscriptionData = {}
+    const upcomingChargeId = charges[0]?.id
 
-  let subscriptionProducts = []
+    const idsSubscriptions = []
+    const subscriptionData = {}
 
-  for (const el of bundleItems) {
-    const subscriptionId = getFullId(el.external_product_id, 'Product')
-    idsSubscriptions.push(subscriptionId)
-    subscriptionData[subscriptionId] = el.quantity
-  }
+    let subscriptionProducts = []
 
-  for (const el of allProducts) {
-    if (idsSubscriptions.includes(el.id)) {
-      if (
-        el.handle !== context.env.PUBLIC_FREE_PRODUCT_HANDLE &&
-        el.handle !== context.env.PUBLIC_BONUS_PRODUCT_HANDLE
-      ) {
-        const quantity = subscriptionData[el.id]
+    for (const el of bundleItems) {
+      const subscriptionId = getFullId(el.external_product_id, 'Product')
+      idsSubscriptions.push(subscriptionId)
+      subscriptionData[subscriptionId] = el.quantity
+    }
 
-        const amount = el.priceRange?.maxVariantPrice?.amount
-        const totalAmount = (amount * quantity).toFixed(2)
+    for (const el of allProducts) {
+      if (idsSubscriptions.includes(el.id)) {
+        if (
+          el.handle !== context.env.PUBLIC_FREE_PRODUCT_HANDLE &&
+          el.handle !== context.env.PUBLIC_BONUS_PRODUCT_HANDLE
+        ) {
+          const quantity = subscriptionData[el.id]
 
-        const bindQuantityObject = {
-          ...el,
-          quantity,
-          amount,
-          totalAmount,
+          const amount = el.priceRange?.maxVariantPrice?.amount
+          const totalAmount = (amount * quantity).toFixed(2)
+
+          const bindQuantityObject = {
+            ...el,
+            quantity,
+            amount,
+            totalAmount,
+          }
+          subscriptionProducts.push(bindQuantityObject)
         }
-        subscriptionProducts.push(bindQuantityObject)
       }
     }
-  }
 
-  const bonusItemInBundle = bundleItems.find(
-    (el) => getFullId(el.external_product_id, 'Product') === bonusProduct.id,
-  )
-  const bonusItemVariantId = getFullId(
-    bonusItemInBundle?.external_variant_id,
-    'ProductVariant',
-  )
-  const subscriptionBonusVariant = bonusItemInBundle
-    ? bonusProduct.variants.nodes.find((el) => el.id === bonusItemVariantId)
-    : null
+    const bonusItemInBundle = bundleItems.find(
+      (el) => getFullId(el.external_product_id, 'Product') === bonusProduct.id,
+    )
+    const bonusItemVariantId = getFullId(
+      bonusItemInBundle?.external_variant_id,
+      'ProductVariant',
+    )
+    const subscriptionBonusVariant = bonusItemInBundle
+      ? bonusProduct.variants.nodes.find((el) => el.id === bonusItemVariantId)
+      : null
 
-  subscriptionProducts = subscriptionProducts.filter(
-    (product) => Number(product.priceRange.minVariantPrice.amount) !== 0,
-  )
+    subscriptionProducts = subscriptionProducts.filter(
+      (product) => Number(product.priceRange.minVariantPrice.amount) !== 0,
+    )
 
-  return json(
-    {
-      id: params.id,
-      bundleId,
-      purchase_item_id,
-      products,
-      bonusProduct,
-      subscription,
-      charges,
-      freeProduct,
-      subscriptionProducts,
-      subscriptionBonusVariant,
-      upcomingChargeId,
-      shopCurrency: 'USD',
-      discountCodes,
-    },
-    {
-      headers: {
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Set-Cookie': await context.rechargeSession.commit(),
+    return json(
+      {
+        id: params.id,
+        bundleId,
+        purchase_item_id,
+        products,
+        bonusProduct,
+        subscription,
+        charges,
+        freeProduct,
+        subscriptionProducts,
+        subscriptionBonusVariant,
+        upcomingChargeId,
+        shopCurrency: 'USD',
+        discountCodes,
       },
-    },
-  )
-}
+      {
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Set-Cookie': await context.session.commit(),
+        },
+      },
+    )
+  }, context)
 
-export async function action({ request, context, params }) {
-  const form = await request.formData()
-  const body = JSON.parse(form.get('body'))
+export const action = async ({ request, context, params }) =>
+  await rechargeQueryWrapper(async (rechargeSession) => {
+    const form = await request.formData()
+    const body = JSON.parse(form.get('body'))
 
-  const { api, ...data } = body
+    const { api, ...data } = body
 
-  switch (api) {
-    case 'update-bundle':
-      const bundleId = data.bundleId
-      const purchase_item_id = data.purchase_item_id
-      const products = data.products
+    switch (api) {
+      case 'update-bundle':
+        const bundleId = data.bundleId
+        const purchase_item_id = data.purchase_item_id
+        const products = data.products
 
-      const { collection } = await getBundle({ request, context })
+        const { collection } = await getBundle({ request, context })
 
-      const bundleCollectionId = getPureId(collection.id, 'Collection')
+        const bundleCollectionId = getPureId(collection.id, 'Collection')
 
-      const items = products.map((product) => ({
-        collection_id: bundleCollectionId,
-        collection_source: 'shopify',
-        external_product_id: getPureId(product.id, 'Product'),
-        external_variant_id: getPureId(
-          product.variants.nodes[0].id,
-          'ProductVariant',
-        ),
-        quantity: product.quantity,
-      }))
+        const items = products.map((product) => ({
+          collection_id: bundleCollectionId,
+          collection_source: 'shopify',
+          external_product_id: getPureId(product.id, 'Product'),
+          external_variant_id: getPureId(
+            product.variants.nodes[0].id,
+            'ProductVariant',
+          ),
+          quantity: product.quantity,
+        }))
 
-      await rechargeQueryWrapper(
-        (session) =>
-          updateBundleSelection(session, bundleId, {
-            purchase_item_id,
-            items,
-          }),
-        context,
-      )
+        await updateBundleSelection(rechargeSession, bundleId, {
+          purchase_item_id,
+          items,
+        })
 
-      return json({ msg: 'ok' })
+        return json({ msg: 'ok' })
 
-    case 'process-charge':
-      const chargeId = data.chargeId
+      case 'process-charge':
+        const chargeId = data.chargeId
 
-      await rechargeQueryWrapper(
-        (session) => processCharge(session, chargeId),
-        context,
-      )
+        await processCharge(rechargeSession, chargeId)
 
-      return json({ msg: 'ok' })
+        return json({ msg: 'ok' })
 
-    case 'delay-subscription':
-      const date = data.date
+      case 'delay-subscription':
+        const date = data.date
 
-      await rechargeQueryWrapper(
-        (session) =>
-          updateSubscriptionChargeDate(session, Number(params.id), date),
-        context,
-      )
+        await updateSubscriptionChargeDate(
+          rechargeSession,
+          Number(params.id),
+          date,
+        )
 
-      return json({ msg: 'ok' })
+        return json({ msg: 'ok' })
 
-    case 'cancel-subscription':
-      await rechargeQueryWrapper(
-        (session) =>
-          cancelSubscription(session, Number(params.id), {
-            cancellation_reason: 'Do not want it anymore.',
-            send_email: true,
-          }),
-        context,
-      )
+      case 'cancel-subscription':
+        await cancelSubscription(rechargeSession, Number(params.id), {
+          cancellation_reason: 'Do not want it anymore.',
+          send_email: true,
+        })
 
-      return json({ msg: 'ok' })
+        return json({ msg: 'ok' })
 
-    case 'send-update-payment-email':
-      const { address_id, payment_method_id } = data
+      case 'send-update-payment-email':
+        const { address_id, payment_method_id } = data
 
-      await rechargeQueryWrapper(
-        (session) =>
-          sendCustomerNotification(session, 'SHOPIFY_UPDATE_PAYMENT_INFO', {
+        await sendCustomerNotification(
+          rechargeSession,
+          'SHOPIFY_UPDATE_PAYMENT_INFO',
+          {
             address_id,
             payment_method_id,
-          }),
-        context,
-      )
+          },
+        )
 
-      return json({ msg: 'ok' })
+        return json({ msg: 'ok' })
 
-    default:
-      break
-  }
-}
+      default:
+        break
+    }
+  }, context)
 
 export default function SubscriptionRoute() {
   const { setSubscriptionProducts, setSubscriptionBonusVariant } =

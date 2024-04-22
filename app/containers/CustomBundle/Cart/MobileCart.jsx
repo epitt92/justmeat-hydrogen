@@ -1,46 +1,21 @@
-import { useContext, useEffect, useState } from 'react'
-
-import { useLoaderData } from '@remix-run/react'
+import { useContext, useState } from 'react'
 
 import { Button } from '~/components/Button'
 import { CustomBundleContext } from '~/contexts'
-import { cn, formatPrice, formatPriceWithRoundOf } from '~/lib/utils'
+import { cn } from '~/lib/utils'
 
 import { PlanPicker } from '../PlanPickerBlock/PlanPicker'
 import { CartLines } from './CartLines'
 import { ProgressBar } from './ProgressBar'
-import { PROMO_CODES } from '../../../promo-codes'
+
 export const MobileCart = () => {
-  const { freeProduct,discountCodes } = useLoaderData()
-  const { totalCost, submitting, handleSubmit, isCartPage ,sellingPlan } =
+  const { cost, costForOneTime, submitting, handleSubmit, isCartPage } =
     useContext(CustomBundleContext)
 
   const [cartOpen, setCartOpen] = useState(false)
 
-  const [freeTag, setFreeTag] = useState(0)
-  useEffect(() => {
-    let tags = freeProduct.tags
-    if (tags && tags.length > 0) {
-      tags.forEach((tag) => {
-        if (tag.includes('free-')) {
-          let priceForFreeProduct = tag.split('-')
-          priceForFreeProduct = parseFloat(priceForFreeProduct[1])
-          setFreeTag(priceForFreeProduct)
-        }
-      })
-    }
-  }, [freeProduct])
+  const isCheckoutable = costForOneTime >= 75
 
-  const isCheckoutable = totalCost >= 75
-  const total = totalCost + freeTag
-// Get influencer discount codes
-const influencerCode = PROMO_CODES.filter((code) =>
-discountCodes.includes(code.code),
-)
-
-const firstOrderSavingNumber =
-influencerCode.length > 0 ? parseFloat(influencerCode[0].percentage) : 25
-const firstOrderSavingFormatted = (firstOrderSavingNumber / 100) * totalCost;
   return (
     <div className="mobile-cart">
       <Button
@@ -52,11 +27,9 @@ const firstOrderSavingFormatted = (firstOrderSavingNumber / 100) * totalCost;
       >
         {isCartPage && (
           <>
-            {isCheckoutable
-              ? `View Cart - ($${formatPrice(totalCost)})`
-              : `Add $${formatPrice(
-                  75 - totalCost,
-                )} to Unlock Cart ($${formatPrice(totalCost)})`}
+          {isCheckoutable
+            ? `View Cart - ($${cost})`
+            : `Add $${(75 - costForOneTime).toFixed(2)} to Unlock Cart ($${cost})`}
           </>
         )}
         {!isCartPage && (
@@ -86,9 +59,7 @@ const firstOrderSavingFormatted = (firstOrderSavingNumber / 100) * totalCost;
           <CartLines />
         </div>
         <div className="p-[5px] flex flex-col gap-[10px] [box-shadow:0_-3px_15px_-5px_#333]">
-          {isCartPage && (
-            <PlanPicker total={total} totalCostForPlan={totalCost} freeTag={freeTag}/>
-          )}
+          {isCartPage && <PlanPicker />}
           <Button
             loading={submitting}
             disabled={!isCheckoutable}
@@ -98,11 +69,8 @@ const firstOrderSavingFormatted = (firstOrderSavingNumber / 100) * totalCost;
               isCheckoutable ? 'bg-[#425b34]' : 'bg-[#AAAAAA]',
             )}
           >
-            {isCheckoutable
-              ? isCartPage
-                ? sellingPlan ? `Checkout - $${formatPriceWithRoundOf(totalCost - firstOrderSavingFormatted)} `:`Checkout - $${formatPriceWithRoundOf(totalCost)} `
-                : 'Update Changes'
-              : `Checkout - $${parseInt(totalCost)} (Add $75 to Unlock)`}
+            {isCartPage ? `Checkout` : 'Update Changes'}- ${cost}
+            {!isCheckoutable && `(Add $75 to Unlock)`}
           </Button>
         </div>
       </div>

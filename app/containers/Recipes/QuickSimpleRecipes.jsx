@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import {
   Accordion,
@@ -29,9 +29,9 @@ function Icon({ id, open }) {
   )
 }
 const QuickSimpleRecipes = () => {
-  const [open, setOpen] = React.useState(0)
-
-  const handleOpen = (value) => setOpen(open === value ? 0 : value)
+  const [accordion1Open, setAccordion1Open] = useState(false)
+  const [accordion2Open, setAccordion2Open] = useState(false)
+  const [accordion3Open, setAccordion3Open] = useState(false)
 
   return (
     <section className="py-8 text-black bg-white">
@@ -70,11 +70,11 @@ const QuickSimpleRecipes = () => {
                 </div>
                 <div className="px-3 mt-5">
                   <Accordion
-                    open={open === 1}
-                    icon={<Icon id={1} open={open} />}
+                    open={accordion1Open}
+                    icon={<Icon id={true} open={accordion1Open} />}
                   >
                     <AccordionHeader
-                      onClick={() => handleOpen(1)}
+                      onClick={() => setAccordion1Open((prev) => !prev)}
                       className="flex justify-between mb-6 leading-5 border-b border-black"
                     >
                       Instructions
@@ -119,11 +119,11 @@ const QuickSimpleRecipes = () => {
                 </div>
                 <div className="px-3 mt-5">
                   <Accordion
-                    open={open === 2}
-                    icon={<Icon id={2} open={open} />}
+                    open={accordion2Open}
+                    icon={<Icon id={true} open={accordion2Open} />}
                   >
                     <AccordionHeader
-                      onClick={() => handleOpen(2)}
+                      onClick={() => setAccordion2Open((prev) => !prev)}
                       className="flex justify-between mb-6 leading-5 border-b border-black"
                     >
                       Instructions
@@ -166,11 +166,11 @@ const QuickSimpleRecipes = () => {
                 </div>
                 <div className="px-3 mt-5">
                   <Accordion
-                    open={open === 3}
-                    icon={<Icon id={3} open={open} />}
+                    open={accordion3Open}
+                    icon={<Icon id={true} open={accordion3Open} />}
                   >
                     <AccordionHeader
-                      onClick={() => handleOpen(3)}
+                      onClick={() => setAccordion3Open((prev) => !prev)}
                       className="flex justify-between mb-6 leading-5 border-b border-black"
                     >
                       Instructions

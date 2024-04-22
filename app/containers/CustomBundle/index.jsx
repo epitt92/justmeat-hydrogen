@@ -50,7 +50,7 @@ export const CustomBundle = () => {
   const [clickedProduct, setClickedProduct] = useState(null)
   const [submitting, setSubmitting] = useState(false)
 
-  const isCartPage = matches.at(-1).pathname === '/products/custom-bundle'
+  const isCartPage = matches.at(-1).pathname.includes('/products/custom-bundle')
 
   const selectedProducts = isCartPage ? cartProducts : subscriptionProducts
   const sellingPlan = isCartPage ? cartSellingPlan : subscriptionSellingPlan
@@ -58,7 +58,6 @@ export const CustomBundle = () => {
     ? cartSellingPlanFrequency
     : subscriptionSellingPlanFrequency
   const bonusVariant = isCartPage ? cartBonusVariant : subscriptionBonusVariant
-  const totalCost = isCartPage ? cartCost : subscriptionCost
 
   const productsBasedOnSellingPlan = sellingPlan
     ? products
@@ -80,12 +79,39 @@ export const CustomBundle = () => {
   // Get influencer discount codes
   const influencerCode = PROMO_CODES.filter((code) =>
     discountCodes.includes(code.code),
-  )
+  )[0]
+
+  const costForOneTime = isCartPage ? cartCost : subscriptionCost
+  const firstSavingPercentage = influencerCode?.percentage ?? 25
+
+  const costForSubscription =
+    costForOneTime - (costForOneTime / 100) * firstSavingPercentage
+
+  const cost = isCartPage && sellingPlan ? costForSubscription : costForOneTime
+
+  const tags = freeProduct.tags
+  let freeProductPrice
+
+  if (tags && tags.length > 0) {
+    tags.forEach((tag) => {
+      if (tag.includes('free-')) {
+        freeProductPrice = parseFloat(tag.split('-')[1])
+      }
+    })
+  }
+
+  const originalCost = costForOneTime + freeProductPrice
+
+  console.debug('originalCost:', originalCost)
+  console.debug('costForOneTime:', costForOneTime)
+  console.debug('costForSubscription:', costForSubscription)
+  console.debug('cost:', cost)
+  console.debug('firstSavingPercentage:', firstSavingPercentage)
 
   async function handleSubmit() {
     const products = [...selectedProducts, { ...freeProduct, quantity: 1 }]
 
-    if (totalCost > 125) {
+    if (costForOneTime > 125) {
       products.push({
         ...{
           ...bonusProduct,
@@ -148,12 +174,18 @@ export const CustomBundle = () => {
         sellingPlan,
         sellingPlanFrequency,
         bonusVariant,
-        totalCost,
+        cost: cost.toFixed(2),
+        costForOneTime: costForOneTime.toFixed(2),
+        costForSubscription: costForSubscription.toFixed(2),
+        originalCost: originalCost.toFixed(2),
+        freeProductPrice: freeProductPrice.toFixed(2),
+        firstSavingPercentage,
         submitting,
         setSelectedProducts,
         setSellingPlan,
         setSellingPlanFrequency,
         setBonusVariant,
+
         setSubmitting,
         handleSubmit,
       }}
@@ -200,11 +232,7 @@ export const CustomBundle = () => {
                       {isCartPage ? (
                         <>
                           <h1 className="font-roboto_medium text-[17px] leading-none">
-                            Subscribers Save{' '}
-                            {influencerCode.length > 0
-                              ? influencerCode[0].percentage
-                              : 25}
-                            % on Orders
+                            Subscribers Save {firstSavingPercentage}% on Orders
                           </h1>
                           <p className="text-[14px] leading-none font-roboto_medium mt-3">
                             Applied at checkout

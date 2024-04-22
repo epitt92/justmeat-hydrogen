@@ -12,7 +12,7 @@ import { CUSTOMER_UPDATE_MUTATION } from '~/graphql/customer-account/CustomerUpd
  * @type {MetaFunction}
  */
 export const meta = () => {
-  return [{ title: 'Profile' }]
+  return [{ title: 'Profile - Just Meats' }]
 }
 
 /**

@@ -1,6 +1,7 @@
 export const PROMO_CODES = [
   {
-    percentage: 50,
     code: 'SAVE50',
+    percentage: 50,
+    fixed: undefined,
   },
 ]

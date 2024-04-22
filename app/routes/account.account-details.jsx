@@ -19,15 +19,23 @@ import { PaymentDetails } from '~/containers/Account/AccountDetails/PaymentDetai
 import { CUSTOMER_UPDATE_MUTATION } from '~/graphql/customer-account/CustomerUpdateMutation'
 import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
 
+export const meta = () => {
+  return [{ title: 'Account – Just Meats' }]
+}
+
 export async function loader({ context }) {
   await context.customerAccount.handleAuthStatus()
-  const listPaymentResponse = await rechargeQueryWrapper(
-    (session) =>
-      listPaymentMethods(session, {
+
+  const listPaymentResponse = await rechargeQueryWrapper((session) => {
+    if (session.customerId) {
+      return listPaymentMethods(session, {
         limit: 25,
-      }),
-    context,
-  )
+      })
+    }
+
+    return { payment_methods: [] }
+  }, context)
+
   return json({
     headers: {
       'Cache-Control': 'no-cache, no-store, must-revalidate',
