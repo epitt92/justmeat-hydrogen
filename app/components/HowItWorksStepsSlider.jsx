@@ -67,9 +67,7 @@ export const HowItWorksStepsSlider = () => {
         <div className=" relative flex flex-row justify-center gap-3 md:mb-[56px]  w-full">
            
             {steps.map((step, index) => (
-                <div key={index} className=''>
-                  <div
-                    className="relative rounded-[8px] overflow-hidden basis-1/3"
+                  <div key={index} className="relative rounded-[8px] overflow-hidden basis-1/3"
                     style={{ boxShadow: '0px 30px 30px -9px rgba(0, 0, 0, 0.14)' }}
                   >
                     <img className="w-full h-[200px]" src={step.image} alt="" />
@@ -82,9 +80,7 @@ export const HowItWorksStepsSlider = () => {
                       </div>
                     </div>
                   </div>
-                </div>
               ))}
-           
           </div>
     </div>
     <div className='md:hidden mb-8'>
