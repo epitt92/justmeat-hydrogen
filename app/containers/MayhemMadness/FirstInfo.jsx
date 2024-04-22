@@ -144,7 +144,7 @@ export const FirstInfo = () => {
         </div>
       </div>
       <div className="sm:py-[104px] py-[64px] overflow-x-hidden relative">
-        <div className="w-[2520px] ml-[-880px]">
+        <div className="w-full ">
         <Marquee 
           pauseOnHover={false}
           direction={'left'}
