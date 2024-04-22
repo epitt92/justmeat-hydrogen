@@ -33,12 +33,12 @@ export const meta = ({ data }) => {
 }
 
 export const loader = async ({ request, context, params }) =>
-  await rechargeQueryWrapper(async (rechargerechargeSession) => {
+  await rechargeQueryWrapper(async (rechargeSession) => {
     if (!params.id) {
       return redirect(params?.locale ? `${params.locale}/account` : '/account')
     }
 
-    const discountCode = context.rechargeSession.get('discountCode')
+    const discountCode = context.session.get('discountCode')
     const discountCodes = discountCode ? [discountCode] : []
 
     const bundleData = getBundle({
@@ -47,7 +47,7 @@ export const loader = async ({ request, context, params }) =>
     })
 
     const rechargeSubscriptionData = getSubscription(
-      rechargerechargeSession,
+      rechargeSession,
       params.id,
       {
         include: ['address'],
@@ -55,7 +55,7 @@ export const loader = async ({ request, context, params }) =>
     )
 
     const bundleSelectionsData = listBundleSelections(
-      rechargerechargeSession,
+      rechargeSession,
       params.id,
     )
 
@@ -85,10 +85,10 @@ export const loader = async ({ request, context, params }) =>
     const purchase_item_id = bundle.purchase_item_id
     const bundleItems = bundle.items
 
-    const { charges } = await listCharges(rechargerechargeSession, {
+    const { charges } = await listCharges(rechargeSession, {
       limit: 10,
       purchase_item_id,
-      customer_id: rechargerechargeSession.customerId,
+      customer_id: rechargeSession.customerId,
       scheduled_at_min: new Date().toISOString(),
       sort_by: 'scheduled_at-desc',
       status: ['queued', 'skipped', 'error'],
@@ -163,7 +163,7 @@ export const loader = async ({ request, context, params }) =>
       {
         headers: {
           'Cache-Control': 'no-cache, no-store, must-revalidate',
-          'Set-Cookie': await context.rechargerechargeSession.commit(),
+          'Set-Cookie': await context.session.commit(),
         },
       },
     )
@@ -179,6 +179,7 @@ export const action = async ({ request, context, params }) =>
     switch (api) {
       case 'update-bundle':
         const bundleId = data.bundleId
+        console.log('🚀 ~ awaitrechargeQueryWrapper ~ bundleId:', bundleId)
         const purchase_item_id = data.purchase_item_id
         const products = data.products
 
