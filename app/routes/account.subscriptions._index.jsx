@@ -39,14 +39,15 @@ export async function loader({ request, context }) {
     context,
   })
 
-  const res = await rechargeQueryWrapper(
-    (session) =>
-      listSubscriptions(session, {
+  const res = await rechargeQueryWrapper((session) => {
+    if (session.customerId) {
+      return listSubscriptions(session, {
         limit: 25,
         status: 'active',
-      }),
-    context,
-  )
+      })
+    }
+    return { subscriptions: [] }
+  }, context)
 
   const bundleProductId = getPureId(bundleProduct.id, 'Product')
   // Filter only bundle subscriptions
@@ -212,7 +213,7 @@ export default function AccountSubscriptions() {
   const { subscriptions, customer } = useLoaderData()
 
   return (
-    <div className="subscriptions">
+    <div className="subscriptions bg-sublistbgGray">
       {subscriptions.length > 0 ? (
         <AccountSubscription
           currentcustomer={customer}

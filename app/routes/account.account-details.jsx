@@ -21,13 +21,17 @@ import { rechargeQueryWrapper } from '~/lib/rechargeUtils'
 
 export async function loader({ context }) {
   await context.customerAccount.handleAuthStatus()
-  const listPaymentResponse = await rechargeQueryWrapper(
-    (session) =>
-      listPaymentMethods(session, {
+
+  const listPaymentResponse = await rechargeQueryWrapper((session) => {
+    if (session.customerId) {
+      return listPaymentMethods(session, {
         limit: 25,
-      }),
-    context,
-  )
+      })
+    }
+
+    return { payment_methods: [] }
+  }, context)
+
   return json({
     headers: {
       'Cache-Control': 'no-cache, no-store, must-revalidate',
