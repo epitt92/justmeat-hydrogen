@@ -7,18 +7,21 @@ import { ContactForm } from './ContactForm'
 export const SecondContact = () => {
   return (
     <section className="bg-[#efeeed] sm:pt-[110px] sm:pb-[25px] pt-[70px] pb-[32px] relative">
-      <div className="container">
+      <div className="w-[96%] sm:w-[90%] bg-brown-pattern">
+        <div className='w-full  mx-auto'>
         <div
-          className="flex flex-col items-center bg-brown-pattern text-white sm:py-[45px] py-[22px] sm:rounded-[8px] rounded-[6px]"
+          className="flex flex-col  text-white sm:py-[45px] py-[22px] sm:rounded-[8px] rounded-[6px]"
           style={{ boxShadow: '0px 32px 43px -8px rgba(0, 0, 0, 0.20)' }}
         >
-          <div className="text-[10px] sm:text-[12px] tracking-[2px] text-center sm:text-left sm:tracking-[3px] leading-[23px] text-[#ccbdb1]">
+          <p className="text-[10px] sm:text-[12px] tracking-[2px] text-center xl:ml-[40%] xl:text-left  sm:tracking-[3px] leading-[23px] text-[#ccbdb1]">
             PRE COOKED RESTAURANT QUALITY MEATS
-          </div>
-          <div className="sm:flex sm:text-[24px] md:text-[36px] sm:text-left text-center text-[18px] font-bold sm:mb-[4px] mb-[3px] leading-tight">
+          </p>
+          <h2 className="sm:text-[24px] md:text-[36px] sm:text-center text-center xl:ml-[40%] xl:text-left text-[18px] font-bold sm:mb-[4px] mb-[3px] leading-tight">
             AT GROCERY STORE PRICES
-          </div>
+          </h2>
         </div>
+        </div>
+      
       </div>
       <img
         src={justmeatsBoxPart}
