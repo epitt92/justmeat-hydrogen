@@ -56,7 +56,7 @@ export const SecondInfo = () => (
     </div>
     <div className="flex flex-col md:flex-row-reverse justify-center w-full">
       <div className="flex flex-col basis-1/2 justify-center items-center ">
-        <img className="w-full h-full md:max-h-[612px] pl-[15px] md:pl-0" src={bg_second_info_image_2} alt="" />
+        <img className="w-full h-full md:max-h-[614px] pl-[15px] md:pl-0 object-cover" src={bg_second_info_image_2} alt="" />
       </div>
       <div className="flex  basis-1/2 justify-start items-center ">
           <div className="flex flex-col">

@@ -10,7 +10,7 @@ export const BannerHead = () => {
             <div className='flex flex-col md:flex-row pt-3'>
                 <div className='basis-3/5'>
                     <div className='flex flex-col-reverse md:flex-col md:items-left'>
-                        <div className="w-full md:w-[70%] h-auto ">
+                        <div className="w-full md:w-[100%] h-auto ">
                             <img
                                 className=""
                                 src={MayhemNationImage}
