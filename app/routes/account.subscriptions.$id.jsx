@@ -179,7 +179,6 @@ export const action = async ({ request, context, params }) =>
     switch (api) {
       case 'update-bundle':
         const bundleId = data.bundleId
-        console.log('🚀 ~ awaitrechargeQueryWrapper ~ bundleId:', bundleId)
         const purchase_item_id = data.purchase_item_id
         const products = data.products
 
