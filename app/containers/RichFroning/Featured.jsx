@@ -184,11 +184,25 @@ export const Featured = () => {
         <div className="text-center md:text-[36px] text-[24px] font-bold leading-tight sm:tracking-[1.8px] tracking-[1.2px] md:mb-[87px] mb-[65px]">
           NOW SERVING
         </div>
-        <div className="sm:w-auto w-full font-nunito">
+        <div className="sm:w-auto w-full font-nunito hidden sm:block">
           <Swiper
             loop
             autoplay
+            pagination={{ clickable: true }}
+            slidesPerView={4}
+            spaceBetween={30}
+            modules={[Pagination]}
+            breakpoints={swiperBreakpoints}
+            className="featured-slider"
+          >
+            {slides[collections[0].id]}
+          </Swiper>
+        </div>
+        <div className="sm:w-auto w-full font-nunito sm:hidden block">
+          <Swiper
+            loop
             centeredSlides
+            autoplay
             pagination={{ clickable: true }}
             slidesPerView={4}
             spaceBetween={30}

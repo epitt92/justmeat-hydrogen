@@ -44,7 +44,8 @@ export const Banner = () => {
                   className="h-full bg-cover sm:bg-center [background-position-x:1120px]"
                   style={{ backgroundImage: `url(${slider.image})` }}
                 >
-                  <div className="relative container-small sm:pt-[251px] pt-[270px] sm:text-center text-white tracking-[2px] sm:pb-0 pb-[156px] leading-normal">
+                <div className='flex items-center h-full'>
+                  <div className="relative container-small pt-[100px] sm:text-center text-white tracking-[2px] sm:pb-0 pb-[156px] leading-normal">
                     <div className="font-bold sm:text-[36px] text-[30px] cursor-default">
                       ELITE FITNESS + <br className="block sm:hidden" />
                       ELITE NUTRITION
@@ -60,6 +61,7 @@ export const Banner = () => {
                         GET MEAT
                       </button>
                     </NavLink>
+                  </div>
                   </div>
                 </div>
               </SwiperSlide>
