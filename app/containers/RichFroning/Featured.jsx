@@ -11,16 +11,20 @@ import { Pig } from '~/icons/Pig'
 import { RunningTruck } from '~/icons/RunningTruck'
 
 const swiperBreakpoints = {
-  360: {
-    slidesPerView: 3,
+  200: {
+    slidesPerView: 1.5,
     spaceBetween: 20,
   },
-  768: {
+  540: {
+    slidesPerView: 2,
+    spaceBetween: 20,
+  },
+  789: {
     slidesPerView: 3,
     spaceBetween: 20,
   },
   1024: {
-    slidesPerView: 4,
+    slidesPerView: 3,
     spaceBetween: 20,
   },
   1440: {
@@ -63,7 +67,7 @@ export const Featured = () => {
     <section className="bg-[#EFEEED] text-[#231B19] pt-[62px] sm:pt-[103px] font-dunbar relative overflow-x-hidden">
       <img
         src={JustMeatsBoxPart}
-        className="absolute md:block hidden left-0 top-[120px]"
+        className="absolute md:block hidden left-0 xl:top-[120px] top-[14%]"
       />
       <img
         src={RichPhoto}
@@ -85,9 +89,9 @@ export const Featured = () => {
           and chicken professionally flavored and pre-cooked to perfection.
         </div>
 
-        <div className="w-full grid md:grid-cols-4 grid-cols-2 sm:gap-[20px] gap-[12px]">
+        <div className="w-full grid xl:grid-cols-4 grid-cols-2 sm:gap-[20px] gap-[12px]">
           <div
-            className="md:aspect-[23/25] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[30px] pt-[16px] sm:pb-[50px] pb-[28px]"
+            className="xl:aspect-[23/25] [aspect-ratio:auto] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[30px] pt-[16px] sm:pb-[50px] pb-[28px]"
             style={{ boxShadow: '0px 40px 45px -14px rgba(0, 0, 0, 0.15)' }}
           >
             <div className="flex items-center flex-1">
@@ -105,7 +109,7 @@ export const Featured = () => {
             </div>
           </div>
           <div
-            className="md:aspect-[23/25] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[30px] pt-[16px] sm:pb-[50px] pb-[28px]"
+            className="xl:aspect-[23/25] [aspect-ratio:auto] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[30px] pt-[16px] sm:pb-[50px] pb-[28px]"
             style={{ boxShadow: '0px 40px 45px -14px rgba(0, 0, 0, 0.15)' }}
           >
             <div className="flex items-center flex-1">
@@ -123,7 +127,7 @@ export const Featured = () => {
             </div>
           </div>
           <div
-            className="md:aspect-[23/25] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[30px] pt-[16px] sm:pb-[50px] pb-[28px]"
+            className="xl:aspect-[23/25] [aspect-ratio:auto] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[30px] pt-[16px] sm:pb-[50px] pb-[28px]"
             style={{ boxShadow: '0px 40px 45px -14px rgba(0, 0, 0, 0.15)' }}
           >
             <div className="flex items-center flex-1">
@@ -141,7 +145,7 @@ export const Featured = () => {
             </div>
           </div>
           <div
-            className="md:aspect-[23/25] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[30px] pt-[16px] sm:pb-[50px] pb-[28px]"
+            className="xl:aspect-[23/25] [aspect-ratio:auto] rounded-[8px] bg-white flex flex-col justify-end items-center sm:pt-[30px] pt-[16px] sm:pb-[50px] pb-[28px]"
             style={{ boxShadow: '0px 40px 45px -14px rgba(0, 0, 0, 0.15)' }}
           >
             <div className="flex items-center flex-1">
@@ -176,14 +180,15 @@ export const Featured = () => {
         </div>
       </div>
       <div className=""></div>
-      <div className="flex flex-col items-center overflow-hidden container-small sm:block pb-[45px] sm:pb-[40px]">
+      <div className="flex flex-col sm:pl-[20px] sm:pr-[20px] pl-0 pr-0 items-center overflow-hidden container-small sm:block pb-[45px] sm:pb-[40px]">
         <div className="text-center md:text-[36px] text-[24px] font-bold leading-tight sm:tracking-[1.8px] tracking-[1.2px] md:mb-[87px] mb-[65px]">
           NOW SERVING
         </div>
-        <div className="sm:w-auto w-[835px] font-nunito">
+        <div className="sm:w-auto w-full font-nunito">
           <Swiper
             loop
             autoplay
+            centeredSlides
             pagination={{ clickable: true }}
             slidesPerView={4}
             spaceBetween={30}

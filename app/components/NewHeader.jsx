@@ -82,6 +82,25 @@ export function Header() {
     ['/recipes', 'Recipes'],
     ['/special', 'Special'],
   ]
+  
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const handleScroll = () => {
+    const currentScrollPos = window.pageYOffset || document.documentElement.scrollTop;
+    const scrolledPastHeader = prevScrollPos > currentScrollPos && currentScrollPos > 0;
+    setIsHeaderVisible(!scrolledPastHeader);
+    setPrevScrollPos(currentScrollPos);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [prevScrollPos]);
+  const headerClass = isHeaderVisible
+    ? ""
+    : "sticky-header";
 
   const Mainheader = () => {
     return !isMobile ? (
@@ -123,9 +142,11 @@ export function Header() {
       </div>
       </header>
     ) : (
-      <div className="container-small relative h-[88px] sm:h-[120px] flex items-center justify-between py-4 mainheader">
+      <div
+      className={`container-small relative h-[88px] sm:h-[120px] flex items-center justify-between py-4 mainheader sm:pl-[20px] sm:pr-[20px] pl-[10px] pr-[20px] ${headerClass}`}
+    >
         <div className="flex items-center justify-between gap-10 navBar">
-          <div className="flex items-center justify-between gap-4 headerIcons sm:gap-10">
+          <div className="flex items-center justify-between headerIcons sm:gap-10">
             <Button
               className="block lg:hidden"
               onClick={() => setMenuToggle(true)}
@@ -137,12 +158,12 @@ export function Header() {
 
         <div className="absolute-center">
           <a href="/" target="_blank">
-            <div className="w-[148px] sm:w-[214px]">
+            <div className="w-full sm:w-[214px] min-w-[120px] -ml-[20px] sm:ml-[0]">
               <Logo />
             </div>
           </a>
         </div>
-        <div className="flex items-center justify-between gap-4 headerIcons sm:gap-10">
+        <div className="flex items-center justify-between gap-[5px] headerIcons sm:gap-10">
             <NavLink end prefetch="intent" to="/account">
               <span className="w-5 cursor-pointer loginIcon lg:flex">
               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
