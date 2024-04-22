@@ -450,6 +450,25 @@ button.free-gift-label {
 .bg-lower-footer {
   background-image: url('../assets/images/lower-footer1.png');
 }
+.howjustmeatSlider .slick-track{
+  display: flex !important;
+  gap: 22px !important;
+}
+.howjustmeatSlider .slick-dots li button{
+  background-color: transparent !important;
+  border: 2px solid #fff !important;
+  border-radius: 50% !important;
+}
+.howjustmeatSlider .slick-dots li.slick-active button:before{
+  color: rgba(241, 8, 8, 0.548) !important;
+  font-size: 10px !important;
+}
+.howjustmeatSlider .slick-slider .slick-track, .slick-slider .slick-list{
+  text-align: center !important;
+}
+.howjustmeatSlider .slick-dots {
+  bottom: -30px !important;
+}
 .productsSlider .slick-track{
   display: flex !important;
   gap: 22px !important;
