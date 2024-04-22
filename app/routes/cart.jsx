@@ -95,7 +95,7 @@ export default function Cart() {
       </h1>
       <div className="cart-form__items  gutter--regular ">Your cart is currently empty.
       <div className="pt-[25px]">
-      <NavLink className='bg-[black] text-[white] lg:text-[21.25px] lg:px-[2.875rem] lg:py-[.9375rem] font-bold rounded-bl-[10px] px-8 py-[.75rem] text-[19.125px]' end prefetch="intent" to="/products/custom-bundle">
+      <NavLink className='bg-[black] text-[white] lg:text-[21.25px] lg:px-[2.875rem] lg:py-[.9375rem] font-bold rounded-bl-[10px] px-8 py-[.75rem] text-[19.125px] ' end prefetch="intent" to="/products/custom-bundle">
           Continue browsing
       </NavLink>
       </div></div>
