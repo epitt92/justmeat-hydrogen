@@ -44,7 +44,6 @@ export const HowItWorksStepsSlider = () => {
     <div className="relative flex justify-center overflow-x-hidden md:mb-[56px] mb-[10px] md:max-w-full max-w-[525px]">
       <div className="md:w-[600px] lg:w-[891px] w-full mx-auto">
         <Swiper
-          loop
           autoplay
           pagination={{ clickable: true }}
           slidesPerView={3}

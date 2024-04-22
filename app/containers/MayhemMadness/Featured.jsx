@@ -67,10 +67,10 @@ export const Featured = () => {
         <div className="w-[360px] sm:w-auto pt-6">
           <Swiper
             loop
-            // autoplay={{
-            //   delay: 2500,
-            //   disableOnInteraction: false,
-            // }}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
             pagination={{ clickable: true }}
             slidesPerView={4}
             spaceBetween={30}
