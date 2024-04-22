@@ -21,49 +21,54 @@ export function shouldRevalidate() {
   return true
 }
 
-export async function loader({ request, context }) {
-  await context.customerAccount.handleAuthStatus()
+export const loader = async ({ request, context }) =>
+  await rechargeQueryWrapper(async (rechargeSession) => {
+    const customerData = context.customerAccount.query(CUSTOMER_DETAILS_QUERY)
 
-  const { data, errors } = await context.customerAccount.query(
-    CUSTOMER_DETAILS_QUERY,
-  )
+    const bundleProductData = getBundle({
+      request,
+      context,
+    })
 
-  if (errors?.length || !data?.customer) {
-    throw new Error('Customer not found')
-  }
+    const subscriptionsData = rechargeSession.customerId
+      ? listSubscriptions(rechargeSession, {
+          limit: 25,
+          status: 'active',
+        })
+      : { subscriptions: [] }
 
-  const { customer } = data
+    const [
+      { data, errors },
+      { bundleProduct },
+      { subscriptions: allSubscriptions },
+    ] = await Promise.all([
+      customerData,
+      bundleProductData,
+      subscriptionsData,
+      context.customerAccount.handleAuthStatus(),
+    ])
 
-  const { bundleProduct } = await getBundle({
-    request,
-    context,
-  })
-
-  const res = await rechargeQueryWrapper((session) => {
-    if (session.customerId) {
-      return listSubscriptions(session, {
-        limit: 25,
-        status: 'active',
-      })
+    if (errors?.length || !data?.customer) {
+      throw new Error('Customer not found')
     }
-    return { subscriptions: [] }
+
+    const { customer } = data
+
+    const bundleProductId = getPureId(bundleProduct.id, 'Product')
+    // Filter only bundle subscriptions
+    const subscriptions = allSubscriptions.filter(
+      (el) => el.external_product_id.ecommerce === bundleProductId,
+    )
+
+    return json({
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Set-Cookie': await context.session.commit(),
+      },
+      customer,
+      subscriptions,
+    })
   }, context)
-
-  const bundleProductId = getPureId(bundleProduct.id, 'Product')
-  // Filter only bundle subscriptions
-  const subscriptions = res.subscriptions.filter(
-    (el) => el.external_product_id.ecommerce === bundleProductId,
-  )
-
-  return json({
-    headers: {
-      'Cache-Control': 'no-cache, no-store, must-revalidate',
-      'Set-Cookie': await context.session.commit(),
-    },
-    customer,
-    subscriptions,
-  })
-}
 
 export async function action({ request, context }) {
   const { customerAccount } = context
@@ -238,7 +243,7 @@ function AccountSubscription({ subscriptions, currentcustomer }) {
           </h2>
           <div className="bg-custombgGreen w-auto md:w-[300px] p-6 block text-white text-xl text-center md:text-left">
             <span>Next Order Processing On</span>
-            <span>{subscriptions[0].next_charge_scheduled_at}</span>
+            <span> {subscriptions[0].next_charge_scheduled_at}</span>
           </div>
           <hr className="border-t-2 border-gray-500"></hr>
           {subscriptions?.length ? (
