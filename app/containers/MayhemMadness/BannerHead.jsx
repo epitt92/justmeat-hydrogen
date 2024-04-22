@@ -9,7 +9,7 @@ export const BannerHead = () => {
         <div className='w-[80%] mx-auto'>
             <div className='flex flex-col md:flex-row pt-3'>
                 <div className='basis-3/5'>
-                    <div className='flex flex-col-reverse md:flex-col md:items-center'>
+                    <div className='flex flex-col-reverse md:flex-col md:items-left'>
                         <div className="w-full md:w-[70%] h-auto ">
                             <img
                                 className=""
