@@ -107,6 +107,7 @@ export const CustomBundle = () => {
   console.debug('costForSubscription:', costForSubscription)
   console.debug('cost:', cost)
   console.debug('firstSavingPercentage:', firstSavingPercentage)
+  console.debug('freeProductPrice:', freeProductPrice)
 
   async function handleSubmit() {
     const products = [...selectedProducts, { ...freeProduct, quantity: 1 }]
