@@ -166,6 +166,18 @@ export default function App() {
   )
 
   useEffect(() => {
+    // HACK: in order to avoid using old local storage data and errors
+    const _localStorageActivated = window.localStorage.getItem(
+      '_localStorageActivated',
+    )
+    if (!_localStorageActivated) {
+      window.localStorage.clear()
+      window.localStorage.setItem(
+        '_localStorageActivated',
+        JSON.stringify(true),
+      )
+    }
+
     const _cartSellingPlan = window.localStorage.getItem('_cartSellingPlan')
     const _cartProducts = window.localStorage.getItem('_cartProducts')
     const _cartBonusVariant = window.localStorage.getItem('_cartBonusVariant')
