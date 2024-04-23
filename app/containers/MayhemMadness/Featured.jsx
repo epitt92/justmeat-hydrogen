@@ -1,33 +1,55 @@
 import { useState } from 'react'
-
-import { Pagination,Autoplay } from 'swiper/modules'
-import { Swiper, SwiperSlide } from 'swiper/react'
-
+import Slider from "react-slick";
 import { useLoaderData } from '@remix-run/react'
 
-const swiperBreakpoints = {
-  360: {
-    slidesPerView: 1,
-
-  },
-  640: {
-    slidesPerView: 2,
-    spaceBetween: 20,
-  },
-  768: {
-    slidesPerView: 2,
-    spaceBetween: 20,
-  },
-  1024: {
-    slidesPerView: 3,
-    spaceBetween: 20,
-  },
-  1440: {
-    slidesPerView: 4,
-    spaceBetween: 20,
-  },
-}
-
+var settings = {
+  dots: true,
+  autoplay: true,
+  speed: 1000,
+  autoplaySpeed: 3000,
+  slidesToShow: 4,
+  slidesToScroll: 1,
+  initialSlide: 0,
+  adaptiveHeight:true,
+  arrows: false,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+      }
+    },
+    {
+      breakpoint: 678,
+      settings: {
+        slidesToShow: 2,
+       
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        className: "center",
+        centerMode: true,
+        infinite: true,
+        centerPadding: "60px",
+        slidesToShow: 1,
+        
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        className: "center",
+        centerMode: true,
+        infinite: true,
+        centerPadding: "43px",
+        slidesToShow: 1,
+       
+      }
+    }
+  ]
+};
 const sliderItemColors = ['#572d2d', '#7b4931', '#323e47', '#9d6938']
 
 export const Featured = () => {
@@ -39,7 +61,7 @@ export const Featured = () => {
 
   for (const el of collections) {
     slides[el.id] = el.products.nodes.map((product, index) => (
-      <SwiperSlide key={index}>
+      <div key={index}>
         <div className="relative flex flex-col aspect-square mt-[24%] mb-[20%]">
           <div
             className="relative px-[25px] pt-[12%] pb-[8%] rounded-t-[8px] h-[69%] flex text-white"
@@ -56,30 +78,19 @@ export const Featured = () => {
             <div className="truncate">{product.title}</div>
           </div>
         </div>
-      </SwiperSlide>
+      </div>
     ))
   }
 
   return (
     <section className="bg-[#222222] py-6 font-nunito">
-    {/* <section className="bg-[#222222]  pt-[150px] sm:pt-[355px] md:pt-[0px] lg:pt-[120px]  pb-[45px] sm:pb-[40px] font-nunito"> */}
       <div className="flex flex-col items-center overflow-hidden container-small sm:block">
         <div className="w-[360px] sm:w-auto pt-6">
-          <Swiper
-            loop
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-            }}
-            pagination={{ clickable: true }}
-            slidesPerView={4}
-            spaceBetween={30}
-            modules={[Pagination,Autoplay]}
-            breakpoints={swiperBreakpoints}
-            className="featured-slider"
-          >
-            {slides[collection.id]}
-          </Swiper>
+        <div className="slider-container featuredSlider">
+    <Slider {...settings}>
+    {slides[collection.id]}
+      </Slider>
+      </div>
         </div>
       </div>
     </section>
