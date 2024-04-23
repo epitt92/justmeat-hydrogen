@@ -129,6 +129,7 @@ export async function loader({ context }) {
       analytics: {
         shopId,
         shopifySalesChannel: ShopifySalesChannel.hydrogen,
+        customerId: null,
       },
     },
     {
@@ -144,10 +145,10 @@ const newLayoutRoutes = ['mayhem-madness', 'rich-froning']
 export default function App() {
   const nonce = useNonce()
   const data = useLoaderData()
-
-  // The user's current location
   const location = useLocation()
-  // The user's last location. Blank to start.
+
+  useShopifyCookies({ hasUserConsent, domain: data.publicStoreDomain })
+
   const lastLocationKey = useRef('')
   const hasUserConsent = true
 
@@ -248,8 +249,6 @@ export default function App() {
       payload,
     })
   }, [location])
-
-  useShopifyCookies({ hasUserConsent, domain: data.publicStoreDomain })
 
   const setCartSellingPlan = (value) => {
     _setCartSellingPlan(value)
