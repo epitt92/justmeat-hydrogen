@@ -94,7 +94,7 @@ export default function Homepage() {
           </div>
         </div>
       </section>
-      {!froningVisited && (
+      {froningVisited && (
         <section className="flex justify-center items-center text-[28px] sm:text-[35px] font-Roboto font-bold py-8 px-[15px] underline text-center">
           <NavLink end prefetch="intent" to="/rich-froning">
             Click here to revisit our Rich Froning specials.
@@ -181,11 +181,11 @@ export default function Homepage() {
               modules={[Pagination, Navigation]}
               breakpoints={swiperBreakpoints}
               initialSlide={0}
-              className="order-images-slider w-full md:hidden"
+              className="w-full order-images-slider md:hidden"
             >
               {tutorialImages.map((item, index) => (
                 <SwiperSlide key={index}>
-                  <div className="relative overflow-hidden w-full">
+                  <div className="relative w-full overflow-hidden">
                     <img
                       src={item}
                       key={index}
