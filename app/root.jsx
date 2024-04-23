@@ -243,7 +243,7 @@ export default function App() {
     })
   }, [location])
 
-  useShopifyCookies({ hasUserConsent: false, domain: data.publicStoreDomain })
+  useShopifyCookies({ hasUserConsent: true, domain: data.publicStoreDomain })
 
   const setCartSellingPlan = (value) => {
     _setCartSellingPlan(value)
