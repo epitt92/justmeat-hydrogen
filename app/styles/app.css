@@ -469,6 +469,22 @@ button.free-gift-label {
 .howjustmeatSlider .slick-dots {
   bottom: -30px !important;
 }
+.featuredSlider .slick-track{
+  display: flex !important;
+  gap: 18px !important;
+}
+.featuredSlider .slick-dots li button{
+  background-color: #151515 !important;
+  border: 4px solid #222222 !important;
+  border-radius: 50% !important;
+}
+.featuredSlider .slick-dots li.slick-active button:before{
+  color: #7A392D !important;
+  font-size: 10px !important;
+}
+.featuredSlider .slick-dots {
+  bottom: 0px !important;
+}
 .productsSlider .slick-track{
   display: flex !important;
   gap: 22px !important;
