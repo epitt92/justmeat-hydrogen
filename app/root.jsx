@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import slickCarouselTheme from 'slick-carousel/slick/slick-theme.css'
 import slickCarousel from 'slick-carousel/slick/slick.css'
@@ -16,10 +16,17 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
   useLoaderData,
+  useLocation,
   useMatches,
   useRouteError,
 } from '@remix-run/react'
-import { useNonce, useShopifyCookies } from '@shopify/hydrogen'
+import {
+  AnalyticsEventName,
+  getClientBrowserParameters,
+  sendShopifyAnalytics,
+  useNonce,
+  useShopifyCookies,
+} from '@shopify/hydrogen'
 import { defer } from '@shopify/remix-oxygen'
 
 import favicon from '~/assets/logo.svg'
@@ -80,6 +87,8 @@ export const useRootLoaderData = () => {
 
 export async function loader({ context }) {
   const { storefront, customerAccount, cart } = context
+
+  const shopId = context.env.PUBLIC_SHOP_ID
   const publicStoreDomain = context.env.PUBLIC_STORE_DOMAIN
 
   const isLoggedInPromise = customerAccount.isLoggedIn()
@@ -115,6 +124,9 @@ export async function loader({ context }) {
       isLoggedIn: isLoggedInPromise,
       publicStoreDomain,
       externalScripts,
+      analytics: {
+        shopId,
+      },
     },
     {
       headers: {
@@ -130,7 +142,10 @@ export default function App() {
   const nonce = useNonce()
   const data = useLoaderData()
 
-  useShopifyCookies({ hasUserConsent: true, domain: data.publicStoreDomain })
+  // The user's current location
+  const location = useLocation()
+  // The user's last location. Blank to start.
+  const lastLocationKey = useRef('')
 
   // Quick PATCH
   const matches = useMatches()
@@ -209,6 +224,26 @@ export default function App() {
     configTwitterPixel()
     configMetaPixel()
   }, [])
+
+  useEffect(() => {
+    // Only continue if the user's location changed.
+    if (lastLocationKey.current === location.key) return
+    lastLocationKey.current = location.key
+
+    // Analytics data, including browser information
+    const payload = {
+      ...getClientBrowserParameters(),
+      // ...pageAnalytics,
+    }
+
+    // Send analytics payload to Shopify
+    sendShopifyAnalytics({
+      eventName: AnalyticsEventName.PAGE_VIEW,
+      payload,
+    })
+  }, [location])
+
+  useShopifyCookies({ hasUserConsent: false, domain: data.publicStoreDomain })
 
   const setCartSellingPlan = (value) => {
     _setCartSellingPlan(value)
