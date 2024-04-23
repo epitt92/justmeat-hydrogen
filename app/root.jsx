@@ -36,6 +36,7 @@ import { SubscriptionCard } from '~/components/SubscriptionCard'
 import { DELIVERY_EVERY_15_DAYS } from '~/consts'
 import { RootContext } from '~/contexts'
 import { FOOTER_QUERY, HEADER_QUERY } from '~/graphql/HeaderMenuFooter'
+import { usePageAnalytics } from '~/hooks/usePageAnalytics'
 import { addScriptToHead } from '~/lib/utils'
 import appStyles from '~/styles/app.css'
 import tailwindStyles from '~/styles/tailwind.css'
@@ -148,6 +149,9 @@ export default function App() {
   const location = useLocation()
   // The user's last location. Blank to start.
   const lastLocationKey = useRef('')
+  const hasUserConsent = true
+
+  const pageAnalytics = usePageAnalytics({ hasUserConsent })
 
   // Quick PATCH
   const matches = useMatches()
@@ -235,7 +239,7 @@ export default function App() {
     // Analytics data, including browser information
     const payload = {
       ...getClientBrowserParameters(),
-      // ...pageAnalytics,
+      ...pageAnalytics,
     }
 
     // Send analytics payload to Shopify
@@ -245,7 +249,7 @@ export default function App() {
     })
   }, [location])
 
-  useShopifyCookies({ hasUserConsent: true, domain: data.publicStoreDomain })
+  useShopifyCookies({ hasUserConsent, domain: data.publicStoreDomain })
 
   const setCartSellingPlan = (value) => {
     _setCartSellingPlan(value)
