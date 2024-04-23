@@ -22,6 +22,7 @@ import {
 } from '@remix-run/react'
 import {
   AnalyticsEventName,
+  ShopifySalesChannel,
   getClientBrowserParameters,
   sendShopifyAnalytics,
   useNonce,
@@ -126,6 +127,7 @@ export async function loader({ context }) {
       externalScripts,
       analytics: {
         shopId,
+        shopifySalesChannel: ShopifySalesChannel.hydrogen,
       },
     },
     {
