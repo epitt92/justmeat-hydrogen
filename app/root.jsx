@@ -33,6 +33,7 @@ import appStyles from '~/styles/app.css'
 import tailwindStyles from '~/styles/tailwind.css'
 
 import { configChatJS } from './lib/configChatJS'
+import { configMetaPixel } from './lib/configMetaPixel'
 import { configTwitterPixel } from './lib/configTwitterPixel'
 
 export const shouldRevalidate = ({ formMethod, currentUrl, nextUrl }) => {
@@ -192,6 +193,7 @@ export default function App() {
 
     configChatJS()
     configTwitterPixel()
+    configMetaPixel()
   }, [])
 
   const setCartSellingPlan = (value) => {
@@ -279,6 +281,7 @@ export default function App() {
           <meta name="viewport" content="width=device-width,initial-scale=1" />
           <Meta />
           <Links />
+          <MetaNoScript />
         </head>
         <body>
           <SubscriptionCard></SubscriptionCard>
@@ -335,3 +338,14 @@ export function ErrorBoundary() {
     </html>
   )
 }
+
+const MetaNoScript = () => (
+  <noscript>
+    <img
+      height="1"
+      width="1"
+      style={{ display: 'none' }}
+      src="https://www.facebook.com/tr?id=339994655121583&ev=PageView&noscript=1"
+    />
+  </noscript>
+)
