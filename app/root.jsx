@@ -147,10 +147,10 @@ export default function App() {
   const data = useLoaderData()
   const location = useLocation()
 
+  const hasUserConsent = true
   useShopifyCookies({ hasUserConsent, domain: data.publicStoreDomain })
 
   const lastLocationKey = useRef('')
-  const hasUserConsent = true
 
   const pageAnalytics = usePageAnalytics({ hasUserConsent })
 
