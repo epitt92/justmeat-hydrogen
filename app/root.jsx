@@ -19,7 +19,7 @@ import {
   useMatches,
   useRouteError,
 } from '@remix-run/react'
-import { useNonce } from '@shopify/hydrogen'
+import { useNonce, useShopifyCookies } from '@shopify/hydrogen'
 import { defer } from '@shopify/remix-oxygen'
 
 import favicon from '~/assets/logo.svg'
@@ -129,6 +129,8 @@ const newLayoutRoutes = ['mayhem-madness', 'rich-froning']
 export default function App() {
   const nonce = useNonce()
   const data = useLoaderData()
+
+  useShopifyCookies({ hasUserConsent: true, domain: data.publicStoreDomain })
 
   // Quick PATCH
   const matches = useMatches()
