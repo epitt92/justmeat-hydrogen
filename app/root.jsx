@@ -37,7 +37,7 @@ import { DELIVERY_EVERY_15_DAYS } from '~/consts'
 import { RootContext } from '~/contexts'
 import { FOOTER_QUERY, HEADER_QUERY } from '~/graphql/HeaderMenuFooter'
 import { usePageAnalytics } from '~/hooks/usePageAnalytics'
-import { addScriptToHead } from '~/lib/utils'
+import { DEFAULT_LOCALE, addScriptToHead } from '~/lib/utils'
 import appStyles from '~/styles/app.css'
 import tailwindStyles from '~/styles/tailwind.css'
 
@@ -126,6 +126,8 @@ export async function loader({ context }) {
       isLoggedIn: isLoggedInPromise,
       publicStoreDomain,
       externalScripts,
+      selectedLocale: storefront.i18n,
+
       analytics: {
         shopId,
         shopifySalesChannel: ShopifySalesChannel.hydrogen,
@@ -146,6 +148,7 @@ export default function App() {
   const nonce = useNonce()
   const data = useLoaderData()
   const location = useLocation()
+  const locale = data.selectedLocale ?? DEFAULT_LOCALE
 
   const hasUserConsent = true
   useShopifyCookies({ hasUserConsent, domain: data.publicStoreDomain })
@@ -329,7 +332,7 @@ export default function App() {
         isNewLayout,
       }}
     >
-      <html lang="en">
+      <html lang={locale.language}>
         <head>
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -355,7 +358,6 @@ export default function App() {
 
 export function ErrorBoundary() {
   const error = useRouteError()
-  const rootData = useRootLoaderData()
   const nonce = useNonce()
   let errorMessage = 'Unknown error'
   let errorStatus = 500

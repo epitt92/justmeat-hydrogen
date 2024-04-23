@@ -1,6 +1,8 @@
 import { clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
+import { countries } from '~/data/countries'
+
 export function cn(...inputs) {
   return twMerge(clsx(inputs))
 }
@@ -15,15 +17,13 @@ export function formatPrice(price) {
 
 export function formatPriceWithRoundOf(price) {
   if (Number.isInteger(price)) {
-    return price.toString();
+    return price.toString()
   } else {
-    const roundedPrice = Math.ceil(price * 100) / 100;
-    const roundedInteger = Math.round(roundedPrice);
-    return roundedInteger.toString();
+    const roundedPrice = Math.ceil(price * 100) / 100
+    const roundedInteger = Math.round(roundedPrice)
+    return roundedInteger.toString()
   }
 }
-
-
 
 export function addScriptToHead(src) {
   const script = document.createElement('script')
@@ -40,3 +40,8 @@ export function getPureId(fullId, type) {
 export function getFullId(id, type) {
   return `gid://shopify/${type}/${id}`
 }
+
+export const DEFAULT_LOCALE = Object.freeze({
+  ...countries.default,
+  pathPrefix: '',
+})
