@@ -91,11 +91,11 @@ export async function loader({ context }) {
   const { storefront, customerAccount, cart } = context
 
   const shopId = context.env.PUBLIC_SHOP_ID
+
   const publicStoreDomain = context.env.PUBLIC_STORE_DOMAIN
 
   const isLoggedInPromise = customerAccount.isLoggedIn()
   const cartPromise = cart.get()
-
   // defer the footer query (below the fold)
   const footerPromise = storefront.query(FOOTER_QUERY, {
     cache: storefront.CacheLong(),
@@ -148,14 +148,19 @@ export default function App() {
   const nonce = useNonce()
   const data = useLoaderData()
   const location = useLocation()
-  const locale = data.selectedLocale ?? DEFAULT_LOCALE
+  const locale = DEFAULT_LOCALE
 
   const hasUserConsent = true
-  useShopifyCookies({ hasUserConsent, domain: data.publicStoreDomain })
+  useShopifyCookies({ hasUserConsent, domain: data.publicStoreDomain }, locale)
 
   const lastLocationKey = useRef('')
 
-  const pageAnalytics = usePageAnalytics({ hasUserConsent })
+  const pageAnalytics = {
+    shopId: data.analytics.shopId,
+    currency: locale.currency,
+    acceptedLanguage: locale.language,
+    hasUserConsent,
+  }
 
   // Quick PATCH
   const matches = useMatches()
@@ -245,6 +250,7 @@ export default function App() {
       ...getClientBrowserParameters(),
       ...pageAnalytics,
     }
+    console.log('🚀 - payload:', payload)
 
     // Send analytics payload to Shopify
     sendShopifyAnalytics({
