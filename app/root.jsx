@@ -185,13 +185,14 @@ export default function App() {
 
   useEffect(() => {
     // HACK: in order to avoid using old local storage data and errors
-    const _localStorageActivated = window.localStorage.getItem(
-      '_localStorageActivated',
+    const _new_local_storage_enabled = window.localStorage.getItem(
+      '_new_local_storage_enabled',
     )
-    if (!_localStorageActivated) {
+    if (!_new_local_storage_enabled) {
+      document.cookie = 'cart=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;'
       window.localStorage.clear()
       window.localStorage.setItem(
-        '_localStorageActivated',
+        '_new_local_storage_enabled',
         JSON.stringify(true),
       )
     }
