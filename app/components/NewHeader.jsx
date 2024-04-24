@@ -23,7 +23,7 @@ export function Header() {
   useEffect(() => {
     // Function to update our state
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 800)
+      setIsMobile(window.innerWidth < 960)
     }
     handleResize()
     window.addEventListener('resize', handleResize)
