@@ -21,7 +21,6 @@ import {
 } from '@remix-run/react'
 import {
   UNSTABLE_Analytics as Analytics,
-  Script,
   getShopAnalytics,
   useNonce,
 } from '@shopify/hydrogen'
@@ -36,7 +35,7 @@ import { SubscriptionCard } from '~/components/SubscriptionCard'
 import { DELIVERY_EVERY_15_DAYS } from '~/consts'
 import { RootContext } from '~/contexts'
 import { FOOTER_QUERY, HEADER_QUERY } from '~/graphql/HeaderMenuFooter'
-import { addScriptToHead, deleteAllCookies } from '~/lib/utils'
+import { addScriptToHead } from '~/lib/utils'
 import appStyles from '~/styles/app.css'
 import tailwindStyles from '~/styles/tailwind.css'
 
@@ -185,17 +184,16 @@ export default function App() {
 
   useEffect(() => {
     // HACK: in order to avoid using old local storage data and errors
-    const _localStorageActivated = window.localStorage.getItem(
-      '_localStorageActivated',
+    const _new_local_storage_enabled = window.localStorage.getItem(
+      '_new_local_storage_enabled',
     )
-    if (!_localStorageActivated) {
-      deleteAllCookies()
+    if (!_new_local_storage_enabled) {
+      document.cookie = 'cart=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;'
       window.localStorage.clear()
       window.localStorage.setItem(
-        '_localStorageActivated',
+        '_new_local_storage_enabled',
         JSON.stringify(true),
       )
-      // window.location.reload()
     }
 
     const _cartSellingPlan = window.localStorage.getItem('_cartSellingPlan')
