@@ -21,6 +21,7 @@ import {
 } from '@remix-run/react'
 import {
   UNSTABLE_Analytics as Analytics,
+  Script,
   getShopAnalytics,
   useNonce,
 } from '@shopify/hydrogen'
@@ -28,6 +29,7 @@ import { defer } from '@shopify/remix-oxygen'
 
 import favicon from '~/assets/logo.svg'
 import { CustomAnalytics } from '~/components/CustomAnalytics'
+import { GTMNoScript } from '~/components/GTMNoScript'
 import { Layout } from '~/components/Layout'
 import { MetaNoScript } from '~/components/MetaNoScript'
 import { SubscriptionCard } from '~/components/SubscriptionCard'
@@ -39,6 +41,7 @@ import appStyles from '~/styles/app.css'
 import tailwindStyles from '~/styles/tailwind.css'
 
 import { configChatJS } from './lib/configChatJS'
+import { configGTM } from './lib/configGTM'
 import { configMetaPixel } from './lib/configMetaPixel'
 import { configTwitterPixel } from './lib/configTwitterPixel'
 
@@ -223,6 +226,7 @@ export default function App() {
     configChatJS()
     configTwitterPixel()
     configMetaPixel()
+    configGTM()
   }, [])
 
   const setCartSellingPlan = (value) => {
@@ -289,6 +293,7 @@ export default function App() {
         <MetaNoScript />
       </head>
       <body>
+        <GTMNoScript />
         <Analytics.Provider
           cart={data.cart}
           shop={data.shop}
