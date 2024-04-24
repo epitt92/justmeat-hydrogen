@@ -151,15 +151,17 @@ export default function App() {
   const locale = DEFAULT_LOCALE
 
   const hasUserConsent = true
-  useShopifyCookies({ hasUserConsent, domain: data.publicStoreDomain }, locale)
+  useShopifyCookies({ hasUserConsent, domain: data.publicStoreDomain })
 
   const lastLocationKey = useRef('')
 
   const pageAnalytics = {
+    hasUserConsent,
     shopId: data.analytics.shopId,
     currency: locale.currency,
     acceptedLanguage: locale.language,
-    hasUserConsent,
+    shopifySalesChannel: ShopifySalesChannel.hydrogen,
+    customerId: null,
   }
 
   // Quick PATCH
