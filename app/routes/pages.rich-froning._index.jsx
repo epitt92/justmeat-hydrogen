@@ -5,7 +5,7 @@ import { redirect } from '@shopify/remix-oxygen'
  * @param {LoaderFunctionArgs}
  */
 export async function loader({ context }) {
-  return redirect('/mayhem-madness', {
+  return redirect('/rich-froning', {
     headers: {
       'Set-Cookie': await context.session.commit(),
     },
