@@ -2,7 +2,7 @@ import { redirect } from '@shopify/remix-oxygen'
 
 export async function loader({ request, context, params }) {
   const { cart } = context
-  await context.customerAccount.handleAuthStatus()
+  // await context.customerAccount.handleAuthStatus()
 
   // Save discountCode into session
   if (params.code) {
