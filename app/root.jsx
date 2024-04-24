@@ -34,7 +34,7 @@ import { SubscriptionCard } from '~/components/SubscriptionCard'
 import { DELIVERY_EVERY_15_DAYS } from '~/consts'
 import { RootContext } from '~/contexts'
 import { FOOTER_QUERY, HEADER_QUERY } from '~/graphql/HeaderMenuFooter'
-import { addScriptToHead } from '~/lib/utils'
+import { addScriptToHead, deleteAllCookies } from '~/lib/utils'
 import appStyles from '~/styles/app.css'
 import tailwindStyles from '~/styles/tailwind.css'
 
@@ -186,11 +186,13 @@ export default function App() {
       '_localStorageActivated',
     )
     if (!_localStorageActivated) {
+      deleteAllCookies()
       window.localStorage.clear()
       window.localStorage.setItem(
         '_localStorageActivated',
         JSON.stringify(true),
       )
+      // window.location.reload()
     }
 
     const _cartSellingPlan = window.localStorage.getItem('_cartSellingPlan')
