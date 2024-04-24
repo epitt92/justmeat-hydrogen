@@ -20,7 +20,7 @@ export const Passion = () => {
           <div className=" md:basis-4/6 justify-center items-center">
             <img
               src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Image_3.png?v=1697582302"
-              className="object-fill object-center h-[100%] lg:h-auto  max-w-full "
+              className=" object-cover object-center h-[100%] lg:h-auto  max-w-full "
             />
           </div>
         </div>
@@ -43,7 +43,7 @@ export const Passion = () => {
           <div className="flex flex-col md:basis-4/6 justify-center items-center">
             <img
               src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Group_4643_1c0821c1-1a1a-439e-b3e5-4410661bb20b.png?v=1697581968"
-              className="object-fill object-center h-[100%] lg:h-auto max-w-full "
+              className="object-cover object-center h-[100%] lg:h-auto max-w-full "
             />
           </div>
         </div>
@@ -65,7 +65,7 @@ export const Passion = () => {
           <div className="flex flex-col md:basis-4/6 justify-center items-center">
             <img
               src="https://cdn.shopify.com/s/files/1/0555/1751/1961/files/Image_2.png?v=1697581968"
-              className="object-fill object-center h-[100%] lg:h-auto max-w-full "
+              className="object-cover object-center h-[100%] lg:h-auto max-w-full "
             />
           </div>
         </div>

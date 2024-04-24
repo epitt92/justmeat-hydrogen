@@ -5,7 +5,7 @@ export const EarnAnywhere = () => {
     <>
             <section className='bg-[#222] absolute w-full'>
     <div
-    className="flex flex-col items-center bg-brown-pattern w-[80%] md:w-[80%] mx-auto text-white left-0
+    className="flex flex-col items-center bg-brown-pattern w-[90%] md:w-[80%] mx-auto text-white left-0
                 pt-[21px] pb-[18px] rounded-[6px] -mt-[27px]"
     style={{ boxShadow: '0px 32px 43px -8px rgba(0, 0, 0, 0.20)' }}
   >

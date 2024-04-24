@@ -42,7 +42,7 @@ export const FirstInfo = () => {
                   <Cooking />
                 </div>
               </div>
-              <div className="sm:text-[36px] text-[23px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
+              <div className="sm:text-[36px] text-[21px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
                 1,006,928
               </div>
               <div className="sm:text-[14px] text-[12px] text-[#7A392D] font-bold tracking-[3px]">
@@ -54,11 +54,11 @@ export const FirstInfo = () => {
               style={{ boxShadow: '0px 40px 45px -14px rgba(0, 0, 0, 0.15)' }}
             >
               <div className="flex items-center flex-1">
-                <div className="sm:w-[76px] w-[50px]">
+                <div className="sm:w-[112px] w-[72px]">
                   <SmilingSun />
                 </div>
               </div>
-              <div className="sm:text-[36px] text-[23px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
+              <div className="sm:text-[36px] text-[21px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
                 84,097
               </div>
               <div className="sm:text-[14px] text-[12px] text-[#7A392D] font-bold tracking-[3px]">
@@ -70,11 +70,11 @@ export const FirstInfo = () => {
               style={{ boxShadow: '0px 40px 45px -14px rgba(0, 0, 0, 0.15)' }}
             >
               <div className="flex items-center flex-1">
-                <div className="sm:w-[68px] w-[43px]">
+                <div className="sm:w-[112px] w-[72px]">
                   <Weighter />
                 </div>
               </div>
-              <div className="sm:text-[36px] text-[23px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
+              <div className="sm:text-[36px] text-[21px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
                 345,431 LBS
               </div>
               <div className="sm:text-[14px] text-[12px] text-[#7A392D] font-bold tracking-[3px]">
@@ -86,11 +86,11 @@ export const FirstInfo = () => {
               style={{ boxShadow: '0px 40px 45px -14px rgba(0, 0, 0, 0.15)' }}
             >
               <div className="flex items-center flex-1">
-                <div className="sm:w-[66px] w-[42px]">
+                <div className="sm:w-[112px] w-[72px]">
                   <MeatRecycle />
                 </div>
               </div>
-              <div className="sm:text-[36px] text-[23px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
+              <div className="sm:text-[36px] text-[21px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
                 14,000+
               </div>
               <div className="sm:text-[14px] text-[12px] text-[#7A392D] font-bold tracking-[3px]">
