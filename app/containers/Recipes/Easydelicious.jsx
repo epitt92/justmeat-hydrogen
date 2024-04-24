@@ -21,7 +21,7 @@ const Easydelicious = () => {
               Easy Delicious.
             </h3>
           </div>
-          <div className="text-center md:text-start flex flex-col items-end">
+          <div className="text-center md:text-start flex flex-col items-center ">
             <p className="mb-8 font-normal font-Roboto">
               Leave the protein to the chef’s & choose from our lineup of 12
               different meats with new flavors releasing regularly.
