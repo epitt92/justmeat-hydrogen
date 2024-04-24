@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import slickCarouselTheme from 'slick-carousel/slick/slick-theme.css'
 import slickCarousel from 'slick-carousel/slick/slick.css'
@@ -16,22 +16,20 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
   useLoaderData,
-  useLocation,
   useMatches,
   useRouteError,
 } from '@remix-run/react'
 import {
-  AnalyticsEventName,
-  ShopifySalesChannel,
-  getClientBrowserParameters,
-  sendShopifyAnalytics,
+  UNSTABLE_Analytics as Analytics,
+  getShopAnalytics,
   useNonce,
-  useShopifyCookies,
 } from '@shopify/hydrogen'
 import { defer } from '@shopify/remix-oxygen'
 
 import favicon from '~/assets/logo.svg'
+import { CustomAnalytics } from '~/components/CustomAnalytics'
 import { Layout } from '~/components/Layout'
+import { MetaNoScript } from '~/components/MetaNoScript'
 import { SubscriptionCard } from '~/components/SubscriptionCard'
 import { DELIVERY_EVERY_15_DAYS } from '~/consts'
 import { RootContext } from '~/contexts'
@@ -88,11 +86,9 @@ export const useRootLoaderData = () => {
 }
 
 export async function loader({ context }) {
-  const { storefront, customerAccount, cart } = context
+  const { storefront, customerAccount, cart, env } = context
 
-  const shopId = context.env.PUBLIC_SHOP_ID
-
-  const publicStoreDomain = context.env.PUBLIC_STORE_DOMAIN
+  const publicStoreDomain = env.PUBLIC_STORE_DOMAIN
 
   const isLoggedInPromise = customerAccount.isLoggedIn()
   const cartPromise = cart.get()
@@ -113,9 +109,9 @@ export async function loader({ context }) {
   })
 
   const externalScripts = [
-    context.env.PUBLIC_KLAVIYO_SCRIPT,
-    context.env.PUBLIC_LOOX_SCRIPT,
-    context.env.PUBLIC_REAMAZE_SCRIPT,
+    env.PUBLIC_KLAVIYO_SCRIPT,
+    env.PUBLIC_LOOX_SCRIPT,
+    env.PUBLIC_REAMAZE_SCRIPT,
   ]
 
   return defer(
@@ -126,12 +122,14 @@ export async function loader({ context }) {
       isLoggedIn: isLoggedInPromise,
       publicStoreDomain,
       externalScripts,
-      selectedLocale: storefront.i18n,
 
-      analytics: {
-        shopId,
-        shopifySalesChannel: ShopifySalesChannel.hydrogen,
-        customerId: null,
+      shop: getShopAnalytics({
+        storefront,
+        publicStorefrontId: env.PUBLIC_STOREFRONT_ID,
+      }),
+      consent: {
+        checkoutDomain: env.PUBLIC_CHECKOUT_DOMAIN,
+        storefrontAccessToken: env.PUBLIC_STOREFRONT_API_TOKEN,
       },
     },
     {
@@ -147,22 +145,6 @@ const newLayoutRoutes = ['mayhem-madness', 'rich-froning']
 export default function App() {
   const nonce = useNonce()
   const data = useLoaderData()
-  const location = useLocation()
-  const locale = DEFAULT_LOCALE
-
-  const hasUserConsent = true
-  useShopifyCookies({ hasUserConsent, domain: data.publicStoreDomain })
-
-  const lastLocationKey = useRef('')
-
-  const pageAnalytics = {
-    hasUserConsent,
-    shopId: data.analytics.shopId,
-    currency: locale.currency,
-    acceptedLanguage: locale.language,
-    shopifySalesChannel: ShopifySalesChannel.hydrogen,
-    customerId: null,
-  }
 
   // Quick PATCH
   const matches = useMatches()
@@ -242,25 +224,6 @@ export default function App() {
     configMetaPixel()
   }, [])
 
-  useEffect(() => {
-    // Only continue if the user's location changed.
-    if (lastLocationKey.current === location.key) return
-    lastLocationKey.current = location.key
-
-    // Analytics data, including browser information
-    const payload = {
-      ...getClientBrowserParameters(),
-      ...pageAnalytics,
-    }
-    console.log('🚀 - payload:', payload)
-
-    // Send analytics payload to Shopify
-    sendShopifyAnalytics({
-      eventName: AnalyticsEventName.PAGE_VIEW,
-      payload,
-    })
-  }, [location])
-
   const setCartSellingPlan = (value) => {
     _setCartSellingPlan(value)
     window.localStorage.setItem('_cartSellingPlan', JSON.stringify(value))
@@ -316,51 +279,59 @@ export default function App() {
   }
 
   return (
-    <RootContext.Provider
-      value={{
-        cartCost,
-        cartCount,
-        cartProducts,
-        cartSellingPlan,
-        cartSellingPlanFrequency,
-        cartBonusVariant,
-        subscriptionCost,
-        subscriptionSellingPlan,
-        subscriptionProducts,
-        subscriptionSellingPlanFrequency,
-        subscriptionBonusVariant,
-        setCartProducts,
-        setCartSellingPlan,
-        setCartSellingPlanFrequency,
-        setCartBonusVariant,
-        setSubscriptionSellingPlan,
-        setSubscriptionProducts,
-        setSubscriptionSellingPlanFrequency,
-        setSubscriptionBonusVariant,
-        isNewLayout,
-      }}
-    >
-      <html lang={locale.language}>
-        <head>
-          <meta charSet="utf-8" />
-          <meta name="viewport" content="width=device-width,initial-scale=1" />
-          <Meta />
-          <Links />
-          <MetaNoScript />
-        </head>
-        <body>
-          <SubscriptionCard></SubscriptionCard>
-          <Layout {...data}>
-            <Outlet />
-          </Layout>
+    <html lang="EN">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <Meta />
+        <Links />
+        <MetaNoScript />
+      </head>
+      <body>
+        <Analytics.Provider
+          cart={data.cart}
+          shop={data.shop}
+          consent={data.consent}
+          customData={{ foo: 'bar' }}
+        >
+          <RootContext.Provider
+            value={{
+              cartCost,
+              cartCount,
+              cartProducts,
+              cartSellingPlan,
+              cartSellingPlanFrequency,
+              cartBonusVariant,
+              subscriptionCost,
+              subscriptionSellingPlan,
+              subscriptionProducts,
+              subscriptionSellingPlanFrequency,
+              subscriptionBonusVariant,
+              setCartProducts,
+              setCartSellingPlan,
+              setCartSellingPlanFrequency,
+              setCartBonusVariant,
+              setSubscriptionSellingPlan,
+              setSubscriptionProducts,
+              setSubscriptionSellingPlanFrequency,
+              setSubscriptionBonusVariant,
+              isNewLayout,
+            }}
+          >
+            <SubscriptionCard></SubscriptionCard>
+            <Layout {...data}>
+              <Outlet />
+            </Layout>
+            <CustomAnalytics />
+          </RootContext.Provider>
+        </Analytics.Provider>
 
-          {/* CAUTION: Please don't inject script tags here, instead use addScriptToHead util in useEffect like above */}
-          <ScrollRestoration nonce={nonce} />
-          <Scripts nonce={nonce} />
-          <LiveReload nonce={nonce} />
-        </body>
-      </html>
-    </RootContext.Provider>
+        {/* CAUTION: Please don't inject script tags here, instead use addScriptToHead util in useEffect like above */}
+        <ScrollRestoration nonce={nonce} />
+        <Scripts nonce={nonce} />
+        <LiveReload nonce={nonce} />
+      </body>
+    </html>
   )
 }
 
@@ -402,14 +373,3 @@ export function ErrorBoundary() {
     </html>
   )
 }
-
-const MetaNoScript = () => (
-  <noscript>
-    <img
-      height="1"
-      width="1"
-      style={{ display: 'none' }}
-      src="https://www.facebook.com/tr?id=339994655121583&ev=PageView&noscript=1"
-    />
-  </noscript>
-)
