@@ -10,44 +10,46 @@ var settings = {
   slidesToShow: 4,
   slidesToScroll: 1,
   initialSlide: 0,
-  adaptiveHeight:true,
   arrows: false,
   responsive: [
     {
       breakpoint: 1024,
       settings: {
+        infinite: true,
         slidesToShow: 3,
       }
     },
     {
-      breakpoint: 678,
+      breakpoint: 768,
       settings: {
+        infinite: true,
         slidesToShow: 2,
        
       }
     },
     {
-      breakpoint: 600,
+      breakpoint: 640,
       settings: {
         className: "center",
         centerMode: true,
         infinite: true,
-        centerPadding: "60px",
-        slidesToShow: 1,
+        slidesToShow: 2,
+        centerPadding: "20px",
         
       }
     },
     {
-      breakpoint: 480,
+      breakpoint: 420,
       settings: {
         className: "center",
         centerMode: true,
         infinite: true,
-        centerPadding: "43px",
         slidesToShow: 1,
-       
+        centerPadding: "30px",
+        
       }
     }
+    
   ]
 };
 const sliderItemColors = ['#572d2d', '#7b4931', '#323e47', '#9d6938']
