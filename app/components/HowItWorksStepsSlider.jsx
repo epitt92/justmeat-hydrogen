@@ -6,6 +6,10 @@ import stepImage2 from '~/assets/images/how-it-works-step-2.png'
 import stepImage3 from '~/assets/images/how-it-works-step-3.png'
 
 const swiperBreakpoints = {
+  270: {
+    slidesPerView: 1.5,
+    spaceBetween: 20,
+  },
   360: {
     slidesPerView: 1.5,
     spaceBetween: 20,
