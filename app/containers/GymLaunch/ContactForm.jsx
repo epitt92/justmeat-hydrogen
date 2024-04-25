@@ -43,7 +43,7 @@ export const ContactForm = ({ formName }) => {
       className={
         formName === 'first'
           ? 'relative xl:pt-[46px] xl:pb-[36px] xl:px-[50px] pt-[30px] pb-[30px] px-[33px] rounded-[8px] bg-[#262729] flex flex-col items-start gap-[16px] font-nunito'
-          : 'relative xl:pt-[46px] xl:pb-[36px] xl:px-[50px] pt-[30px] pb-[30px] px-[33px] rounded-[8px] bg-white flex flex-col items-start gap-[16px] font-nunito'
+          : 'relative xl:pt-[46px] xl:pb-[36px] xl:px-[50px] pt-[30px] pb-[30px] px-[33px] rounded-[8px] bg-white flex flex-col items-start gap-[16px] shadow-lg font-nunito'
       }
     >
       {isSubmitted && (
