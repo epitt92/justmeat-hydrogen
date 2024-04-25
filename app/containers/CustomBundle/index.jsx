@@ -226,7 +226,7 @@ export const CustomBundle = () => {
                   />
                 ))}
               </div>
-              <div className="cart-wrapper sticky top-[10px] h-fit mb-[10px] hidden sm:block xl:col-span-4">
+              <div className="cart-wrapper sticky top-[10px] h-fit mb-[10px] hidden lg:block xl:col-span-4">
                 <div className="h-full border">
                   <div className="py-5 text-center text-white bg-black top-section">
                     <div className="py-2 text-wrapper">
