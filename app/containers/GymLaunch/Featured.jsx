@@ -56,8 +56,15 @@ const sliderItemColors = ['#572d2d', '#7b4931', '#323e47', '#9d6938']
 
 export const Featured = () => {
   const { collections } = useLoaderData()
-
   const [collection, setCollection] = useState(collections[0])
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const handleCollectionClick = (index , collection) => {
+    setActiveIndex(index);
+    setCollection(collection);
+  };
+
 
   const slides = {}
 
@@ -85,13 +92,13 @@ export const Featured = () => {
   }
 
   return (
-    <section className="bg-[#222222] py-6 font-nunito">
+    <section className="bg-[#121315] py-6 font-nunito">
       <div className="flex flex-col items-center overflow-hidden container-small sm:block">
         <div className="w-[360px] sm:w-auto pt-6">
         <div className="slider-container featuredSlider">
-    <Slider {...settings}>
-    {slides[collection.id]}
-      </Slider>
+        <Slider {...settings}>
+          {slides[collection.id]}
+        </Slider>
       </div>
         </div>
       </div>
