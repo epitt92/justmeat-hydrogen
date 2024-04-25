@@ -623,3 +623,10 @@ section.product-list-slider button.slick-arrow.slick-next {
     line-height: 1.75rem !important;
   } 
 }
+
+.filteration-ul li:first-child button {
+  @apply rounded-tl rounded-bl;
+}
+.filteration-ul li:last-child button {
+  @apply rounded-tr rounded-br;
+}
