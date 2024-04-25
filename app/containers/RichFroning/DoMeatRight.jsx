@@ -11,7 +11,7 @@ export const DoMeatRight = () => {
   return (
     <section
       className="bg-[#efeeed] sm:pt-[10px]  sm:pb-[25px]  pb-[32px] relative"
-      style={{ overflowX: 'clip' }}
+      style={{ overflowX: 'hidden' }}
     >
       <div className="container-1120 z-50 relative w-[90%] sm:w-[80%] mx-auto">
         <div
@@ -46,7 +46,7 @@ export const DoMeatRight = () => {
         <div className="font-dunbar uppercase sm:mt-8 mt-2 pb-8 text-[24px] sm:text-[36px] text-center  font-bold sm:mb-[4px] mb-[3px] leading-normal tracking-[1.8px]">
           YOU ASK. WE ANSWER.
         </div>
-        <div className="relative z-50 w-[90%] sm:w-[50%] mx-auto pb-4  sm:pb-20">
+        <div className="relative z-50 w-[90%] xl:w-[50%] md:w-[70%] mx-auto pb-4  sm:pb-20">
           <FaqAccordion />
         </div>
         <img

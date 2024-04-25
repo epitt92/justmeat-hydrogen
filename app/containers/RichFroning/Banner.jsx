@@ -57,7 +57,7 @@ export const Banner = () => {
                       <span className="text-[#E47A0F]"> +$15</span>
                     </div>
                     <NavLink end prefetch="intent" to="/products/custom-bundle">
-                      <button className="text-[18px] tracking-[1px] px-[28px] py-[14px] rounded-[4px] bg-[#637160]">
+                      <button className="text-[18px] font-dunbar tracking-[1px] px-[28px] py-[14px] rounded-[4px] bg-[#637160]">
                         GET MEAT
                       </button>
                     </NavLink>
