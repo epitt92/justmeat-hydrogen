@@ -6,11 +6,12 @@ import JustMeatsLogo from '~/assets/images/justmeatslogoWhite.png'
 
 export const BannerHead = () => {
   return (
-    <section className="bg-[url('../assets/images/Gym_Banner.png')] bg-cover bg-black bg-center">
+    <section className="bg-[url('../assets/images/Gym_Banner1.png')] [background-size:110%] bg-black bg-right">
+        <div className="bg-[url('../assets/images/fade-gym_launch.png')] bg-no-repeat bg-transparent bg-left [background-size:80%_100%]">
         <div className='w-[80%] mx-auto'>
             <div className='flex flex-col md:flex-row pt-3'>
-                <div className='basis-1/3'>
-                    <div className='flex flex-col-reverse md:flex-col md:items-left'>
+                <div className='basis-2/2'>
+                    <div className='flex flex-col-reverse md:flex-col md:items-left md:pb-0 pb-[80px]'>
                         <div className="w-full md:w-[100%] h-auto  lg:pt-[100px] md:pt-[50px]">
                             <img
                                 className=""
@@ -27,7 +28,7 @@ export const BannerHead = () => {
                             <div className="font-nunito font-bold sm:text-[27px] text-[20px] text-yellow">
                             6 lbs of meat FOR FREE!
                             </div>
-                            <div className="sm:text-[36px] text-[27px] font-bold text-white leading-tight md:pb-[50px]">
+                            <div className="sm:text-[36px] text-[27px] font-bold text-white leading-tight md:pb-[150px]">
                             FOR FREE GYM LAUNCH
                                 <br />
                             SECRETS EXCLUSIVE DEAL!
@@ -36,12 +37,13 @@ export const BannerHead = () => {
                     </div>
                 </div>
                
-                <div className='basis-2/3'>
+                <div className='basis-2/2'>
                     <div className='w-full'>
                         
                     </div>
                 </div>
             </div>
+        </div>
         </div>
   </section>
   )

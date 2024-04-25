@@ -10,7 +10,6 @@ import { LayoutContext, RootContext } from '~/contexts'
 
 import { MobileMenuAside } from './MobileMenuAside'
 import OrderHeader from './OrderHeader'
-import { useLocation } from 'react-router-dom';
 
 export function Layout({
   cart,
@@ -22,9 +21,7 @@ export function Layout({
 }) {
   const [menuToggle, setMenuToggle] = useState(false)
   const { isNewLayout } = useContext(RootContext)
-  const location = useLocation();
-  const isSpecialsPage = location.pathname === '/gym-launch';
-  if (isNewLayout || isSpecialsPage)
+  if (isNewLayout)
     return (
       <LayoutContext.Provider value={{ menuToggle, setMenuToggle }}>
         <NewHeader header={header} cart={cart} isLoggedIn={isLoggedIn} />
