@@ -3,7 +3,7 @@ import React from 'react'
 export const EarnAnywhere = () => {
   return (
     <>
-            <section className='bg-[#222] absolute w-full'>
+            <section className='bg-[#121315] absolute w-full'>
     <div
     className="flex flex-col items-center bg-[#B19630] w-[90%] md:w-[80%] mx-auto text-white left-0
                 pt-[21px] pb-[18px] rounded-[6px] xl:-mt-[90px] lg:-mt-[70px] md:-mt-[60px] -mt-[40px]"
@@ -25,7 +25,7 @@ export const EarnAnywhere = () => {
     </div>
   </div>
       </section>
-      <div className='bg-[#222] h-[225px] sm:h-[125px]'></div>
+      <div className='bg-[#121315] h-[225px] sm:h-[125px]'></div>
     </>
 
 

@@ -6,7 +6,7 @@ import { ContactForm } from './ContactForm'
 export const FirstContact = () => {
   return (
     <section className="relative bg-[#222222] text-white sm:pb-[80px] pb-[60px]">
-      <div className="absolute w-full left-0 top-0 sm:h-full h-[730px] bg-[#231B19]"></div>
+      <div className="absolute w-full left-0 top-0 sm:h-full h-[730px] bg-[#121315]"></div>
       <div className="relative container-small">
         <div className="sm:text-[36px] text-[21px] font-bold text-center sm:mb-[96px] mb-[55px]">
           WORLD CLASS FITNESS JOINS WORLD CLASS NUTRITION

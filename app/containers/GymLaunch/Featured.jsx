@@ -83,7 +83,7 @@ export const Featured = () => {
   }
 
   return (
-    <section className="bg-[#222222] py-6 font-nunito">
+    <section className="bg-[#121315] py-6 font-nunito">
       <div className="flex flex-col items-center overflow-hidden container-small sm:block">
         <div className="w-[360px] sm:w-auto pt-6">
         <div className="slider-container featuredSlider">
