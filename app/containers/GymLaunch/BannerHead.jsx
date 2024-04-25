@@ -29,7 +29,7 @@ export const BannerHead = () => {
                             6 lbs of meat FOR FREE!
                             </div>
                             <div className="sm:text-[36px] font-bold text-white sm:leading-tight md:pb-[150px] text-[22px] [word-spacing:4px] sm:[word-spacing:0] leading-[42px]">
-                            FOR FREE GYM LAUNCH
+                            GYM LAUNCH 
                                 <br />
                             SECRETS EXCLUSIVE DEAL!
                             </div>

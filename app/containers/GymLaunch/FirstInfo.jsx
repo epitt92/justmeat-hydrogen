@@ -32,6 +32,13 @@ export const FirstInfo = () => {
             src={skillet}
           />
         </div>
+        <div className="relative">
+        <div className="absolute w-full sm:h-1/2 h-[calc((100%-12px)/4)] bg-[#222222]">
+          <img
+            className="absolute sm:top-[-130px] top-[-110px] sm:right-[-30px] right-0 sm:w-auto w-[148px]"
+            src={skillet}
+          />
+        </div>
         <div className="relative container-small">
           <div className="w-full grid lg:grid-cols-4 grid-cols-2 sm:gap-[20px] gap-[12px]">
             <div
@@ -39,11 +46,11 @@ export const FirstInfo = () => {
               style={{ boxShadow: '0px 40px 45px -14px rgba(0, 0, 0, 0.15)' }}
             >
               <div className="flex items-center flex-1">
-                <div className="sm:w-[112px] w-[72px]">
+                <div className="sm:w-[112px] w-[72px] h-[72px] sm:h-[112px]">
                   <Cooking />
                 </div>
               </div>
-              <div className="sm:text-[36px] text-[21px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
+              <div className="sm:text-[36px] text-[18px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
                 1,006,928
               </div>
               <div className="sm:text-[14px] text-[12px] text-[#7A392D] font-bold tracking-[3px]">
@@ -55,11 +62,11 @@ export const FirstInfo = () => {
               style={{ boxShadow: '0px 40px 45px -14px rgba(0, 0, 0, 0.15)' }}
             >
               <div className="flex items-center flex-1">
-                <div className="sm:w-[112px] w-[72px]">
+                <div className="sm:w-[112px] w-[72px] h-[72px] sm:h-[112px]">
                   <SmilingSun />
                 </div>
               </div>
-              <div className="sm:text-[36px] text-[21px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
+              <div className="sm:text-[36px] text-[18px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
                 84,097
               </div>
               <div className="sm:text-[14px] text-[12px] text-[#7A392D] font-bold tracking-[3px]">
@@ -71,11 +78,11 @@ export const FirstInfo = () => {
               style={{ boxShadow: '0px 40px 45px -14px rgba(0, 0, 0, 0.15)' }}
             >
               <div className="flex items-center flex-1">
-                <div className="sm:w-[112px] w-[72px]">
+                <div className="sm:w-[112px] w-[72px] h-[72px] sm:h-[112px]">
                   <Weighter />
                 </div>
               </div>
-              <div className="sm:text-[36px] text-[21px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
+              <div className="sm:text-[36px] text-[18px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
                 345,431 LBS
               </div>
               <div className="sm:text-[14px] text-[12px] text-[#7A392D] font-bold tracking-[3px]">
@@ -87,11 +94,11 @@ export const FirstInfo = () => {
               style={{ boxShadow: '0px 40px 45px -14px rgba(0, 0, 0, 0.15)' }}
             >
               <div className="flex items-center flex-1">
-                <div className="sm:w-[112px] w-[72px]">
+                <div className="sm:w-[112px] w-[72px] h-[72px] sm:h-[112px]">
                   <MeatRecycle />
                 </div>
               </div>
-              <div className="sm:text-[36px] text-[21px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
+              <div className="sm:text-[36px] text-[18px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
                 14,000+
               </div>
               <div className="sm:text-[14px] text-[12px] text-[#7A392D] font-bold tracking-[3px]">
@@ -100,6 +107,7 @@ export const FirstInfo = () => {
             </div>
           </div>
         </div>
+      </div>
       </div>
       <div className="sm:pt-[98px] pt-[62px]">
         <div className="container-small">
@@ -130,7 +138,7 @@ export const FirstInfo = () => {
             </div>
             <div className="sm:h-[225px] h-[260px] flex flex-col justify-end items-center">
               <div className="flex-1 sm:mb-[15px] mb-[27px] flex justify-center items-center">
-                <div className="w-[362px]">
+                <div className="w-[260px]">
                   <img src={justmeatsBlack} />
                 </div>
               </div>

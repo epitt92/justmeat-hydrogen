@@ -51,7 +51,7 @@ export const ChefCook = () => {
           </div>
         </div>
       </div>
-      <div className="2xl:h-0 xl:h-[100px] lg:h-[240px] bg-[#222222]"></div>
+      <div className="2xl:h-0 xl:h-[100px] lg:h-[240px] bg-[#121315]"></div>
     </section>
   )
 }
