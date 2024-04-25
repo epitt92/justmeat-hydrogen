@@ -54,7 +54,6 @@ const sliderItemColors = ['#572d2d', '#7b4931', '#323e47', '#9d6938']
 
 export const Featured = () => {
   const { collections } = useLoaderData()
-  console.log('collections', collections)
   const [collection, setCollection] = useState(collections[0])
 
   const [activeIndex, setActiveIndex] = useState(0);
