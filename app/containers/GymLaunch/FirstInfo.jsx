@@ -11,7 +11,7 @@ import Marquee from "react-fast-marquee";
 export const FirstInfo = () => {
   return (
     <section className="bg-[#efeeed] overflow-x-hidden">
-      <div className="bg-[#222222] sm:pb-[100px] pb-[66px]">
+      <div className="bg-[#121315] sm:pb-[100px] pb-[66px]">
         <div className="relative container-small">
           <div className="flex justify-center sm:mb-[6px]">
             <div className="sm:w-[512px] sm:text-[14px] pt-5 text-[12px] font-normal text-[#E47A0F] sm:tracking-[3px] tracking-[2.5px] text-center sm:text-left">
@@ -26,7 +26,7 @@ export const FirstInfo = () => {
         </div>
       </div>
       <div className="relative">
-        <div className="absolute w-full sm:h-1/2 h-[calc((100%-12px)/4)] bg-[#222222]">
+        <div className="absolute w-full sm:h-1/2 h-[calc((100%-12px)/4)] bg-[#121315]">
           <img
             className="absolute sm:top-[-130px] top-[-110px] sm:right-[-30px] right-0 sm:w-auto w-[148px]"
             src={skillet}

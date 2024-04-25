@@ -6,7 +6,7 @@ import { PremiumSeal } from '~/icons/PremiumSeal'
 
 export const HowItWorks = () => {
   return (
-    <section className="bg-[#222222] text-white sm:pt-[100px] pt-[50px] pb-[20px]">
+    <section className="bg-[#121315] text-white sm:pt-[100px] pt-[50px] pb-[20px]">
       <div className="absolute w-[120px] xl:block hidden 2xl:right-[160px] xl:right-[140px]">
         <PremiumSeal />
       </div>
