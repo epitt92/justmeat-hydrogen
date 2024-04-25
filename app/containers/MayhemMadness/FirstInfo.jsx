@@ -42,7 +42,7 @@ export const FirstInfo = () => {
                   <Cooking />
                 </div>
               </div>
-              <div className="sm:text-[36px] text-[21px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
+              <div className="sm:text-[36px] text-[18px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
                 1,006,928
               </div>
               <div className="sm:text-[14px] text-[12px] text-[#7A392D] font-bold tracking-[3px]">
@@ -58,7 +58,7 @@ export const FirstInfo = () => {
                   <SmilingSun />
                 </div>
               </div>
-              <div className="sm:text-[36px] text-[21px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
+              <div className="sm:text-[36px] text-[18px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
                 84,097
               </div>
               <div className="sm:text-[14px] text-[12px] text-[#7A392D] font-bold tracking-[3px]">
@@ -74,7 +74,7 @@ export const FirstInfo = () => {
                   <Weighter />
                 </div>
               </div>
-              <div className="sm:text-[36px] text-[21px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
+              <div className="sm:text-[36px] text-[18px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
                 345,431 LBS
               </div>
               <div className="sm:text-[14px] text-[12px] text-[#7A392D] font-bold tracking-[3px]">
@@ -90,7 +90,7 @@ export const FirstInfo = () => {
                   <MeatRecycle />
                 </div>
               </div>
-              <div className="sm:text-[36px] text-[21px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
+              <div className="sm:text-[36px] text-[18px] font-bold tracking-[2px] sm:mb-[22px] mb-[14px]">
                 14,000+
               </div>
               <div className="sm:text-[14px] text-[12px] text-[#7A392D] font-bold tracking-[3px]">
@@ -102,7 +102,7 @@ export const FirstInfo = () => {
       </div>
       <div className="sm:pt-[98px] pt-[62px]">
         <div className="container-small">
-          <div className="sm:text-[36px] text-[24px] font-bold tracking-[2px] text-center sm:mb-[100px] mb-[52px]">
+          <div className="sm:text-[36px] text-[23px] font-bold tracking-[2px] text-center sm:mb-[100px] mb-[52px]">
             <div>A SUCCESFUL GYM...</div>
             <div>IS DETERMINED BY THE RESULTS IT DELIVERS ITS MEMBERS</div>
           </div>
@@ -130,7 +130,7 @@ export const FirstInfo = () => {
             </div>
             <div className="sm:h-[225px] h-[260px] flex flex-col justify-end items-center">
               <div className="flex-1 sm:mb-[15px] mb-[27px] flex justify-center items-center">
-                <div className="w-[362px]">
+                <div className="w-[260px]">
                   <img src={justmeatsBlack} />
                 </div>
               </div>
