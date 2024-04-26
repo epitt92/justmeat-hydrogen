@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { Button } from '~/components/Button'
 import { GreenCircleCheck } from '~/icons/GreenCircleCheck'
 
-const zapierHook = 'https://hooks.zapier.com/hooks/catch/18452229/3p52w81/'
+const zapierHook = 'https://hooks.zapier.com/hooks/catch/18523736/37rdy17/'
 
 export const ContactForm = ({ formName }) => {
   const [submitting, setSubmitting] = useState(false)
