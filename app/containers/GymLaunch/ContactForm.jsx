@@ -61,7 +61,7 @@ export const ContactForm = ({ formName }) => {
           placeholder="Enter your name"
           className={
             formName === 'first'
-              ? 'bg-[#DDDDDD] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
+              ? 'bg-[#DDDDDD] text-[#222] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
               : 'bg-[#efeeed] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
           }
         />
@@ -84,7 +84,7 @@ export const ContactForm = ({ formName }) => {
           type="email"
           className={
             formName === 'first'
-              ? 'bg-[#DDDDDD] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
+              ? 'bg-[#DDDDDD] text-[#222] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
               : 'bg-[#efeeed] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
           }
         />
@@ -130,7 +130,7 @@ export const ContactForm = ({ formName }) => {
           type="tel"
           className={
             formName === 'first'
-              ? 'bg-[#DDDDDD] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
+              ? 'bg-[#DDDDDD] text-[#222] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
               : 'bg-[#efeeed] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
           }
         />
@@ -152,7 +152,7 @@ export const ContactForm = ({ formName }) => {
           placeholder="Enter your message"
           className={
             formName === 'first'
-              ? 'bg-[#DDDDDD] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
+              ? 'bg-[#DDDDDD] text-[#222] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
               : 'bg-[#efeeed] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
           }
         />
