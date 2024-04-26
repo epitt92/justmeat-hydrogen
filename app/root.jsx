@@ -40,6 +40,7 @@ import { addScriptToHead } from '~/lib/utils'
 import appStyles from '~/styles/app.css'
 import tailwindStyles from '~/styles/tailwind.css'
 
+import { configAspireIQ } from './lib/configAspireIQ'
 import { configChatJS } from './lib/configChatJS'
 import { configGTM } from './lib/configGTM'
 import { configMetaPixel } from './lib/configMetaPixel'
@@ -226,6 +227,7 @@ export default function App() {
     configTwitterPixel()
     configMetaPixel()
     configGTM()
+    configAspireIQ()
   }, [])
 
   const setCartSellingPlan = (value) => {
