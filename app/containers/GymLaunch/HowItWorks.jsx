@@ -34,20 +34,7 @@ export const HowItWorks = () => {
           </button>
         </div>
       </div> */}
-      <div className='flex justify-center items-center gap-5 pb-5'>
-        <NavLink
-              to="/"
-              className="bg-[#B09530] text-[16px] py-[5px] font-medium text-white px-5 rounded-sm uppercase"
-            >
-             How we do it
-          </NavLink>
-          <NavLink
-              to="/"
-              className="bg-transparent border-solid border-[#B09530] border-2  text-[16px] py-[5px] font-medium text-white px-5 rounded-sm uppercase"
-            >
-             get inspired
-          </NavLink>
-       </div>
+
     </section>
   )
 }
