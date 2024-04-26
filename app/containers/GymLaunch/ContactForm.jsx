@@ -100,29 +100,6 @@ export const ContactForm = ({ formName }) => {
           </p>
         )}
       </div>
-      {/* <div className="w-full">
-        <input
-          {...register('gym_name', { required: 'Gym name is required' })}
-          placeholder="Enter your Gym name"
-          type="text"
-          className={
-            formName === 'first'
-              ? 'bg-[#DDDDDD] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
-              : 'bg-[#efeeed] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
-          }
-        />
-        {errors.gym_name && (
-          <p
-            className={
-              formName === 'first'
-                ? 'text-white uppercase text-[12px]'
-                : 'text-black uppercase text-[12px]'
-            }
-          >
-            {errors.gym_name.message}
-          </p>
-        )}
-      </div> */}
       <div className="w-full">
         <input
           {...register('phone', { required: 'Phone number is required' })}
@@ -148,7 +125,7 @@ export const ContactForm = ({ formName }) => {
       </div>
       <div className="w-full">
         <textarea
-          {...register('gym_address', { required: 'Gym address is required' })}
+          {...register('message')}
           placeholder="Enter your message"
           className={
             formName === 'first'
@@ -156,7 +133,7 @@ export const ContactForm = ({ formName }) => {
               : 'bg-[#efeeed] rounded-[4px] text-[17px] font-bold lg:px-[17px] lg:py-[10px] px-[10px] py-[3px] border-none w-full'
           }
         />
-        {errors.gym_address && (
+        {errors.message && (
           <p
             className={
               formName === 'first'
@@ -164,7 +141,7 @@ export const ContactForm = ({ formName }) => {
                 : 'text-black uppercase text-[12px]'
             }
           >
-            {errors.gym_address.message}
+            {errors.message.message}
           </p>
         )}
       </div>
