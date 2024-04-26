@@ -11,15 +11,17 @@ export const FirstContact = () => {
         <div className="sm:text-[36px] text-[21px] font-bold text-center sm:mb-[96px] mb-[55px]">
           WORLD CLASS FITNESS JOINS WORLD CLASS NUTRITION
         </div>
-        <div className="grid sm:grid-cols-2 grid-cols-1 sm:gap-[55px] gap-[52px] items-end">
-          <div className="relative flex aspect-square border-[3px] border-solid border-white">
-            <iframe
-              src="https://player.vimeo.com/video/937966988?h=83f08bf634"
-              className="w-full h-full"
-              allow="autoplay; fullscreen"
-              allowFullScreen
-              title="contact video 1"
-            />
+        <div className="grid sm:grid-cols-2 grid-cols-1 sm:gap-[55px] gap-[52px] items-center justify-center">
+          <div className="relative aspect-video border-[3px] border-solid border-white overflow-hidden">
+            <div className="absolute top-0 left-0 bottom-0 right-0 flex items-center justify-center">
+              <iframe
+                src="https://player.vimeo.com/video/937966988?h=83f08bf634&cc_load_policy=0"
+                className="w-full h-full"
+                allow="autoplay; fullscreen"
+                allowFullScreen
+                title="contact video 1"
+              />
+            </div>
           </div>
           <div className="flex flex-col justify-between aspect-square">
             <div className="sm:mb-0 mb-[24px]">
