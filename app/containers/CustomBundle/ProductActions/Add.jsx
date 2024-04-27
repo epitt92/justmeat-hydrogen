@@ -24,7 +24,7 @@ export const Add = ({ product }) => {
   return (
     <button
       onClick={addToSelectedProducts}
-      className="bg-[#862e1b] mx-auto flex justify-center items-center py-[8px] gap-[5px] px-[20px] leading-none font-bold text-white"
+      className="btn-add-to-cart bg-[#862e1b] mx-auto flex justify-center items-center py-[8px] gap-[5px] px-[20px] leading-none font-bold text-white"
     >
       <span className="p-[3px] text-[25px] leading-[13px] bg-white text-[#862e1b]">
         +

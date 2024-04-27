@@ -27,9 +27,11 @@ export const MobileCart = () => {
       >
         {isCartPage && (
           <>
-          {isCheckoutable
-            ? `View Cart - ($${cost})`
-            : `Add $${(75 - costForOneTime).toFixed(2)} to Unlock Cart ($${cost})`}
+            {isCheckoutable
+              ? `View Cart - ($${cost})`
+              : `Add $${(75 - costForOneTime).toFixed(
+                  2,
+                )} to Unlock Cart ($${cost})`}
           </>
         )}
         {!isCartPage && (
@@ -65,6 +67,7 @@ export const MobileCart = () => {
             disabled={!isCheckoutable}
             onClick={handleSubmit}
             className={cn(
+              isCartPage && isCheckoutable ? 'btn-checkout' : '',
               'rounded-xl text-white font-semibold text-center py-[12px]',
               isCheckoutable ? 'bg-[#425b34]' : 'bg-[#AAAAAA]',
             )}

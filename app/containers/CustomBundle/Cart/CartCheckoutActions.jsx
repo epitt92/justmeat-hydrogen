@@ -2,6 +2,7 @@ import { useContext } from 'react'
 
 import { Button } from '~/components/Button'
 import { CustomBundleContext } from '~/contexts'
+import { cn } from '~/lib/utils'
 
 export function CartCheckoutActions() {
   const { isCartPage, costForOneTime, submitting, handleSubmit } =
@@ -14,7 +15,10 @@ export function CartCheckoutActions() {
           <Button
             loading={submitting}
             onClick={handleSubmit}
-            className="bg-[#425b34] text-[15px] py-[15px] font-semibold text-white px-1"
+            className={cn(
+              isCartPage ? 'btn-checkout' : '',
+              'bg-[#425b34] text-[15px] py-[15px] font-semibold text-white px-1',
+            )}
           >
             {isCartPage ? 'Continue To Checkout' : 'Update Changes'}
           </Button>

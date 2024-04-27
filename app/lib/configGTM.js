@@ -13,10 +13,38 @@ export const configGTM = () => {
   window.dataLayer = window.dataLayer || []
 
   window.document.addEventListener('click', ({ target }) => {
-    console.debug('target', target)
+    window.dataLayer.push({ event: 'click' })
 
-    if (target.matches('.btn-order')) {
-      window.dataLayer.push({ event: '' })
+    if (target.matches('.btn-add-to-cart, .btn-add-to-cart *')) {
+      window.dataLayer.push({ event: 'add_to_cart' })
+    }
+
+    if (target.matches('.btn-checkout, .btn-checkout *')) {
+      window.dataLayer.push({ event: 'begin_checkout' })
+    }
+
+    if (
+      target.matches('.product-grid .img-wrapper, .product-grid .img-wrapper *')
+    ) {
+      window.dataLayer.push({ event: 'view_item' })
+    }
+
+    // if (target.matches('')) {
+    //   console.debug('clicked')
+    //   window.dataLayer.push({ event: '' })
+    // }
+  })
+
+  window.document.addEventListener('submit', () => {
+    window.dataLayer.push({ event: 'form_submit' })
+  })
+
+  window.document.addEventListener('input', ({ target }) => {
+    if (target.matches('input')) {
+      if (!window.isFormStarted) {
+        window.dataLayer.push({ event: 'form_start' })
+        window.isFormStarted = true
+      }
     }
   })
 }
