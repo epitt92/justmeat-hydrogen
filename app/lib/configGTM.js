@@ -9,4 +9,14 @@ export const configGTM = () => {
     j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl
     f.parentNode.insertBefore(j, f)
   })(window, document, 'script', 'dataLayer', 'GTM-53HM3TQ7')
+
+  window.dataLayer = window.dataLayer || []
+
+  window.document.addEventListener('click', ({ target }) => {
+    console.debug('target', target)
+
+    if (target.matches('.btn-order')) {
+      window.dataLayer.push({ event: '' })
+    }
+  })
 }

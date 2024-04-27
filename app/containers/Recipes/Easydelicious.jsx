@@ -21,7 +21,7 @@ const Easydelicious = () => {
               Easy Delicious.
             </h3>
           </div>
-          <div className="text-center md:text-start flex flex-col items-center ">
+          <div className="flex flex-col items-center text-center md:text-start ">
             <p className="mb-8 font-normal font-Roboto">
               Leave the protein to the chef’s & choose from our lineup of 12
               different meats with new flavors releasing regularly.
@@ -29,7 +29,7 @@ const Easydelicious = () => {
             <NavLink
               end
               prefetch="intent"
-              className="py-[12px] px-[20px] bg-[#862e1b] leading-none"
+              className="py-[12px] px-[20px] bg-[#862e1b] leading-none btn-order"
               to="/products/custom-bundle"
             >
               Order Now
@@ -45,7 +45,7 @@ const Easydelicious = () => {
         </div>
         <div className="my-8 bg-[#fff] text-[#141517] p-5">
           <div className="flex flex-col md:flex-row justify-center gap-0 md:gap-[30px] w-full">
-            <div className="justify-start pr-0 md:pr-12  md:basis-7/12">
+            <div className="justify-start pr-0 md:pr-12 md:basis-7/12">
               <h1 className="font-Roboto text-3xl sm:text-8 md:text-3xl font-normal leading-[36.415px] md:leading-[40px] lg:leading-[60px] -tracking-[0.6px] md:tracking-[-1.12px]  text-[#061C3D] mb-2">
                 Our Latest Recipe
               </h1>
@@ -73,7 +73,7 @@ const Easydelicious = () => {
                 and heat for 2 minutes. Plate and serve!{' '}
               </p>
             </div>
-            <div className="items-center justify-center py-5 pr-0 md:pr-12  md:basis-5/12">
+            <div className="items-center justify-center py-5 pr-0 md:pr-12 md:basis-5/12">
               <Video
                 videoId="videoId1"
                 url="https://cdn.shopify.com/videos/c/o/v/ee592ed8c3f44de6a78ad3fd619433b0.mp4"
