@@ -31,7 +31,7 @@ export const BannerHead = () => {
                             <div className="sm:text-[36px] font-bold text-white sm:leading-tight md:pb-[150px] text-[22px] [word-spacing:4px] sm:[word-spacing:0] leading-[42px]">
                             GYM LAUNCH 
                                 <br />
-                            SECRETS EXCLUSIVE DEAL!
+                                EXCLUSIVE DEAL!
                             </div>
                         </div>
                     </div>
