@@ -6,16 +6,9 @@
     "moduleResolution": "Bundler",
     "baseUrl": ".",
     "paths": {
-      "~/*": [
-        "app/*"
-      ]
+      "~/*": ["app/*"]
     }
   },
-  "include": [
-    "./**/*.d.ts",
-    "./**/*.js",
-    "./**/*.jsx"
-  ],"exclude": [
-    "./node_modules/**/*.*"
-  ]
+  "include": ["./**/*.d.ts", "./**/*.js", "./**/*.jsx"],
+  "exclude": ["./node_modules/**/*.*", "./dist/**/*.*"]
 }

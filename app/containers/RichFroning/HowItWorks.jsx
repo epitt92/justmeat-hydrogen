@@ -44,10 +44,13 @@ export const HowItWorks = () => {
                 HOW IT WORKS
               </button>
             </NavLink>
-            <NavLink end prefetch="intent" to="/products/custom-bundle">
-              <button className="px-[24px] py-[12px] rounded-[4px] bg-[#637160] tracking-[1px]">
-                ORDER NOW
-              </button>
+            <NavLink
+              end
+              prefetch="intent"
+              to="/products/custom-bundle"
+              className="btn-order px-[24px] py-[12px] rounded-[4px] bg-[#637160] tracking-[1px]"
+            >
+              ORDER NOW
             </NavLink>
           </div>
         </div>

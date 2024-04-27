@@ -160,7 +160,7 @@ export const Featured = () => {
             </div>
             <div className="sm:text-[14px] text-[12px] font-nunito leading-[15px] tracking-normal sm:px-[40px] px-[20px] text-center">
               Restaurant quality taste at a fraction of the price{' '}
-              <span className="sm:hidden block opacity-0">--------</span>
+              <span className="block opacity-0 sm:hidden">--------</span>
             </div>
           </div>
         </div>
@@ -172,10 +172,13 @@ export const Featured = () => {
               HOW IT WORKS
             </button>
           </NavLink>
-          <NavLink end prefetch="intent" to="/products/custom-bundle">
-            <button className="px-[24px] py-[12px] rounded-[4px] bg-[#637160] tracking-[1px]">
-              ORDER NOW
-            </button>
+          <NavLink
+            end
+            prefetch="intent"
+            to="/products/custom-bundle"
+            className="btn-order px-[24px] py-[12px] rounded-[4px] bg-[#637160] tracking-[1px]"
+          >
+            ORDER NOW
           </NavLink>
         </div>
       </div>
@@ -184,7 +187,7 @@ export const Featured = () => {
         <div className="text-center md:text-[36px] text-[24px] font-bold leading-tight sm:tracking-[1.8px] tracking-[1.2px] md:mb-[87px] mb-[65px]">
           NOW SERVING
         </div>
-        <div className="sm:w-auto w-full font-nunito hidden sm:block">
+        <div className="hidden w-full sm:w-auto font-nunito sm:block">
           <Swiper
             loop
             autoplay
@@ -198,7 +201,7 @@ export const Featured = () => {
             {slides[collections[0].id]}
           </Swiper>
         </div>
-        <div className="sm:w-auto w-full font-nunito sm:hidden block">
+        <div className="block w-full sm:w-auto font-nunito sm:hidden">
           <Swiper
             loop
             centeredSlides
