@@ -12,6 +12,11 @@ export const configGTM = () => {
 
   window.dataLayer = window.dataLayer || []
 
+  if (!window.localStorage.getItem('_already_visited')) {
+    window.dataLayer.push({ event: 'first_visit' })
+    window.localStorage.setItem('_already_visited', JSON.stringify(true))
+  }
+
   window.document.addEventListener('click', ({ target }) => {
     window.dataLayer.push({ event: 'click' })
 
@@ -46,5 +51,9 @@ export const configGTM = () => {
         window.isFormStarted = true
       }
     }
+  })
+
+  window.document.addEventListener('scroll', () => {
+    window.dataLayer.push({ event: 'scroll' })
   })
 }
